@@ -4,6 +4,8 @@ require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'factory_girl_rails'
+require 'capybara/rails'
+require 'capybara/rspec'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
@@ -40,4 +42,5 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FeatureMacros, type: :feature
+  config.include Storytime::Engine.routes.url_helpers
 end

@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Storytime::Engine => "/storytime"
+  mount Storytime::Engine => "/"
 end

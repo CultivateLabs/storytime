@@ -4,16 +4,16 @@ describe "As a user, Posts" do
   before{ login }
   
   it "creates a post" do
-    Post.count.should == 0
+    Storytime::Post.count.should == 0
 
     visit new_post_path
     fill_in "post_content", with: "It was a dark and stormy night..."
     click_button "Create Post"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
-    Post.count.should == 1
-    Post.last.content.should == "It was a dark and stormy night..."
-    Post.last.user.should == current_user
+    Storytime::Post.count.should == 1
+    Storytime::Post.last.content.should == "It was a dark and stormy night..."
+    Storytime::Post.last.user.should == current_user
   end
 
   # it "deletes a announcement", js: true do

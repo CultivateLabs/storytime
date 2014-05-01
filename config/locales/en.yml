@@ -1,0 +1,5 @@
+en:
+  flash:
+    posts:
+      create:
+        success: "Post successfully created."
