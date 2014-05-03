@@ -6,7 +6,7 @@ module Storytime
 
     # GET /posts
     def index
-      @posts = Post.all
+      @posts = Post.all.page(params[:page]).per(10)
     end
 
     # GET /posts/1
