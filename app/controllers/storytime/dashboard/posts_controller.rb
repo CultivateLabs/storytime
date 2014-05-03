@@ -2,7 +2,7 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   module Dashboard
-    class PostsController < ApplicationController
+    class PostsController < DashboardController
       before_action :set_post, only: [:edit, :update, :destroy]
       layout "storytime/dashboard"
 

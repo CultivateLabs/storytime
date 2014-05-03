@@ -1,5 +1,6 @@
 require 'devise'
 require 'bootstrap-sass'
+require 'pundit'
 
 module Storytime
   class Engine < ::Rails::Engine

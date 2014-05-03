@@ -43,4 +43,5 @@ RSpec.configure do |config|
 
   config.include FeatureMacros, type: :feature
   config.include Storytime::Engine.routes.url_helpers
+  config.include Devise::TestHelpers, type: :controller
 end
