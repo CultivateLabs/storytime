@@ -1,34 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @post.title %></h1>
 
-<p>
-  <strong>User:</strong>
-  <%= @post.user %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
+<div>
   <%= @post.content %>
-</p>
-
-<p>
-  <strong>Excerpt:</strong>
-  <%= @post.excerpt %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @post.published %>
-</p>
-
-<p>
-  <strong>Post type:</strong>
-  <%= @post.post_type %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+</div>
