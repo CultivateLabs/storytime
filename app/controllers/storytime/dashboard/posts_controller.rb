@@ -6,23 +6,22 @@ module Storytime
       before_action :set_post, only: [:edit, :update, :destroy]
       layout "storytime/dashboard"
 
-      # GET /posts
       def index
         @posts = Post.all
       end
 
-      # GET /posts/new
       def new
-        @post = Post.new
+        @post = current_user.posts.new
+        authorize @post
       end
 
-      # GET /posts/1/edit
       def edit
+        authorize @post
       end
 
-      # POST /posts
       def create
         @post = current_user.posts.new(post_params)
+        authorize @post
 
         if @post.save
           redirect_to @post, notice: I18n.t('flash.posts.create.success')
@@ -31,23 +30,21 @@ module Storytime
         end
       end
 
-      # PATCH/PUT /posts/1
       def update
+        authorize @post
         if @post.update(post_params)
-          redirect_to @post, notice: 'Post was successfully updated.'
+          redirect_to @post, notice: I18n.t('flash.posts.update.success')
         else
           render :edit
         end
       end
 
-      # DELETE /posts/1
       def destroy
         @post.destroy
         redirect_to posts_url, notice: 'Post was successfully destroyed.'
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
         def set_post
           @post = Post.find(params[:id])
         end

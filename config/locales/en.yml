@@ -3,3 +3,5 @@ en:
     posts:
       create:
         success: "Post successfully created."
+      update:
+        success: "Post successfully updated."
