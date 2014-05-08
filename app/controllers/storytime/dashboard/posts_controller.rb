@@ -5,6 +5,8 @@ module Storytime
     class PostsController < DashboardController
       before_action :set_post, only: [:edit, :update, :destroy]
       layout "storytime/dashboard"
+      
+      respond_to :json, only: [:destroy]
 
       def index
         @posts = Post.all.page(params[:page]).per(10)
@@ -41,8 +43,9 @@ module Storytime
       end
 
       def destroy
+        authorize @post
         @post.destroy
-        redirect_to posts_url, notice: 'Post was successfully destroyed.'
+        respond_with @post
       end
 
       private

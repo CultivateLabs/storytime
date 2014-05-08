@@ -12,7 +12,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="<%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
 
     <!-- Static navbar -->
     <div class="navbar navbar-default navbar-static-top" role="navigation">

@@ -12,7 +12,6 @@ describe "In the dashboard, Posts" do
       page.should_not have_content(p.content)
     end
   end
-
   
   it "creates a post" do
     Storytime::Post.count.should == 0
@@ -52,16 +51,17 @@ describe "In the dashboard, Posts" do
     post.should_not be_published
   end
 
+  it "deletes a post", js: true do
+    3.times{|i| FactoryGirl.create(:post) }
+    visit dashboard_posts_path
+    p1 = Storytime::Post.first
+    p2 = Storytime::Post.last
+    click_link("delete_post_#{p1.id}")
 
-  # it "deletes a announcement", js: true do
-  #   3.times{|i| current_user.announcements.create(content: "announcement #{i}") }
-  #   visit announcements_path
-  #   a1 = Announcement.first
-  #   a2 = Announcement.last
-  #   click_link("delete_announcement_#{a1.id}")
+    page.should_not have_content(p1.title)
+    page.should have_content(p2.title)
 
-  #   page.should_not have_content(a1.content)
-  #   page.should have_content(a2.content)
-  # end
+    expect{ p1.reload }.to raise_error
+  end
   
 end

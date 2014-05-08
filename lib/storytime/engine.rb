@@ -1,6 +1,7 @@
 require 'devise'
-require 'bootstrap-sass'
 require 'pundit'
+require 'bootstrap-sass'
+require "jquery-rails"
 require 'kaminari'
 
 module Storytime
