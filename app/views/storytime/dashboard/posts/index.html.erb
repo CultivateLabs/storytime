@@ -1,2 +1,3 @@
+<%= link_to "Add New Post", new_dashboard_post_path, class: "btn btn-primary" %>
 <%= render partial: "storytime/dashboard/posts/post", collection: @posts %>
 <%= paginate @posts %>
