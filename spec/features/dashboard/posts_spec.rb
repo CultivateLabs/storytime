@@ -1,7 +1,18 @@
 require 'spec_helper'
 
-describe "As a user, Posts" do
+describe "In the dashboard, Posts" do
   before{ login }
+
+  it "lists posts" do
+    3.times{ FactoryGirl.create(:post) }
+    visit dashboard_posts_path
+    
+    Storytime::Post.all.each do |p|
+      page.should have_link(p.title, href: edit_dashboard_post_path(p))
+      page.should_not have_content(p.content)
+    end
+  end
+
   
   it "creates a post" do
     Storytime::Post.count.should == 0
