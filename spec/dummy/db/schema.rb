@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501174341) do
+ActiveRecord::Schema.define(version: 20140509150223) do
+
+  create_table "storytime_pages", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.boolean  "published"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "storytime_pages", ["user_id"], name: "index_storytime_pages_on_user_id"
 
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"

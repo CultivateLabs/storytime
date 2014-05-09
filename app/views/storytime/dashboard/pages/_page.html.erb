@@ -1,0 +1,15 @@
+<div class="row" id="page_<%= page.id %>">
+  <div class="col-md-6">
+    <%= link_to page.title, edit_dashboard_page_path(page) %>
+  </div>
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-2">
+    <div class="btn-group">
+      <%= link_to page, class: "btn btn-default" do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
+      <% end %>
+      <%= delete_resource_link page, dashboard_page_path(page) %>
+    </div>
+  </div>
+</div>

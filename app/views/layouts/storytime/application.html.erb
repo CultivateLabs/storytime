@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Storytime</title>
-  <%= stylesheet_link_tag    "storytime/application", media: "all" %>
-  <%= javascript_include_tag "storytime/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="flash">
-  <% flash.each do |name, msg| %>
-    <div class="flash-<%= name %>">
-      <%= msg %>
-    </div>
-  <% end %>
-</div>
+    <title>Storytime</title>
 
-<%= yield %>
+    <%= stylesheet_link_tag    "storytime/application", media: "all" %>
+    <%= javascript_include_tag "storytime/application" %>
+    <%= csrf_meta_tags %>
+  </head>
 
-</body>
+  <body>
+
+    <%= render "flash" %>
+    <%= yield %>
+
+  </body>
 </html>

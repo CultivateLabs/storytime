@@ -1,7 +1,6 @@
-<%= simple_form_for [:dashboard, @post] do |f| %>
+<%= simple_form_for [:dashboard, @page] do |f| %>
   <%= f.error_notification %>
   <%= f.input :title %>
-  <%= f.input :excerpt %>
   <%= f.input :content, input_html: { rows: 10 } %>
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

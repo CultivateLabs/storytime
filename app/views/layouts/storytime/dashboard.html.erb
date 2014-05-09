@@ -14,41 +14,11 @@
 
   <body class="<%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
 
-    <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Storytime</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li <%= active_nav_item_class("posts") %>><%= link_to "Posts", dashboard_posts_path %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li class="active"><a href="./">Static top</a></li>
-            <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+    <%= render "navigation" %>
 
     <div class="container">
 
-      <div class="flash">
-        <% flash.each do |name, msg| %>
-          <div class="flash-<%= name %>">
-            <%= msg %>
-          </div>
-        <% end %>
-      </div>
-
+      <%= render "flash" %>
       <%= yield %>
 
     </div>

@@ -1,0 +1,3 @@
+<%= link_to "Add New Page", new_dashboard_page_path, class: "btn btn-primary" %>
+<%= render partial: "storytime/dashboard/pages/page", collection: @pages %>
+<%= paginate @pages %>

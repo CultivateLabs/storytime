@@ -4,7 +4,6 @@ module Storytime
   module Dashboard
     class PostsController < DashboardController
       before_action :set_post, only: [:edit, :update, :destroy]
-      layout "storytime/dashboard"
       
       respond_to :json, only: [:destroy]
 
