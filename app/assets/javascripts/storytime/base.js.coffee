@@ -8,7 +8,9 @@ $ ()->
     instance["init#{action}"]() if typeof(instance["init#{action}"]) == "function"
     Storytime.instance = instance
 
-  $(".wysiwyg").wysihtml5()
+  $(".wysiwyg").wysihtml5
+    html: true
+    color: true
 
   $(document).on('ajax:beforeSend', '.btn-delete-resource', ()->
     $(@).attr("disabled", true)
