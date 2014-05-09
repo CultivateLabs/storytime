@@ -4,6 +4,7 @@ require 'bootstrap-sass'
 require 'jquery-rails'
 require 'kaminari'
 require 'simple_form'
+require 'friendly_id'
 
 module Storytime
   class Engine < ::Rails::Engine

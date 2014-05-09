@@ -18,6 +18,7 @@ describe "In the dashboard, Posts" do
 
     visit new_dashboard_post_path
     fill_in "post_title", with: "The Story"
+    fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_content", with: "It was a dark and stormy night..."
     click_button "Create Post"
     
