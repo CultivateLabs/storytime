@@ -1,3 +1,4 @@
 <div id="media_gallery">
   <%= render partial: "storytime/dashboard/media/media", collection: @media %>
+  <%= paginate @media, remote: true %>
 </div>

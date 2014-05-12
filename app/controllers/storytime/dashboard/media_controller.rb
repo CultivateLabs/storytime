@@ -6,8 +6,9 @@ module Storytime
       respond_to :json, only: [:create, :destroy]
 
       def index
-        @media = Media.order("created_at DESC")
+        @media = Media.order("created_at DESC").page(params[:page]).per(10)
         authorize @media
+        render partial: "gallery", content_type: Mime::HTML if request.xhr?
       end
 
       def create

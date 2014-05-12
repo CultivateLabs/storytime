@@ -1,4 +1,8 @@
-<div>
-  <%= image_tag media.file_url(:thumb) %>
-  <%= link_to 'Destroy', dashboard_media_url(media), method: :delete, data: { confirm: 'Are you sure?' }, id: "delete_media_#{media.id}" %>
+<div class="media-file clearfix" id="media_<%= media.id %>">
+  <div class="pull-left"><%= delete_resource_link media, dashboard_media_path(media) %></div>
+  <div>
+    <%= link_to media.file_url, target: "_blank" do %>
+      <%= image_tag media.file_url(:thumb) %>
+    <% end %>
+  </div>
 </div>

@@ -1,7 +1,11 @@
 class Storytime.Dashboard.Media
   initIndex: ()->
     @initUpload()
-    
+
+    $(document).on('ajax:success', '#media_gallery .pagination a', (e, data, status, xhr)->
+      $("#media_gallery").html(data)
+    )
+
   initUpload: ()->
     $('#media_file').fileupload({
       dataType: 'json',
