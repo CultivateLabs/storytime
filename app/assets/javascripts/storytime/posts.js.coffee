@@ -1,0 +1,1 @@
+class Storytime.Dashboard.Posts

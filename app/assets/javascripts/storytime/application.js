@@ -19,3 +19,4 @@
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})
+window.Storytime.Dashboard = {}
