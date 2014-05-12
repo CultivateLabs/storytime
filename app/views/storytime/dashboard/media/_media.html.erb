@@ -1,0 +1,4 @@
+<div>
+  <%= image_tag media.file_url(:thumb) %>
+  <%= link_to 'Destroy', dashboard_media_url(media), method: :delete, data: { confirm: 'Are you sure?' }, id: "delete_media_#{media.id}" %>
+</div>

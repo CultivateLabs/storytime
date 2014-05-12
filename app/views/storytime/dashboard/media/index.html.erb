@@ -1,9 +1,2 @@
-<div id="media_gallery">
-  <% @media.each do |media| %>
-    <div>
-      <%= image_tag media.file_url(:thumb) %>
-      <%= link_to 'Destroy', dashboard_media_url(media), method: :delete, data: { confirm: 'Are you sure?' }, id: "delete_media_#{media.id}" %>
-    </div>
-  <% end %>
-</div>
-<%= link_to 'New Media', new_dashboard_media_path %>
+<%= render "form" %>
+<%= render "gallery" %>

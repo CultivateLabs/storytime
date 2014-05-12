@@ -3,25 +3,19 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class MediaController < DashboardController
+      respond_to :json, only: [:create, :destroy]
 
       def index
-        @media = Media.all
-        authorize @media
-      end
-
-      def new
-        @media = current_user.media.new
+        @media = Media.order("created_at DESC")
         authorize @media
       end
 
       def create
         @media = current_user.media.new(media_params)
         authorize @media
-
-        if @media.save
-          redirect_to dashboard_media_index_url, notice: 'Media was successfully created.'
-        else
-          render :new
+        @media.save
+        respond_with :dashboard, @media do |format|
+          format.json{ render :show }
         end
       end
       
@@ -29,7 +23,7 @@ module Storytime
         @media = Media.find(params[:id])
         authorize @media
         @media.destroy
-        redirect_to dashboard_media_index_url, notice: 'Media was successfully destroyed.'
+        respond_with @media
       end
 
     private

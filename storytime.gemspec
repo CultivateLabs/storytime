@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise"
   s.add_dependency "pundit"
   s.add_dependency "kaminari"
+  s.add_dependency "jbuilder"
   s.add_dependency "sass-rails", "~> 4.0.3"
   s.add_dependency "bootstrap-sass"
   s.add_dependency "coffee-rails"

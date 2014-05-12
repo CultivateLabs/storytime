@@ -15,10 +15,6 @@ module Storytime
       @media.user == @user
     end
 
-    def new?
-      create?
-    end
-
     def destroy?
       true
     end

@@ -1,7 +1,8 @@
-<%= simple_form_for [:dashboard, @media] do |f| %>
+<%= simple_form_for [:dashboard, Storytime::Media.new] do |f| %>
   <%= f.error_notification %>
-  <%= f.input :file %>
-  <div class="actions">
-    <%= f.submit class: "btn btn-primary" %>
-  </div>
+  <%= f.input :file, label: "Upload File" %>
 <% end %>
+
+<div id="progress" class="progress">
+  <div class="progress-bar progress-bar-success"></div>
+</div>

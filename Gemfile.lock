@@ -8,6 +8,7 @@ PATH
       devise
       fog
       friendly_id
+      jbuilder
       jquery-rails
       kaminari
       mini_magick
@@ -122,6 +123,9 @@ GEM
       rspec (>= 2.14, < 4.0)
     hike (1.2.3)
     i18n (0.6.9)
+    jbuilder (2.0.7)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)

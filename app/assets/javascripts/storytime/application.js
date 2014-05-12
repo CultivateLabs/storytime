@@ -16,6 +16,9 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-wysihtml5
+//= require jquery.ui.widget
+//= require jquery.iframe-transport.js
+//= require jquery.fileupload.js
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})
