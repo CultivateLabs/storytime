@@ -1,8 +1,17 @@
 .media-file{
-  padding: 15px 10px;
-  border-bottom: 1px solid #dddddd;
+  float: left;
+  padding: 15px 20px;
+  width: 112px;
+  border-top: 1px solid #dddddd;
 
-  .btn-delete-resource{
-    margin-right: 25px;
+  .media-thumb{
+    height: 50px;
+    width: 72px;
+    text-align: center;
+  }
+
+  .action-buttons{
+    text-align: center;
+    margin-top: 20px;
   }
 }

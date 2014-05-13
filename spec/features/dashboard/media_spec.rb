@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe "In the dashboard, Images" do
+describe "In the dashboard, Media" do
+  include Storytime::MediaHelper
+
   before{ login }
 
   def have_image(url)
     have_xpath("//img[@src='#{url}']")
   end
   
-  it "creates media" do
-    visit new_dashboard_media_path
+  it "creates media", js: true do
+    visit dashboard_media_index_path
 
     attach_file('media_file', "./spec/support/images/success-kid.jpg")
-
-    click_button "Create Media"
 
     page.should have_selector("#media_gallery img")
     media = Storytime::Media.last
@@ -29,7 +29,7 @@ describe "In the dashboard, Images" do
     page.should have_image(m2.file_url(:thumb))
   end
 
-  it "deletes an image" do
+  it "deletes an image", js: true do
     image = FactoryGirl.create(:media)
     
     visit dashboard_media_index_path
@@ -41,4 +41,20 @@ describe "In the dashboard, Images" do
 
     expect{ image.reload }.to raise_error
   end
+
+  it "inserts media into post", js: true do
+    media = FactoryGirl.create(:media)
+
+    visit new_dashboard_post_path
+
+    page.should have_selector("a[data-wysihtml5-command='insertImage']")
+    find("a[data-wysihtml5-command='insertImage']").click
+
+    page.should have_selector("#insertMediaModal")
+    find(".insert-image-button").click
+
+    page.should_not have_selector("#insertMediaModal")
+    find("#post_content", visible: false).value.should =~ /#{media.file_url}/
+  end
+  
 end

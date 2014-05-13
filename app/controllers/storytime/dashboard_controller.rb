@@ -6,5 +6,12 @@ module Storytime
     include Pundit
     before_action :authenticate_user!
     after_action :verify_authorized
+
+  private
+
+    def load_media
+      @media = Media.order("created_at DESC").page(1).per(10)
+    end
+
   end
 end

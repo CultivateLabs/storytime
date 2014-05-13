@@ -1,4 +1,4 @@
-<div class='bootstrap-wysihtml5-insert-image-modal modal fade'>
+<div id="insertMediaModal" class='bootstrap-wysihtml5-insert-image-modal modal fade'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
@@ -8,17 +8,19 @@
       <div class='modal-body'>
         <div>
           <label for="mediaByURL">By URL:</label>
-          <input id="mediaByURL" value='http://' class='bootstrap-wysihtml5-insert-image-url form-control'>
+          <input id="mediaByURL" value='http://' class='form-control'>
+          <div class="pull-right">
+            <button class='btn btn-primary' data-dismiss='modal'>Insert</button>
+          </div>
         </div>
 
         <div>
-          <label>From Library:</label>
-          
+          <%= render "storytime/dashboard/media/form" %>
+          <%= render "storytime/dashboard/media/gallery" %>
         </div>
       </div>
       <div class='modal-footer'>
         <button class='btn btn-default' data-dismiss='modal'>Cancel</button>
-        <button class='btn btn-primary' data-dismiss='modal'>Insert</button>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ module Storytime
   module Dashboard
     class PagesController < DashboardController
       before_action :set_page, only: [:edit, :update, :destroy]
+      before_action :load_media, only: [:new, :edit]
       
       respond_to :json, only: [:destroy]
 

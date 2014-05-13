@@ -1,8 +1,14 @@
-<div class="media-file clearfix" id="media_<%= media.id %>">
-  <div class="pull-left"><%= delete_resource_link media, dashboard_media_path(media) %></div>
-  <div>
+<div class="media-file" id="media_<%= media.id %>">
+  <div class="media-thumb">
     <%= link_to media.file_url, target: "_blank" do %>
       <%= image_tag media.file_url(:thumb) %>
+    <% end %>
+  </div>
+
+  <div class="action-buttons">
+    <%= delete_resource_link media, dashboard_media_path(media) %>
+    <% if show_media_insert_button? %>
+      <button class="btn btn-info btn-xs insert-image-button" data-image-url="<%= full_media_file_url media %>">Insert</button>
     <% end %>
   </div>
 </div>

@@ -1,5 +1,7 @@
 Storytime.Utilities = {
   controllerFromString: function(str){
+    if(!str) return null;
+
     var base = window;
     var components = str.split("::");
     for(var i=0; i<components.length; i++){
