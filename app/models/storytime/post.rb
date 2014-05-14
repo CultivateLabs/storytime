@@ -1,7 +1,7 @@
 module Storytime
   class Post < ActiveRecord::Base
     belongs_to :user
-    has_many :taggings
+    has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 
     validates :title, length: { in: 1..200 }
@@ -20,6 +20,7 @@ module Storytime
     end
 
     def tag_list=(names)
+      self.taggings.destroy_all
       self.tags = names.split(",").map do |n|
         Tag.where(name: n.strip).first_or_create!
       end
