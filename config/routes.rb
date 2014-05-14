@@ -9,6 +9,7 @@ Storytime::Engine.routes.draw do
     resources :pages, except: [:show]
     resources :media, except: [:show, :edit, :update]
   end
+  get 'tags/:tag', to: 'posts#index', as: :tag
 
   devise_for :users, class_name: "Storytime::User", module: :devise
 

@@ -1,5 +1,7 @@
 <h1><%= @post.title %></h1>
 
 <div>
-  <%= @post.content %>
+  <%= @post.content.html_safe %>
 </div>
+
+<div><%= @post.tag_list %></div>

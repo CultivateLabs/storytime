@@ -2,3 +2,17 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+.row.page-admin {
+  padding: 10px;
+  &:hover {
+    background: #f1f1f1;
+  }
+}
+
+#tag_cloud {
+  width: 400px;
+  line-height: 1.6em;
+  .s { font-size: 0.8em; }
+  .m { font-size: 1.2em; }
+  .l { font-size: 1.8em; }
+}

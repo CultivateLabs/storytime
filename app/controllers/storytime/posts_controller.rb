@@ -3,7 +3,12 @@ require_dependency "storytime/application_controller"
 module Storytime
   class PostsController < ApplicationController
     def index
-      @posts = Post.all.page(params[:page]).per(10)
+      @posts = if params[:tag]
+        Post.tagged_with(params[:tag])
+      else
+        Post.all
+      end
+      @posts = @posts.page(params[:page]).per(10)
     end
 
     def show

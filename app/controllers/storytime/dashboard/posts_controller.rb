@@ -55,7 +55,7 @@ module Storytime
 
         # Only allow a trusted parameter "white list" through.
         def post_params
-          params.require(:post).permit(:title, :content, :excerpt, :published, :post_type)
+          params.require(:post).permit(:title, :content, :excerpt, :published, :post_type, :tag_list)
         end
     end
   end
