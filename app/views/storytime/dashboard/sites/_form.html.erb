@@ -1,0 +1,14 @@
+<%= simple_form_for [:dashboard, @site] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title %>
+  <%= f.input :post_slug_style, collection: post_slug_style_options %>
+  <%= f.input :root_page_content, collection: root_page_content_options %>
+  <%= f.input :selected_root_page_id, collection: Storytime::Page.all, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") } %>
+  <%= f.input :ga_tracking_id %>
+  <%= f.input :header %>
+  <%= f.input :footer %>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

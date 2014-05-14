@@ -16,8 +16,15 @@ describe Storytime::DashboardController do
 
     it "requires authorization" do
       controller.view_paths.unshift(ActionView::FixtureResolver.new("widgets/index.html.erb" => ""))
+      FactoryGirl.create(:site)
       sign_in FactoryGirl.create(:user)
       expect{ get :index }.to raise_error(Pundit::AuthorizationNotPerformedError)
+    end
+
+    it "redirects to site setup if none exists" do
+      sign_in FactoryGirl.create(:user)
+      get :index
+      response.should redirect_to(new_dashboard_site_path)
     end
   end
 end

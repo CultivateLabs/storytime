@@ -12,3 +12,14 @@ en:
         success: "Page successfully created."
       update:
         success: "Page successfully updated."
+    sites:
+      create:
+        success: "Site successfully created."
+      update:
+        success: "Site successfully updated."
+  simple_form:
+    labels:
+      site:
+        post_slug_style: "Post URL Style"
+        root_page_content: "Home Page Content"
+        ga_tracking_id: "Google Analytics Tracking ID"

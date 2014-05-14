@@ -14,6 +14,7 @@
         <li <%= active_nav_item_class("posts") %>><%= link_to "Posts", dashboard_posts_path %></li>
         <li <%= active_nav_item_class("pages") %>><%= link_to "Pages", dashboard_pages_path %></li>
         <li <%= active_nav_item_class("media") %>><%= link_to "Media", dashboard_media_index_path %></li>
+        <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

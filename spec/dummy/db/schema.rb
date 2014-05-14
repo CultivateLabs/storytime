@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140511200849) do
+ActiveRecord::Schema.define(version: 20140513162745) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -59,6 +59,20 @@ ActiveRecord::Schema.define(version: 20140511200849) do
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
+
+  create_table "storytime_sites", force: true do |t|
+    t.string   "title"
+    t.integer  "post_slug_style",       default: 0
+    t.string   "ga_tracking_id"
+    t.integer  "root_page_content",     default: 0
+    t.text     "header"
+    t.text     "footer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "selected_root_page_id"
+  end
+
+  add_index "storytime_sites", ["selected_root_page_id"], name: "index_storytime_sites_on_selected_root_page_id"
 
   create_table "storytime_users", force: true do |t|
     t.string   "email",                  default: "", null: false
