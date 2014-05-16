@@ -8,11 +8,11 @@ module Storytime
       else
         Post.all
       end
-      @posts = @posts.order(created_at: :desc).page(params[:page]).per(10)
+      @posts = @posts.where(published: true).order(created_at: :desc).page(params[:page]).per(10)
     end
 
     def show
-      @post = Post.find(params[:id])
+      @post = Post.where(published: true).find(params[:id])
     end
   end
 end

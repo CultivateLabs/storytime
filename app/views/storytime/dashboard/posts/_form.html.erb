@@ -2,8 +2,9 @@
   <%= f.error_notification %>
   <%= f.input :title %>
   <%= f.input :excerpt %>
-  <%= f.input :content, input_html: { rows: 20, class: "wysiwyg" }, label: false %>
+  <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: false %>
   <%= f.input :tag_list %>
+  <%= f.input :published %>
 
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

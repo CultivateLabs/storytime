@@ -1,5 +1,8 @@
 module Storytime
   class Post < ActiveRecord::Base
+    include Storytime::Concerns::HasVersions
+    # self.draft_content_column = :html
+
     belongs_to :user
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings

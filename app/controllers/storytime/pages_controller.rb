@@ -3,7 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   class PagesController < ApplicationController
     def show
-      @page = Page.friendly.find(params[:id])
+      @page = Page.where(published: true).friendly.find(params[:id])
 
       if request.path != page_path(@page)
         return redirect_to @page, :status => :moved_permanently

@@ -3,6 +3,7 @@
     <%= link_to page.title, edit_dashboard_page_path(page) %>
   </div>
   <div class="col-md-2">
+    <%= "Draft" unless page.published? %>
   </div>
   <div class="col-md-2">
     <div class="btn-group">

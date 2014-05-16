@@ -3,6 +3,7 @@
     <%= link_to post.title, edit_dashboard_post_path(post) %>
   </div>
   <div class="col-md-2">
+    <%= "Draft" unless post.published? %>
   </div>
   <div class="col-md-1">
     <%= delete_resource_link post, dashboard_post_path(post) %>

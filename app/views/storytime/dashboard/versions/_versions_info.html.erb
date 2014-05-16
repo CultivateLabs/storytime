@@ -1,0 +1,16 @@
+<h4>Versions</h4>
+<ul class="list-group">
+  <% versionable.versions.order(updated_at: :desc).each do |version| %>
+    <li class="list-group-item">
+      Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
+      <%= "by #{version.user.email}" if version.user %>
+      <span class="pull-right">
+        <% if version == versionable.latest_version %>
+          Current Version
+        <% else %>
+          <%= link_to "Restore this version", revert_dashboard_version_url(version), method: :patch %>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>

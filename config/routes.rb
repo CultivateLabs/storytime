@@ -1,5 +1,4 @@
 Storytime::Engine.routes.draw do
-  
   resources :posts, only: [:show, :index]
   resources :pages, only: [:show], path: "/"
 
@@ -8,6 +7,9 @@ Storytime::Engine.routes.draw do
     resources :posts, except: [:show]
     resources :pages, except: [:show]
     resources :media, except: [:show, :edit, :update]
+    resources :versions do
+      patch 'revert', on: :member
+    end
   end
   get 'tags/:tag', to: 'posts#index', as: :tag
 

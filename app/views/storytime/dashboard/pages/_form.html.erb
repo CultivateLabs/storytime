@@ -1,7 +1,8 @@
 <%= simple_form_for [:dashboard, @page] do |f| %>
   <%= f.error_notification %>
   <%= f.input :title %>
-  <%= f.input :content, input_html: { rows: 20, class: "wysiwyg" } %>
+  <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" } %>
+  <%= f.input :published %>
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>

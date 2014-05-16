@@ -27,6 +27,10 @@ module Storytime
       update?
     end
 
+    def revert?
+      update?
+    end
+
     def destroy?
       true
     end
