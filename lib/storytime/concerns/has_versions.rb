@@ -29,7 +29,7 @@ module Storytime
       def activate_version
         if @draft_version_id
           version = Storytime::Version.find(@draft_version_id)
-          if self.update_columns(content: version.content)
+          if self.update_columns(self.class.draft_content_column => version.content)
             version.touch
           end
         end
