@@ -18,17 +18,17 @@ describe "In the dashboard, Pages" do
 
     visit new_dashboard_page_path
     fill_in "page_title", with: "The Story"
-    fill_in "page_content", with: "It was a dark and stormy night..."
+    fill_in "page_draft_content", with: "It was a dark and stormy night..."
     click_button "Create Page"
     
     page.should have_content(I18n.t('flash.pages.create.success'))
     Storytime::Page.count.should == 1
 
-    page = Storytime::Page.last
-    page.title.should == "The Story"
-    page.content.should == "It was a dark and stormy night..."
-    page.user.should == current_user
-    page.should_not be_published
+    pg = Storytime::Page.last
+    pg.title.should == "The Story"
+    pg.draft_content.should == "It was a dark and stormy night..."
+    pg.user.should == current_user
+    pg.should_not be_published
   end
 
   it "updates a page" do
@@ -38,7 +38,7 @@ describe "In the dashboard, Pages" do
 
     visit edit_dashboard_page_path(pg)
     fill_in "page_title", with: "The Story"
-    fill_in "page_content", with: "It was a dark and stormy night..."
+    fill_in "page_draft_content", with: "It was a dark and stormy night..."
     click_button "Update Page"
     
     page.should have_content(I18n.t('flash.pages.update.success'))
@@ -46,7 +46,7 @@ describe "In the dashboard, Pages" do
 
     pg = Storytime::Page.last
     pg.title.should == "The Story"
-    pg.content.should == "It was a dark and stormy night..."
+    pg.draft_content.should == "It was a dark and stormy night..."
     pg.user.should == original_creator
     pg.should_not be_published
   end

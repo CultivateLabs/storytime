@@ -38,7 +38,7 @@ module Storytime
         authorize @page
         @page.draft_user_id = current_user.id
         if @page.update(page_params)
-          redirect_to @page, notice: I18n.t('flash.pages.update.success')
+          redirect_to (@page.published? ? @page : dashboard_pages_url), notice: I18n.t('flash.pages.update.success')
         else
           render :edit
         end

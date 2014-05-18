@@ -38,6 +38,8 @@ module Storytime
         after_save :create_version
 
         self.draft_content_column = :content
+
+        scope :published, -> { where(published: true) }
       end
 
       module ClassMethods

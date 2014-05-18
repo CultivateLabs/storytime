@@ -6,7 +6,7 @@ describe Storytime::Version do
     Storytime::Version.all.count.should == 0
     user = FactoryGirl.create(:user)
     post = FactoryGirl.create(:post, published: false, user: user, draft_user_id: user.id, draft_content: "Testing 123")
-    post.published?.should be_false
+    post.should_not be_published
     Storytime::Version.all.count.should == 1
     post.latest_version.should == Storytime::Version.last
     post.latest_version.content.should == "Testing 123"
@@ -16,10 +16,10 @@ describe Storytime::Version do
   it "publishes a post with latest_version content" do
     user = FactoryGirl.create(:user)
     post = FactoryGirl.create(:post, published: false, user: user, draft_user_id: user.id, draft_content: "Testing 123")
-    post.published?.should be_false
+    post.should_not be_published
     post.content.should_not == "Testing 123"
     post.publish!
-    post.published?.should be_true
+    post.should be_published
     post.content.should == "Testing 123"
   end
 
