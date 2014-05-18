@@ -8,7 +8,10 @@
         <% if version == versionable.latest_version %>
           Current Version
         <% else %>
-          <%= link_to "Restore this version", revert_dashboard_version_url(version), method: :patch %>
+          <%= simple_form_for [:dashboard, versionable] do |f| %>
+            <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
+            <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
+          <% end %>
         <% end %>
       </span>
     </li>

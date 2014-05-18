@@ -13,7 +13,7 @@ module Storytime
       end
 
       def latest_version
-        self.versions.order(updated_at: :desc).first
+        @latest_version ||= self.versions.order(updated_at: :desc).first
       end
 
       def create_version
@@ -26,6 +26,15 @@ module Storytime
         self.publish! if self.published?
       end
 
+      def activate_version
+        if @draft_version_id
+          version = Storytime::Version.find(@draft_version_id)
+          if self.update_columns(content: version.content)
+            version.touch
+          end
+        end
+      end
+
       def publish!
         self.update_columns(self.class.draft_content_column => self.latest_version.content, :published => true)
       end
@@ -34,8 +43,8 @@ module Storytime
         has_many :versions, as: :versionable, dependent: :destroy
         cattr_accessor :draft_content_column
         attr_accessor :draft_user_id
-        attr_writer :draft_content
-        after_save :create_version
+        attr_writer :draft_content, :draft_version_id
+        after_save :create_version, :activate_version
 
         self.draft_content_column = :content
 

@@ -57,7 +57,7 @@ module Storytime
 
         # Only allow a trusted parameter "white list" through.
         def page_params
-          params.require(:page).permit(:title, :draft_content, :published)
+          params.require(:page).permit(:title, :draft_content, :draft_version_id, :published)
         end
     end
   end
