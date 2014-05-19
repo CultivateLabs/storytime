@@ -11,6 +11,9 @@
         <li id="page_<%= page.id %>" class="<%= 'active' if current_page?(edit_dashboard_page_url(page)) %>">
           <%= link_to page.title, edit_dashboard_page_url(page) %>
           <span class="pull-right">
+            <% unless page.published? %>
+              <span class="label label-warning">Draft</span>
+            <% end %>
             <%= delete_resource_link page, dashboard_page_path(page) if current_page?(dashboard_pages_path) %>
           </span>
         </li>

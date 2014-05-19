@@ -3,15 +3,14 @@
 <div id="main" class="pane">
 <h3 class="heading">
   Edit Post
+  <span class="pull-right">
+    <%= link_to "View Post", @post, class: "btn btn-default" if @post.published? %>
+  </span>
 </h3>
   <div class="scroll-y">
     <div class="padding">
       <%= versions_info @post %>
-
       <%= render 'form' %>
-
-      <%= link_to 'Show', @post %> |
-      <%= link_to 'Back', dashboard_posts_path %>
     </div>
   </div>
 </div>

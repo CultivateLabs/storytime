@@ -11,6 +11,9 @@
         <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(edit_dashboard_post_url(post)) %>">
           <%= link_to post.title, edit_dashboard_post_url(post) %>
           <span class="pull-right">
+            <% unless post.published? %>
+              <span class="label label-warning">Draft</span>
+            <% end %>
             <%= delete_resource_link post, dashboard_post_path(post) if current_page?(dashboard_posts_path) %>
           </span>
         </li>
