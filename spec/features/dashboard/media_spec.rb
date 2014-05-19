@@ -54,7 +54,7 @@ describe "In the dashboard, Media" do
     find(".insert-image-button").click
 
     page.should_not have_selector("#insertMediaModal")
-    find("#post_content", visible: false).value.should =~ /#{media.file_url}/
+    find("#post_draft_content", visible: false).value.should =~ /#{media.file_url}/
   end
   
 end

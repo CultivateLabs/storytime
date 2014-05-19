@@ -8,5 +8,6 @@ module Storytime
     has_many :posts
     has_many :pages
     has_many :media
+    has_many :versions
   end
 end

@@ -1,5 +1,7 @@
 module Storytime
   class Post < ActiveRecord::Base
+    include Storytime::Concerns::HasVersions
+
     belongs_to :user
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings

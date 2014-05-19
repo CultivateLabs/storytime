@@ -24,6 +24,7 @@ module Storytime
 
       def create
         @page = current_user.pages.new(page_params)
+        @page.draft_user_id = current_user.id
         authorize @page
 
         if @page.save
@@ -35,8 +36,9 @@ module Storytime
 
       def update
         authorize @page
+        @page.draft_user_id = current_user.id
         if @page.update(page_params)
-          redirect_to @page, notice: I18n.t('flash.pages.update.success')
+          redirect_to (@page.published? ? @page : dashboard_pages_url), notice: I18n.t('flash.pages.update.success')
         else
           render :edit
         end
@@ -55,7 +57,7 @@ module Storytime
 
         # Only allow a trusted parameter "white list" through.
         def page_params
-          params.require(:page).permit(:title, :content, :published)
+          params.require(:page).permit(:title, :draft_content, :draft_version_id, :published)
         end
     end
   end
