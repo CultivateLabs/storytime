@@ -4,8 +4,12 @@
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: false %>
   <%= f.input :tag_list %>
-  <%= f.input :published %>
-
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :published %> <strong>Published</strong>
+    </label>
+  </div>
+  
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>

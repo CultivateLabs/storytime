@@ -44,4 +44,14 @@ describe Storytime::Version do
     Storytime::Version.all.count.should == 2
     post.content.should == "New Content"
   end
+
+  it "reverts to a previous version" do
+    user = FactoryGirl.create(:user)
+    post = FactoryGirl.create(:post, published: true, user: user)
+    version1 = Storytime::Version.last
+    post.update(draft_content: "New Content", draft_user_id: user.id)
+    post.content.should == "New Content"
+    post.update(draft_version_id: version1.id)
+    post.content.should == version1.content
+  end
 end

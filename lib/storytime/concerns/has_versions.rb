@@ -13,7 +13,8 @@ module Storytime
       end
 
       def latest_version
-        @latest_version ||= self.versions.order(updated_at: :desc).first
+        # @latest_version ||= self.versions.order(updated_at: :desc, id: :desc).first
+        self.versions.order(updated_at: :desc).first
       end
 
       def create_version
