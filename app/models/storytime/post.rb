@@ -6,6 +6,7 @@ module Storytime
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 
+    validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..200 }
 

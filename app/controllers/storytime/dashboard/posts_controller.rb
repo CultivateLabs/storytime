@@ -30,6 +30,7 @@ module Storytime
         if @post.save
           redirect_to dashboard_posts_path, notice: I18n.t('flash.posts.create.success')
         else
+          load_media
           render :new
         end
       end
@@ -40,6 +41,7 @@ module Storytime
         if @post.update(post_params)
           redirect_to dashboard_posts_path, notice: I18n.t('flash.posts.update.success')
         else
+          load_media
           render :edit
         end
       end

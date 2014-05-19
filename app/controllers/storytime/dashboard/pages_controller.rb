@@ -30,6 +30,7 @@ module Storytime
         if @page.save
           redirect_to dashboard_pages_url, notice: I18n.t('flash.pages.create.success')
         else
+          load_media
           render :new
         end
       end
@@ -40,6 +41,7 @@ module Storytime
         if @page.update(page_params)
           redirect_to (@page.published? ? @page : dashboard_pages_url), notice: I18n.t('flash.pages.update.success')
         else
+          load_media
           render :edit
         end
       end

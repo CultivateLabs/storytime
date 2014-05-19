@@ -15,6 +15,7 @@
         <li <%= active_nav_item_class("pages") %>><%= link_to "Pages", dashboard_pages_path %></li>
         <li <%= active_nav_item_class("media") %>><%= link_to "Media", dashboard_media_index_path %></li>
         <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>
+        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

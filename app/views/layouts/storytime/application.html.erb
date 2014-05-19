@@ -12,7 +12,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %>">
 
     <%= render "flash" %>
     <%= yield %>
