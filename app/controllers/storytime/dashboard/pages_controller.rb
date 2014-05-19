@@ -28,7 +28,7 @@ module Storytime
         authorize @page
 
         if @page.save
-          redirect_to dashboard_pages_url, notice: I18n.t('flash.pages.create.success')
+          redirect_to edit_dashboard_page_url(@page), notice: I18n.t('flash.pages.create.success')
         else
           load_media
           render :new
@@ -39,7 +39,7 @@ module Storytime
         authorize @page
         @page.draft_user_id = current_user.id
         if @page.update(page_params)
-          redirect_to (@page.published? ? @page : dashboard_pages_url), notice: I18n.t('flash.pages.update.success')
+          redirect_to edit_dashboard_page_url(@page), notice: I18n.t('flash.pages.update.success')
         else
           load_media
           render :edit

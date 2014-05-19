@@ -28,7 +28,7 @@ module Storytime
         authorize @post
 
         if @post.save
-          redirect_to dashboard_posts_path, notice: I18n.t('flash.posts.create.success')
+          redirect_to edit_dashboard_post_path(@post), notice: I18n.t('flash.posts.create.success')
         else
           load_media
           render :new
@@ -39,7 +39,7 @@ module Storytime
         authorize @post
         @post.draft_user_id = current_user.id
         if @post.update(post_params)
-          redirect_to dashboard_posts_path, notice: I18n.t('flash.posts.update.success')
+          redirect_to edit_dashboard_post_path(@post), notice: I18n.t('flash.posts.update.success')
         else
           load_media
           render :edit
