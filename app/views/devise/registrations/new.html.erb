@@ -1,6 +1,5 @@
 <section class="signup-box js-signup-box" style="opacity: 1;">
   <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: {class: "signup-form"} do |f| %>
-    <%= f.error_notification %>
     <div class="email-wrap">
       <%= f.text_field :email, required: true, autofocus: true, class: "email", placeholder: "Email Address" %>
     </div>

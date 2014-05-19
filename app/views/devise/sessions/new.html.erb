@@ -1,7 +1,6 @@
 <div class="login-box">
 
   <%= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" } do |f| %>
-    <%= f.error_notification %>
     <div class="email-wrap">
       <%= f.text_field :email, required: false, autofocus: true, placeholder: "Email" %>
     </div>
