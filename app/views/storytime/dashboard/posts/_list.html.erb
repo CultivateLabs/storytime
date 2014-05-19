@@ -1,0 +1,21 @@
+<div id="list" class="pane">
+  <h3 class="heading">
+    Blog Posts
+    <%= link_to new_dashboard_post_path, class: "btn btn-info btn-sm pull-right" do %>
+      <i class="glyphicon glyphicon-plus"></i>
+    <% end %>
+  </h3>
+  <div class="scroll-y">
+    <ul>
+      <% @posts.each do |post| %>
+        <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(edit_dashboard_post_url(post)) %>">
+          <%= link_to post.title, edit_dashboard_post_url(post) %>
+          <span class="pull-right">
+            <%= delete_resource_link post, dashboard_post_path(post) if current_page?(dashboard_posts_path) %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+    <%= paginate @posts %>
+  </div>
+</div>

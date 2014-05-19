@@ -1,3 +1,10 @@
-<%= link_to "Add New Post", new_dashboard_post_path, class: "btn btn-primary" %>
-<%= render partial: "storytime/dashboard/posts/post", collection: @posts %>
-<%= paginate @posts %>
+<%= render 'list' %>
+
+<div id="main" class="pane">
+  <div class="scroll-y">
+    <div class="padding no-content center">
+      <h3>Select a Post to Edit</h3>
+      <%= link_to "or Create One", new_dashboard_post_path, class: 'btn btn-info' %>
+    </div>
+  </div>
+</div>

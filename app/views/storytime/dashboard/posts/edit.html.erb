@@ -1,8 +1,17 @@
-<h1>Editing post</h1>
+<%= render 'list' %>
 
-<%= versions_info @post %>
+<div id="main" class="pane">
+<h3 class="heading">
+  Edit Post
+</h3>
+  <div class="scroll-y">
+    <div class="padding">
+      <%= versions_info @post %>
 
-<%= render 'form' %>
+      <%= render 'form' %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', dashboard_posts_path %>
+      <%= link_to 'Show', @post %> |
+      <%= link_to 'Back', dashboard_posts_path %>
+    </div>
+  </div>
+</div>

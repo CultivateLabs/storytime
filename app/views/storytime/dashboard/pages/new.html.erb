@@ -1,5 +1,12 @@
-<h1>New page</h1>
+<%= render 'list' %>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', dashboard_pages_path %>
+<div id="main" class="pane">
+  <h3 class="heading">
+    New Page
+  </h3>
+  <div class="scroll-y">
+    <div class="padding">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <%= simple_form_for [:dashboard, @post] do |f| %>
   <%= f.error_notification %>
-  <%= f.input :title %>
+  <%= f.input :title, autofocus: true %>
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   <%= f.input :tag_list %>

@@ -15,12 +15,9 @@
   <body class="<%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
 
     <%= render "navigation" %>
+    <%= render "flash" %>
 
-    <div class="container">
+    <%= yield %>
 
-      <%= render "flash" %>
-      <%= yield %>
-
-    </div>
   </body>
 </html>
