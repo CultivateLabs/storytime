@@ -2,7 +2,7 @@ module Storytime
   module ApplicationHelper
 
     def dashboard_nav_site_path(site)
-      site.nil? || site.new_record? ? new_dashboard_site_path : edit_dashboard_site_path(site)
+      site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
 
     def active_nav_item_class(controller)
