@@ -1,19 +1,25 @@
-<h4>Versions</h4>
-<ul class="list-group">
-  <% versionable.versions.order(updated_at: :desc).each do |version| %>
-    <li class="list-group-item">
-      Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
-      <%= "by #{version.user.email}" if version.user %>
-      <span class="pull-right">
-        <% if version == versionable.latest_version %>
-          Current Version
-        <% else %>
-          <%= simple_form_for [:dashboard, versionable] do |f| %>
-            <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
-            <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
-          <% end %>
-        <% end %>
-      </span>
-    </li>
-  <% end %>
-</ul>
+<div id="versions" style="margin-bottom: 20px;">
+  <div id="versions-toggle" data-toggle="collapse" data-target="#versions-panel">
+    Versions <b class="caret"></b>
+  </div>
+  <div id="versions-panel" class="collapse">
+    <ul class="list-group" style="margin: 0;">
+      <% versionable.versions.order(updated_at: :desc).each do |version| %>
+        <li class="list-group-item">
+          Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
+          <%= "by #{version.user.email}" if version.user %>
+          <span class="pull-right">
+            <% if version == versionable.latest_version %>
+              Current Version
+            <% else %>
+              <%= simple_form_for [:dashboard, versionable] do |f| %>
+                <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
+                <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
+              <% end %>
+            <% end %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
