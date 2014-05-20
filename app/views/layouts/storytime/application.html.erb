@@ -17,8 +17,8 @@
 
     <%= render "navigation" %>
     <%= render "flash" %>
-    <%= render 'header' %>
+    <%= render 'header' unless devise_controller? %>
     <%= yield %>
-    <%= render 'footer' %>
+    <%= render 'footer' unless devise_controller? %>
   </body>
 </html>
