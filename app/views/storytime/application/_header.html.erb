@@ -1,3 +1,30 @@
 <% if @site && @site.header.present? %>
   <%= raw @site.header %>
+<% else %>
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to @site.title, root_path, class: "navbar-brand" %>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <% Storytime::Page.published.each do |page| %>
+            <li><%= link_to page.title, storytime.page_url(page) %></li>
+          <% end %>
+          <li><%= link_to "Blog", storytime.posts_url %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% unless user_signed_in? %>
+            <li><%= link_to "Sign In", storytime.new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
 <% end %>
