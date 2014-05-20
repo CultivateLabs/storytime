@@ -1,35 +1,4 @@
-<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "Storytime", storytime.dashboard_posts_path, class: "navbar-brand" %>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li <%= active_nav_item_class("posts") %>><%= link_to "Posts", storytime.dashboard_posts_path %></li>
-        <li <%= active_nav_item_class("pages") %>><%= link_to "Pages", storytime.dashboard_pages_path %></li>
-        <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.dashboard_media_index_path %></li>
-        <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <%= current_user.email %>
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "My Account", edit_registration_path(resource_name) %></li>
-            <li><%= link_to "Sign Out", destroy_session_path(resource_name), method: :delete %></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!--/.nav-collapse -->
-</div>
+<%= render 'storytime/dashboard/navigation' %>
 
 <div class="container">
   <h2>Edit <%= resource_name.to_s.humanize %></h2>
