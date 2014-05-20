@@ -212,31 +212,45 @@ html, body {
     }
   }
   .button, .button-save, .button-add, .button-delete, .button-alt, .button-link, .button-back {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    min-height: 35px;
-    width: auto;
-    display: inline-block;
-    padding: 0.9em 1.37em;
-    cursor: pointer;
-    text-decoration: none;
-    color: #fff;
-    font-size: 11px;
-    line-height: 13px;
-    font-weight: 300;
-    text-align: center;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-shadow: none;
-    border-radius: 0.2em;
-    border: rgba(0,0,0,0.05) 0.1em solid;
-    -webkit-transition: background 0.3s ease,border-color 0.3s ease;
-    -moz-transition: background 0.3s ease,border-color 0.3s ease;
-    transition: background 0.3s ease,border-color 0.3s ease;
+    -webkit-box-sizing: border-box!important;
+    -moz-box-sizing: border-box!important;
+    box-sizing: border-box!important;
+    min-height: 35px!important;
+    width: auto!important;
+    display: inline-block!important;
+    padding: 0.9em 1.37em!important;
+    cursor: pointer!important;
+    text-decoration: none!important;
+    color: #fff!important;
+    font-size: 11px!important;
+    line-height: 13px!important;
+    font-weight: 300!important;
+    text-align: center!important;
+    letter-spacing: 1px!important;
+    text-transform: uppercase!important;
+    text-shadow: none!important;
+    border-radius: 0.2em!important;
+    border: rgba(0,0,0,0.05) 0.1em solid!important;
+    -webkit-transition: background 0.3s ease,border-color 0.3s ease!important;
+    -moz-transition: background 0.3s ease,border-color 0.3s ease!important;
+    transition: background 0.3s ease,border-color 0.3s ease!important;
   }
-  .button-save, button[type="submit"], input[type="submit"] {
-    background: #5ba4e5;
-    box-shadow: none;
+  .button-save {
+    background: #5ba4e5!important;
+    box-shadow: none!important;
+  }
+  #error_explanation {
+    background: none;
+    padding: 10px 20px;
+    color: #a94442;
+    border: 1px solid #a94442;
+    h2 {
+      font-size: 14px;
+      margin: 0 0 10px 0;
+    }
+    ul {
+      margin: 0;
+      padding: 0 15px;
+    }
   }
 }

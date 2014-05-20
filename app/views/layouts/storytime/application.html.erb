@@ -12,8 +12,9 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %>">
+  <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %> <%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
 
+    <%= render "navigation" %>
     <%= render "flash" %>
     <%= yield %>
 

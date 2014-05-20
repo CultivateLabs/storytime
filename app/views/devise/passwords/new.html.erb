@@ -1,5 +1,6 @@
 <section class="forgotten-box js-forgotten-box" style="opacity: 1;">
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "forgotten-form" }) do |f| %>
+    <%= devise_error_messages! %>
     <div class="email-wrap">
       <%= f.text_field :email, required: true, autofocus: true, class: "email", placeholder: "Email Address" %>
     </div>
