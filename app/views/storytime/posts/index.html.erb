@@ -1,14 +1,22 @@
-<% @posts.each do |post| %>
-  <h2><%= link_to post.title, post %></h2>
-  <div><%= post.excerpt %></div>
-  <p>Tags: <%= raw post.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <% @posts.each do |post| %>
+        <h2><%= link_to post.title, post %></h2>
+        <p class='muted'><%= post.created_at.strftime("%b %d, %Y") %></p>
+        <p><%= post.excerpt %></p>
+        <p><%= link_to "Continue reading →", post %></p>
+        <p><%= render 'tags', post: post %></p>
+        <hr>
+      <% end %>
 
-<%= paginate @posts %>
-
-<h3>Tag Cloud</h3>
-<div id="tag_cloud">
-  <% tag_cloud Storytime::Post.tag_counts, %w[s m l] do |tag, css_class| %>
-    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-  <% end %>
+      <%= paginate @posts %>
+    </div>
+    <div class="col-md-3">
+      <h5>Tags</h5>
+      <% tag_cloud Storytime::Post.tag_counts, %w[s m l] do |tag, css_class| %>
+        <div><%= link_to tag.name, tag_path(tag.name), class: css_class %></div>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -16,3 +16,10 @@
   .m { font-size: 1.2em; }
   .l { font-size: 1.8em; }
 }
+
+.muted { color: lighten(#333, 50%); }
+.label {
+  a, a:hover {
+    color: #fff;
+  }
+}

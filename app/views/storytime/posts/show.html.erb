@@ -1,7 +1,14 @@
-<h1><%= @post.title %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><%= @post.title %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= @post.content.html_safe %>
 
-<div>
-  <%= @post.content.html_safe %>
+      <p><%= render 'tags', post: @post %></p>
+    </div>
+  </div>
 </div>
-
-<div><%= @post.tag_list %></div>

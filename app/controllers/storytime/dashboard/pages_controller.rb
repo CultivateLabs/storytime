@@ -7,7 +7,8 @@ module Storytime
       before_action :load_pages
       before_action :load_media, only: [:new, :edit]
       
-      respond_to :json, only: [:destroy]
+      respond_to :json, only: :destroy
+      respond_to :html, only: :destroy
 
       def index
         authorize @pages
@@ -49,7 +50,8 @@ module Storytime
       def destroy
         authorize @page
         @page.destroy
-        respond_with @page
+        flash[:notice] = I18n.t('flash.pages.destroy.success') unless request.xhr?
+        respond_with [:dashboard, @page]
       end
 
       private

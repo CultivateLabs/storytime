@@ -14,7 +14,7 @@
             <% unless page.published? %>
               <span class="label label-warning">Draft</span>
             <% end %>
-            <%= delete_resource_link page, dashboard_page_path(page) if current_page?(dashboard_pages_path) %>
+            <%= delete_resource_link page, dashboard_page_path(page), !current_page?(edit_dashboard_page_url(page)) %>
           </span>
         </li>
       <% end %>

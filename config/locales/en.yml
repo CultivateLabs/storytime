@@ -7,11 +7,15 @@ en:
         success: "Post successfully created."
       update:
         success: "Post successfully updated."
+      destroy:
+        success: "Post successfully deleted."
     pages:
       create:
         success: "Page successfully created."
       update:
         success: "Page successfully updated."
+      destroy:
+        success: "Page successfully deleted."
     sites:
       create:
         success: "Site successfully created."
