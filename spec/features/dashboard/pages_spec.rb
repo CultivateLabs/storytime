@@ -8,7 +8,7 @@ describe "In the dashboard, Pages" do
     visit dashboard_pages_path
     
     Storytime::Page.all.each do |p|
-      page.should have_link(p.title, href: edit_dashboard_page_path(p))
+      page.should have_link(p.title, href: edit_dashboard_page_url(p))
       page.should_not have_content(p.content)
     end
   end

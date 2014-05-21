@@ -2,10 +2,10 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   class DashboardController < ApplicationController
+    before_action :authenticate_user!
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     layout "storytime/dashboard"
     include Pundit
-    before_action :authenticate_user!
     after_action :verify_authorized
 
   private
