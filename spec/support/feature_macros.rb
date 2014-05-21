@@ -1,6 +1,6 @@
 module FeatureMacros
   def login(user = nil, skip_site = false)
-    @current_site = FactoryGirl.create(:site) unless skip_site
+    setup_site unless skip_site
     user ||= FactoryGirl.create(:user)
     visit new_user_session_path
     
@@ -18,5 +18,9 @@ module FeatureMacros
 
   def current_site
     @current_site
+  end
+
+  def setup_site
+    @current_site = FactoryGirl.create(:site)
   end
 end
