@@ -8,7 +8,7 @@ module Storytime
     end
 
     def create?
-      !@user.nil? && !Storytime::Site.exists?
+      @user.admin && !Storytime::Site.exists?
     end
 
     def new?
@@ -16,7 +16,7 @@ module Storytime
     end
 
     def update?
-      !@user.nil?
+      @user.admin?
     end
 
     def edit?

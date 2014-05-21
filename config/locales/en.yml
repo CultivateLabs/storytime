@@ -21,6 +21,11 @@ en:
         success: "Site successfully created."
       update:
         success: "Site successfully updated."
+    users:
+      create:
+        success: "User successfully created."
+      update:
+        success: "User successfully updated."
   simple_form:
     labels:
       site:

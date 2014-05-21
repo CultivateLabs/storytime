@@ -11,6 +11,18 @@ module FeatureMacros
     page.should have_content("Signed in successfully.")
     @current_user = user
   end
+
+  def login_admin(admin = nil)
+    login FactoryGirl.create(:admin)
+  end
+
+  def login_editor(editor = nil)
+    login FactoryGirl.create(:editor)
+  end
+
+  def login_writer(writer = nil)
+    login FactoryGirl.create(:writer)
+  end
   
   def current_user
     @current_user

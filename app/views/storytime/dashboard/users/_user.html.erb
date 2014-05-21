@@ -1,0 +1,10 @@
+<tr id="user_<%= user.id %>">
+  <td><%= user.email %></td>
+  <td><%= user.role.humanize %></td>
+  <td class='right'>
+    <div class="btn-group">
+      <%= link_to "Edit", edit_polymorphic_url([:dashboard, user]), class: "btn btn-xs btn-default" %>
+      <%= delete_resource_link user, polymorphic_url([:dashboard, user]) unless user == current_user %>
+    </div>
+  </td>
+</tr>

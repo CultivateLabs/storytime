@@ -5,6 +5,8 @@ module Storytime
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable
 
+    enum role: [ :writer, :editor, :admin ]
+
     has_many :posts
     has_many :pages
     has_many :media

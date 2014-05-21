@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140516141252) do
+ActiveRecord::Schema.define(version: 20140521152221) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20140516141252) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role",                   default: 0
   end
 
   add_index "storytime_users", ["email"], name: "index_storytime_users_on_email", unique: true
