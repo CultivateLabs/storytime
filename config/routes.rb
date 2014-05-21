@@ -8,6 +8,11 @@ Storytime::Engine.routes.draw do
     resources :pages, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :users
+    resources :roles do 
+      collection do
+        patch :update_multiple
+      end
+    end
   end
   get 'tags/:tag', to: 'posts#index', as: :tag
 

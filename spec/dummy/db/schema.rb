@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521152221) do
+ActiveRecord::Schema.define(version: 20140521191744) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20140521152221) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "storytime_actions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "storytime_media", force: true do |t|
     t.string   "file"
@@ -47,6 +53,16 @@ ActiveRecord::Schema.define(version: 20140521152221) do
 
   add_index "storytime_pages", ["user_id"], name: "index_storytime_pages_on_user_id"
 
+  create_table "storytime_permissions", force: true do |t|
+    t.integer  "role_id"
+    t.integer  "action_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "storytime_permissions", ["action_id"], name: "index_storytime_permissions_on_action_id"
+  add_index "storytime_permissions", ["role_id"], name: "index_storytime_permissions_on_role_id"
+
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -59,6 +75,12 @@ ActiveRecord::Schema.define(version: 20140521152221) do
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
+
+  create_table "storytime_roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "storytime_sites", force: true do |t|
     t.string   "title"
@@ -104,10 +126,12 @@ ActiveRecord::Schema.define(version: 20140521152221) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role",                   default: 0
+    t.integer  "role_id"
   end
 
   add_index "storytime_users", ["email"], name: "index_storytime_users_on_email", unique: true
   add_index "storytime_users", ["reset_password_token"], name: "index_storytime_users_on_reset_password_token", unique: true
+  add_index "storytime_users", ["role_id"], name: "index_storytime_users_on_role_id"
 
   create_table "storytime_versions", force: true do |t|
     t.text     "content"

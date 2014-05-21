@@ -26,6 +26,9 @@ en:
         success: "User successfully created."
       update:
         success: "User successfully updated."
+    roles:
+      update:
+        success: "Permissions successfully updated."
   simple_form:
     labels:
       site:

@@ -13,6 +13,7 @@ module Storytime
 
       def edit
         authorize @site
+        @roles = Storytime::Role.all
       end
 
       def create

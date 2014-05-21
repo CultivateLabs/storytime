@@ -1,6 +1,6 @@
 <tr id="user_<%= user.id %>">
   <td><%= user.email %></td>
-  <td><%= user.role.humanize %></td>
+  <td><%= user.role.name.humanize if user.role %></td>
   <td class='right'>
     <div class="btn-group">
       <%= link_to "Edit", edit_polymorphic_url([:dashboard, user]), class: "btn btn-xs btn-default" %>
