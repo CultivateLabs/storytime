@@ -7,28 +7,32 @@ module Storytime
       @user = user
     end
 
+    def manage?
+      @current_user.role.present? && @current_user.role.allowed_actions.include?(Storytime::Action.find_by(name: "Manage Users"))
+    end
+
     def index?
-      @current_user.admin?
+      manage?
     end
 
     def edit?
-      @current_user.admin?
+      manage?
     end
 
     def update?
-      edit?
+      manage?
     end
 
     def new?
-      @current_user.admin?
+      manage?
     end
 
     def create?
-      new?
+      manage?
     end
 
     def destroy?
-      @current_user.admin?
+      manage?
     end
   end
 end

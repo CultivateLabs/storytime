@@ -4,7 +4,7 @@
 
   <h3>Edit Permissions</h3>
   <%= form_tag update_multiple_dashboard_roles_path, method: :patch do %>
-    <% @roles.each do |role| %>
+    <% Storytime::Role.all.each do |role| %>
       <h4><%= role.label %></h4>
       <%= simple_fields_for "roles[#{role.id}][]", role do |f| %>
         <%= f.association :allowed_actions, as: :check_boxes, label: false %>

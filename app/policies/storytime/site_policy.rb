@@ -7,8 +7,12 @@ module Storytime
       @site = site
     end
 
+    def manage?
+      @user.role.present? && @user.role.allowed_actions.include?(Storytime::Action.find_by(name: "Manage Site Settings"))
+    end
+
     def create?
-      @user.admin && !Storytime::Site.exists?
+      manage?
     end
 
     def new?
@@ -16,7 +20,7 @@ module Storytime
     end
 
     def update?
-      @user.admin?
+      manage?
     end
 
     def edit?
