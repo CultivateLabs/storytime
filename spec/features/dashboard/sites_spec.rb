@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "In the dashboard, Sites" do
 
   it "creates a site" do
-    login FactoryGirl.create(:user), true
+    login FactoryGirl.create(:admin), true
     Storytime::Site.count.should == 0
 
     visit new_dashboard_site_path
@@ -18,7 +18,7 @@ describe "In the dashboard, Sites" do
   end
 
   context "as a logged in user" do
-    before{ login }
+    before{ login_admin }
 
     it "updates a site" do
       Storytime::Site.count.should == 1
