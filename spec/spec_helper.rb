@@ -7,6 +7,7 @@ require 'factory_girl_rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require "pundit/rspec"
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 

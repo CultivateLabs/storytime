@@ -1,6 +1,6 @@
 module Storytime
   class PostPolicy
-    attr_reader :user, :post
+    attr_reader :user, :record
 
     class Scope < Struct.new(:user, :scope)
       def resolve
@@ -13,9 +13,9 @@ module Storytime
       end
     end
 
-    def initialize(user, post)
+    def initialize(user, record)
       @user = user
-      @post = post
+      @post = record
     end
 
     def index?
