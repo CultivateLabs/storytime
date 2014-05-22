@@ -17,7 +17,7 @@ FactoryGirl.define do
       name 'editor'
 
       after(:create) do |role, evaluator|
-        ["Publish Own Posts/Pages", "Publish Others' Posts/Pages"].each do |name|
+        ["Publish Own Posts/Pages", "Manage Others' Posts/Pages"].each do |name|
           action = FactoryGirl.create(:action, name: name)
           FactoryGirl.create(:permission, role: role, action: action)
         end
@@ -28,7 +28,7 @@ FactoryGirl.define do
       name 'admin'
 
       after(:create) do |role, evaluator|
-        ["Publish Own Posts/Pages", "Publish Others' Posts/Pages", "Manage Site Settings", "Manage Users"].each do |name|
+        ["Publish Own Posts/Pages", "Manage Others' Posts/Pages", "Manage Site Settings", "Manage Users"].each do |name|
           action = FactoryGirl.create(:action, name: name)
           FactoryGirl.create(:permission, role: role, action: action)
         end

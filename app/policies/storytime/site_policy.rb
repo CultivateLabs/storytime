@@ -8,7 +8,8 @@ module Storytime
     end
 
     def manage?
-      @user.role.present? && @user.role.allowed_actions.include?(Storytime::Action.find_by(name: "Manage Site Settings"))
+      action = Storytime::Action.find_by(name: "Manage Site Settings")
+      @user.role.present? && @user.role.allowed_actions.include?(action)
     end
 
     def create?

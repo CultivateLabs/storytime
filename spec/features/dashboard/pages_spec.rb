@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "In the dashboard, Pages" do
-  before{ login }
+  before{ login_admin }
 
   it "lists pages" do
     3.times{ FactoryGirl.create(:page) }

@@ -62,11 +62,11 @@ module Storytime
         def load_pages
           # Patch for conflict between our form params and pagination
           pg = params[:page].respond_to?(:to_i) ? params[:page] : 1
-          @pages = Page.all.page(pg).per(10)
+          @pages = policy_scope(Storytime::Page).page(pg).per(10)
         end
 
         def page_params
-          params.require(:page).permit(:title, :draft_content, :draft_version_id, :published)
+          params.require(:page).permit(*policy(@page || current_user.pages.new).permitted_attributes)
         end
     end
   end

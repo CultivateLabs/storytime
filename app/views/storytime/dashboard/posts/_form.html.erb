@@ -4,11 +4,13 @@
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   <%= f.input :tag_list %>
-  <div class="checkbox">
-    <label>
-      <%= f.check_box :published %> <strong>Published</strong>
-    </label>
-  </div>
+  <% if Pundit.policy(current_user, @post).publish? %>
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :published %> <strong>Published</strong>
+      </label>
+    </div>
+  <% end %>
   
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

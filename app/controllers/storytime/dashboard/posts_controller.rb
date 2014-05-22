@@ -7,7 +7,8 @@ module Storytime
       before_action :load_posts
       before_action :load_media, only: [:new, :edit]
       
-      respond_to :json, only: [:destroy]
+      respond_to :json, only: :destroy
+      respond_to :html, only: :destroy
 
       def index
         authorize @posts
@@ -49,7 +50,8 @@ module Storytime
       def destroy
         authorize @post
         @post.destroy
-        respond_with @post
+        flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
+        respond_with [:dashboard, @post]
       end
 
       private
@@ -58,11 +60,11 @@ module Storytime
         end
 
         def load_posts
-          @posts = Post.all.page(params[:page]).per(10)
+          @posts = policy_scope(Storytime::Post).page(params[:page]).per(10)
         end
 
         def post_params
-          params.require(:post).permit(:title, :draft_content, :draft_version_id, :excerpt, :published, :post_type, :tag_list)
+          params.require(:post).permit(*policy(@post || current_user.posts.new).permitted_attributes)
         end
     end
   end
