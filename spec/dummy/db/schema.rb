@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140521191744) do
 
   create_table "storytime_actions", force: true do |t|
     t.string   "name"
+    t.string   "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -125,7 +126,6 @@ ActiveRecord::Schema.define(version: 20140521191744) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role",                   default: 0
     t.integer  "role_id"
   end
 

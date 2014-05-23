@@ -4,7 +4,7 @@ module Storytime
 
     class Scope < Struct.new(:user, :scope)
       def resolve
-        action = Storytime::Action.find_by(name: "Manage Others' Posts/Pages")
+        action = Storytime::Action.find_by(guid: "d8a1b1")
         if user.role.allowed_actions.include?(action)
           scope.all
         else
@@ -46,16 +46,16 @@ module Storytime
       if @user == @post.user
         true
       else
-        action = Storytime::Action.find_by(name: "Manage Others' Posts/Pages")
+        action = Storytime::Action.find_by(guid: "d8a1b1")
         @user.role.allowed_actions.include?(action)
       end
     end
 
     def publish?
       action = if @user == @post.user
-        Storytime::Action.find_by(name: "Publish Own Posts/Pages")
+        Storytime::Action.find_by(guid: "5030ed")
       else
-        Storytime::Action.find_by(name: "Manage Others' Posts/Pages")
+        Storytime::Action.find_by(guid: "d8a1b1")
       end
       @user.role.allowed_actions.include?(action)
     end

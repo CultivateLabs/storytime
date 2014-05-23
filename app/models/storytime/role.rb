@@ -7,5 +7,11 @@ module Storytime
     def label
       name.humanize
     end
+
+    def self.seed
+      create(name: "writer")
+      create(name: "editor")
+      create(name: "admin")
+    end
   end
 end

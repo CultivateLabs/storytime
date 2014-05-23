@@ -8,7 +8,7 @@ module Storytime
     end
 
     def manage?
-      action = Storytime::Action.find_by(name: "Manage Users")
+      action = Storytime::Action.find_by(guid: "1f7d47")
       @current_user.role.present? && @current_user.role.allowed_actions.include?(action)
     end
 

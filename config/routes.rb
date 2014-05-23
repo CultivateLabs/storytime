@@ -1,6 +1,5 @@
 Storytime::Engine.routes.draw do
   resources :posts, only: [:show, :index]
-  resources :pages, only: [:show], path: "/"
 
   namespace :dashboard do
     resources :sites, only: [:new, :edit, :update, :create]
@@ -18,5 +17,10 @@ Storytime::Engine.routes.draw do
 
   devise_for :users, class_name: "Storytime::User", module: :devise
 
-  root to: "posts#index"
+  get "/", to: "posts#index", constraints: Storytime::RootConstraint.new("posts")
+  get "/", to: "pages#show", constraints: Storytime::RootConstraint.new("page")
+
+  resources :pages, only: [:show], path: "/"
+
+  root to: "application#setup" # should only get here during app setup
 end
