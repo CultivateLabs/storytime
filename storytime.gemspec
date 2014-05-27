@@ -7,11 +7,10 @@ require "storytime/version"
 Gem::Specification.new do |s|
   s.name        = "storytime"
   s.version     = Storytime::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Storytime."
-  s.description = "TODO: Description of Storytime."
+  s.authors     = ["Ben Roesch, David Van Der Beek"]
+  s.email       = ["ben@federisgroup.com, david@federisgroup.com"]
+  s.summary     = "A simple cms and blogging engine for rails apps."
+  s.description = "A simple cms and blogging engine for rails apps."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
