@@ -4,6 +4,8 @@ module Storytime
     has_many :permissions
     has_many :allowed_actions, through: :permissions, source: :action
 
+    validates :name, uniqueness: true
+
     def label
       name.humanize
     end

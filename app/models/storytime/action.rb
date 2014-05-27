@@ -3,6 +3,9 @@ module Storytime
     has_many :permissions
     has_many :roles, through: :permissions
 
+    validates :guid, uniqueness: true
+    validates :name, uniqueness: true
+
     def self.seed
       create(guid: "d8a1b1", name: "Manage Other People's Posts/Pages")
       create(guid: "5030ed", name: "Publish Own Posts/Pages")

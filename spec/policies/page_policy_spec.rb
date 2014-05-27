@@ -5,7 +5,8 @@ require 'spec_helper'
 describe Storytime::PagePolicy do
   subject { Storytime::PagePolicy.new(user, page) }
 
-  context "for a writer" do    
+  context "for a writer" do
+    before{ Storytime::User.any_instance.stub(:assign_first_admin).and_return(true) }
     let(:user) { FactoryGirl.create(:writer) }
 
     context "creating a new page" do

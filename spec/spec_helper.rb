@@ -15,11 +15,21 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :poltergeist_st do |app|
+    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0'])
+  end
+
+Capybara.javascript_driver = :poltergeist_st
 
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 RSpec.configure do |config|
+
+  config.before(:suite) do
+    Storytime::Role.seed
+    Storytime::Action.seed
+    Storytime::Permission.seed
+  end
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
