@@ -1,6 +1,6 @@
 module Storytime
   class ApplicationController < ActionController::Base
-    # layout Storytime.layout
+    layout Storytime.layout || "storytime/application"
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def after_sign_up_path_for(user)

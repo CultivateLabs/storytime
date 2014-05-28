@@ -2,20 +2,20 @@ PATH
   remote: .
   specs:
     storytime (0.0.1)
-      bootstrap-sass
-      carrierwave
-      coffee-rails
-      devise
-      fog
-      friendly_id
-      jbuilder
-      jquery-rails
-      kaminari
-      mini_magick
-      pundit
-      rails (~> 4.1.0)
-      sass-rails (~> 4.0.3)
-      simple_form
+      bootstrap-sass (~> 3.1)
+      carrierwave (~> 0.10)
+      coffee-rails (~> 4.0)
+      devise (~> 3.2)
+      fog (~> 1.22)
+      friendly_id (~> 5.0)
+      jbuilder (~> 2.0)
+      jquery-rails (~> 3.1)
+      kaminari (~> 0.15)
+      mini_magick (~> 3.7)
+      pundit (~> 0.2)
+      rails (>= 4.0)
+      sass-rails (~> 4.0)
+      simple_form (~> 3.0)
 
 GEM
   remote: https://rubygems.org/
