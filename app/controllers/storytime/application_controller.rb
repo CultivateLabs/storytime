@@ -2,6 +2,7 @@
   class Storytime::ApplicationController < ApplicationController
     layout Storytime.layout || "storytime/application"
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    helper :all
 
     def setup
       url = if Storytime.user_class.count == 0

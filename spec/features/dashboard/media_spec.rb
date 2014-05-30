@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "In the dashboard, Media" do
-  include Storytime::MediaHelper
+  include Storytime::Dashboard::MediaHelper
 
   before{ login }
 

@@ -2,7 +2,7 @@
   <h2>New User</h2>
   <%= simple_form_for [:dashboard, @user] do |f| %>
     <%= f.input :email %>
-    <%= f.association :role, include_blank: false, label_method: :label %>
+    <%= f.association :storytime_role, include_blank: false, label_method: :label %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
     <%= f.submit class: "btn btn-info" %>

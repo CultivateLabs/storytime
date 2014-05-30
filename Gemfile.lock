@@ -251,7 +251,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  devise (~> 3.2)
+  devise
   factory_girl_rails
   guard-rspec (~> 4.2.8)
   poltergeist (~> 1.5)
