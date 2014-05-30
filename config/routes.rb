@@ -15,8 +15,6 @@ Storytime::Engine.routes.draw do
   end
   get 'tags/:tag', to: 'posts#index', as: :tag
 
-  devise_for :users, class_name: "Storytime::User", module: :devise
-
   get "/", to: "posts#index", constraints: Storytime::RootConstraint.new("posts")
   get "/", to: "pages#show", constraints: Storytime::RootConstraint.new("page")
 

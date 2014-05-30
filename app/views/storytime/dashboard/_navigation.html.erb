@@ -13,7 +13,7 @@
       <li <%= active_nav_item_class("posts") %>><%= link_to "Posts", storytime.dashboard_posts_path %></li>
       <li <%= active_nav_item_class("pages") %>><%= link_to "Pages", storytime.dashboard_pages_path %></li>
       <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.dashboard_media_index_path %></li>
-      <% if Pundit.policy(current_user, Storytime::User).index? %>
+      <% if Pundit.policy(current_user, Storytime.user_class).index? %>
         <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.dashboard_users_path %></li>
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
@@ -28,8 +28,8 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to "My Account", storytime.edit_user_registration_path %></li>
-          <li><%= link_to "Sign Out", storytime.destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "My Account", main_app.edit_user_registration_path %></li>
+          <li><%= link_to "Sign Out", main_app.destroy_user_session_path, method: :delete %></li>
         </ul>
       </li>
     </ul>

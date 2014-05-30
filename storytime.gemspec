@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", ">= 4.0"
-  s.add_dependency "devise", "~> 3.2"
   s.add_dependency "pundit", "~> 0.2"
   s.add_dependency "kaminari", "~> 0.15"
   s.add_dependency "jbuilder", "~> 2.0"
@@ -31,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave", "~> 0.10"
   s.add_dependency "mini_magick", "~> 3.7"
 
+  s.add_development_dependency "devise", "~> 3.2"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"

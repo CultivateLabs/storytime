@@ -5,7 +5,7 @@ module Storytime
     class Scope < Struct.new(:user, :scope)
       def resolve
         action = Storytime::Action.find_by(guid: "d8a1b1")
-        if user.role.allowed_actions.include?(action)
+        if user.storytime_role.allowed_actions.include?(action)
           scope.all
         else
           scope.where(user_id: user.id)
@@ -47,7 +47,7 @@ module Storytime
         true
       else
         action = Storytime::Action.find_by(guid: "d8a1b1")
-        @user.role.allowed_actions.include?(action)
+        @user.storytime_role.allowed_actions.include?(action)
       end
     end
 
@@ -57,7 +57,7 @@ module Storytime
       else
         Storytime::Action.find_by(guid: "d8a1b1")
       end
-      @user.role.allowed_actions.include?(action)
+      @user.storytime_role.allowed_actions.include?(action)
     end
 
     def permitted_attributes

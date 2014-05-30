@@ -8,17 +8,17 @@ module Storytime
       respond_to :json, only: :destroy
 
       def index
-        @users = Storytime::User.all
+        @users = Storytime.user_class.all
         authorize @users
       end
 
       def new
-        @user = Storytime::User.new
+        @user = Storytime.user_class.new
         authorize @user
       end
 
       def create
-        @user = Storytime::User.new(user_params)
+        @user = Storytime.user_class.new(user_params)
         authorize @user
 
         if @user.save
@@ -53,7 +53,7 @@ module Storytime
       end
 
       def load_user
-        @user = Storytime::User.find(params[:id])
+        @user = Storytime.user_class.find(params[:id])
       end
     end
   end

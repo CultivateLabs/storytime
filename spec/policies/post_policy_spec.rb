@@ -6,7 +6,7 @@ describe Storytime::PostPolicy do
   subject { Storytime::PostPolicy.new(user, post) }
 
   context "for a writer" do
-    before{ Storytime::User.any_instance.stub(:assign_first_admin).and_return(true) }
+    before{ Storytime.user_class.any_instance.stub(:assign_first_admin).and_return(true) }
     let(:user) { FactoryGirl.create(:writer) }
 
     context "creating a new post" do

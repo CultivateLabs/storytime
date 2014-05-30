@@ -15,7 +15,7 @@ module Storytime
       end
 
       def new
-        @post = current_user.posts.new
+        @post = current_user.storytime_posts.new
         authorize @post
       end
 
@@ -24,7 +24,7 @@ module Storytime
       end
 
       def create
-        @post = current_user.posts.new(post_params)
+        @post = current_user.storytime_posts.new(post_params)
         @post.draft_user_id = current_user.id
         authorize @post
 
@@ -64,7 +64,7 @@ module Storytime
         end
 
         def post_params
-          params.require(:post).permit(*policy(@post || current_user.posts.new).permitted_attributes)
+          params.require(:post).permit(*policy(@post || current_user.storytime_posts.new).permitted_attributes)
         end
     end
   end

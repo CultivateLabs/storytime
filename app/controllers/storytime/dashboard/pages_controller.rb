@@ -15,7 +15,7 @@ module Storytime
       end
 
       def new
-        @page = current_user.pages.new
+        @page = current_user.storytime_pages.new
         authorize @page
       end
 
@@ -24,7 +24,7 @@ module Storytime
       end
 
       def create
-        @page = current_user.pages.new(page_params)
+        @page = current_user.storytime_pages.new(page_params)
         @page.draft_user_id = current_user.id
         authorize @page
 
@@ -66,7 +66,7 @@ module Storytime
         end
 
         def page_params
-          params.require(:page).permit(*policy(@page || current_user.pages.new).permitted_attributes)
+          params.require(:page).permit(*policy(@page || current_user.storytime_pages.new).permitted_attributes)
         end
     end
   end

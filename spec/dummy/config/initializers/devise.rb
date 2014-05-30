@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = 'b25a940e10d5ced7e27ebd5d35dbd38c675580a905d3f469862b5bfb03bf8d9044821e7957d569bf1d223448d31d9d1a8aa273c88758ca86cd780e83325f54cc'
+  # config.secret_key = '6ddb7b0fdefdf873e82d00d546b308945e95fc6384d00983b9d2ef9d90b9af4bdaa8f2cf815df7c2d469021f5c7b1e9202f3cee7856e1299550296bd858f1cbd'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'a79c5e6293d190f7ce3654da291ee68224e7fd8b3097259c03632841fff4dd7b55fc0d419d4e2fb3759c24825547d71bff43306f61e806e9398f52a927ebe8fc'
+  # config.pepper = '74a9282caa9584328904ae9b032d406a3d0577830e1644e2cacb271587b279759f646f54a9cb1ad9860706ba920c0d2030adc69b99c0661e6f86c6b98658548b'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -248,11 +248,9 @@ Devise.setup do |config|
   #     mount MyEngine, at: '/my_engine'
   #
   # The router that invoked `devise_for`, in the example above, would be:
-  config.router_name = :storytime
+  # config.router_name = :my_engine
   #
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-
-  config.parent_controller = 'Storytime::ApplicationController'
 end

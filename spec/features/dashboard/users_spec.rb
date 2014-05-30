@@ -8,7 +8,7 @@ describe "In the dashboard, Users" do
       FactoryGirl.create_list(:user, 3)
       visit dashboard_users_path
       
-      Storytime::User.all.each do |u|
+      Storytime.user_class.all.each do |u|
         page.should have_content u.email
       end
     end
@@ -34,8 +34,8 @@ describe "In the dashboard, Users" do
     it "deletes a user", js: true do
       FactoryGirl.create_list(:user, 3)
       visit dashboard_users_path
-      p1 = Storytime::User.first
-      p2 = Storytime::User.last
+      p1 = Storytime.user_class.first
+      p2 = Storytime.user_class.last
       click_link("delete_user_#{p2.id}")
 
       page.should_not have_content(p2.email)

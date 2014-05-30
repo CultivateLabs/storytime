@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521191744) do
+ActiveRecord::Schema.define(version: 20140530185250) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -113,7 +113,19 @@ ActiveRecord::Schema.define(version: 20140521191744) do
     t.datetime "updated_at"
   end
 
-  create_table "storytime_users", force: true do |t|
+  create_table "storytime_versions", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "versionable_id"
+    t.string   "versionable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "storytime_versions", ["user_id"], name: "index_storytime_versions_on_user_id"
+  add_index "storytime_versions", ["versionable_type", "versionable_id"], name: "versionable_index"
+
+  create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -126,23 +138,11 @@ ActiveRecord::Schema.define(version: 20140521191744) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role_id"
+    t.integer  "storytime_role_id"
   end
 
-  add_index "storytime_users", ["email"], name: "index_storytime_users_on_email", unique: true
-  add_index "storytime_users", ["reset_password_token"], name: "index_storytime_users_on_reset_password_token", unique: true
-  add_index "storytime_users", ["role_id"], name: "index_storytime_users_on_role_id"
-
-  create_table "storytime_versions", force: true do |t|
-    t.text     "content"
-    t.integer  "user_id"
-    t.integer  "versionable_id"
-    t.string   "versionable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "storytime_versions", ["user_id"], name: "index_storytime_versions_on_user_id"
-  add_index "storytime_versions", ["versionable_type", "versionable_id"], name: "versionable_index"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["storytime_role_id"], name: "index_users_on_storytime_role_id"
 
 end

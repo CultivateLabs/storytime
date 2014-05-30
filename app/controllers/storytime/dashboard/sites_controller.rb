@@ -20,6 +20,7 @@ module Storytime
         authorize @site
 
         if @site.save
+          current_user.update_attributes(storytime_role: Role.find_by(name: "admin"))
           redirect_to edit_dashboard_site_url(@site), notice: I18n.t('flash.sites.create.success')
         else
           render :new
