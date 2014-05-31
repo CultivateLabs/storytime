@@ -1,31 +1,29 @@
+class Storytime::ApplicationController < ApplicationController
+  layout Storytime.layout || "storytime/application"
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  helper :all
 
-  class Storytime::ApplicationController < ApplicationController
-    layout Storytime.layout || "storytime/application"
-    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-    helper :all
-
-    def setup
-      url = if Storytime.user_class.count == 0
-        main_app.new_user_registration_url
-      elsif current_user.nil?
-        main_app.new_user_session_url
-      elsif Storytime::Site.count == 0
-        new_dashboard_site_url
-      else
-        dashboard_posts_url
-      end
-
-      redirect_to url
+  def setup
+    url = if Storytime.user_class.count == 0
+      main_app.new_user_registration_url
+    elsif current_user.nil?
+      main_app.new_user_session_url
+    elsif Storytime::Site.count == 0
+      new_dashboard_site_url
+    else
+      dashboard_posts_url
     end
 
-  private
-    def ensure_site
-      redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.first
-    end
-    
-    def user_not_authorized
-      flash[:error] = "You are not authorized to perform this action."
-      redirect_to(request.referrer || root_path)
-    end
+    redirect_to url
   end
 
+private
+  def ensure_site
+    redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.first
+  end
+  
+  def user_not_authorized
+    flash[:error] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
+end

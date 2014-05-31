@@ -2,7 +2,7 @@ module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
 
-    belongs_to :user
+    belongs_to Storytime.user_class_symbol
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 
@@ -15,7 +15,9 @@ module Storytime
     end
 
     def self.tag_counts
-      Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_taggings.tag_id")
+      Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_tags.id")
+
+      #Tagging.group("storytime_taggings.tag_id").includes(:tag)
     end
 
     def tag_list

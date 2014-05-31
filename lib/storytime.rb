@@ -7,5 +7,10 @@ module Storytime
     def configure
       yield self
     end
+
+    def user_class_symbol
+      user_class.to_s.underscore.to_sym
+    end
+    
   end
 end
