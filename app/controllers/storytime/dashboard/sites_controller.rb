@@ -5,7 +5,7 @@ module Storytime
     class SitesController < DashboardController
       before_action :set_site, only: [:edit, :update]
       before_action :redirect_if_site_exists, only: :new
-
+      
       def new
         @site = Site.new
         authorize @site
