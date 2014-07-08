@@ -1,7 +1,8 @@
 Storytime::Engine.routes.draw do
-  resources :posts, only: [:show, :index]
+  resources :posts, only: [:show, :index], path: :blog
 
   namespace :dashboard do
+    get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :posts, except: [:show]
     resources :pages, except: [:show]
