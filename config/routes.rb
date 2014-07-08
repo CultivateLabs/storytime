@@ -1,5 +1,5 @@
 Storytime::Engine.routes.draw do
-  resources :posts, only: [:show, :index], path: :blog
+  resources :posts, only: [:show, :index]
 
   namespace :dashboard do
     get "/", to: "posts#index"
