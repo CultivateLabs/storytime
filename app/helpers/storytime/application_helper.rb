@@ -34,18 +34,5 @@ module Storytime
         yield(tag, classes[index.round])
       end
     end
-
-    def resource_name
-      Storytime.user_class_symbol
-    end
-   
-    def resource
-      @resource ||= Storytime.user_class.new
-    end
-   
-    def devise_mapping
-      @devise_mapping ||= Devise.mappings[resource_name]
-    end
-
   end
 end
