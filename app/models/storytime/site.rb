@@ -10,7 +10,7 @@ module Storytime
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed
-      current_user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
+      user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
       save
     end
   end
