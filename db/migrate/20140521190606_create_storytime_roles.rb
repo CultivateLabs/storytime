@@ -5,7 +5,5 @@ class CreateStorytimeRoles < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    Storytime::Role.seed
   end
 end
