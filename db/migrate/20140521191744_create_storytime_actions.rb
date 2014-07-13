@@ -6,8 +6,5 @@ class CreateStorytimeActions < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    Storytime::Action.seed
-    Storytime::Permission.seed
   end
 end
