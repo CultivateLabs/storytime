@@ -21,5 +21,5 @@ Storytime::Engine.routes.draw do
 
   resources :pages, only: [:show], path: "/"
 
-  root to: "application#setup" # should only get here during app setup
+  get "/", to: "application#setup", as: :storytime_root # should only get here during app setup
 end

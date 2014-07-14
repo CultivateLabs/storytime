@@ -10,7 +10,7 @@ module Storytime
         if media.file_url.starts_with?("http")
           media.file_url
         else
-          root_url[0..-2]+media.file_url
+          storytime_root_url[0..-2]+media.file_url
         end
       end
     end
