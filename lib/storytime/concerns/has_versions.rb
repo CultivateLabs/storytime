@@ -37,7 +37,19 @@ module Storytime
       end
 
       def publish!
-        self.update_columns(self.class.draft_content_column => self.latest_version.content, :published => true)
+        self.update_columns(self.class.draft_content_column => self.latest_version.content, :published_at => Time.now)
+      end
+
+      def published=(val)
+        self.published_at = Time.now if val == "1"
+      end
+
+      def published
+        !published_at.nil?
+      end
+
+      def published?
+        published
       end
 
       included do
@@ -49,7 +61,7 @@ module Storytime
 
         self.draft_content_column = :content
 
-        scope :published, -> { where(published: true) }
+        scope :published, -> { where("published_at is not null") }
       end
 
       module ClassMethods

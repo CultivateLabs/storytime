@@ -5,7 +5,7 @@ class CreateStorytimePosts < ActiveRecord::Migration
       t.string :title
       t.text :content
       t.text :excerpt
-      t.boolean :published
+      t.datetime :published_at
       t.string :post_type
 
       t.timestamps

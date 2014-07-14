@@ -4,6 +4,7 @@ module Storytime
   class PostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     def index
+      binding.pry
       @posts = if params[:tag]
         Post.tagged_with(params[:tag])
       else

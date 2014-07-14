@@ -5,7 +5,7 @@ class CreateStorytimePages < ActiveRecord::Migration
       t.string :title
       t.string :slug
       t.text :content
-      t.boolean :published
+      t.datetime :published_at
 
       t.timestamps
     end
