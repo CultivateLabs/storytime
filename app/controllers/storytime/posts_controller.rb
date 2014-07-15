@@ -7,7 +7,8 @@ module Storytime
       @posts = if params[:tag]
         Post.tagged_with(params[:tag])
       elsif params[:post_type]
-        PostType.find_by(name: params[:post_type]).posts
+        @post_type = PostType.find_by(name: params[:post_type])
+        @post_type.posts
       else
         Post.where(post_type_id: nil)
       end
