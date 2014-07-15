@@ -9,6 +9,13 @@ en:
         success: "Post successfully updated."
       destroy:
         success: "Post successfully deleted."
+    post_types:
+      create:
+        success: "Post type successfully created."
+      update:
+        success: "Post type successfully updated."
+      destroy:
+        success: "Post type successfully deleted."
     pages:
       create:
         success: "Page successfully created."

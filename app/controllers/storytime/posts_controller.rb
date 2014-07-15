@@ -6,8 +6,10 @@ module Storytime
     def index
       @posts = if params[:tag]
         Post.tagged_with(params[:tag])
+      elsif params[:post_type]
+        PostType.find_by(name: params[:post_type]).posts
       else
-        Post.all
+        Post.where(post_type_id: nil)
       end
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)
 

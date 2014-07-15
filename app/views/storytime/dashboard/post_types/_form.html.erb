@@ -1,0 +1,8 @@
+<%= simple_form_for [:dashboard, @post_type] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name, autofocus: true %>
+  
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

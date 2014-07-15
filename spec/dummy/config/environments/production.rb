@@ -35,6 +35,11 @@ Rails.application.configure do
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
 
+  # %w(stylesheets javascripts fonts images).each do |sub|
+  #   config.assets.paths << root.join('assets', sub)
+  # end
+  config.assets.precompile << %r(storytime/bootstrap/glyphicons-halflings-regular\.(?:eot|svg|ttf|woff)$)
+
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx

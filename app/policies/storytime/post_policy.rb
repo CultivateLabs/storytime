@@ -62,9 +62,9 @@ module Storytime
 
     def permitted_attributes
       if publish?
-        [:title, :draft_content, :draft_version_id, :excerpt, :post_type, :tag_list, :published]
+        [:title, :draft_content, :draft_version_id, :excerpt, :post_type, :tag_list, :post_type_id, :published]
       else
-        [:title, :draft_content, :draft_version_id, :excerpt, :post_type, :tag_list]
+        [:title, :draft_content, :draft_version_id, :excerpt, :post_type, :tag_list, :post_type_id]
       end
     end
   end

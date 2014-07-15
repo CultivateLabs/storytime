@@ -3,6 +3,7 @@ module Storytime
     include Storytime::Concerns::HasVersions
 
     belongs_to Storytime.user_class_symbol
+    belongs_to :post_type
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 

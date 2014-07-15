@@ -1,10 +1,12 @@
 Storytime::Engine.routes.draw do
+  get 'posts/types/:post_type', to: "posts#index"
   resources :posts, only: [:show, :index]
 
   namespace :dashboard do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :posts, except: [:show]
+    resources :post_types
     resources :pages, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :users

@@ -11,6 +11,7 @@
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
       <li <%= active_nav_item_class("posts") %>><%= link_to "Posts", storytime.dashboard_posts_path %></li>
+      <li <%= active_nav_item_class("post_types") %>><%= link_to "Post Types", storytime.dashboard_post_types_path %></li>
       <li <%= active_nav_item_class("pages") %>><%= link_to "Pages", storytime.dashboard_pages_path %></li>
       <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.dashboard_media_index_path %></li>
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
