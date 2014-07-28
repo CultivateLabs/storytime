@@ -1,6 +1,7 @@
 <%= simple_form_for [:dashboard, @page] do |f| %>
   <%= f.error_notification %>
   <%= f.input :title, autofocus: true %>
+  <%= f.association :post_type if Storytime::PostType.any? %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   <% if Pundit.policy(current_user, @page).publish? %>
     <div class="checkbox">

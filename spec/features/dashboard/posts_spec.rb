@@ -15,9 +15,11 @@ describe "In the dashboard, Posts" do
   
   it "creates a post" do
     Storytime::Post.count.should == 0
+    pt = FactoryGirl.create(:post_type)
 
     visit new_dashboard_post_path
     fill_in "post_title", with: "The Story"
+    select pt.name, from: "post_post_type_id"
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_button "Create Post"
@@ -30,6 +32,7 @@ describe "In the dashboard, Posts" do
     post.draft_content.should == "It was a dark and stormy night..."
     post.user.should == current_user
     post.should_not be_published
+    post.post_type.should == pt
   end
 
   it "updates a post" do

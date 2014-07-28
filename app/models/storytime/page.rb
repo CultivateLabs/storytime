@@ -2,8 +2,10 @@ module Storytime
   class Page < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
     extend FriendlyId
-    belongs_to Storytime.user_class_symbol
     friendly_id :title, use: [:history]
+
+    belongs_to Storytime.user_class_symbol
+    belongs_to :post_type
 
     validates_presence_of :title, :draft_content
 

@@ -16,7 +16,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.register_driver :poltergeist_st do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0'])
+    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
   end
 
 Capybara.javascript_driver = :poltergeist_st
@@ -29,6 +29,11 @@ RSpec.configure do |config|
     Storytime::Role.seed
     Storytime::Action.seed
     Storytime::Permission.seed
+  end
+
+  config.after(type: :feature) do 
+    page.driver.reset! 
+    Capybara.reset_sessions!
   end
   # ## Mock Framework
   #

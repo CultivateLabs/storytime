@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714020907) do
+ActiveRecord::Schema.define(version: 20140728205557) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -50,8 +50,10 @@ ActiveRecord::Schema.define(version: 20140714020907) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "post_type_id"
   end
 
+  add_index "storytime_pages", ["post_type_id"], name: "index_storytime_pages_on_post_type_id"
   add_index "storytime_pages", ["user_id"], name: "index_storytime_pages_on_user_id"
 
   create_table "storytime_permissions", force: true do |t|
