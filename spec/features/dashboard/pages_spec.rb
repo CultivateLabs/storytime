@@ -15,9 +15,11 @@ describe "In the dashboard, Pages" do
   
   it "creates a page" do
     Storytime::Page.count.should == 0
+    pt = FactoryGirl.create(:post_type)
 
     visit new_dashboard_page_path
     fill_in "page_title", with: "The Story"
+    select pt.name, from: "page_post_type_id"
     fill_in "page_draft_content", with: "It was a dark and stormy night..."
     click_button "Create Page"
     
@@ -29,6 +31,7 @@ describe "In the dashboard, Pages" do
     pg.draft_content.should == "It was a dark and stormy night..."
     pg.user.should == current_user
     pg.should_not be_published
+    pg.post_type.should == pt
   end
 
   it "updates a page" do
