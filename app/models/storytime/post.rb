@@ -11,6 +11,8 @@ module Storytime
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..200 }
 
+    before_validation :populate_excerpt_from_content
+
     def self.tagged_with(name)
       Tag.find_by_name!(name).posts
     end
@@ -30,6 +32,10 @@ module Storytime
       self.tags = names.split(",").map do |n|
         Tag.where(name: n.strip).first_or_create!
       end
+    end
+
+    def populate_excerpt_from_content
+      self.excerpt = content.slice(0..100) if excerpt.blank?
     end
   end
 end

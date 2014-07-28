@@ -9,6 +9,7 @@ Storytime::Engine.routes.draw do
     resources :post_types
     resources :pages, except: [:show]
     resources :media, except: [:show, :edit, :update]
+    resources :imports, only: [:new, :create]
     resources :users
     resources :roles do 
       collection do

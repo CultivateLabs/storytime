@@ -32,7 +32,7 @@ describe "In the dashboard, Pages" do
   end
 
   it "updates a page" do
-    pg = FactoryGirl.create(:page, published: false)
+    pg = FactoryGirl.create(:page, published_at: nil)
     original_creator = pg.user
     Storytime::Page.count.should == 1
 

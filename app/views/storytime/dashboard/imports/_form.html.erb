@@ -1,0 +1,5 @@
+<%= simple_form_for :import, url: dashboard_imports_url do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :file, as: :file, label: "Upload File" %>
+  <%= f.submit %>
+<% end %>

@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:draft_content) { |i| "Post ##{i}. It was a dark and stormy night. The End." }
     sequence(:excerpt) { |i| "Post ##{i}. It was a dark and stormy night." }
     tag_list ""
-    published true
+    published_at { Time.now }
     post_type nil
   end
 end

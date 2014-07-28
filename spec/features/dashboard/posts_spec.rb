@@ -36,7 +36,7 @@ describe "In the dashboard, Posts" do
   end
 
   it "updates a post" do
-    post = FactoryGirl.create(:post, published: false)
+    post = FactoryGirl.create(:post, published_at: nil)
     original_creator = post.user
     Storytime::Post.count.should == 1
 
