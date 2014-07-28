@@ -20,7 +20,6 @@ module Storytime
             end
 
             if item.xpath("wp:status").text == "publish"
-              binding.pry
               pub_date = item.xpath("pubDate").text
               if pub_date && !pub_date.blank?
                 post.published_at = Time.strptime(pub_date, "%a, %d %b %Y %H:%M:%S %z")
