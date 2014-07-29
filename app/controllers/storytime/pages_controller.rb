@@ -13,6 +13,7 @@ module Storytime
       end
 
       #allow overriding in the host app
+      render @page.post_type if @page.post_type && lookup_context.template_exists?("storytime/pages/#{@page.post_type}")
       render @page.slug if lookup_context.template_exists?("storytime/pages/#{@page.slug}")
     end
   end
