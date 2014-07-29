@@ -1,6 +1,6 @@
 .media-file{
   float: left;
-  padding: 15px 20px;
+  padding: 15px 19px;
   width: 112px;
   border-top: 1px solid #dddddd;
 
@@ -14,4 +14,14 @@
     text-align: center;
     margin-top: 20px;
   }
+}
+
+#mediaByUrlSelectButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#featured_media_image{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

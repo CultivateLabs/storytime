@@ -3,6 +3,7 @@ class Storytime.Dashboard.Editor
     mediaInstance = new Storytime.Dashboard.Media()
     mediaInstance.initPagination()
     mediaInstance.initInsert()
+    mediaInstance.initFeaturedImageSelector()
 
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()

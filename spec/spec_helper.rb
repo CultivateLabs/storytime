@@ -66,3 +66,7 @@ RSpec.configure do |config|
   config.include Storytime::Engine.routes.url_helpers
   config.include Devise::TestHelpers, type: :controller
 end
+
+def have_image(url)
+  have_xpath("//img[@src='#{url}']")
+end

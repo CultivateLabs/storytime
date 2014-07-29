@@ -6,6 +6,7 @@ module Storytime
 
     belongs_to Storytime.user_class_symbol
     belongs_to :post_type
+    belongs_to :featured_media, class_name: "Media"
 
     validates_presence_of :title, :draft_content
 

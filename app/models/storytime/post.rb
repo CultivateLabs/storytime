@@ -6,6 +6,7 @@ module Storytime
     belongs_to :post_type
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
+    belongs_to :featured_media, class_name: "Media"
 
     validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..200 }

@@ -3,11 +3,16 @@ require 'spec_helper'
 describe "In the dashboard, Media" do
   include Storytime::Dashboard::MediaHelper
 
-  before{ login }
-
-  def have_image(url)
-    have_xpath("//img[@src='#{url}']")
+  # needed because our wysiwyg text area is hidden
+  def wait_until
+    require "timeout"
+    Timeout.timeout(Capybara.default_wait_time + 5) do
+      sleep(0.1) until value = yield
+      value
+    end
   end
+
+  before{ login }
   
   it "creates media", js: true do
     visit dashboard_media_index_path
@@ -54,6 +59,11 @@ describe "In the dashboard, Media" do
     find(".insert-image-button").click
 
     page.should_not have_selector("#insertMediaModal")
+    #content_text_area = find("#post_draft_content", visible: false)
+    
+    wait_until do
+      find("#post_draft_content", visible: false).value =~ /#{media.file_url}/
+    end
     find("#post_draft_content", visible: false).value.should =~ /#{media.file_url}/
   end
   

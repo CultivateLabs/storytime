@@ -23,8 +23,32 @@ class Storytime.Dashboard.Media
       @uploadInitialized = true
 
   initInsert: ()->
+    self = @
     $(document).on "click", ".insert-image-button", (e)->
       e.preventDefault()
-      wysihtml5Editor = $("textarea.wysiwyg").data("wysihtml5").editor
-      wysihtml5Editor.composer.commands.exec("insertImage", { src: $(@).data("image-url") })
-      $("#insertMediaModal").modal("hide")
+      console.log "insert image clicked"
+      if self.selectingFeatured
+        console.log "inserting image"
+        $("#featured_media_id").val $(@).data("media-id")
+        if $("#featured_media_image").length > 0
+          $("#featured_media_image").attr("src", $(@).data("thumb-url"))
+        else
+          console.log "inserting image into container #{$(@).data("thumb-url")}"
+          $("#featured_media_container").html("<img id='featured_media_image' src='#{$(@).data("thumb-url")}' />")
+
+        $("#insertMediaModal").modal("hide")
+
+      else
+        wysihtml5Editor = $("textarea.wysiwyg").data("wysihtml5").editor
+        wysihtml5Editor.composer.commands.exec("insertImage", { src: $(@).data("image-url") })
+        $("#insertMediaModal").modal("hide")
+
+  initFeaturedImageSelector: ()->
+    self = @
+    $(document).on "click", "#featured_media_button", (e)->
+      e.preventDefault()
+      self.selectingFeatured = true
+      $("#insertMediaModal").modal("show")
+
+    $(document).on 'hidden.bs.modal', ()->
+      self.selectingFeatured = false

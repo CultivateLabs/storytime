@@ -35,4 +35,8 @@ module FeatureMacros
   def setup_site
     @current_site = FactoryGirl.create(:site)
   end
+
+  def base_url
+    "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}"
+  end
 end

@@ -16,11 +16,14 @@ describe "In the dashboard, Pages" do
   it "creates a page" do
     Storytime::Page.count.should == 0
     pt = FactoryGirl.create(:post_type)
+    media = FactoryGirl.create(:media)
 
     visit new_dashboard_page_path
     fill_in "page_title", with: "The Story"
     select pt.name, from: "page_post_type_id"
     fill_in "page_draft_content", with: "It was a dark and stormy night..."
+    find("#featured_media_id").set media.id
+    
     click_button "Create Page"
     
     page.should have_content(I18n.t('flash.pages.create.success'))
@@ -32,6 +35,7 @@ describe "In the dashboard, Pages" do
     pg.user.should == current_user
     pg.should_not be_published
     pg.post_type.should == pt
+    pg.featured_media.should == media
   end
 
   it "updates a page" do
