@@ -30,9 +30,9 @@ describe Storytime::Importers::Wordpress do
       expect(posts[2].published_at).to eq(Time.strptime("Mon, 28 Jul 2014 02:43:07 +0000", "%a, %d %b %Y %H:%M:%S %z"))
 
       expect(posts[3].title).to eq("this is a draft post")
-      expect(posts[3].content).to match("After you read this")
+      expect(posts[3].content).to match("this is the content of a draft post")
       expect(posts[3].user).to eq(user)
-      expect(posts[3].created_at).to eq(Time.strptime("2011-08-16 22:00:35 UTC", "%Y-%m-%d %H:%M:%S %Z"))
+      expect(posts[3].created_at.to_date).to eq(Date.today)
       expect(posts[3].published_at).to be_nil
     end
   end
