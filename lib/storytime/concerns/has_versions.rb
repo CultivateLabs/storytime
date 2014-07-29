@@ -37,11 +37,13 @@ module Storytime
       end
 
       def publish!
-        self.update_columns(self.class.draft_content_column => self.latest_version.content, :published_at => Time.now)
+        attrs = {self.class.draft_content_column => self.latest_version.content}
+        attrs[:published_at] = Time.now if published_at.blank?
+        self.update_columns(attrs)
       end
 
       def published=(val)
-        self.published_at = Time.now if val == "1"
+        self.published_at = Time.now if val == "1" && published_at.blank?
       end
 
       def published
