@@ -8,7 +8,7 @@ module Storytime
       
       @page = Page.published.friendly.find(params[:id])
 
-      if request.path != page_path(@page)
+      if request.path != page_path(@page) && request.path != "/"
         return redirect_to @page, :status => :moved_permanently
       end
 
