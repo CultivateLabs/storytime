@@ -2,10 +2,12 @@ module Storytime
   class PostType < ActiveRecord::Base
     has_many :posts
 
+    validates :name, uniqueness: true
+
     DEFAULT_TYPE_NAME = "blog"
 
     def self.default_type
-      find_by(name: DEFAULT_TYPE_NAME)
+      find_or_create_by(name: DEFAULT_TYPE_NAME, permanent: true)
     end
 
     def self.seed
