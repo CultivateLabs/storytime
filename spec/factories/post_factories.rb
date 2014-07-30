@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:excerpt) { |i| "Post ##{i}. It was a dark and stormy night." }
     tag_list ""
     published_at { Time.now }
-    post_type { Storytime::PostType.find_by(name: Storytime::PostType::DEFAULT_TYPE_NAME) }
+    post_type { Storytime::PostType.default_type }
 
     factory :page do
       post_type { Storytime::PostType.find_by(name: "page") }

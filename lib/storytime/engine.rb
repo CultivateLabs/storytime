@@ -11,7 +11,6 @@ require 'nokogiri'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
-require 'storytime/constraints/root_constraint'
 require 'storytime/controller_helpers'
 
 require 'storytime/importers/importer'

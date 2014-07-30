@@ -32,7 +32,7 @@ describe "In the dashboard, Posts" do
     post.draft_content.should == "It was a dark and stormy night..."
     post.user.should == current_user
     post.should_not be_published
-    post.post_type.should == Storytime::PostType.find_by(name: Storytime::PostType::DEFAULT_TYPE_NAME)
+    post.post_type.should == Storytime::PostType.default_type
     post.featured_media.should == media
   end
 

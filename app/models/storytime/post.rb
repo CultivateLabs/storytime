@@ -18,8 +18,8 @@ module Storytime
     before_validation :populate_excerpt_from_content
 
     scope :page_posts, ->{ where(post_type_id: Storytime::PostType.find_by(name: "page")) }
-    scope :blog_posts, ->{ where(post_type_id: nil) }
-    scope :non_blog_posts, ->{ where('storytime_posts.post_type_id is not null') }
+    scope :blog_posts, ->{ where(post_type_id: Storytime::PostType.default_type.id) }
+    scope :non_blog_posts, ->{ where('storytime_posts.post_type_id != ?', Storytime::PostType.default_type.id) }
 
     def self.tagged_with(name)
       if t = Storytime::Tag.find_by(name: name)
@@ -33,6 +33,25 @@ module Storytime
       Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_tags.id")
 
       #Tagging.group("storytime_taggings.tag_id").includes(:tag)
+    end
+
+    def to_param
+      slug = super
+      site = Storytime::Site.first
+      case site.post_slug_style
+      when "default"
+        "posts/#{slug}"
+      when "day_and_name" 
+        date = created_at.to_date
+        "#{date.year}/#{date.month}/#{date.day}/#{slug}"
+      when "month_and_name"
+        date = created_at.to_date
+        "#{date.year}/#{date.month}/#{slug}"
+      when "post_name"
+        slug
+      else
+        slug
+      end
     end
 
     def tag_list

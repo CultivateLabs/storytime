@@ -16,11 +16,13 @@ module Storytime
     end
 
     def show
-      params[:id] = @site.root_post_id if request.path == "/"
+      @post = if request.path == "/"
+        Post.published.find @site.root_post_id 
+      else
+        Post.published.friendly.find(params[:id])
+      end
       
-      @post = Post.published.friendly.find(params[:id])
-
-      if request.path != post_path(@post) && request.path != "/"
+      if params[:id] != @post.slug && request.path != "/"
         return redirect_to @post, :status => :moved_permanently
       end
 
