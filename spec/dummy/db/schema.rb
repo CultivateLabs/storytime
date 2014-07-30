@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729005754) do
+ActiveRecord::Schema.define(version: 20140714015418) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -42,21 +42,6 @@ ActiveRecord::Schema.define(version: 20140729005754) do
 
   add_index "storytime_media", ["user_id"], name: "index_storytime_media_on_user_id"
 
-  create_table "storytime_pages", force: true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "slug"
-    t.text     "content"
-    t.datetime "published_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "post_type_id"
-    t.integer  "featured_media_id"
-  end
-
-  add_index "storytime_pages", ["post_type_id"], name: "index_storytime_pages_on_post_type_id"
-  add_index "storytime_pages", ["user_id"], name: "index_storytime_pages_on_user_id"
-
   create_table "storytime_permissions", force: true do |t|
     t.integer  "role_id"
     t.integer  "action_id"
@@ -69,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140729005754) do
 
   create_table "storytime_post_types", force: true do |t|
     t.string   "name"
+    t.boolean  "permanent",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,14 +62,14 @@ ActiveRecord::Schema.define(version: 20140729005754) do
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
+    t.string   "slug"
     t.text     "content"
     t.text     "excerpt"
     t.datetime "published_at"
-    t.string   "post_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "post_type_id"
     t.integer  "featured_media_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "storytime_posts", ["post_type_id"], name: "index_storytime_posts_on_post_type_id"
@@ -97,17 +83,17 @@ ActiveRecord::Schema.define(version: 20140729005754) do
 
   create_table "storytime_sites", force: true do |t|
     t.string   "title"
-    t.integer  "post_slug_style",       default: 0
+    t.integer  "post_slug_style",   default: 0
     t.string   "ga_tracking_id"
-    t.integer  "root_page_content",     default: 0
+    t.integer  "root_page_content", default: 0
+    t.integer  "root_post_id"
     t.text     "header"
     t.text     "footer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "selected_root_page_id"
   end
 
-  add_index "storytime_sites", ["selected_root_page_id"], name: "index_storytime_sites_on_selected_root_page_id"
+  add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id"
 
   create_table "storytime_taggings", force: true do |t|
     t.integer  "tag_id"

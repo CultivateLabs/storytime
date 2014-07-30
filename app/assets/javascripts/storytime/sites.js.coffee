@@ -11,6 +11,6 @@ class Storytime.Dashboard.Sites
   initForm: ()->
     $("#site_root_page_content").change ()->
       if @value == "page"
-        $(".site_selected_root_page_id").removeClass("hide")
+        $(".site_root_post_id").removeClass("hide")
       else
-        $(".site_selected_root_page_id").addClass("hide")
+        $(".site_root_post_id").addClass("hide")

@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Storytime::Post do
+  it "Sets the page slug on create" do
+    post = FactoryGirl.create(:post)
+    post.slug.should == post.title.parameterize
+  end
+
   it "creates tags from tag_list attribute" do
     post = FactoryGirl.create(:post)
     post.tag_list = "tag1, tag2"

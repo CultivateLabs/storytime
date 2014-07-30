@@ -1,6 +1,9 @@
 module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
+    
+    extend FriendlyId
+    friendly_id :title, use: [:history]
 
     belongs_to Storytime.user_class_symbol
     belongs_to :post_type
@@ -8,14 +11,22 @@ module Storytime
     has_many :tags, through: :taggings
     belongs_to :featured_media, class_name: "Media"
 
-    validates_presence_of :title, :excerpt, :draft_content
+    validates_presence_of :title, :excerpt, :draft_content, :post_type_id
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..200 }
 
     before_validation :populate_excerpt_from_content
 
+    scope :page_posts, ->{ where(post_type_id: Storytime::PostType.find_by(name: "page")) }
+    scope :blog_posts, ->{ where(post_type_id: nil) }
+    scope :non_blog_posts, ->{ where('storytime_posts.post_type_id is not null') }
+
     def self.tagged_with(name)
-      Tag.find_by_name!(name).posts
+      if t = Storytime::Tag.find_by(name: name)
+        joins(:taggings).where(storytime_taggings: { tag_id: t.id }) 
+      else
+        none
+      end
     end
 
     def self.tag_counts
@@ -36,7 +47,7 @@ module Storytime
     end
 
     def populate_excerpt_from_content
-      self.excerpt = content.slice(0..100) if excerpt.blank?
+      self.excerpt = (content || draft_content).slice(0..100) if excerpt.blank?
     end
   end
 end

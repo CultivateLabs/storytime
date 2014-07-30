@@ -1,7 +1,7 @@
 <div id="list" class="pane">
   <h3 class="heading">
-    Blog Posts
-    <%= link_to new_dashboard_post_path, class: "btn btn-info btn-sm pull-right" do %>
+    <%= current_post_type.name.humanize.pluralize %>
+    <%= link_to new_dashboard_post_path(post_type: current_post_type.name), class: "btn btn-info btn-sm pull-right" do %>
       <i class="glyphicon glyphicon-plus"></i>
     <% end %>
   </h3>

@@ -5,9 +5,14 @@ module Storytime
       site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
 
-    def active_nav_item_class(controller)
-      unless ["storytime/pages", "storytime/posts"].include? params[:controller]
-        'class="active"'.html_safe if controller == params[:controller].split("/").last
+    def active_nav_item_class(controller, type = nil)
+      return if ["storytime/pages", "storytime/posts"].include? params[:controller]
+      
+      current_controller = params[:controller].split("/").last
+      if current_controller == "posts"
+        'class="active"'.html_safe if controller == "posts" && type == params[:post_type]
+      elsif controller == current_controller
+        'class="active"'.html_safe
       end
     end
 

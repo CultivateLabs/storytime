@@ -5,6 +5,7 @@ class CreateStorytimeSites < ActiveRecord::Migration
       t.integer :post_slug_style, default: 0
       t.string :ga_tracking_id
       t.integer :root_page_content, default: 0
+      t.references :root_post, index: true
       t.text :header
       t.text :footer
 

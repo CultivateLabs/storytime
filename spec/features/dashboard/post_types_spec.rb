@@ -13,14 +13,14 @@ describe "In the dashboard, PostTypes" do
   end
   
   it "creates a post_type" do
-    Storytime::PostType.count.should == 0
+    count = Storytime::PostType.count
 
     visit new_dashboard_post_type_path
     fill_in "post_type_name", with: "Travel"
     click_button "Create Post type"
     
     page.should have_content(I18n.t('flash.post_types.create.success'))
-    Storytime::PostType.count.should == 1
+    Storytime::PostType.count.should == count+1
 
     expect(Storytime::PostType.last.name).to eq("Travel")    
   end
@@ -28,14 +28,14 @@ describe "In the dashboard, PostTypes" do
   it "updates a post_type" do
     post_type = FactoryGirl.create(:post_type)
     original_name = post_type.name
-    Storytime::PostType.count.should == 1
+    count = Storytime::PostType.count
 
     visit edit_dashboard_post_type_path(post_type)
     fill_in "post_type_name", with: "New name"
     click_button "Update Post type"
     
     page.should have_content(I18n.t('flash.post_types.update.success'))
-    Storytime::PostType.count.should == 1
+    Storytime::PostType.count.should == count
 
     expect(Storytime::PostType.last.name).to eq("New name")
   end

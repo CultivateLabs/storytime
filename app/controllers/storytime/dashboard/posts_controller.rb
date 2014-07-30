@@ -16,6 +16,7 @@ module Storytime
 
       def new
         @post = current_user.storytime_posts.new
+        @post.post_type = current_post_type
         authorize @post
       end
 
@@ -54,18 +55,24 @@ module Storytime
         respond_with [:dashboard, @post]
       end
 
-      private
-        def set_post
-          @post = Post.find(params[:id])
-        end
+    private
 
-        def load_posts
-          @posts = policy_scope(Storytime::Post).page(params[:page]).per(10)
-        end
+      def current_post_type
+        @post_type ||= PostType.find_by(name: params[:post_type] || (@post && @post.post_type.name) || PostType::DEFAULT_TYPE_NAME)
+      end
+      helper_method :current_post_type
 
-        def post_params
-          params.require(:post).permit(*policy(@post || current_user.storytime_posts.new).permitted_attributes)
-        end
+      def set_post
+        @post = Post.friendly.find(params[:id])
+      end
+
+      def load_posts
+        @posts = policy_scope(Storytime::Post).where(post_type_id: current_post_type.id).page(params[:page]).per(10)
+      end
+
+      def post_params
+        params.require(:post).permit(*policy(@post || current_user.storytime_posts.new).permitted_attributes)
+      end
     end
   end
 end

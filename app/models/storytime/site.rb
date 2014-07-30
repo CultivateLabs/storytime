@@ -3,15 +3,20 @@ module Storytime
     enum post_slug_style: [:default, :day_and_name, :month_and_name, :post_name]
     enum root_page_content: [:posts, :page]
 
-    validates :selected_root_page_id, presence: true, if: ->(site){ site.root_page_content == "page" }
+    validates :root_post_id, presence: true, if: ->(site){ site.root_page_content == "page" }
     validates :title, length: { in: 1..200 }
 
     def save_with_seeds(user)
+      setup_seeds
+      user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
+      save
+    end
+
+    def setup_seeds
+      Storytime::PostType.seed
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed
-      user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
-      save
     end
   end
 end

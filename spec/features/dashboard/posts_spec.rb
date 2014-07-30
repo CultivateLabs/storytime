@@ -15,16 +15,14 @@ describe "In the dashboard, Posts" do
   
   it "creates a post" do
     Storytime::Post.count.should == 0
-    pt = FactoryGirl.create(:post_type)
     media = FactoryGirl.create(:media)
 
     visit new_dashboard_post_path
     fill_in "post_title", with: "The Story"
-    select pt.name, from: "post_post_type_id"
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
-    click_button "Create Post"
+    click_button "Create Blog"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::Post.count.should == 1
@@ -34,7 +32,7 @@ describe "In the dashboard, Posts" do
     post.draft_content.should == "It was a dark and stormy night..."
     post.user.should == current_user
     post.should_not be_published
-    post.post_type.should == pt
+    post.post_type.should == Storytime::PostType.find_by(name: Storytime::PostType::DEFAULT_TYPE_NAME)
     post.featured_media.should == media
   end
 
@@ -46,7 +44,7 @@ describe "In the dashboard, Posts" do
     visit edit_dashboard_post_path(post)
     fill_in "post_title", with: "The Story"
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
-    click_button "Update Post"
+    click_button "Update Blog"
     
     page.should have_content(I18n.t('flash.posts.update.success'))
     Storytime::Post.count.should == 1

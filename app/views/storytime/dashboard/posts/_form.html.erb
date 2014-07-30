@@ -1,7 +1,7 @@
 <%= simple_form_for [:dashboard, @post] do |f| %>
   <%= f.error_notification %>
-  <%= f.association :post_type if Storytime::PostType.any? %>
   <%= f.input :title, autofocus: true %>
+  <%= f.input :post_type_id, as: :hidden %>
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   
@@ -22,7 +22,7 @@
   <% end %>
   
   <div class="actions">
-    <%= f.submit class: "btn btn-primary" %>
+    <%= f.submit (@post.new_record? ? "Create #{current_post_type.name.humanize}" : "Update #{current_post_type.name.humanize}"), class: "btn btn-primary" %>
   </div>
 <% end %>
 

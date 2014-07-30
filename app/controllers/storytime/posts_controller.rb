@@ -4,14 +4,9 @@ module Storytime
   class PostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     def index
-      @posts = if params[:tag]
-        Post.tagged_with(params[:tag])
-      elsif params[:post_type]
-        @post_type = PostType.find_by(name: params[:post_type])
-        @post_type.posts
-      else
-        Post.where(post_type_id: nil)
-      end
+      @post_type = PostType.find_by(name: params[:post_type] || PostType::DEFAULT_TYPE_NAME)
+      @posts = @post_type.posts
+      @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)
 
       respond_to do |format|
@@ -21,7 +16,17 @@ module Storytime
     end
 
     def show
-      @post = Post.published.find(params[:id])
+      params[:id] = @site.root_post_id if request.path == "/"
+      
+      @post = Post.published.friendly.find(params[:id])
+
+      if request.path != post_path(@post) && request.path != "/"
+        return redirect_to @post, :status => :moved_permanently
+      end
+
+      #allow overriding in the host app
+      render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
+      render @post.post_type if @post.post_type && lookup_context.template_exists?("storytime/posts/#{@post.post_type}")
     end
   end
 end

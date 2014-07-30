@@ -16,16 +16,15 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.register_driver :poltergeist_st do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
+    Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Logger.new('/dev/null'), phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
   end
 
 Capybara.javascript_driver = :poltergeist_st
 
-ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
-
 RSpec.configure do |config|
 
-  config.before(:suite) do
+  config.before(:each) do
+    Storytime::PostType.seed
     Storytime::Role.seed
     Storytime::Action.seed
     Storytime::Permission.seed
@@ -35,6 +34,7 @@ RSpec.configure do |config|
     page.driver.reset! 
     Capybara.reset_sessions!
   end
+  
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -43,13 +43,10 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
