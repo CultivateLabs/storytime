@@ -175,6 +175,9 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
+    pry-stack_explorer (0.4.9.1)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
     pundit (0.2.3)
       activesupport (>= 3.0.0)
     rack (1.5.2)
@@ -267,6 +270,7 @@ DEPENDENCIES
   guard-rspec (~> 4.2.8)
   poltergeist (~> 1.5)
   pry-nav
+  pry-stack_explorer
   rb-fsevent
   rspec-rails
   spring-commands-rspec

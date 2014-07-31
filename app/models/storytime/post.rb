@@ -35,25 +35,6 @@ module Storytime
       #Tagging.group("storytime_taggings.tag_id").includes(:tag)
     end
 
-    def to_param
-      slug = super
-      site = Storytime::Site.first
-      case site.post_slug_style
-      when "default"
-        "posts/#{slug}"
-      when "day_and_name" 
-        date = created_at.to_date
-        "#{date.year}/#{date.month}/#{date.day}/#{slug}"
-      when "month_and_name"
-        date = created_at.to_date
-        "#{date.year}/#{date.month}/#{slug}"
-      when "post_name"
-        slug
-      else
-        slug
-      end
-    end
-
     def tag_list
       tags.map(&:name).join(", ")
     end

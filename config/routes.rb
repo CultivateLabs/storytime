@@ -25,38 +25,19 @@ Storytime::Engine.routes.draw do
   end
 
   # using a page as the home page
-  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
+  constraints ->(request){ binding.pry; Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
     get "/", to: "posts#show"
     resources :posts, only: :index
   end
 
   # using blog index as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "posts" } do
-    resources :posts, path: "/", only: :index, as: :test_post
+    resources :posts, path: "/", only: :index, as: :root_post
   end
 
+  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show
 
-  #
-  # Post Slug Styles
-  #
-  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.post_slug_style == "default" } do
-    resources :posts, path: "/", only: :show  # /posts/post-slug
-  end
-  
-  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.post_slug_style == "day_and_name" } do
-    resources :posts, path: "/:year/:month/:day/", only: :show  # /1985/06/09/post-slug
-  end
-
-  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.post_slug_style == "month_and_name" } do 
-    resources :posts, path: "/:year/:month/", only: :show # /1985/06/post-slug
-  end
-
-  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.post_slug_style == "post_name" } do 
-    resources :posts, path: "/", only: :show # /post-slug
-  end
-
-
-  get "/:id", to: "posts#show" # for pages
+  #get "/:id", to: "posts#show" # for pages
 
   get "/", to: "application#setup", as: :storytime_root # should only get here during app setup
 end

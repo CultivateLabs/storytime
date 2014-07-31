@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "spring-commands-rspec"
   s.add_development_dependency "rb-fsevent"
   s.add_development_dependency "pry-nav"
+  s.add_development_dependency "pry-stack_explorer"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "better_errors"
   s.add_development_dependency "binding_of_caller"
