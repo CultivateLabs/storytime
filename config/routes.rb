@@ -25,7 +25,7 @@ Storytime::Engine.routes.draw do
   end
 
   # using a page as the home page
-  constraints ->(request){ binding.pry; Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
+  constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
     get "/", to: "posts#show"
     resources :posts, only: :index
   end
