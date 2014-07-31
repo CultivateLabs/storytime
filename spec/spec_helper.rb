@@ -34,6 +34,10 @@ RSpec.configure do |config|
     page.driver.reset! 
     Capybara.reset_sessions!
   end
+
+  config.after(:suite) do
+    Capybara.reset_sessions!
+  end
   
   # ## Mock Framework
   #

@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "guard-rspec", "~> 4.2.8"
   s.add_development_dependency "spring-commands-rspec"
+  s.add_development_dependency "spring", "1.1.3"
   s.add_development_dependency "rb-fsevent"
   s.add_development_dependency "pry-nav"
   s.add_development_dependency "pry-stack_explorer"
