@@ -9,7 +9,7 @@
     <ul>
       <% @posts.each do |post| %>
         <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(edit_dashboard_post_url(post)) %>">
-          <%= link_to post.title, edit_dashboard_post_url(post) %>
+          <%= link_to post.title, edit_dashboard_post_url(post, page: params[:page]) %>
           <span class="pull-right">
             <% unless post.published? %>
               <span class="label label-warning">Draft</span>
