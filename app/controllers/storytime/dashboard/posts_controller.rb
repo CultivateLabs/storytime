@@ -67,7 +67,7 @@ module Storytime
       end
 
       def load_posts
-        @posts = policy_scope(Storytime::Post).where(post_type_id: current_post_type.id).page(params[:page]).per(10)
+        @posts = policy_scope(Storytime::Post).where(post_type_id: current_post_type.id).order(created_at: :desc).page(params[:page]).per(10)
       end
 
       def post_params

@@ -13,7 +13,7 @@ module Storytime
 
     validates_presence_of :title, :excerpt, :draft_content, :post_type_id
     validates :title, length: { in: 1..200 }
-    validates :excerpt, length: { in: 1..200 }
+    validates :excerpt, length: { in: 1..400 }
 
     before_validation :populate_excerpt_from_content
 
@@ -47,7 +47,7 @@ module Storytime
     end
 
     def populate_excerpt_from_content
-      self.excerpt = (content || draft_content).slice(0..100) if excerpt.blank?
+      self.excerpt = (content || draft_content).slice(0..300) if excerpt.blank?
     end
   end
 end
