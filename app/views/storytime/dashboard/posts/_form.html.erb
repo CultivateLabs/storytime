@@ -3,7 +3,7 @@
   <%= f.input :title, autofocus: true %>
   <%= f.input :post_type_id, as: :hidden %>
   <%= f.input :excerpt %>
-  <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg-disabled" }, label: "Content" %>
+  <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   
   <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
   <%= link_to "Select Featured Image", "#", class: "btn btn-default", id: "featured_media_button" %>

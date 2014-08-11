@@ -4902,6 +4902,7 @@ wysihtml5.dom.parse = (function() {
         setAttributes       = rule.set_attributes,        // attributes to set on the current node
         checkAttributes     = rule.check_attributes,      // check/convert values of attributes
         allowedClasses      = currentRules.classes,
+        allowAllClasses     = currentRules.allowAllClasses,
         i                   = 0,
         classes             = [],
         newClasses          = [],
@@ -4960,7 +4961,7 @@ wysihtml5.dom.parse = (function() {
     classesLength = classes.length;
     for (; i<classesLength; i++) {
       currentClass = classes[i];
-      if (allowedClasses[currentClass]) {
+      if (allowedClasses[currentClass] || allowAllClasses) {
         newClasses.push(currentClass);
       }
     }

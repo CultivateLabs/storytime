@@ -8,7 +8,9 @@ class Storytime.Dashboard.Editor
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()
 
-    $(".wysiwyg").wysihtml5
+    $(".wysiwyg").wysihtml5 "deepExtend",
+      parserRules:
+        allowAllClasses: true
       html: true
       color: true
       customTemplates:
