@@ -37,7 +37,7 @@ describe "Comments" do
     expect(comment.user).to eq(current_user)
   end
 
-  it "deletes a comment", focus: true do
+  it "deletes a comment", js: true do
     post = FactoryGirl.create(:post)
     other_persons_comment = FactoryGirl.create(:comment, post: post)
     comment_to_delete = FactoryGirl.create(:comment, post: post, user: current_user)
@@ -49,8 +49,7 @@ describe "Comments" do
 
     expect(page).to have_content(comment_to_delete.content)
     click_link "delete_comment_#{comment_to_delete.id}"
-
-    expect(page).to have_content(I18n.t('flash.comments.destroy.success'))
+    
     expect(page).to_not have_content(comment_to_delete.content)
 
     expect{ comment_to_delete.reload }.to raise_error

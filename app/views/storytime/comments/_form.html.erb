@@ -1,6 +1,5 @@
 <% if current_user %>
-  <%= simple_form_for @post.comments.new do |f| %>
-    <%= f.input :post_id, as: :hidden %>
+  <%= simple_form_for [@post, Storytime::Comment.new] do |f| %>
     <%= f.input :content %>
     <%= f.button :submit %>
   <% end %>

@@ -26,7 +26,7 @@ module Storytime
         return redirect_to @post, :status => :moved_permanently
       end
 
-      @comments = @post.comments
+      @comments = @post.comments.order("created_at DESC")
 
       #allow overriding in the host app
       render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")

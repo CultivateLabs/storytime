@@ -11,7 +11,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, user: user, post: post) }
 
       it { should permit!(:create)  }
-      it { should permit!(:update)  }
       it { should permit!(:destroy)  }
     end
 
@@ -19,7 +18,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, post: post) }
 
       it { should_not permit!(:create)  }
-      it { should_not permit!(:update)  }
       it { should_not permit!(:destroy)  }
     end
   end
@@ -31,7 +29,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, user: user, post: post) }
 
       it { should permit!(:create)  }
-      it { should permit!(:update)  }
       it { should permit!(:destroy)  }
     end
 
@@ -39,7 +36,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, post: post) }
 
       it { should_not permit!(:create)  }
-      it { should permit!(:update)  }
       it { should permit!(:destroy)  }
     end
   end
@@ -51,7 +47,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, user: user, post: post) }
 
       it { should permit!(:create)  }
-      it { should permit!(:update)  }
       it { should permit!(:destroy)  }
     end
 
@@ -59,7 +54,6 @@ describe Storytime::CommentPolicy do
       let(:comment) { FactoryGirl.build(:comment, post: post) }
 
       it { should_not permit!(:create)  }
-      it { should permit!(:update)  }
       it { should permit!(:destroy)  }
     end
   end

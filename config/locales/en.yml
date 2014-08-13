@@ -7,8 +7,6 @@ en:
         success: "Comment successfully created."
       update:
         success: "Comment successfully updated."
-      destroy:
-        success: "Comment successfully deleted."
     posts:
       create:
         success: "Post successfully created."
