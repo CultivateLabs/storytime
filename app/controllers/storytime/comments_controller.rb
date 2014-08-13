@@ -5,14 +5,21 @@ module Storytime
     before_action :authenticate_user!
     after_action :verify_authorized
 
-    before_action :set_post
+    before_action :set_post, only: :create
 
     def create
-      @comment = @post.comments.new(comment_params)
-      @comment.user = current_user
+      @comment = current_user.storytime_comments.new(comment_params)
+      @comment.post = @post
       authorize @comment
       opts = { notice: I18n.t('flash.comments.create.success') } if @comment.save
       redirect_to @post, opts
+    end
+
+    def destroy
+      @comment = current_user.storytime_comments.find(params[:id])
+      authorize @comment
+      opts = { notice: I18n.t('flash.comments.destroy.success') } if @comment.destroy
+      redirect_to @comment.post, opts
     end
 
   private

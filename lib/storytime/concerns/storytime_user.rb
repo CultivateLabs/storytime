@@ -10,6 +10,7 @@ module Storytime
           has_many :storytime_pages, class_name: "Storytime::Page"
           has_many :storytime_media, class_name: "Storytime::Media"
           has_many :storytime_versions, class_name: "Storytime::Version"
+          has_many :storytime_comments, class_name: "Storytime::Comment"
 
           class_eval <<-EOS
             def storytime_user?

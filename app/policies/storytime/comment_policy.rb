@@ -15,10 +15,6 @@ module Storytime
       is_owner?
     end
 
-    def update?
-      is_owner? || (@user && (@user.storytime_admin? || @user.storytime_editor?))
-    end
-
     def destroy?
       is_owner? || (@user && (@user.storytime_admin? || @user.storytime_editor?))
     end

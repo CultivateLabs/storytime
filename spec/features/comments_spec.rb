@@ -30,37 +30,30 @@ describe "Comments" do
     fill_in "comment_content", with: "Here's some comment content"
     click_button "Create Comment"
 
-    page.should have_content(I18n.t('flash.comments.create.success'))
+    expect(page).to have_content(I18n.t('flash.comments.create.success'))
     expect(post.comments.count).to eq(comment_count + 1)
     comment = post.comments.last
     expect(comment.content).to eq("Here's some comment content")
     expect(comment.user).to eq(current_user)
   end
 
-  # it "edits a comment" do
-  #   comment = FactoryGirl.create(:comment)
-  #   post = comment.post
-  #   comment_count = post.comments.count
+  it "deletes a comment", focus: true do
+    post = FactoryGirl.create(:post)
+    other_persons_comment = FactoryGirl.create(:comment, post: post)
+    comment_to_delete = FactoryGirl.create(:comment, post: post, user: current_user)
 
-  #   visit post_path(post)
+    visit post_path(post)
 
-  #   click_link "edit_comment_#{comment.id}"
-  #   fill_in "comment_content", with: "Here's some comment content"
-  #   click_button "Submit Comment"
+    expect(page).to have_content(other_persons_comment.content)
+    expect(page).to_not have_link("delete_comment_#{other_persons_comment.id}")
 
-  #   page.should have_content(I18n.t('flash.comments.create.success'))
-  #   expect(post.comments.count).to eq(comment_count)
-  #   comment = post.comments.last
-  #   expect(comment.content).to eq("Here's some comment content")
-  #   expect(comment.user).to eq(current_user)
-  # end
+    expect(page).to have_content(comment_to_delete.content)
+    click_link "delete_comment_#{comment_to_delete.id}"
 
-  # it "deletes a comment" do
-  #   post = FactoryGirl.create(:post)
-  #   visit post_path(post)
+    expect(page).to have_content(I18n.t('flash.comments.destroy.success'))
+    expect(page).to_not have_content(comment_to_delete.content)
 
-  #   page.should have_content(post.title)
-  #   page.should have_content(post.content)
-  # end
+    expect{ comment_to_delete.reload }.to raise_error
+  end
   
 end

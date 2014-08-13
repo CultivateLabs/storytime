@@ -1,9 +1,9 @@
 module Storytime
   class Comment < ActiveRecord::Base
-    belongs_to :user
+    belongs_to Storytime.user_class_symbol
     belongs_to :post
 
-    validates :user_id, presence: true
+    validates Storytime.user_class_symbol, presence: true
     validates :post_id, presence: true
 
     def commenter_name
