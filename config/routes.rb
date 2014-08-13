@@ -1,4 +1,6 @@
-Storytime::Engine.routes.draw do
+ Storytime::Engine.routes.draw do
+  resources :comments
+
   namespace :dashboard do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
@@ -35,7 +37,8 @@ Storytime::Engine.routes.draw do
     resources :posts, path: "/", only: :index, as: :root_post
   end
 
-  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show
+  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, constraints: ->(request){ request.params[:component_1] != "assets" }
+  resources :comments, only: [:create, :update, :destroy]
 
   #get "/:id", to: "posts#show" # for pages
 

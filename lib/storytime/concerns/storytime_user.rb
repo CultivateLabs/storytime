@@ -10,6 +10,20 @@ module Storytime
           has_many :storytime_pages, class_name: "Storytime::Page"
           has_many :storytime_media, class_name: "Storytime::Media"
           has_many :storytime_versions, class_name: "Storytime::Version"
+
+          class_eval <<-EOS
+            def storytime_user?
+              !storytime_role.nil?
+            end
+          EOS
+
+          %w{admin editor writer}.each do |role_name|
+            class_eval <<-EOS
+              def storytime_#{role_name}?
+                storytime_role && storytime_role.name == "#{role_name}"
+              end
+            EOS
+          end  
         end
       end
 

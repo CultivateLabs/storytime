@@ -26,6 +26,8 @@ module Storytime
         return redirect_to @post, :status => :moved_permanently
       end
 
+      @comments = @post.comments
+
       #allow overriding in the host app
       render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
       render @post.post_type.name if @post.post_type && lookup_context.template_exists?("storytime/posts/#{@post.post_type.name}")

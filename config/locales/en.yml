@@ -2,6 +2,13 @@ en:
   common:
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this %{resource_name}?"
   flash:
+    comments:
+      create:
+        success: "Comment successfully created."
+      update:
+        success: "Comment successfully updated."
+      destroy:
+        success: "Comment successfully deleted."
     posts:
       create:
         success: "Post successfully created."
@@ -35,3 +42,5 @@ en:
         post_slug_style: "Post URL Style"
         root_page_content: "Home Page Content"
         ga_tracking_id: "Google Analytics Tracking ID"
+      comment:
+        content: "Comment Content"
