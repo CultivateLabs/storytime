@@ -1,0 +1,11 @@
+<div id="comment_<%= comment.id %>" class="comment">
+  <div class="comment-content">
+    <%= comment.content %>
+  </div>
+  <div class="comment-details">
+    <% if policy(comment).destroy? %>
+      <%= delete_resource_link comment %>&nbsp;&nbsp;
+    <% end %>
+    By: <%= comment.commenter_name %> &middot; <%= comment.created_at.strftime("%B %d, %Y %l:%M%P") %>
+  </div>
+</div>

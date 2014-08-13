@@ -16,12 +16,19 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.register_driver :poltergeist_st do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Logger.new('/dev/null'), phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
-  end
+  Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Logger.new('/dev/null'), phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
+end
 
 Capybara.javascript_driver = :poltergeist_st
 
 RSpec.configure do |config|
+
+  # config.before(:all) do
+  #   if self.respond_to? :visit
+  #     visit '/assets/application.css'
+  #     visit '/assets/application.js'
+  #   end
+  # end
 
   config.before(:each) do
     Storytime::PostType.seed
@@ -30,14 +37,14 @@ RSpec.configure do |config|
     Storytime::Permission.seed
   end
 
-  config.after(type: :feature) do 
-    page.driver.reset! 
-    Capybara.reset_sessions!
-  end
+  # config.after(type: :feature) do 
+  #   page.driver.reset! 
+  #   Capybara.reset_sessions!
+  # end
 
-  config.after(:suite) do
-    Capybara.reset_sessions!
-  end
+  # config.after(:suite) do
+  #   Capybara.reset_sessions!
+  # end
   
   # ## Mock Framework
   #

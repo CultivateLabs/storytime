@@ -1,17 +1,18 @@
 FactoryGirl.define do
-  factory :user, class: Storytime.user_class do
+  factory :user do
     sequence(:email) { |i| "user#{i}@example.com" }
     password "password"
+    sequence(:storytime_name) { |i| "user name #{i}" }
 
-    factory :writer, class: Storytime.user_class do
+    factory :writer do
       before(:create){|user| user.storytime_role = Storytime::Role.find_by(name: "writer") }
     end
 
-    factory :editor, class: Storytime.user_class do
+    factory :editor do
       before(:create){|user| user.storytime_role = Storytime::Role.find_by(name: "editor") }
     end
 
-    factory :admin, class: Storytime.user_class do
+    factory :admin do
       before(:create){|user| user.storytime_role = Storytime::Role.find_by(name: "admin") }
     end
   end
