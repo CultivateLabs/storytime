@@ -10,7 +10,9 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <% Storytime::PostType.all.each do |type| %>
+      <li <%= active_nav_item_class("posts", Storytime::PostType::DEFAULT_TYPE_NAME) %>><%= link_to "Blog", storytime.dashboard_posts_path(post_type: Storytime::PostType::DEFAULT_TYPE_NAME) %></li>
+
+      <% Storytime::PostType.excluded_from_primary_feed.each do |type| %>
         <li <%= active_nav_item_class("posts", type.name) %>><%= link_to type.name.humanize, storytime.dashboard_posts_path(post_type: type.name) %></li>
       <% end %>
       
