@@ -14,11 +14,7 @@
   <%= f.input :tag_list %>
   
   <% if Pundit.policy(current_user, @post).publish? %>
-    <div class="checkbox">
-      <label>
-        <%= f.check_box :published %> <strong>Published</strong>
-      </label>
-    </div>
+    <%= f.check_box :published %> <strong>Published</strong>
   <% end %>
   
   <div class="actions">
