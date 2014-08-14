@@ -17,12 +17,15 @@ describe "In the dashboard, PostTypes" do
 
     visit new_dashboard_post_type_path
     fill_in "post_type_name", with: "Travel"
+    check "post_type_excluded_from_primary_feed"
     click_button "Create Post type"
     
     page.should have_content(I18n.t('flash.post_types.create.success'))
     Storytime::PostType.count.should == count+1
 
-    expect(Storytime::PostType.last.name).to eq("Travel")    
+    post_type = Storytime::PostType.last
+    expect(post_type.name).to eq("Travel")    
+    expect(post_type.excluded_from_primary_feed).to eq(true)
   end
 
   it "updates a post_type" do

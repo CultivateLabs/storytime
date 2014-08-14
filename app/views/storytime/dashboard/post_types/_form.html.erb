@@ -1,6 +1,7 @@
 <%= simple_form_for [:dashboard, @post_type] do |f| %>
   <%= f.error_notification %>
   <%= f.input :name, autofocus: true %>
+  <%= f.input :excluded_from_primary_feed, as: :boolean %>
   
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

@@ -46,5 +46,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "better_errors"
   s.add_development_dependency "binding_of_caller"
+  s.add_development_dependency "launchy"
   
 end

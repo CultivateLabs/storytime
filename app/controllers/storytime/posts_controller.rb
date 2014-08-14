@@ -4,11 +4,16 @@ module Storytime
   class PostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     def index
-      @post_type = PostType.find_by(name: params[:post_type] || PostType::DEFAULT_TYPE_NAME)
-      @posts = @post_type.posts
+      @posts = if params[:post_type].present?
+        @post_type = PostType.find_by(name: params[:post_type])
+        @post_type.posts
+      else
+        Post.primary_feed
+      end
+      
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)
-
+      
       respond_to do |format|
         format.atom
         format.html
