@@ -3,16 +3,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <% @posts.each do |post| %>
-        <h2><%= link_to post.title, post %></h2>
-        <p class='muted'><%= post.created_at.strftime("%b %d, %Y") %></p>
-        <p><%= post.excerpt %></p>
-        <p><%= link_to "Continue reading →", post %></p>
-        <p><%= render 'tags', post: post %></p>
-        <hr>
-      <% end %>
-
-      <%= paginate @posts %>
+      <div class="post-list">
+        <%= render @posts %>
+        <%= paginate @posts %>
+      </div>
     </div>
     <div class="col-md-3">
       <h5>Tags</h5>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813130534) do
+ActiveRecord::Schema.define(version: 20140813215603) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(version: 20140813130534) do
 
   create_table "storytime_post_types", force: true do |t|
     t.string   "name"
-    t.boolean  "permanent",  default: false
+    t.boolean  "permanent",                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "excluded_from_primary_feed", default: false
   end
 
   create_table "storytime_posts", force: true do |t|

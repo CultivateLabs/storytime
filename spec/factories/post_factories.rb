@@ -9,7 +9,8 @@ FactoryGirl.define do
     post_type { Storytime::PostType.default_type }
 
     factory :page do
-      post_type { Storytime::PostType.find_by(name: "page") }
+      sequence(:title) { |i| "Page ##{i}" }
+      post_type { Storytime::PostType.static_page_type }
     end
   end
 end

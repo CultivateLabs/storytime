@@ -18,5 +18,9 @@ module Storytime
       Storytime::Action.seed
       Storytime::Permission.seed
     end
+
+    def root_post_options
+      Storytime::PostType.static_page_type.posts.published
+    end
   end
 end

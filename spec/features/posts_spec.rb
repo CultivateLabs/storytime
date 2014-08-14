@@ -7,12 +7,18 @@ describe "Posts" do
   
   it "lists posts" do
     3.times{ FactoryGirl.create(:post) }
+    static_page = FactoryGirl.create(:page)
     visit posts_path
 
-    Storytime::Post.all.each do |p|
-      page.should have_content(p.title)
-      page.should have_content(p.excerpt)
-      page.should_not have_content(p.content)
+    within ".post-list" do
+      Storytime::Post.primary_feed.each do |p|
+        page.should have_content(p.title)
+        page.should have_content(p.excerpt)
+        page.should_not have_content(p.content)
+      end
+
+      expect(page).not_to have_content(static_page.title)
+      expect(page).not_to have_content(static_page.excerpt)
     end
   end
 
@@ -20,8 +26,8 @@ describe "Posts" do
     post = FactoryGirl.create(:post)
     visit post_path(post)
 
-    page.should have_content(post.title)
-    page.should have_content(post.content)
+    expect(page).to have_content(post.title)
+    expect(page).to have_content(post.content)
   end
   
 end

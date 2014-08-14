@@ -19,8 +19,10 @@ module Storytime
     before_validation :populate_excerpt_from_content
 
     scope :page_posts, ->{ where(post_type_id: Storytime::PostType.find_by(name: "page")) }
-    scope :blog_posts, ->{ where(post_type_id: Storytime::PostType.default_type.id) }
-    scope :non_blog_posts, ->{ where('storytime_posts.post_type_id != ?', Storytime::PostType.default_type.id) }
+
+    def self.primary_feed
+      where(post_type_id: Storytime::PostType.primary_feed_type_ids)
+    end
 
     def self.tagged_with(name)
       if t = Storytime::Tag.find_by(name: name)
@@ -49,6 +51,10 @@ module Storytime
 
     def populate_excerpt_from_content
       self.excerpt = (content || draft_content).slice(0..300) if excerpt.blank?
+    end
+
+    def show_comments?
+      post_type != PostType.static_page_type
     end
   end
 end
