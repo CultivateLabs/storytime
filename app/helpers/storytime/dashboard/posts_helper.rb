@@ -2,7 +2,7 @@ module Storytime
   module Dashboard
     module PostsHelper
       def new_post_button(post_type)
-        if post_type.excluded_from_primary_feed?
+        if post_type.excluded_from_primary_feed? || Storytime::PostType.included_in_primary_feed.count == 1
           render "basic_new_post_button", post_type: post_type
         else
           render "new_post_dropdown_button", post_type: post_type
