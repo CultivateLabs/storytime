@@ -5,11 +5,16 @@ describe "In the dashboard, Posts" do
 
   it "lists posts" do
     3.times{ FactoryGirl.create(:post) }
+    FactoryGirl.create(:post, post_type: FactoryGirl.create(:post_type, excluded_from_primary_feed: false))
+    static_page = FactoryGirl.create(:page)
     visit dashboard_posts_path
     
-    Storytime::Post.all.each do |p|
-      page.should have_link(p.title, href: edit_dashboard_post_url(p))
-      page.should_not have_content(p.content)
+    within "#list" do
+      Storytime::Post.primary_feed.each do |p|
+        expect(page).to have_content(p.title)
+      end
+
+      expect(page).not_to have_content(static_page.title)
     end
   end
   

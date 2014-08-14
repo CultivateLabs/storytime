@@ -5,6 +5,7 @@ module Storytime
     validates :name, uniqueness: true
 
     scope :excluded_from_primary_feed, ->{ where(excluded_from_primary_feed: true) }
+    scope :included_in_primary_feed, ->{ where(excluded_from_primary_feed: false) }
 
     DEFAULT_TYPE_NAME = "blog"
     STATIC_PAGE_TYPE_NAME = "page"
@@ -23,7 +24,7 @@ module Storytime
     end
 
     def self.primary_feed_type_ids
-      where(excluded_from_primary_feed: false).pluck(:id)
+      included_in_primary_feed.pluck(:id)
     end
   end
 end

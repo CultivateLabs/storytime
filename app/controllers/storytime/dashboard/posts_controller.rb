@@ -67,7 +67,13 @@ module Storytime
       end
 
       def load_posts
-        @posts = policy_scope(Storytime::Post).where(post_type_id: current_post_type.id).order(created_at: :desc).page(params[:page]).per(10)
+        @posts = policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page]).per(10)
+        
+        @posts = if current_post_type.excluded_from_primary_feed?
+          @posts.where(post_type_id: current_post_type.id) 
+        else
+          @posts.primary_feed
+        end
       end
 
       def post_params

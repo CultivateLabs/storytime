@@ -1,0 +1,10 @@
+<div class="btn-group pull-right">
+  <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-plus"></i>&nbsp; <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <% Storytime::PostType.included_in_primary_feed.each do |post_type| %>
+      <li><%= link_to "New #{post_type.name.humanize} Post", new_dashboard_post_path(post_type: post_type.name) %></li>
+    <% end %>
+  </ul>
+</div>
