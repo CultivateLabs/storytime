@@ -1,0 +1,9 @@
+<li id="posttype_<%= post_type.id %>" class="<%= 'active' if current_page?(edit_dashboard_post_type_url(post_type)) %>">
+  <%= link_to post_type.name, edit_dashboard_post_type_url(post_type) %>
+  <% unless post_type.permanent? %>
+    <span class="pull-right">
+      <%= delete_resource_link post_type, dashboard_post_type_path(post_type), !current_page?(edit_dashboard_post_type_url(post_type)) %>
+    </span>
+  <% end %>
+</li>
+      
