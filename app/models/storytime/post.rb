@@ -15,6 +15,7 @@ module Storytime
     validates_presence_of :title, :excerpt, :draft_content, :post_type_id
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..400 }
+    validates :user, presence: true
 
     before_validation :populate_excerpt_from_content
 
@@ -55,6 +56,10 @@ module Storytime
 
     def show_comments?
       post_type != PostType.static_page_type
+    end
+
+    def author_name
+      user.storytime_name.blank? ? user.email : user.storytime_name
     end
   end
 end
