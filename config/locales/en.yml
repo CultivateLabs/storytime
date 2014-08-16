@@ -42,3 +42,5 @@ en:
         ga_tracking_id: "Google Analytics Tracking ID"
       comment:
         content: "Comment Content"
+      user:
+        storytime_name: "Name"
