@@ -4,7 +4,7 @@
 <h3 class="heading">
   Edit <%= current_post_type.name.humanize %>
   <span class="pull-right">
-    <%= link_to "View Post", @post, class: "btn btn-default" if @post.published? %>
+    <%= link_to "View Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
   </span>
 </h3>
   <div class="scroll-y">

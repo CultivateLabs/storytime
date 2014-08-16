@@ -13,9 +13,7 @@
 
   <%= f.input :tag_list %>
   
-  <% if Pundit.policy(current_user, @post).publish? %>
-    <%= f.check_box :published %> <strong>Published</strong>
-  <% end %>
+  <%= f.input :published, as: :boolean, label: false, inline_label: true if Pundit.policy(current_user, @post).publish? %>
   
   <div class="actions">
     <%= f.submit (@post.new_record? ? "Create #{current_post_type.name.humanize}" : "Update #{current_post_type.name.humanize}"), class: "btn btn-primary" %>
