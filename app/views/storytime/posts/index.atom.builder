@@ -7,7 +7,7 @@ atom_feed do |feed|
       entry.title post.title
       entry.content post.content
       entry.author do |author|
-        author.name post.user.name
+        author.name post.author_name
       end
     end
   end
