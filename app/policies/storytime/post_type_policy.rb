@@ -36,7 +36,7 @@ module Storytime
     end
 
     def permitted_attributes
-      [:name, :excluded_from_primary_feed]
+      [:name, :excluded_from_primary_feed, custom_fields_attributes: [:type, :name, :required, :_destroy, :id]]
     end
   end
 end

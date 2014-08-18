@@ -1,11 +1,14 @@
 module Storytime
   class PostType < ActiveRecord::Base
     has_many :posts
+    has_many :custom_fields
 
     validates :name, uniqueness: true
 
     scope :excluded_from_primary_feed, ->{ where(excluded_from_primary_feed: true) }
     scope :included_in_primary_feed, ->{ where(excluded_from_primary_feed: false) }
+
+    accepts_nested_attributes_for :custom_fields, allow_destroy: true
 
     DEFAULT_TYPE_NAME = "blog"
     STATIC_PAGE_TYPE_NAME = "page"

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  post_type_id: 
+  type: 
+  required: false
+  options_scope: MyString
+
+two:
+  name: MyString
+  post_type_id: 
+  type: 
+  required: false
+  options_scope: MyString

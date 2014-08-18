@@ -2,6 +2,11 @@
   <%= f.error_notification %>
   <%= f.input :name, autofocus: true %>
   <%= f.input :excluded_from_primary_feed %>
+
+  <%= f.fields_for :custom_fields do |builder| %>
+    <%= render 'custom_field_fields', f: builder %>
+  <% end %>
+  <%= link_to_add_field "Add Field", f, :custom_fields %>
   
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

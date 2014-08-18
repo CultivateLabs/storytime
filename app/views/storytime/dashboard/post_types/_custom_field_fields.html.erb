@@ -1,0 +1,9 @@
+<fieldset>
+  <%= f.select :type, custom_field_type_options %>
+  <%= f.text_field :name, placeholder: 'field_name' %>
+  <%= f.check_box :required %><%= f.label :required %>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to '#', class: 'remove_fields btn btn-danger btn-xs' do %>
+    <span class="glyphicon glyphicon-trash"></span>
+  <% end %>
+</fieldset>
