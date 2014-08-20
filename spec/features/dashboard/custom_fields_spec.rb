@@ -9,7 +9,7 @@ describe "In the dashboard, CustomFields" do
     expect(post_type.custom_fields.count).to eq(0)
     visit edit_dashboard_post_type_path(post_type)
 
-    click_link "Add Field"
+    click_link "Add Custom Field"
 
     type_select = find("select[id^='post_type_custom_fields_attributes_'][id$='_type']")
     type_select.find("option[value='Storytime::CustomFields::TextField']").select_option

@@ -1,6 +1,12 @@
 <%= simple_form_for [:dashboard, @post] do |f| %>
   <%= f.error_notification %>
   <%= f.input :title, autofocus: true %>
+  
+  <%= f.fields_for :custom_field_responses do |builder| %>
+    <%= builder.input :custom_field_id, as: :hidden %>
+    <%= render "storytime/dashboard/custom_fields/#{builder.object.custom_field.partial_name}", f: builder %>
+  <% end %>
+
   <%= f.input :post_type_id, as: :hidden %>
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>

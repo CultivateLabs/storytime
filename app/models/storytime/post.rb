@@ -1,16 +1,21 @@
 module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
+
+    belongs_to :post_type
+    has_many :custom_fields, through: :post_type
+    include Storytime::Concerns::HasCustomFieldResponses # must come after has_many :custom_fields
     
     extend FriendlyId
     friendly_id :title, use: [:history]
 
     belongs_to Storytime.user_class_symbol
-    belongs_to :post_type
+    
+    belongs_to :featured_media, class_name: "Media"
+
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
     has_many :comments
-    belongs_to :featured_media, class_name: "Media"
 
     validates_presence_of :title, :excerpt, :draft_content, :post_type_id
     validates :title, length: { in: 1..200 }

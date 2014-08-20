@@ -17,10 +17,12 @@ module Storytime
       def new
         @post = current_user.storytime_posts.new
         @post.post_type = current_post_type
+        @post.initialize_missing_custom_field_responses
         authorize @post
       end
 
       def edit
+        @post.initialize_missing_custom_field_responses
         authorize @post
       end
 
@@ -68,7 +70,7 @@ module Storytime
 
       def load_posts
         @posts = policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page]).per(10)
-        
+                
         @posts = if current_post_type.excluded_from_primary_feed?
           @posts.where(post_type_id: current_post_type.id) 
         else

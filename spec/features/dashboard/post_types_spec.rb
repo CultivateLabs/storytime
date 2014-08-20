@@ -44,10 +44,11 @@ describe "In the dashboard, PostTypes" do
   end
 
   it "deletes a post_type", js: true do
-    3.times{|i| FactoryGirl.create(:post_type) }
+    p1 = FactoryGirl.create(:post_type)
+    p2 = FactoryGirl.create(:post_type)
+    
     visit dashboard_post_types_path
-    p1 = Storytime::PostType.first
-    p2 = Storytime::PostType.last
+    
     click_link("delete_posttype_#{p1.id}")
 
     page.should_not have_content(p1.name)

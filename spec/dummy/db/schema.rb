@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816181807) do
+ActiveRecord::Schema.define(version: 20140818144143) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 20140816181807) do
 
   add_index "storytime_comments", ["post_id"], name: "index_storytime_comments_on_post_id"
   add_index "storytime_comments", ["user_id"], name: "index_storytime_comments_on_user_id"
+
+  create_table "storytime_custom_field_responses", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "custom_field_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "storytime_custom_field_responses", ["custom_field_id"], name: "index_storytime_custom_field_responses_on_custom_field_id"
+  add_index "storytime_custom_field_responses", ["post_id", "custom_field_id", "value"], name: "index_st_cust_field_resp_on_post_field_and_value"
+  add_index "storytime_custom_field_responses", ["post_id"], name: "index_storytime_custom_field_responses_on_post_id"
 
   create_table "storytime_custom_fields", force: true do |t|
     t.string   "name"

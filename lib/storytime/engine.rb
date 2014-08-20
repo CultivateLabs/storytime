@@ -10,6 +10,7 @@ require 'carrierwave'
 require 'nokogiri'
 
 require 'storytime/concerns/has_versions'
+require 'storytime/concerns/has_custom_field_responses'
 require 'storytime/concerns/storytime_user'
 require 'storytime/controller_helpers'
 
