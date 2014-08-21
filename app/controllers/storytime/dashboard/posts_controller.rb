@@ -79,7 +79,9 @@ module Storytime
       end
 
       def post_params
-        params.require(:post).permit(*policy(@post || current_user.storytime_posts.new).permitted_attributes)
+        host_app_additions = respond_to?(:storytime_post_param_additions) ? storytime_post_param_additions : []
+        permitted_attrs = policy(@post || current_user.storytime_posts.new).permitted_attributes.append *host_app_additions
+        params.require(:post).permit(*permitted_attrs)
       end
     end
   end

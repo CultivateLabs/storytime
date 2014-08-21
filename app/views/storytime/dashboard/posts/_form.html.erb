@@ -6,6 +6,10 @@
     <%= builder.input :custom_field_id, as: :hidden %>
     <%= render "storytime/dashboard/custom_fields/#{builder.object.custom_field.partial_name}", f: builder %>
   <% end %>
+  
+  <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{current_post_type.name.underscore}_fields") %>
+    <%= render("storytime/dashboard/posts/#{current_post_type.name.underscore}_fields", f: f)  %>
+  <% end %>
 
   <%= f.input :post_type_id, as: :hidden %>
   <%= f.input :excerpt %>
