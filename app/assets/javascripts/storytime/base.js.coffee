@@ -12,6 +12,8 @@ $ ()->
 
   $(".flash").delay(2000).fadeOut()
 
+  $(".chosen").chosen()
+
   $(document).on('ajax:beforeSend', '.btn-delete-resource', ()->
     $(@).attr("disabled", true)
   ).on('ajax:success', '.btn-delete-resource', ()->
