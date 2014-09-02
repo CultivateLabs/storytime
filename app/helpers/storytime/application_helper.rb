@@ -9,11 +9,7 @@ module Storytime
       return if ["storytime/pages", "storytime/posts"].include? params[:controller]
       
       current_controller = params[:controller].split("/").last
-      if current_controller == "posts"
-        'class="active"'.html_safe if controller == "posts"
-      elsif controller == current_controller
-        'class="active"'.html_safe
-      end
+      'class="active"'.html_safe if controller == current_controller
     end
 
     def delete_resource_link(resource, href = nil, remote = true)

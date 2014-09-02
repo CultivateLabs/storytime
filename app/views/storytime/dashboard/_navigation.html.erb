@@ -10,10 +10,10 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li <%= active_nav_item_class("posts", Storytime::BlogPost) %>><%= link_to "Blog Posts", storytime.url_for([:dashboard, Storytime::BlogPost]) %></li>
+      <li <%= active_nav_item_class("blog_posts") %>><%= link_to "Blog Posts", storytime.url_for([:dashboard, Storytime::BlogPost]) %></li>
       <% Storytime.post_types.map{|post_type| post_type.constantize }.each do |post_type| %>
         <% unless post_type.included_in_primary_feed? %>
-          <li <%= active_nav_item_class("posts", post_type.type_name) %>><%= link_to post_type.type_name.humanize.pluralize, storytime.url_for([:dashboard, post_type]) %></li>
+          <li <%= active_nav_item_class(post_type.type_name.pluralize) %>><%= link_to post_type.type_name.humanize.pluralize, storytime.url_for([:dashboard, post_type]) %></li>
         <% end %>
       <% end %>
       
