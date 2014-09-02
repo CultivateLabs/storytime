@@ -6,19 +6,8 @@ module Storytime
 
     private
 
-      def load_posts
-        @posts = base_posts_scope.where(type: "Storytime::BlogPost")
-      end
-
-      def new_post(attrs = nil)
-        page = if params[:action] == "new"
-          Storytime::BlogPost.new
-        else
-          Storytime::BlogPost.new(attrs)
-        end
-
-        page.user = current_user
-        page
+      def current_post_type
+        Storytime::Page
       end
 
       def post_params

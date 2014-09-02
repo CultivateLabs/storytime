@@ -21,12 +21,6 @@
 
   get 'tags/:tag', to: 'posts#index', as: :tag
 
-  # any categories
-  constraints ->(request){ Storytime::Category.where(name: request.params[:category]).any? } do
-    get ':category/:id', to: "posts#show"
-    get ':category', to: "posts#index"
-  end
-
   # using a page as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
     get "/", to: "posts#show"

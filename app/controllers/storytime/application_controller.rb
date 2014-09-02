@@ -4,11 +4,6 @@ class Storytime::ApplicationController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   helper :all
 
-  def current_category
-    @category ||= Storytime::Category.find_by(name: params[:category]) if params[:category].present?
-  end
-  helper_method :current_category
-
   def setup
     url = if Storytime.user_class.count == 0
       main_app.new_user_registration_url

@@ -16,7 +16,6 @@ module Storytime
 
       def new
         @post = new_post
-        @post.category = current_category
         authorize @post
       end
 
@@ -58,29 +57,31 @@ module Storytime
     private
 
       def set_post
-        @post = Post.friendly.find(params[:id])
+        @post = current_post_type.friendly.find(params[:id])
       end
 
-      def new_post(params = nil)
-        raise "new_post method should be overridden by subclasses"
+      def new_post(attrs = nil)
+        post = if params[:action] == "new"
+          current_post_type.new
+        else
+          current_post_type.new(attrs)
+        end
+
+        post.user = current_user
+        post
       end
 
       def post_params
         raise "post_params method should be overridden by subclasses"
       end
 
-      def base_posts_scope
-        policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page]).per(10)
+      def current_post_type
+        raise "current_post_type method should be overridden by subclasses"
       end
+      helper_method :current_post_type
 
       def load_posts
-        @posts = base_posts_scope
-                
-        @posts = if current_category
-          @posts.where(category_id: current_category.id) 
-        else
-          @posts.primary_feed
-        end
+        @posts = policy_scope(current_post_type).order(created_at: :desc).page(params[:page]).per(10).where(type: current_post_type)
       end
 
       

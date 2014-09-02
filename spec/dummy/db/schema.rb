@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 20140813130534) do
     t.datetime "updated_at"
   end
 
-  create_table "storytime_categories", force: true do |t|
-    t.string   "name"
-    t.boolean  "excluded_from_primary_feed", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "storytime_comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -78,7 +71,6 @@ ActiveRecord::Schema.define(version: 20140813130534) do
     t.text     "content"
     t.text     "excerpt"
     t.datetime "published_at"
-    t.integer  "category_id"
     t.integer  "featured_media_id"
     t.boolean  "featured",          default: false
     t.boolean  "static",            default: false
@@ -86,7 +78,6 @@ ActiveRecord::Schema.define(version: 20140813130534) do
     t.datetime "updated_at"
   end
 
-  add_index "storytime_posts", ["category_id"], name: "index_storytime_posts_on_category_id"
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
 
   create_table "storytime_roles", force: true do |t|

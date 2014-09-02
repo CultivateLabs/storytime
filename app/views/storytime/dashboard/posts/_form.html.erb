@@ -5,8 +5,7 @@
   <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
     <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
   <% end %>
-
-  <%= f.input :category_id, as: :hidden %>
+  
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   

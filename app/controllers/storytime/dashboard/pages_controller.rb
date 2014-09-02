@@ -6,14 +6,8 @@ module Storytime
 
     private
 
-      def load_posts
-        @posts = base_posts_scope.where(type: "Storytime::Page")
-      end
-
-      def new_post
-        page = Storytime::Page.new(post_params)
-        page.user = current_user
-        page
+      def current_post_type
+        Storytime::Page
       end
 
     end

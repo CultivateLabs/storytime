@@ -5,12 +5,7 @@ module Storytime
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
 
     def index
-      @posts = if params[:category].present?
-        @category = Category.find_by(name: params[:category])
-        @category.posts
-      else
-        Post.primary_feed
-      end
+      @posts = Post.all
       
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)

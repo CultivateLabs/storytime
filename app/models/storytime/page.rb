@@ -4,8 +4,9 @@ module Storytime
       false
     end
 
-    def included_in_primary_feed
+    def self.included_in_primary_feed?
       false
     end
+
   end
 end

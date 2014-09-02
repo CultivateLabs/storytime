@@ -10,7 +10,7 @@ module Storytime
       
       current_controller = params[:controller].split("/").last
       if current_controller == "posts"
-        'class="active"'.html_safe if controller == "posts" && current_category && current_category.name == params[:category]
+        'class="active"'.html_safe if controller == "posts"
       elsif controller == current_controller
         'class="active"'.html_safe
       end

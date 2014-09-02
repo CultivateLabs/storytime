@@ -6,7 +6,6 @@ module Storytime
     friendly_id :title, use: [:history]
 
     belongs_to Storytime.user_class_symbol
-    belongs_to :category
     belongs_to :featured_media, class_name: "Media"
 
     has_many :taggings, dependent: :destroy
@@ -21,12 +20,12 @@ module Storytime
 
     before_validation :populate_excerpt_from_content
 
-    def type_name
-      self.class.to_s.split("::").last.underscore
+    def self.type_name
+      to_s.split("::").last.underscore
     end
 
-    def self.primary_feed
-      where(category_id: Storytime::Category.primary_feed_category_ids)
+    def type_name
+      self.class.type_name
     end
 
     def self.tagged_with(name)
@@ -62,8 +61,12 @@ module Storytime
       true
     end
 
-    def included_in_primary_feed
+    def self.included_in_primary_feed?
       true
+    end
+
+    def included_in_primary_feed?
+      self.class.included_in_primary_feed
     end
 
     def author_name
