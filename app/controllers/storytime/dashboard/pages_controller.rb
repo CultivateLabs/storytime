@@ -11,8 +11,8 @@ module Storytime
       end
 
       def new_post
-        page = Storytime::Page.new(params)
-        page.user = current_category
+        page = Storytime::Page.new(post_params)
+        page.user = current_user
         page
       end
 

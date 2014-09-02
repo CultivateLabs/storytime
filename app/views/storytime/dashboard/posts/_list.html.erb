@@ -1,18 +1,18 @@
 <div id="list" class="pane">
   <h3 class="heading">
-    <%= post_list_title(current_post_type) %>
-    <%= new_post_button(current_post_type) %>
+    <%= post_list_title(current_category) %>
+    <%= new_post_button(current_category) %>
   </h3>
   <div class="scroll-y">
     <ul>
       <% @posts.each do |post| %>
-        <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(edit_dashboard_post_url(post)) %>">
-          <%= link_to post.title, edit_dashboard_post_url(post, page: params[:page]) %>
+        <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
+          <%= link_to post.title, url_for([:edit, :dashboard, post, page: params[:page]]) %>
           <span class="pull-right">
             <% unless post.published? %>
               <span class="label label-warning">Draft</span>
             <% end %>
-            <%= delete_resource_link post, dashboard_post_path(post), !current_page?(edit_dashboard_post_url(post)) %>
+            <%= delete_resource_link post, url_for([:dashboard, post]), !current_page?(url_for([:edit, :dashboard, post])) %>
           </span>
         </li>
       <% end %>

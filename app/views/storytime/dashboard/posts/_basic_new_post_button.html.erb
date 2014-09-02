@@ -1,3 +1,3 @@
-<%= link_to new_dashboard_post_path(category: category.name), class: "btn btn-info btn-sm pull-right" do %>
+<%= link_to url_for([:new, :dashboard, :blog_post, category: (category.nil? ? nil : category.name)]), class: "btn btn-info btn-sm pull-right" do %>
   <i class="glyphicon glyphicon-plus"></i>
 <% end %>

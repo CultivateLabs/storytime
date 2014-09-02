@@ -17,25 +17,16 @@ module Storytime
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..400 }
     validates :user, presence: true
+    validates :type, inclusion: { in: Storytime.post_types }
 
     before_validation :populate_excerpt_from_content
-
-    def self.register_post_type(post_type)
-      post_types << post_type unless post_types.include?(post_type)
-      post_types
-    end
-
-    def self.post_types
-      @post_types ||= [Storytime::Post]
-    end
-    validates :type, inclusion: { in: post_types }
 
     def type_name
       self.class.to_s.split("::").last.underscore
     end
 
     def self.primary_feed
-      where(category_id: Storytime::Category.primary_feed_type_ids)
+      where(category_id: Storytime::Category.primary_feed_category_ids)
     end
 
     def self.tagged_with(name)

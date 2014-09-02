@@ -1,9 +1,8 @@
 <li id="category_<%= category.id %>" class="<%= 'active' if current_page?(edit_dashboard_category_url(category)) %>">
   <%= link_to category.name, edit_dashboard_category_url(category) %>
-  <% unless category.permanent? %>
-    <span class="pull-right">
-      <%= delete_resource_link category, dashboard_category_path(category), !current_page?(edit_dashboard_category_url(category)) %>
-    </span>
-  <% end %>
+  
+  <span class="pull-right">
+    <%= delete_resource_link category, dashboard_category_path(category), !current_page?(edit_dashboard_category_url(category)) %>
+  </span>
 </li>
       

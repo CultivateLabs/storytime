@@ -10,18 +10,18 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Blog Posts", storytime.dashboard_posts_path %></li>
+      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Blog Posts", storytime.url_for([:dashboard, Storytime::BlogPost]) %></li>
 
-      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Pages", storytime.dashboard_posts_path %></li>
+      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Pages", storytime.url_for([:dashboard, Storytime::Page]) %></li>
 
       <% Storytime::Category.excluded_from_primary_feed.each do |category| %>
-        <li <%= active_nav_item_class("posts", category.name) %>><%= link_to type.name.humanize, storytime.url_for([:dashboard, Post, category: category.name]) %></li>
+        <li <%= active_nav_item_class("posts", category.name) %>><%= link_to category.name.humanize, storytime.url_for([:dashboard, Storytime::BlogPost, category: category.name]) %></li>
       <% end %>
       
       <li <%= active_nav_item_class("categories") %>><%= link_to "Categories", storytime.url_for([:dashboard, Storytime::Category]) %></li>
       <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.url_for([:dashboard, Storytime::Media]) %></li>
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.storytime.url_for([:dashboard, Storytime.user_class]) %></li>
+        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.url_for([:dashboard, Storytime.user_class]) %></li>
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
         <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Storytime</title>
+
+    <%= stylesheet_link_tag    "storytime/application", media: "all" %>
+    <%= javascript_include_tag "storytime/application" %>
+    <%= csrf_meta_tags %>
+
+    <%= yield :head %>
+  </head>
+
+  <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %> <%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
+
+
+    <%= render "storytime/navigation" %>
+    <%= render "storytime/flash" %>
+    <%= render 'storytime/header' unless devise_controller? %>
+    <%= yield %>
+    <%= render 'storytime/footer' unless devise_controller? %>
+    <%= render 'sites/google_analytics_code' %>
+  </body>
+</html>

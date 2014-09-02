@@ -2,6 +2,7 @@ class CreateStorytimePosts < ActiveRecord::Migration
   def change
     create_table :storytime_posts do |t|
       t.references :user, index: true
+      t.string :type
       t.string :title
       t.string :slug, index: true
       t.text :content

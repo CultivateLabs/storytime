@@ -46,5 +46,11 @@ module Storytime
         config.enable_processing = !Rails.env.test?
       end
     end
+
+    initializer "storytime.register_default_post_types" do
+      Storytime.configure do |config|
+        config.post_types += ["Storytime::BlogPost", "Storytime::Page"]
+      end
+    end
   end
 end

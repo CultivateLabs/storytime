@@ -4,7 +4,7 @@
   </button>
   <ul class="dropdown-menu" role="menu">
     <% Storytime::Post.post_types.each do |post_type| %>
-      <li><%= link_to "New #{post_type.name.humanize} Post", new_dashboard_post_path(post_type: post_type.name) %></li>
+      <li><%= link_to "New #{post_type.name.humanize} Post", url_for([:new, :dashboard, post_type.type_name.to_sym]) %></li>
     <% end %>
   </ul>
 </div>

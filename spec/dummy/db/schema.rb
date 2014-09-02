@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20140813130534) do
 
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"
+    t.string   "type"
     t.string   "title"
     t.string   "slug"
     t.text     "content"

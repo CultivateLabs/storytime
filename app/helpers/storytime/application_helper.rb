@@ -1,10 +1,6 @@
 module Storytime
   module ApplicationHelper
 
-    # def current_category
-    #   @category ||= Storytime::Category.find_by(name: params[:category]) if params[:category].present?
-    # end
-
     def dashboard_nav_site_path(site)
       site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
@@ -14,7 +10,7 @@ module Storytime
       
       current_controller = params[:controller].split("/").last
       if current_controller == "posts"
-        'class="active"'.html_safe if controller == "posts" && category == params[:category]
+        'class="active"'.html_safe if controller == "posts" && current_category && current_category.name == params[:category]
       elsif controller == current_controller
         'class="active"'.html_safe
       end
@@ -45,29 +41,29 @@ module Storytime
     end
 
 
-    # def method_missing method, *args, &block
-    #   if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
-    #     if main_app.respond_to?(method)
-    #       main_app.send(method, *args)
-    #     else
-    #       super
-    #     end
-    #   else
-    #     super
-    #   end
-    # end
+    def method_missing method, *args, &block
+      if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
+        if main_app.respond_to?(method)
+          main_app.send(method, *args)
+        else
+          super
+        end
+      else
+        super
+      end
+    end
 
-    # def respond_to?(method)
-    #   if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
-    #     if main_app.respond_to?(method)
-    #       true
-    #     else
-    #       super
-    #     end
-    #   else
-    #     super
-    #   end
-    # end
+    def respond_to?(method)
+      if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
+        if main_app.respond_to?(method)
+          true
+        else
+          super
+        end
+      else
+        super
+      end
+    end
 
   end
 end

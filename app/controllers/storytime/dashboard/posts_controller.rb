@@ -30,7 +30,7 @@ module Storytime
         authorize @post
 
         if @post.save
-          redirect_to edit_dashboard_post_path(@post), notice: I18n.t('flash.posts.create.success')
+          redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.create.success')
         else
           load_media
           render :new
@@ -41,7 +41,7 @@ module Storytime
         authorize @post
         @post.draft_user_id = current_user.id
         if @post.update(post_params)
-          redirect_to edit_dashboard_post_path(@post), notice: I18n.t('flash.posts.update.success')
+          redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.update.success')
         else
           load_media
           render :edit
@@ -61,8 +61,12 @@ module Storytime
         @post = Post.friendly.find(params[:id])
       end
 
-      def new_post(params)
-        current_user.storytime_posts.new(params)
+      def new_post(params = nil)
+        raise "new_post method should be overridden by subclasses"
+      end
+
+      def post_params
+        raise "post_params method should be overridden by subclasses"
       end
 
       def base_posts_scope
@@ -79,11 +83,7 @@ module Storytime
         end
       end
 
-      def post_params
-        host_app_additions = respond_to?(:storytime_post_param_additions) ? storytime_post_param_additions : []
-        permitted_attrs = policy(@post || current_user.storytime_posts.new).permitted_attributes.append *host_app_additions
-        params.require(:post).permit(*permitted_attrs)
-      end
+      
     end
   end
 end
