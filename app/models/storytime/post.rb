@@ -2,32 +2,40 @@ module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
 
-    belongs_to :post_type
-    has_many :custom_fields, through: :post_type
-    include Storytime::Concerns::HasCustomFieldResponses # must come after has_many :custom_fields
-    
     extend FriendlyId
     friendly_id :title, use: [:history]
 
     belongs_to Storytime.user_class_symbol
-    
+    belongs_to :category
     belongs_to :featured_media, class_name: "Media"
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
     has_many :comments
 
-    validates_presence_of :title, :excerpt, :draft_content, :post_type_id
+    validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..400 }
     validates :user, presence: true
 
     before_validation :populate_excerpt_from_content
 
-    scope :page_posts, ->{ where(post_type_id: Storytime::PostType.find_by(name: "page")) }
+    def self.register_post_type(post_type)
+      post_types << post_type unless post_types.include?(post_type)
+      post_types
+    end
+
+    def self.post_types
+      @post_types ||= [Storytime::Post]
+    end
+    validates :type, inclusion: { in: post_types }
+
+    def type_name
+      self.class.to_s.split("::").last.underscore
+    end
 
     def self.primary_feed
-      where(post_type_id: Storytime::PostType.primary_feed_type_ids)
+      where(category_id: Storytime::Category.primary_feed_type_ids)
     end
 
     def self.tagged_with(name)
@@ -60,7 +68,11 @@ module Storytime
     end
 
     def show_comments?
-      post_type != PostType.static_page_type
+      true
+    end
+
+    def included_in_primary_feed
+      true
     end
 
     def author_name

@@ -1,0 +1,14 @@
+<div id="list" class="pane">
+  <h3 class="heading">
+    Categories
+    <%= link_to url_for([:new, :dashboard, :category]), class: "btn btn-info btn-sm pull-right" do %>
+      <i class="glyphicon glyphicon-plus"></i>
+    <% end %>
+  </h3>
+  <div class="scroll-y">
+    <ul>
+      <%= render collection: @categories, partial: "storytime/dashboard/categories/category" %>
+    </ul>
+    <%= paginate @categories %>
+  </div>
+</div>

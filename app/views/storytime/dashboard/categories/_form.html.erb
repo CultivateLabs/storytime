@@ -1,0 +1,9 @@
+<%= simple_form_for [:dashboard, @category] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name, autofocus: true %>
+  <%= f.input :excluded_from_primary_feed %>
+  
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

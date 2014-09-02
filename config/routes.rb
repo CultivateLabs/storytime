@@ -5,7 +5,8 @@
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :posts, except: [:show]
-    resources :post_types
+    resources :pages
+    resources :categories
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
     resources :users
@@ -20,10 +21,10 @@
 
   get 'tags/:tag', to: 'posts#index', as: :tag
 
-  # any custom post types (not blog or page)
-  constraints ->(request){ Storytime::PostType.where(name: request.params[:post_type], permanent: false).any? } do
-    get ':post_type/:id', to: "posts#show", as: :typed_post
-    get ':post_type', to: "posts#index", as: :post_type
+  # any categories
+  constraints ->(request){ Storytime::Category.where(name: request.params[:category]).any? } do
+    get ':category/:id', to: "posts#show"
+    get ':category', to: "posts#index"
   end
 
   # using a page as the home page

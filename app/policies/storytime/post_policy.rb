@@ -61,7 +61,7 @@ module Storytime
     end
 
     def permitted_attributes
-      attrs = [:title, :draft_content, :draft_version_id, :excerpt, :tag_list, :post_type_id, :featured_media_id, custom_field_responses_attributes: [:id, :value, :custom_field_id]]
+      attrs = [:title, :draft_content, :draft_version_id, :excerpt, :tag_list, :category_id, :featured_media_id]
       attrs << :published if publish?
       attrs
     end

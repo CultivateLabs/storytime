@@ -15,7 +15,7 @@
   <body class="<%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
 
     <%= render "navigation" %>
-    <%= render "flash" %>
+    <%= render "storytime/application/storytime/flash" %>
 
     <%= yield %>
 

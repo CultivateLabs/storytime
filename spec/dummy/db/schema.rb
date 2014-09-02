@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140818144143) do
+ActiveRecord::Schema.define(version: 20140813130534) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20140818144143) do
     t.datetime "updated_at"
   end
 
+  create_table "storytime_categories", force: true do |t|
+    t.string   "name"
+    t.boolean  "excluded_from_primary_feed", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "storytime_comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -43,30 +50,6 @@ ActiveRecord::Schema.define(version: 20140818144143) do
 
   add_index "storytime_comments", ["post_id"], name: "index_storytime_comments_on_post_id"
   add_index "storytime_comments", ["user_id"], name: "index_storytime_comments_on_user_id"
-
-  create_table "storytime_custom_field_responses", force: true do |t|
-    t.integer  "post_id"
-    t.integer  "custom_field_id"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "storytime_custom_field_responses", ["custom_field_id"], name: "index_storytime_custom_field_responses_on_custom_field_id"
-  add_index "storytime_custom_field_responses", ["post_id", "custom_field_id", "value"], name: "index_st_cust_field_resp_on_post_field_and_value"
-  add_index "storytime_custom_field_responses", ["post_id"], name: "index_storytime_custom_field_responses_on_post_id"
-
-  create_table "storytime_custom_fields", force: true do |t|
-    t.string   "name"
-    t.integer  "post_type_id"
-    t.string   "type"
-    t.boolean  "required"
-    t.string   "options_scope"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "storytime_custom_fields", ["post_type_id"], name: "index_storytime_custom_fields_on_post_type_id"
 
   create_table "storytime_media", force: true do |t|
     t.string   "file"
@@ -87,14 +70,6 @@ ActiveRecord::Schema.define(version: 20140818144143) do
   add_index "storytime_permissions", ["action_id"], name: "index_storytime_permissions_on_action_id"
   add_index "storytime_permissions", ["role_id"], name: "index_storytime_permissions_on_role_id"
 
-  create_table "storytime_post_types", force: true do |t|
-    t.string   "name"
-    t.boolean  "permanent",                  default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "excluded_from_primary_feed", default: false
-  end
-
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -102,13 +77,15 @@ ActiveRecord::Schema.define(version: 20140818144143) do
     t.text     "content"
     t.text     "excerpt"
     t.datetime "published_at"
-    t.integer  "post_type_id"
+    t.integer  "category_id"
     t.integer  "featured_media_id"
+    t.boolean  "featured",          default: false
+    t.boolean  "static",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "storytime_posts", ["post_type_id"], name: "index_storytime_posts_on_post_type_id"
+  add_index "storytime_posts", ["category_id"], name: "index_storytime_posts_on_category_id"
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
 
   create_table "storytime_roles", force: true do |t|

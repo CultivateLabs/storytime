@@ -2,16 +2,11 @@
   <%= f.error_notification %>
   <%= f.input :title, autofocus: true %>
   
-  <%= f.fields_for :custom_field_responses do |builder| %>
-    <%= builder.input :custom_field_id, as: :hidden %>
-    <%= render "storytime/dashboard/custom_fields/#{builder.object.custom_field.partial_name}", f: builder %>
-  <% end %>
-  
-  <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{current_post_type.name.underscore}_fields") %>
-    <%= render("storytime/dashboard/posts/#{current_post_type.name.underscore}_fields", f: f)  %>
+  <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
+    <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
   <% end %>
 
-  <%= f.input :post_type_id, as: :hidden %>
+  <%= f.input :category_id, as: :hidden %>
   <%= f.input :excerpt %>
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "wysiwyg" }, label: "Content" %>
   
@@ -26,7 +21,7 @@
   <%= f.input :published, as: :boolean, label: false, inline_label: true if Pundit.policy(current_user, @post).publish? %>
   
   <div class="actions">
-    <%= f.submit (@post.new_record? ? "Create #{current_post_type.name.humanize}" : "Update #{current_post_type.name.humanize}"), class: "btn btn-primary" %>
+    <%= f.submit (@post.new_record? ? "Create #{@post.type_name.humanize}" : "Update #{@post.type_name.humanize}"), class: "btn btn-primary" %>
   </div>
 <% end %>
 

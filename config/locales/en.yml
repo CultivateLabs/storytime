@@ -14,7 +14,7 @@ en:
         success: "Post successfully updated."
       destroy:
         success: "Post successfully deleted."
-    post_types:
+    categories:
       create:
         success: "Post type successfully created."
       update:

@@ -7,8 +7,10 @@ class CreateStorytimePosts < ActiveRecord::Migration
       t.text :content
       t.text :excerpt
       t.datetime :published_at
-      t.references :post_type, index: true
+      t.references :category, index: true
       t.references :featured_media
+      t.boolean :featured, default: false
+      t.boolean :static, default: false
 
       t.timestamps
     end

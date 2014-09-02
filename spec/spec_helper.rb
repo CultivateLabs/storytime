@@ -31,7 +31,6 @@ RSpec.configure do |config|
   # end
 
   config.before(:each) do
-    Storytime::PostType.seed
     Storytime::Role.seed
     Storytime::Action.seed
     Storytime::Permission.seed

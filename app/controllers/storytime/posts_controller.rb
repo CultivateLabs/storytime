@@ -3,10 +3,11 @@ require_dependency "storytime/application_controller"
 module Storytime
   class PostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
+
     def index
-      @posts = if params[:post_type].present?
-        @post_type = PostType.find_by(name: params[:post_type])
-        @post_type.posts
+      @posts = if params[:category].present?
+        @category = Category.find_by(name: params[:category])
+        @category.posts
       else
         Post.primary_feed
       end
@@ -35,7 +36,7 @@ module Storytime
 
       #allow overriding in the host app
       render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
-      render @post.post_type.name if @post.post_type && lookup_context.template_exists?("storytime/posts/#{@post.post_type.name}")
+      render @post.type_name if lookup_context.template_exists?("storytime/posts/#{@post.type_name}")
     end
   end
 end

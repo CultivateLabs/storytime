@@ -37,7 +37,7 @@ describe "In the dashboard, Pages" do
     pg.draft_content.should == "It was a dark and stormy night..."
     pg.user.should == current_user
     pg.should_not be_published
-    pg.post_type.should == Storytime::PostType.find_by(name: "page")
+    pg.class.should == Storytime::Page
     pg.featured_media.should == media
   end
 

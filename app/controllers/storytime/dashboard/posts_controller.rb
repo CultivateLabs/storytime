@@ -15,19 +15,17 @@ module Storytime
       end
 
       def new
-        @post = current_user.storytime_posts.new
-        @post.post_type = current_post_type
-        @post.initialize_missing_custom_field_responses
+        @post = new_post
+        @post.category = current_category
         authorize @post
       end
 
       def edit
-        @post.initialize_missing_custom_field_responses
         authorize @post
       end
 
       def create
-        @post = current_user.storytime_posts.new(post_params)
+        @post = new_post(post_params)
         @post.draft_user_id = current_user.id
         authorize @post
 
@@ -59,20 +57,23 @@ module Storytime
 
     private
 
-      def current_post_type
-        @post_type ||= PostType.find_by(name: params[:post_type] || (@post && @post.post_type.name) || PostType::DEFAULT_TYPE_NAME)
-      end
-      helper_method :current_post_type
-
       def set_post
         @post = Post.friendly.find(params[:id])
       end
 
+      def new_post(params)
+        current_user.storytime_posts.new(params)
+      end
+
+      def base_posts_scope
+        policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page]).per(10)
+      end
+
       def load_posts
-        @posts = policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page]).per(10)
+        @posts = base_posts_scope
                 
-        @posts = if current_post_type.excluded_from_primary_feed?
-          @posts.where(post_type_id: current_post_type.id) 
+        @posts = if current_category
+          @posts.where(category_id: current_category.id) 
         else
           @posts.primary_feed
         end

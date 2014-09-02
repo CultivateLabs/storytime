@@ -13,14 +13,13 @@ module Storytime
     end
 
     def setup_seeds
-      Storytime::PostType.seed
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed
     end
 
     def root_post_options
-      Storytime::PostType.static_page_type.posts.published
+      Storytime::Page.published
     end
   end
 end

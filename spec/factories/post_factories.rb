@@ -6,11 +6,11 @@ FactoryGirl.define do
     sequence(:excerpt) { |i| "Post ##{i}. It was a dark and stormy night." }
     tag_list ""
     published_at { Time.now }
-    post_type { Storytime::PostType.default_type }
+    type "Storytime::Post"
 
     factory :page do
       sequence(:title) { |i| "Page ##{i}" }
-      post_type { Storytime::PostType.static_page_type }
+      type "Storytime::Page"
     end
   end
 end

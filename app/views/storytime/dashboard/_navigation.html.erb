@@ -10,16 +10,18 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li <%= active_nav_item_class("posts", Storytime::PostType::DEFAULT_TYPE_NAME) %>><%= link_to "Blog", storytime.dashboard_posts_path(post_type: Storytime::PostType::DEFAULT_TYPE_NAME) %></li>
+      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Blog Posts", storytime.dashboard_posts_path %></li>
 
-      <% Storytime::PostType.excluded_from_primary_feed.each do |type| %>
-        <li <%= active_nav_item_class("posts", type.name) %>><%= link_to type.name.humanize, storytime.dashboard_posts_path(post_type: type.name) %></li>
+      <li <%= active_nav_item_class("posts", current_category) %>><%= link_to "Pages", storytime.dashboard_posts_path %></li>
+
+      <% Storytime::Category.excluded_from_primary_feed.each do |category| %>
+        <li <%= active_nav_item_class("posts", category.name) %>><%= link_to type.name.humanize, storytime.url_for([:dashboard, Post, category: category.name]) %></li>
       <% end %>
       
-      <li <%= active_nav_item_class("post_types") %>><%= link_to "Types", storytime.dashboard_post_types_path %></li>
-      <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.dashboard_media_index_path %></li>
+      <li <%= active_nav_item_class("categories") %>><%= link_to "Categories", storytime.url_for([:dashboard, Storytime::Category]) %></li>
+      <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.url_for([:dashboard, Storytime::Media]) %></li>
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.dashboard_users_path %></li>
+        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.storytime.url_for([:dashboard, Storytime.user_class]) %></li>
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
         <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>
