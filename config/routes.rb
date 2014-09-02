@@ -2,7 +2,7 @@
   resources :comments
 
   namespace :dashboard do
-    get "/", to: "posts#index"
+    get "/", to: "blog_posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :blog_posts, except: [:show]
     resources :pages
