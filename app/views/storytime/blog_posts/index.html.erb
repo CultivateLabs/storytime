@@ -1,11 +1,11 @@
-<% content_for :head, auto_discovery_link_tag(:atom, posts_url(format: "atom")) %>
+<% content_for :head, auto_discovery_link_tag(:atom, url_for([Storytime::BlogPost, format: "atom"])) %>
 
 <div class="container">
   <div class="row">
     <div class="col-md-9">
       <div class="post-list">
         <%= render @posts %>
-        <%= paginate @posts %>
+        <%= paginate @posts, param_name: "page_number" %>
       </div>
     </div>
     <div class="col-md-3">

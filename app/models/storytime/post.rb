@@ -20,6 +20,14 @@ module Storytime
 
     before_validation :populate_excerpt_from_content
 
+    scope :primary_feed, ->{ where(type: primary_feed_types) }
+
+    def self.primary_feed_types
+      Storytime.post_types.map{|post_type| post_type.constantize }.select do |post_type|
+        post_type.included_in_primary_feed?
+      end
+    end
+
     def self.type_name
       to_s.split("::").last.underscore
     end

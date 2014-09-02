@@ -8,7 +8,7 @@
   <div class="scroll-y">
     <ul>
       <% @posts.each do |post| %>
-        <li id="post_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
+        <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
           <%= link_to post.title, url_for([:edit, :dashboard, post, page: params[:page]]) %>
           <span class="pull-right">
             <% unless post.published? %>
@@ -19,6 +19,6 @@
         </li>
       <% end %>
     </ul>
-    <%= paginate @posts %>
+    <%= paginate @posts, param_name: "page_number" %>
   </div>
 </div>

@@ -10,7 +10,6 @@ class CreateStorytimePosts < ActiveRecord::Migration
       t.datetime :published_at
       t.references :featured_media
       t.boolean :featured, default: false
-      t.boolean :static, default: false
 
       t.timestamps
     end

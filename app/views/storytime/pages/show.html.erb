@@ -1,0 +1,1 @@
+<%= @page.content.html_safe %>

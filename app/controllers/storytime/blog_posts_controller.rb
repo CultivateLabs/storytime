@@ -1,11 +1,11 @@
 require_dependency "storytime/application_controller"
 
 module Storytime
-  class PostsController < ApplicationController
+  class BlogPostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
 
     def index
-      @posts = Post.all
+      @posts = Post.primary_feed
       
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)
@@ -17,11 +17,7 @@ module Storytime
     end
 
     def show
-      @post = if request.path == "/"
-        Post.published.find @site.root_post_id 
-      else
-        Post.published.friendly.find(params[:id])
-      end
+      @post = Post.published.friendly.find(params[:id])
       
       if params[:id] != @post.slug && request.path != "/"
         return redirect_to @post, :status => :moved_permanently
@@ -31,7 +27,6 @@ module Storytime
 
       #allow overriding in the host app
       render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
-      render @post.type_name if lookup_context.template_exists?("storytime/posts/#{@post.type_name}")
     end
   end
 end

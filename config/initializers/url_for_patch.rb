@@ -3,11 +3,11 @@ module ActionDispatch
     class RouteSet
       
       def url_for_with_storytime(options = {})
-        if options[:controller] == "storytime/posts" && options[:action] == "index"
+        if options[:controller] == "storytime/blog_posts" && options[:action] == "index"
           options[:use_route] = "root_post_index" if Storytime::Site.first.root_page_content == "posts"
-        elsif options[:controller] == "storytime/posts" && options[:action] == "show"
+        elsif options[:controller] == "storytime/blog_posts" && options[:action] == "show"
           site = Storytime::Site.first
-          key = [:id, :component_1, :component_2, :component_3].detect{|key| options[key].class == Storytime::Post }
+          key = [:id, :component_1, :component_2, :component_3].detect{|key| options[key].class == Storytime::BlogPost }
           post = options[key]
 
           case site.post_slug_style

@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20140813130534) do
     t.datetime "published_at"
     t.integer  "featured_media_id"
     t.boolean  "featured",          default: false
-    t.boolean  "static",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

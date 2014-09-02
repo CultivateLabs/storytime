@@ -32,14 +32,11 @@ describe Storytime::Post do
 
   context "#primary_feed" do
     it "shows posts where post type is not excluded from the main feed" do
-      included_type = FactoryGirl.create(:post_type, excluded_from_primary_feed: false)
-      excluded_type = FactoryGirl.create(:post_type, excluded_from_primary_feed: true)
-
       post_1 = FactoryGirl.create(:post)
-      post_2 = FactoryGirl.create(:post, post_type: included_type)
+      post_2 = FactoryGirl.create(:post)
 
       post_3 = FactoryGirl.create(:page)
-      post_4 = FactoryGirl.create(:post, post_type: excluded_type)
+      post_4 = FactoryGirl.create(:page)
 
       feed = Storytime::Post.primary_feed
       expect(feed).to include(post_1)

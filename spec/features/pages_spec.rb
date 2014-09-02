@@ -7,8 +7,7 @@ describe "Pages" do
 
   it "shows a page" do
     pg = FactoryGirl.create(:page)
-    visit post_path(pg)
-    page.should have_content(pg.title)
+    visit url_for([pg, only_path: true])
     page.should have_content(pg.content)
   end
   

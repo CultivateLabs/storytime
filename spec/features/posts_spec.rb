@@ -8,7 +8,7 @@ describe "Posts" do
   it "lists posts" do
     3.times{ FactoryGirl.create(:post) }
     static_page = FactoryGirl.create(:page)
-    visit posts_path
+    visit url_for([Storytime::BlogPost, only_path: true])
 
     within ".post-list" do
       Storytime::Post.primary_feed.each do |p|
@@ -24,7 +24,7 @@ describe "Posts" do
 
   it "shows a post" do
     post = FactoryGirl.create(:post)
-    visit post_path(post)
+    visit url_for([post, only_path: true])
 
     expect(page).to have_content(post.title)
     expect(page).to have_content(post.content)

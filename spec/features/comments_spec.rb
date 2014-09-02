@@ -11,7 +11,7 @@ describe "Comments" do
     3.times{ FactoryGirl.create(:comment, post: post) }
     other_post_comment = FactoryGirl.create(:comment)
 
-    visit post_path(post)
+    visit url_for([post, only_path: true])
 
     post.comments.each do |c|
       page.should have_content(c.content)
@@ -25,7 +25,7 @@ describe "Comments" do
     post = FactoryGirl.create(:post)
     comment_count = post.comments.count
 
-    visit post_path(post)
+    visit url_for([post, only_path: true])
 
     fill_in "comment_content", with: "Here's some comment content"
     click_button "Create Comment"
@@ -42,7 +42,7 @@ describe "Comments" do
     other_persons_comment = FactoryGirl.create(:comment, post: post)
     comment_to_delete = FactoryGirl.create(:comment, post: post, user: current_user)
 
-    visit post_path(post)
+    visit url_for([post, only_path: true])
 
     expect(page).to have_content(other_persons_comment.content)
     expect(page).to_not have_link("delete_comment_#{other_persons_comment.id}")

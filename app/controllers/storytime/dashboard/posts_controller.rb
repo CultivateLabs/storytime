@@ -72,7 +72,9 @@ module Storytime
       end
 
       def post_params
-        raise "post_params method should be overridden by subclasses"
+        permitted_attrs = policy(@post || current_post_type.new(user: current_user)).permitted_attributes
+        permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
+        params.require(current_post_type.type_name.to_sym).permit(*permitted_attrs)
       end
 
       def current_post_type
@@ -81,7 +83,7 @@ module Storytime
       helper_method :current_post_type
 
       def load_posts
-        @posts = policy_scope(current_post_type).order(created_at: :desc).page(params[:page]).per(10).where(type: current_post_type)
+        @posts = policy_scope(current_post_type).where(type: current_post_type).order(created_at: :desc).page(params[:page_number]).per(10)
       end
 
       

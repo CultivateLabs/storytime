@@ -14,13 +14,6 @@ en:
         success: "Post successfully updated."
       destroy:
         success: "Post successfully deleted."
-    categories:
-      create:
-        success: "Post type successfully created."
-      update:
-        success: "Post type successfully updated."
-      destroy:
-        success: "Post type successfully deleted."
     sites:
       create:
         success: "Site successfully created."
