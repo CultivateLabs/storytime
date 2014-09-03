@@ -1,4 +1,4 @@
-class Storytime.Dashboard.Pages
+class Storytime.Dashboard.Posts
   initNew: ()->
     (new Storytime.Dashboard.Editor()).init()
 
