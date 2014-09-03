@@ -1,7 +1,7 @@
 require_dependency "storytime/application_controller"
 
 module Storytime
-  class BlogPostsController < ApplicationController
+  class PostsController < ApplicationController
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
 
     def index

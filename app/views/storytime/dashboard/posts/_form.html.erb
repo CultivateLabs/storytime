@@ -1,9 +1,10 @@
 <%= simple_form_for [:dashboard, @post] do |f| %>
   <%= f.error_notification %>
   <%= f.input :title, autofocus: true %>
+  <%= hidden_field_tag :type, @post.type_name %>
   
-  <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
-    <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
+  <% if lookup_context.template_exists?("storytime/dashboard/blog_posts/_#{@post.type_name}_fields") %>
+    <%= render("storytime/dashboard/blog_posts/#{@post.type_name}_fields", f: f)  %>
   <% end %>
   
   <%= f.input :excerpt %>

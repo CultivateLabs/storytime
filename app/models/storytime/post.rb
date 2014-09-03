@@ -22,6 +22,10 @@ module Storytime
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
 
+    def self.policy_class
+      Storytime::PostPolicy
+    end
+
     def self.primary_feed_types
       Storytime.post_types.map{|post_type| post_type.constantize }.select do |post_type|
         post_type.included_in_primary_feed?
@@ -80,5 +84,9 @@ module Storytime
     def author_name
       user.storytime_name.blank? ? user.email : user.storytime_name
     end
+
+    # def self.model_name
+    #   ActiveModel::Name.new(self, nil, "Post")
+    # end
   end
 end

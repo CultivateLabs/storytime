@@ -51,13 +51,17 @@ module Storytime
         authorize @post
         @post.destroy
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
-        respond_with [:dashboard, @post]
+        
+        respond_with [:dashboard, @post] do |format|
+          format.html{ redirect_to url_for([:dashboard, Storytime::Post, type: @post.type_name])}
+        end
       end
 
     private
 
       def set_post
-        @post = current_post_type.friendly.find(params[:id])
+        @post = Storytime::Post.friendly.find(params[:id])
+        @current_post_type = @post.type.constantize
       end
 
       def new_post(attrs = nil)
@@ -72,18 +76,23 @@ module Storytime
       end
 
       def post_params
-        permitted_attrs = policy(@post || current_post_type.new(user: current_user)).permitted_attributes
+        post = @post || current_post_type.new(user: current_user)
+        permitted_attrs = policy(post).permitted_attributes
         permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
-        params.require(current_post_type.type_name.to_sym).permit(*permitted_attrs)
+        params.require(:post).permit(*permitted_attrs)
       end
 
       def current_post_type
-        raise "current_post_type method should be overridden by subclasses"
+        @current_post_type ||= begin
+          type_param = params[:type] || (params[:post] && params[:post].delete(:type))
+          matching_type = Storytime.post_types.find{|post_type| post_type.constantize.type_name == type_param }
+          matching_type.nil? ? Storytime::BlogPost : matching_type.constantize
+        end
       end
       helper_method :current_post_type
 
       def load_posts
-        @posts = policy_scope(current_post_type).where(type: current_post_type).order(created_at: :desc).page(params[:page_number]).per(10)
+        @posts = policy_scope(Storytime::Post).where(type: current_post_type).order(created_at: :desc).page(params[:page_number]).per(10)
       end
 
       
