@@ -2,7 +2,7 @@
 
 <div id="main" class="pane">
 <h3 class="heading">
-  Edit <%= @post.type_name.humanize %>
+  Edit <%= @post.human_name %>
   <span class="pull-right">
     <%= link_to "View Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
   </span>

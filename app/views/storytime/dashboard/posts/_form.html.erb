@@ -21,7 +21,7 @@
   <%= f.input :published, as: :boolean, label: false, inline_label: true if Pundit.policy(current_user, @post).publish? %>
   
   <div class="actions">
-    <%= f.submit (@post.new_record? ? "Create #{@post.type_name.humanize}" : "Update #{@post.type_name.humanize}"), class: "btn btn-primary" %>
+    <%= f.submit (@post.new_record? ? "Create #{@post.human_name}" : "Update #{@post.human_name}"), class: "btn btn-primary" %>
   </div>
 <% end %>
 

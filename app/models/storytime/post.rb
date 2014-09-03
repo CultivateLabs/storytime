@@ -32,6 +32,14 @@ module Storytime
       end
     end
 
+    def self.human_name
+      @human_name ||= type_name.humanize.split(" ").map(&:capitalize).join(" ")
+    end
+
+    def human_name
+      self.class.human_name
+    end
+
     def self.type_name
       to_s.split("::").last.underscore
     end

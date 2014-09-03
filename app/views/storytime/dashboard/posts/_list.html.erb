@@ -1,9 +1,7 @@
 <div id="list" class="pane">
   <h3 class="heading"> 
     <%= post_list_title(current_post_type) %>
-    <%= link_to url_for([:new, :dashboard, :post, type: current_post_type.type_name]), class: "btn btn-info btn-sm pull-right" do %>
-      <i class="glyphicon glyphicon-plus"></i>
-    <% end %>
+    <%= new_post_button(current_post_type) %>
   </h3>
   <div class="scroll-y">
     <ul>
