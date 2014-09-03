@@ -7,7 +7,7 @@ describe "In the dashboard, Posts" do
     3.times{ FactoryGirl.create(:post) }
     FactoryGirl.create(:post)
     static_page = FactoryGirl.create(:page)
-    visit url_for([:dashboard, Storytime::BlogPost, only_path: true])
+    visit url_for([:dashboard, Storytime::Post, type: Storytime::BlogPost.type_name, only_path: true])
     
     within "#list" do
       Storytime::Post.primary_feed.each do |p|
@@ -22,10 +22,10 @@ describe "In the dashboard, Posts" do
     Storytime::BlogPost.count.should == 0
     media = FactoryGirl.create(:media)
 
-    visit url_for([:new, :dashboard, :blog_post])
-    fill_in "blog_post_title", with: "The Story"
-    fill_in "blog_post_excerpt", with: "It was a dark and stormy night..."
-    fill_in "blog_post_draft_content", with: "It was a dark and stormy night..."
+    visit url_for([:new, :dashboard, :post])
+    fill_in "post_title", with: "The Story"
+    fill_in "post_excerpt", with: "It was a dark and stormy night..."
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
     click_button "Create Blog post"
     
@@ -47,8 +47,8 @@ describe "In the dashboard, Posts" do
     Storytime::BlogPost.count.should == 1
 
     visit url_for([:edit, :dashboard, post, only_path: true])
-    fill_in "blog_post_title", with: "The Story"
-    fill_in "blog_post_draft_content", with: "It was a dark and stormy night..."
+    fill_in "post_title", with: "The Story"
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_button "Update Blog"
     
     page.should have_content(I18n.t('flash.posts.update.success'))

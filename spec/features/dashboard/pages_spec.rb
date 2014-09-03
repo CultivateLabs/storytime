@@ -8,7 +8,7 @@ describe "In the dashboard, Pages" do
   it "lists pages" do
     post = FactoryGirl.create(:post)
     3.times{ FactoryGirl.create(:page) }
-    visit url_for([:dashboard, Storytime::Page])
+    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name])
     
     Storytime::Page.all.each do |p|
       page.should have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true]))
@@ -22,9 +22,9 @@ describe "In the dashboard, Pages" do
     Storytime::Page.count.should == 0
     media = FactoryGirl.create(:media)
 
-    visit url_for([:new, :dashboard, :page, only_path: true])
-    fill_in "page_title", with: "The Story"
-    fill_in "page_draft_content", with: "It was a dark and stormy night..."
+    visit url_for([:new, :dashboard, :post, type: Storytime::Page.type_name, only_path: true])
+    fill_in "post_title", with: "The Story"
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
     
     click_button "Create Page"
@@ -47,8 +47,8 @@ describe "In the dashboard, Pages" do
     Storytime::Page.count.should == 1
     
     visit url_for([:edit, :dashboard, pg])
-    fill_in "page_title", with: "The Story"
-    fill_in "page_draft_content", with: "It was a dark and stormy night..."
+    fill_in "post_title", with: "The Story"
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_button "Update Page"
     
     page.should have_content(I18n.t('flash.posts.update.success'))
@@ -59,11 +59,12 @@ describe "In the dashboard, Pages" do
     pg.draft_content.should == "It was a dark and stormy night..."
     pg.user.should == original_creator
     pg.should_not be_published
+    pg.type.should == "Storytime::Page"
   end
 
   it "deletes a page", js: true do
     3.times{|i| FactoryGirl.create(:page) }
-    visit url_for([:dashboard, Storytime::Page, only_path: true])
+    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name, only_path: true])
     p1 = Storytime::Page.first
     p2 = Storytime::Page.last
     click_link("delete_page_#{p1.id}")

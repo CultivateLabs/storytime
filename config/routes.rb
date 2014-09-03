@@ -28,6 +28,7 @@
     resources :posts, path: "/", only: :index, as: :root_post
   end
 
+  # pages at routes like /about
   constraints ->(request){ Storytime::Page.published.where(slug: request.params[:id]).any? } do
     resources :pages, only: :show, path: "/"
   end

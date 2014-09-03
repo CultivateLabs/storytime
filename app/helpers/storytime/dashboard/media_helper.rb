@@ -3,7 +3,7 @@ module Storytime
     module MediaHelper
       def show_media_insert_button?
         controller = params[:controller].split("/").last
-        %w{pages blog_posts}.include?(controller) || (request.referrer && (request.referrer.include?("pages") || request.referrer.include?("posts")))
+        %w{pages posts}.include?(controller) || (request.referrer && (request.referrer.include?("pages") || request.referrer.include?("posts")))
       end
 
       def full_media_file_url(media, size = nil)

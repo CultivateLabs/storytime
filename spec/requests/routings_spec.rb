@@ -4,7 +4,7 @@ describe "Root path" do
   it "routes to posts#index when site#root_page_content is posts" do
     FactoryGirl.create(:site, root_page_content: :posts)
     get "/"
-    expect(request.params[:controller]).to eq("storytime/blog_posts")
+    expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("index")
   end
 
@@ -26,7 +26,7 @@ describe "Post path" do
 
     get url_for([post, only_path: true])
     
-    expect(request.params[:controller]).to eq("storytime/blog_posts")
+    expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
     expect(request.params[:id]).to eq(post.slug)
   end
@@ -39,7 +39,7 @@ describe "Post path" do
 
     get url_for([post, only_path: true])
     
-    expect(request.params[:controller]).to eq("storytime/blog_posts")
+    expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
     expect(request.params[:id]).to eq(post.slug)
   end
@@ -52,7 +52,7 @@ describe "Post path" do
 
     get url_for([post, only_path: true])
     
-    expect(request.params[:controller]).to eq("storytime/blog_posts")
+    expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
     expect(request.params[:id]).to eq(post.slug)
   end
@@ -64,7 +64,7 @@ describe "Post path" do
 
     get url_for([post, only_path: true])
     
-    expect(request.params[:controller]).to eq("storytime/blog_posts")
+    expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
     expect(request.params[:id]).to eq(post.slug)
   end

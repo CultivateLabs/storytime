@@ -85,8 +85,8 @@ module Storytime
       user.storytime_name.blank? ? user.email : user.storytime_name
     end
 
-    # def self.model_name
-    #   ActiveModel::Name.new(self, nil, "Post")
-    # end
+    def self.model_name
+      ActiveModel::Name.new(self, nil, "Post")
+    end
   end
 end

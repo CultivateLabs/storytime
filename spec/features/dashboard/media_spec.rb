@@ -50,7 +50,7 @@ describe "In the dashboard, Media" do
   it "inserts media into post", js: true do
     media = FactoryGirl.create(:media)
 
-    visit url_for([:new, :dashboard, :blog_post, only_path: true])
+    visit url_for([:new, :dashboard, :post, type: Storytime::BlogPost.type_name, only_path: true])
 
     page.should have_selector("a[data-wysihtml5-command='insertImage']")
     find("a[data-wysihtml5-command='insertImage']").click
@@ -62,9 +62,9 @@ describe "In the dashboard, Media" do
     #content_text_area = find("#post_draft_content", visible: false)
     
     wait_until do
-      find("#blog_post_draft_content", visible: false).value =~ /#{media.file_url}/
+      find("#post_draft_content", visible: false).value =~ /#{media.file_url}/
     end
-    find("#blog_post_draft_content", visible: false).value.should =~ /#{media.file_url}/
+    find("#post_draft_content", visible: false).value.should =~ /#{media.file_url}/
   end
   
 end
