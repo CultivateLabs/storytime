@@ -92,7 +92,13 @@ module Storytime
       helper_method :current_post_type
 
       def load_posts
-        @posts = policy_scope(Storytime::Post).where(type: current_post_type).order(created_at: :desc).page(params[:page_number]).per(10)
+        @posts = policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page_number]).per(10)
+        
+        @posts = if current_post_type.included_in_primary_feed?
+          @posts.primary_feed
+        else
+          @posts.where(type: current_post_type)
+        end
       end
 
       
