@@ -1,14 +1,15 @@
 <%= render 'list' %>
 
-<div id="main" class="pane">
-<h3 class="heading">
-  Edit <%= @post.human_name %>
-  <span class="pull-right">
-    <%= link_to "View Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
-  </span>
-</h3>
+<div id="main" class="pane" data-post-id="<%= @post.slug %>">
+  <h3 class="heading">
+    Edit <%= @post.human_name %>
+    <span class="pull-right">
+      <%= link_to "View Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
+    </span>
+  </h3>
   <div class="scroll-y">
     <div class="padding">
+      <%= autosave_info @post %>
       <%= versions_info @post %>
       <%= render 'form' %>
     </div>

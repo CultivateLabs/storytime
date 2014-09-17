@@ -12,6 +12,8 @@ module Storytime
     has_many :tags, through: :taggings
     has_many :comments
 
+    has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
+
     validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..400 }

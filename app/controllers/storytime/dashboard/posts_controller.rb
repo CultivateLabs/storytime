@@ -21,6 +21,14 @@ module Storytime
 
       def edit
         authorize @post
+
+        if params[:autosave]
+          if @post.autosave
+            @post.draft_content = @post.autosave.content
+          else
+            redirect_to url_for([:edit, :dashboard, @post])
+          end
+        end
       end
 
       def create
@@ -40,6 +48,7 @@ module Storytime
         authorize @post
         @post.draft_user_id = current_user.id
         if @post.update(post_params)
+          @post.autosave.destroy
           redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.update.success')
         else
           load_media

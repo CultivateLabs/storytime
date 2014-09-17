@@ -28,3 +28,32 @@ class Storytime.Dashboard.Editor
                 $modal[0].outerHTML +
                 "<a class='btn" + size + " btn-default' data-wysihtml5-command='insertImage' title='" + locale.image.insert + "' tabindex='-1'><i class='glyphicon glyphicon-picture'></i></a>" +
                 "</li>";
+
+    $('.wysihtml5-sandbox').contents().find('body').focus(->
+      console.log "Load thingy"
+      updateLater(10000)
+      
+      $('.wysihtml5-sandbox').contents().find('body').off('focus')
+    )
+
+  updateLater = (timer) ->
+    timer = 120000  unless timer?
+    timeoutId = window.setTimeout((->
+      saveForm()
+    ), timer)
+    return
+
+  saveForm = () ->
+    data = []
+    data.push {name: "id", value: $("#main").data("post-id")}
+    data.push {name: "post[draft_content]", value: $(".edit_post").last().find("#post_draft_content").val()}
+
+    $.ajax(
+      type: "POST"
+      url: "/dashboard/autosaves"
+      data: data
+    ).done(->
+      updateLater(10000)
+    ).fail(->
+      console.log "Something went wrong while trying to autosave..."
+    )
