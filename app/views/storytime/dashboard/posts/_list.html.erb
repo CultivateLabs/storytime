@@ -4,19 +4,27 @@
     <%= new_post_button(current_post_type) %>
   </h3>
   <div class="scroll-y">
-    <ul>
+    <ul class="dashboard-list">
       <% @posts.each do |post| %>
         <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
-          <%= link_to post.title, url_for([:edit, :dashboard, post, page: params[:page]]) %>
-          <span class="pull-right">
-            <% unless post.published? %>
-              <span class="label label-warning">Draft</span>
-            <% end %>
-            <%= delete_resource_link post, url_for([:dashboard, post]), !current_page?(url_for([:edit, :dashboard, post])) %>
-          </span>
+          <div class="row">
+            <div class="col-md-10">
+              <%= link_to post.title, url_for([:edit, :dashboard, post, page: params[:page]]) %>    
+            </div>
+            <div class="col-md-2">
+              <span class="pull-right">
+                <% unless post.published? %>
+                  <span class="label label-warning">Draft</span>
+                <% end %>
+                <%= delete_resource_link post, url_for([:dashboard, post]), !current_page?(url_for([:edit, :dashboard, post])) %>
+              </span>
+            </div>
+          </div>
         </li>
       <% end %>
     </ul>
-    <%= paginate @posts, param_name: "page_number" %>
+    <div class="pagination-wrapper">
+      <%= paginate @posts, param_name: "page_number" %>
+    </div>
   </div>
 </div>
