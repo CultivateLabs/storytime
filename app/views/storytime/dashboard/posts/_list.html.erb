@@ -8,10 +8,10 @@
       <% @posts.each do |post| %>
         <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
               <%= link_to post.title, url_for([:edit, :dashboard, post, page: params[:page]]) %>    
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
               <span class="pull-right">
                 <% unless post.published? %>
                   <span class="label label-warning">Draft</span>
