@@ -28,6 +28,11 @@
     resources :posts, path: "/", only: :index, as: :root_post
   end
 
+  # index page for post types that are excluded from primary feed
+  constraints ->(request){ Storytime.post_types.any?{|type| type.constantize.type_name.pluralize == request.path.gsub("/", "") } } do
+    get ":post_type", to: "posts#index"
+  end
+
   # pages at routes like /about
   constraints ->(request){ Storytime::Page.published.where(slug: request.params[:id]).any? } do
     resources :pages, only: :show, path: "/"
