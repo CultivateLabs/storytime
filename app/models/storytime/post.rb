@@ -14,6 +14,8 @@ module Storytime
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
+    attr_accessor :preview
+
     validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..200 }
     validates :excerpt, length: { in: 1..400 }
@@ -36,6 +38,10 @@ module Storytime
 
     def self.human_name
       @human_name ||= type_name.humanize.split(" ").map(&:capitalize).join(" ")
+    end
+
+    def self.find_preview(id)
+      Post.friendly.find(id)
     end
 
     def human_name

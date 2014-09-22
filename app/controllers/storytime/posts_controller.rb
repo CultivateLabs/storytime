@@ -20,10 +20,21 @@ module Storytime
       @post = if request.path == "/"
         Post.published.find @site.root_post_id  # page being used on root path
       else
-        Post.published.friendly.find(params[:id])
+        if !params[:preview].nil?
+          Post.find_preview(params[:id])
+        else
+          Post.published.friendly.find(params[:id])
+        end
       end
+
+      if params[:preview]
+        @post.content = @post.autosave.content
+        @post.preview = true
+      end
+
+      authorize @post
       
-      if params[:id] != @post.slug && request.path != "/"
+      if params[:preview].nil? && params[:id] != @post.slug && request.path != "/"
         return redirect_to @post, :status => :moved_permanently
       end
 

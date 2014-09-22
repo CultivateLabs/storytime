@@ -29,9 +29,22 @@ class Storytime.Dashboard.Editor
                 "<a class='btn" + size + " btn-default' data-wysihtml5-command='insertImage' title='" + locale.image.insert + "' tabindex='-1'><i class='glyphicon glyphicon-picture'></i></a>" +
                 "</li>";
 
+    if $(".edit_post").length
+      $("#preview_post").click(->
+        saveForm()
+      )
+
+      if $("#main").data("preview")
+        $("#preview_post").trigger("click")
+        window.open $("#preview_post").attr("href")
+    else
+      $("#preview_new_post").click(->
+        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
+        $(".new_post").submit()
+      )
+
     $('.wysihtml5-sandbox').contents().find('body').focus(->
-      console.log "Load thingy"
-      updateLater(10000)
+      updateLater(10000) if $(".edit_post").length
       
       $('.wysihtml5-sandbox').contents().find('body').off('focus')
     )

@@ -30,6 +30,12 @@ module Storytime
       create?
     end
 
+    def show?
+      if @post.preview
+        manage?
+      end
+    end
+
     def update?
       manage?
     end
@@ -47,7 +53,12 @@ module Storytime
         true
       else
         action = Storytime::Action.find_by(guid: "d8a1b1")
-        @user.storytime_role.allowed_actions.include?(action)
+
+        if @user.nil?
+          false
+        else
+          @user.storytime_role.allowed_actions.include?(action)
+        end
       end
     end
 
@@ -57,7 +68,12 @@ module Storytime
       else
         Storytime::Action.find_by(guid: "d8a1b1")
       end
-      @user.storytime_role.allowed_actions.include?(action)
+
+      if @user.nil?
+        false
+      else
+        @user.storytime_role.allowed_actions.include?(action)
+      end
     end
 
     def permitted_attributes

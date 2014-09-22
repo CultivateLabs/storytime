@@ -37,7 +37,11 @@ module Storytime
         authorize @post
 
         if @post.save
-          redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.create.success')
+          if params[:preview] == 'true'
+            redirect_to url_for([:edit, :dashboard, @post, preview: true]), notice: I18n.t('flash.posts.create.success')
+          else
+            redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.create.success')
+          end
         else
           load_media
           render :new
@@ -48,7 +52,7 @@ module Storytime
         authorize @post
         @post.draft_user_id = current_user.id
         if @post.update(post_params)
-          @post.autosave.destroy
+          @post.autosave.destroy unless @post.autosave.nil?
           redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.update.success')
         else
           load_media
