@@ -50,6 +50,10 @@ class Storytime.Dashboard.Editor
     $('.wysihtml5-sandbox').contents().find('body').focus(->
       updateLater(10000) if $(".edit_post").length
       
+      $('.wysihtml5-sandbox').contents().find('body').on('keyup', ->
+        form.addClass "unsaved_changes"
+      )
+
       $('.wysihtml5-sandbox').contents().find('body').off('focus')
     )
 
