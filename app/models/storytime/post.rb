@@ -13,8 +13,8 @@ module Storytime
     has_many :comments
 
     validates_presence_of :title, :excerpt, :draft_content
-    validates :title, length: { in: 1..200 }
-    validates :excerpt, length: { in: 1..400 }
+    validates :title, length: { in: 1..255 }
+    validates :excerpt, length: { in: 1..600 }
     validates :user, presence: true
     validates :type, inclusion: { in: Storytime.post_types }
 
