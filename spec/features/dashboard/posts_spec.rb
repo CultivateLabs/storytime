@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'pry'
 describe "In the dashboard, Posts" do
   before{ login_admin }
 
@@ -27,7 +27,7 @@ describe "In the dashboard, Posts" do
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
-    click_button "Create Blog post"
+    click_button "Create Blog Post"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
@@ -39,6 +39,24 @@ describe "In the dashboard, Posts" do
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
     post.featured_media.should == media
+  end
+
+  it "autosaves a post when editing", js: true do
+    post = FactoryGirl.create(:post, published_at: nil)
+    original_creator = post.user
+    Storytime::BlogPost.count.should == 1
+
+    visit url_for([:edit, :dashboard, post, only_path: true])
+    fill_in "post_title", with: "A Scandal in Bohemia"
+
+    pending("Figure out how to test for autosave...")
+    
+    fill_in "post_draft_content", with: "To Sherlock Holmes she was always the woman."
+  
+    # Wait 10 seconds to autosave?
+
+    post.reload!
+    post.autosave.content.should == "To Sherlock Holmes she was always the woman."
   end
 
   it "updates a post" do

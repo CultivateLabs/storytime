@@ -30,14 +30,18 @@ class Storytime.Dashboard.Editor
                 "</li>";
 
     if $(".edit_post").length
+      form = $(".edit_post").last()
+
       $("#preview_post").click(->
         saveForm()
       )
-
+      
       if $("#main").data("preview")
         $("#preview_post").trigger("click")
         window.open $("#preview_post").attr("href")
     else
+      form = $(".new_post").last()
+
       $("#preview_new_post").click(->
         $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
         $(".new_post").submit()
@@ -49,12 +53,29 @@ class Storytime.Dashboard.Editor
       $('.wysihtml5-sandbox').contents().find('body').off('focus')
     )
 
+    addUnloadHandler(form)
+
+
+  addUnloadHandler = (form) ->
+    form.find("input, textarea").on("keyup", ->
+      form.addClass "unsaved_changes"
+    )
+
+    $(".save").click(->
+      form.removeClass "unsaved_changes"
+    )
+
+    $(window).on "beforeunload", ->
+      "You haven't saved your changes."  if $(".unsaved_changes").length
+
+
   updateLater = (timer) ->
     timer = 120000  unless timer?
     timeoutId = window.setTimeout((->
       saveForm()
     ), timer)
     return
+
 
   saveForm = () ->
     data = []

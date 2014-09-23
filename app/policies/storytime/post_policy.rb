@@ -33,6 +33,8 @@ module Storytime
     def show?
       if @post.preview
         manage?
+      else
+        true
       end
     end
 
