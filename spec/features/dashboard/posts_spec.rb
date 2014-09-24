@@ -41,21 +41,44 @@ describe "In the dashboard, Posts" do
     post.featured_media.should == media
   end
 
+  it "saves a post when previewing a new post", js: true do
+    Storytime::BlogPost.count.should == 0
+
+    visit url_for([:new, :dashboard, :post, only_path: true])
+    fill_in "post_title", with: "Snow Crash"
+    fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
+    find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
+    click_button "Save and Preview"
+    
+    page.should have_content(I18n.t('flash.posts.create.success'))
+    Storytime::BlogPost.count.should == 1
+
+    # Check to see if popup is opened?
+    # Check to see if popup is directed to correct post.
+
+    post = Storytime::BlogPost.last
+    post.title.should == "Snow Crash"
+    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
+    post.user.should == current_user
+    post.should_not be_published
+    post.type.should == "Storytime::BlogPost"
+  end
+
   it "autosaves a post when editing", js: true do
-    post = FactoryGirl.create(:post, published_at: nil)
+    post = FactoryGirl.create(:post, published_at: nil, title: "A Scandal in Bohemia",
+                              draft_content: "To Sherlock Holmes she was always the woman.")
     original_creator = post.user
     Storytime::BlogPost.count.should == 1
 
-    visit url_for([:edit, :dashboard, post, only_path: true])
-    fill_in "post_title", with: "A Scandal in Bohemia"
+    post.autosave.should == nil
 
-    pending("Figure out how to test for autosave...")
-    
-    fill_in "post_draft_content", with: "To Sherlock Holmes she was always the woman."
-  
-    # Wait 10 seconds to autosave?
+    visit url_for([:edit, :dashboard, post, only_path: true])
+
+    # page.execute_script not working... even when using Storytime.instance.???
+    page.execute_script "Storytime.Dashboard.Editor.autosavePostForm()"
 
     post.reload!
+    post.autosave.should != nil
     post.autosave.content.should == "To Sherlock Holmes she was always the woman."
   end
 
