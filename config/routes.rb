@@ -5,7 +5,9 @@
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :posts, except: [:show]
-    resources :autosaves, only: [:create]
+    resources :posts, except: [:show], shallow: true do
+      resources :autosaves, only: [:create]
+    end
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
     resources :users

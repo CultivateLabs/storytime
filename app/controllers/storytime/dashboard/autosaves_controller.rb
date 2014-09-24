@@ -10,7 +10,7 @@ module Storytime
       respond_to :json
 
       def create
-        if @post.autosave.nil? || (@post.autosave && @post.autosave.content != params[:post][:draft_content])
+        if @post.autosave.nil? || (@post.autosave.content != params[:post][:draft_content])
           @post.create_autosave(autosave_params)
         end
 
@@ -20,7 +20,7 @@ module Storytime
       private
 
         def set_post
-          @post = Storytime::Post.friendly.find(params[:id])
+          @post = Storytime::Post.friendly.find(params[:post_id])
         end
 
         def autosave_params

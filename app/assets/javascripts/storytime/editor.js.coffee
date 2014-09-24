@@ -1,5 +1,7 @@
 class Storytime.Dashboard.Editor
-  init: ()->
+  init: () ->
+    self = @
+
     mediaInstance = new Storytime.Dashboard.Media()
     mediaInstance.initPagination()
     mediaInstance.initInsert()
@@ -33,7 +35,7 @@ class Storytime.Dashboard.Editor
       form = $(".edit_post").last()
 
       $("#preview_post").click(->
-        saveForm()
+        self.autosavePostForm()
       )
       
       if $("#main").data("preview")
@@ -48,10 +50,10 @@ class Storytime.Dashboard.Editor
       )
 
     $('.wysihtml5-sandbox').contents().find('body').focus(->
-      updateLater(10000) if $(".edit_post").length
+      self.updateLater(10000) if $(".edit_post").length
       
       $('.wysihtml5-sandbox').contents().find('body').on('keyup', ->
-        form.addClass "unsaved_changes"
+        form.data "unsaved-changes", true
       )
 
       $('.wysihtml5-sandbox').contents().find('body').off('focus')
@@ -60,38 +62,42 @@ class Storytime.Dashboard.Editor
     addUnloadHandler(form)
 
 
-  addUnloadHandler = (form) ->
-    form.find("input, textarea").on("keyup", ->
-      form.addClass "unsaved_changes"
-    )
+  autosavePostForm: () ->
+    self = @
+    post_id = $("#main").data("post-id")
 
-    $(".save").click(->
-      form.removeClass "unsaved_changes"
-    )
-
-    $(window).on "beforeunload", ->
-      "You haven't saved your changes."  if $(".unsaved_changes").length
-
-
-  updateLater = (timer) ->
-    timer = 120000  unless timer?
-    timeoutId = window.setTimeout((->
-      saveForm()
-    ), timer)
-    return
-
-
-  saveForm = () ->
     data = []
-    data.push {name: "id", value: $("#main").data("post-id")}
     data.push {name: "post[draft_content]", value: $(".edit_post").last().find("#post_draft_content").val()}
 
     $.ajax(
       type: "POST"
-      url: "/dashboard/autosaves"
+      url: "/dashboard/posts/#{post_id}/autosaves"
       data: data
-    ).done(->
-      updateLater(10000)
-    ).fail(->
-      console.log "Something went wrong while trying to autosave..."
     )
+
+
+  updateLater: (timer) ->
+    self = @
+    timer = 120000  unless timer?
+
+    timeoutId = window.setTimeout((->
+      self.autosavePostForm().done(->
+        self.updateLater()
+      ).fail(->
+        console.log "Something went wrong while trying to autosave..."
+      )
+    ), timer)
+    return
+
+
+  addUnloadHandler = (form) ->
+    form.find("input, textarea").on("keyup", ->
+      form.data "unsaved-changes", true
+    )
+
+    $(".save").click(->
+      form.data "unsaved-changes", false
+    )
+
+    $(window).on "beforeunload", ->
+      "You haven't saved your changes."  if form.data "unsaved-changes"

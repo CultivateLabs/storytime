@@ -37,11 +37,8 @@ module Storytime
         authorize @post
 
         if @post.save
-          if params[:preview] == 'true'
-            redirect_to url_for([:edit, :dashboard, @post, preview: true]), notice: I18n.t('flash.posts.create.success')
-          else
-            redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.create.success')
-          end
+          opts = params[:preview] == "true" ? { preview: true } : {}
+          redirect_to url_for([:edit, :dashboard, @post, opts]), notice: I18n.t('flash.posts.create.success')
         else
           load_media
           render :new
