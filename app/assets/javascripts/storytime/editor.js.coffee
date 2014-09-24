@@ -67,7 +67,7 @@ class Storytime.Dashboard.Editor
     post_id = $("#main").data("post-id")
 
     data = []
-    data.push {name: "post[draft_content]", value: $(".edit_post").last().find("#post_draft_content").val()}
+    data.push {name: "post[draft_content]", value: $("#post_draft_content").val()}
 
     $.ajax(
       type: "POST"
@@ -82,7 +82,10 @@ class Storytime.Dashboard.Editor
 
     timeoutId = window.setTimeout((->
       self.autosavePostForm().done(->
-        self.updateLater()
+        self.updateLater(10000)
+
+        time_now = new Date().toLocaleTimeString()
+        $("#draft_last_saved_at").html "Draft saved at #{time_now}"
       ).fail(->
         console.log "Something went wrong while trying to autosave..."
       )

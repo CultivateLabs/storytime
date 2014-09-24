@@ -4,6 +4,8 @@
   <h3 class="heading">
     Edit <%= @post.human_name %>
     <span class="pull-right">
+      <span id="draft_last_saved_at" class="draft_saved"></span>
+
       <%= link_to "View Published Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
       <%= link_to "View Preview", post_path(@post, preview: true), class: "btn btn-default", id: "preview_post", target: "_blank" %>
     </span>
