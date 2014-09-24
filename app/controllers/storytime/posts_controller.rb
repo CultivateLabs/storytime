@@ -5,7 +5,12 @@ module Storytime
     before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
 
     def index
-      @posts = Post.primary_feed
+      @posts = if params[:post_type]
+        klass = Storytime.post_types.find{|post_type| post_type.constantize.type_name == params[:post_type].singularize }
+        klass.constantize.all
+      else
+        Post.primary_feed
+      end
       
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(created_at: :desc).page(params[:page]).per(10)
@@ -17,24 +22,18 @@ module Storytime
     end
 
     def show
-      @post = if request.path == "/"
-        Post.published.find @site.root_post_id  # page being used on root path
+      @post = if !params[:preview].nil?
+        post = Post.find_preview(params[:id])
+        post.content = post.autosave.content
+        post.preview = true
+        post
       else
-        if !params[:preview].nil?
-          Post.find_preview(params[:id])
-        else
-          Post.published.friendly.find(params[:id])
-        end
-      end
-
-      if params[:preview]
-        @post.content = @post.autosave.content
-        @post.preview = true
+        Post.published.friendly.find(params[:id])
       end
 
       authorize @post
       
-      if params[:preview].nil? && params[:id] != @post.slug && request.path != "/"
+      if params[:preview].nil? && params[:id] != @post.slug
         return redirect_to @post, :status => :moved_permanently
       end
 

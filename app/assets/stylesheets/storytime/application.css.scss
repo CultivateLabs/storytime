@@ -1,14 +1,5 @@
-$icon-font-path: "/assets/bootstrap/";
+@import "bootstrap-sprockets";
 @import "bootstrap";
-
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: asset-url('bootstrap/glyphicons-halflings-regular.eot');
-  src: asset-url('bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-       asset-url('bootstrap/glyphicons-halflings-regular.woff') format('woff'),
-       asset-url('bootstrap/glyphicons-halflings-regular.ttf') format('truetype'),
-       asset-url('bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
 
 @import "bootstrap-wysihtml5.css.scss";
 @import "chosen.css.scss";
@@ -21,3 +12,4 @@ $icon-font-path: "/assets/bootstrap/";
 @import "storytime/sites.css.scss";
 @import "storytime/versions.css.scss";
 @import "storytime/comments.css.scss";
+@import "storytime/pagination.css.scss";
