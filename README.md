@@ -84,3 +84,18 @@ For example, if we had created a migration in the host app to add a url field to
 ```
 
 
+## Using S3 for Image Uploads
+
+In your initializer, change the media storage to s3 and define an s3 bucket:
+```
+Storytime.configure do |config|
+  if Rails.env.production?
+    config.s3_bucket = "my-s3-bucket"
+    config.media_storage = :s3
+  else
+    config.media_storage = :file
+  end
+end
+```
+
+Then, you need to set ```STORYTIME_AWS_ACCESS_KEY_ID``` and ```STORYTIME_AWS_SECRET_KEY``` environment variables on your server.
