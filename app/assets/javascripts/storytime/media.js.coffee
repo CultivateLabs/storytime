@@ -36,8 +36,9 @@ class Storytime.Dashboard.Media
         $("#insertMediaModal").modal("hide")
 
       else
-        wysihtml5Editor = $("textarea.wysiwyg").data("wysihtml5").editor
-        wysihtml5Editor.composer.commands.exec("insertImage", { src: $(@).data("image-url") })
+        # TODO: Change out to insert image into Summernote editor.
+        # wysihtml5Editor = $("textarea.wysiwyg").data("wysihtml5").editor
+        # wysihtml5Editor.composer.commands.exec("insertImage", { src: $(@).data("image-url") })
         $("#insertMediaModal").modal("hide")
 
   initFeaturedImageSelector: ()->

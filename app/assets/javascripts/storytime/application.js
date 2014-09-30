@@ -20,6 +20,7 @@
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
 //= require chosen.jquery
+//= require summernote
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})
