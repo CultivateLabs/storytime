@@ -1,13 +1,18 @@
 <%= simple_form_for [:dashboard, @post] do |f| %>
   <%= f.error_notification %>
+
+  <small><div class="pull-right" id="title_character_limit" data-limit="<%= Storytime.post_title_character_limit %>"></div></small>
   <%= f.input :title, autofocus: true %>
+  
   <%= hidden_field_tag :type, @post.type_name %>
   
   <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
     <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
   <% end %>
   
+  <small><div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div></small>
   <%= f.input :excerpt %>
+  
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
 
   <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>

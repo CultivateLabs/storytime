@@ -11,11 +11,9 @@
 // about supported directives.
 //
 //= require_self
-//= require wysihtml5
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-wysihtml5
 //= require jquery.ui.widget
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
