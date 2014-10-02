@@ -1,6 +1,6 @@
 Storytime.configure do |config|
   # Name of layout to be used.
-  # config.layout = 'application'
+  config.layout = 'application'
 
   # Name of the model you're using for Storytime users.
   config.user_class = 'User'
