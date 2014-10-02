@@ -2,11 +2,14 @@ class Storytime.Dashboard.Media
   initIndex: ()->
     @initUpload()
     @initPagination()
+    return
 
   initPagination: ()->
     $(document).on('ajax:success', '#media_gallery .pagination a', (e, data, status, xhr)->
       $("#media_gallery").html(data)
+      return
     )
+    return
 
   initUpload: ()->
     unless @uploadInitialized
@@ -14,13 +17,17 @@ class Storytime.Dashboard.Media
         dataType: 'json',
         done: (e, data)->
           $("#media_gallery").prepend(data.result.html)
+          return
         
         progressall: (e, data)->
           progress = parseInt(data.loaded / data.total * 100, 10);
           $('#progress .progress-bar').css('width', progress + '%');
+          return
         
       }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
       @uploadInitialized = true
+      return
+    return
 
   initInsert: ()->
     self = @
@@ -34,12 +41,15 @@ class Storytime.Dashboard.Media
           $("#featured_media_container").html("<img id='featured_media_image' src='#{$(@).data("thumb-url")}' />")
 
         $("#insertMediaModal").modal("hide")
-
+        return
       else
-        # TODO: Change out to insert image into Summernote editor.
-        # wysihtml5Editor = $("textarea.wysiwyg").data("wysihtml5").editor
-        # wysihtml5Editor.composer.commands.exec("insertImage", { src: $(@).data("image-url") })
-        $("#insertMediaModal").modal("hide")
+        image_tag = "<img src='#{$(@).data("image-url")}' />"
+        node = $(".summernote").data("range").createContextualFragment(image_tag)
+
+        $(".summernote").data("range").insertNode(node)
+        $(".note-image-dialog").modal("hide")
+        return
+    return
 
   initFeaturedImageSelector: ()->
     self = @
@@ -47,6 +57,10 @@ class Storytime.Dashboard.Media
       e.preventDefault()
       self.selectingFeatured = true
       $("#insertMediaModal").modal("show")
+      return
 
     $(document).on 'hidden.bs.modal', ()->
       self.selectingFeatured = false
+      return
+
+    return
