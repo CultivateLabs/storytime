@@ -8,13 +8,11 @@ Add storytime to your gemfile:
 gem "storytime"
 ```
 
-Add a Storytime initializer to your initializers folder:
-```ruby
-Storytime.configure do |config|
-  config.layout = "application"
-  config.user_class = User
-end
-```
+Run the install generator:
+
+  $ rails generate storytime:install
+
+The generator will install a Storytime initializer containing various configuration options. After running the install generator be sure to review and update the generated initializer file as necessary.
 
 Install migrations:
 ```ruby
@@ -22,7 +20,7 @@ rake storytime:install:migrations
 rake db:migrate
 ```
 
-Mount engine in your routes file. If you're mounting at "/", make this the last line in your routes file:
+Review your routes file... The Storytime installer will add a line to your routes file that is responsible for mounting the Storytime engine. If you're mounting at "/", make this the **last** line in your routes file:
 ```ruby
 mount Storytime::Engine => "/"
 ```
@@ -57,7 +55,7 @@ You then need to register the post type in your Storytime initializer:
 ```ruby
 Storytime.configure do |config|
   config.layout = "application"
-  config.user_class = User
+  config.user_class = 'User'
   config.post_types += ["VideoPost"]
 end
 ``` 
