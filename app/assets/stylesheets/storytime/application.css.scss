@@ -1,7 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "summernote";
 
-@import "bootstrap-wysihtml5.css.scss";
 @import "chosen.css.scss";
 
 @import "storytime/admin.css.scss";

@@ -52,19 +52,16 @@ describe "In the dashboard, Media" do
 
     visit url_for([:new, :dashboard, :post, type: Storytime::BlogPost.type_name, only_path: true])
 
-    page.should have_selector("a[data-wysihtml5-command='insertImage']")
-    find("a[data-wysihtml5-command='insertImage']").click
+    page.should have_selector("button[data-event='showImageDialog']")
+    find("button[data-event='showImageDialog']").click
 
-    page.should have_selector("#insertMediaModal")
+    page.should have_selector(".note-image-dialog")
     find(".insert-image-button").click
 
-    page.should_not have_selector("#insertMediaModal")
-    #content_text_area = find("#post_draft_content", visible: false)
-    
-    wait_until do
-      find("#post_draft_content", visible: false).value =~ /#{media.file_url}/
-    end
-    find("#post_draft_content", visible: false).value.should =~ /#{media.file_url}/
+    page.should_not have_selector(".note-image-dialog")
+
+    summernote_html = page.evaluate_script("$('.note-editable').html()")
+    summernote_html.should =~ /#{media.file_url}/
   end
   
 end

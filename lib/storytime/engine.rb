@@ -8,6 +8,7 @@ require 'friendly_id'
 require 'fog/aws/storage'
 require 'carrierwave'
 require 'nokogiri'
+require 'font-awesome-sass'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
