@@ -1,0 +1,15 @@
+==================================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Check/update Storytime initializer file (config/initializers/storytime.rb).
+
+  2. Install Storytime migrations by running:
+
+      rake storytime:install:migrations
+
+  3. Migrate your database:
+
+      rake db:migrate
+
+==================================================================================

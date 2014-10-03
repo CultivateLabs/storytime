@@ -7,24 +7,76 @@ class Storytime.Dashboard.Editor
 
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()
+      return
 
-    $(".wysiwyg").wysihtml5 "deepExtend",
-      parserRules:
-        allowAllClasses: true
-      html: true
-      color: true
-      customTemplates:
-        "html": (locale, options)->
-          size = if (options && options.size) then ' btn-'+options.size else ''
-          return "<li>" +
-              "<div class='btn-group'>" +
-              "<a class='btn" + size + " btn-default' data-wysihtml5-action='change_view' title='" + locale.html.edit + "' tabindex='-1'><i class='glyphicon glyphicon-pencil'></i>&nbsp;&nbsp;Raw HTML Mode</a>" +
-              "</div>" +
-              "</li>"
-        "image": (locale, options)->
-            size = if (options && options.size) then ' btn-'+options.size else ''
-            $modal = $("#insertMediaModal").remove()
-            return "<li>" +
-                $modal[0].outerHTML +
-                "<a class='btn" + size + " btn-default' data-wysihtml5-command='insertImage' title='" + locale.image.insert + "' tabindex='-1'><i class='glyphicon glyphicon-picture'></i></a>" +
-                "</li>";
+    # Title character limit
+    title_character_limit = $("#title_character_limit").data("limit")
+    $("#title_character_limit").html title_character_limit - $("#post_title").val().length
+
+    $("#post_title").keypress((e) ->
+      e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
+      return
+    ).keyup(->
+      $("#title_character_limit").html title_character_limit - $("#post_title").val().length
+      return
+    )
+
+    # Excerpt character limit
+    excerpt_character_limit = $("#excerpt_character_limit").data("limit")
+    $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
+
+    $("#post_excerpt").keypress((e) ->
+      e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_excerpt").val().length > excerpt_character_limit - 1)
+      return
+    ).keyup(->
+      $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
+      return
+    )
+
+    # Summernote config and setup
+    $(".summernote").summernote
+      height: 300
+      minHeight: null
+      maxHeight: null
+      toolbar: [
+        ['style', ['style']]
+        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
+        # ['fontname', ['fontname']]
+        # ['fontsize', ['fontsize']]
+        ['color', ['color']]
+        ['para', ['ul', 'ol', 'paragraph']]
+        # ['height', ['height']]
+        ['table', ['table']]
+        ['insert', ['link', 'picture', 'video', 'hr']]
+        ['view', ['fullscreen', 'codeview']]
+        ['editing', ['undo', 'redo']]
+        ['help', ['help']]
+      ]
+
+      onblur: ->
+        $(".summernote").data("range", document.getSelection().getRangeAt(0))
+        return
+
+      onImageUpload: (files, editor, $editable) ->
+        $("#media_file").fileupload('send', {files: files})
+          .success((result, textStatus, jqXHR) ->
+            editor.insertImage($editable, result.file_url)
+            return
+          )
+        return
+
+    $(".note-image-dialog").on 'shown.bs.modal', () ->
+      $(".note-image-dialog").find(".row-fluid").append(
+        "<div id='gallery_copy'>
+          <h5>Gallery</h5>
+          <div id='media_gallery'>" + 
+            $("#media_gallery").html() + 
+          "</div>
+        </div>")
+      return
+
+    $(".note-image-dialog").on 'hide.bs.modal', () ->
+      $("#gallery_copy").remove()
+      return
+
+    return
