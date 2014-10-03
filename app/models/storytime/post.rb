@@ -1,6 +1,7 @@
 module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
+    include ActionView::Helpers::SanitizeHelper
 
     extend FriendlyId
     friendly_id :title, use: [:history]
@@ -83,6 +84,7 @@ module Storytime
 
     def populate_excerpt_from_content
       self.excerpt = (content || draft_content).slice(0..300) if excerpt.blank?
+      self.excerpt = strip_tags(self.excerpt)
     end
 
     def show_comments?
