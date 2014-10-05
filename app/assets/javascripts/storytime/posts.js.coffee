@@ -1,12 +1,16 @@
 class Storytime.Dashboard.Posts
   initNew: ()->
-    (new Storytime.Dashboard.Editor()).init()
+    @editor = new Storytime.Dashboard.Editor()
+    @editor.init()
 
   initEdit: ()->
-    (new Storytime.Dashboard.Editor()).init()
+    @editor = new Storytime.Dashboard.Editor()
+    @editor.init()
 
   initCreate: ()->
-    (new Storytime.Dashboard.Editor()).init()
+    @editor = new Storytime.Dashboard.Editor()
+    @editor.init()
 
   initUpdate: ()->
-    (new Storytime.Dashboard.Editor()).init()
+    @editor = new Storytime.Dashboard.Editor()
+    @editor.init()

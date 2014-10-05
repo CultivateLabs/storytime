@@ -74,12 +74,13 @@ describe "In the dashboard, Posts" do
 
     visit url_for([:edit, :dashboard, post, only_path: true])
 
-    # page.execute_script not working... even when using Storytime.instance.???
-    page.execute_script "Storytime.Dashboard.Editor.autosavePostForm()"
+    page.execute_script "Storytime.instance.editor.autosavePostForm()"
 
-    post.reload!
-    post.autosave.should != nil
-    post.autosave.content.should == "To Sherlock Holmes she was always the woman."
+    expect(page).to have_content("Draft saved at")
+
+    post.reload
+    expect(post.autosave).not_to be_nil
+    expect(post.autosave.content).to eq("To Sherlock Holmes she was always the woman.")
   end
 
   it "updates a post" do
