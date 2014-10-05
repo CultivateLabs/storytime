@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'pry'
 describe "In the dashboard, Posts" do
   before{ login_admin }
 
@@ -27,7 +27,7 @@ describe "In the dashboard, Posts" do
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
-    click_button "Create Blog post"
+    click_button "Create Blog Post"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
@@ -39,6 +39,48 @@ describe "In the dashboard, Posts" do
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
     post.featured_media.should == media
+  end
+
+  it "saves a post when previewing a new post", js: true do
+    Storytime::BlogPost.count.should == 0
+
+    visit url_for([:new, :dashboard, :post, only_path: true])
+    fill_in "post_title", with: "Snow Crash"
+    fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
+    find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
+    click_button "Save and Preview"
+    
+    page.should have_content(I18n.t('flash.posts.create.success'))
+    Storytime::BlogPost.count.should == 1
+
+    # Check to see if popup is opened?
+    # Check to see if popup is directed to correct post.
+
+    post = Storytime::BlogPost.last
+    post.title.should == "Snow Crash"
+    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
+    post.user.should == current_user
+    post.should_not be_published
+    post.type.should == "Storytime::BlogPost"
+  end
+
+  it "autosaves a post when editing", js: true do
+    post = FactoryGirl.create(:post, published_at: nil, title: "A Scandal in Bohemia",
+                              draft_content: "To Sherlock Holmes she was always the woman.")
+    original_creator = post.user
+    Storytime::BlogPost.count.should == 1
+
+    post.autosave.should == nil
+
+    visit url_for([:edit, :dashboard, post, only_path: true])
+
+    page.execute_script "Storytime.instance.editor.autosavePostForm()"
+
+    expect(page).to have_content("Draft saved at")
+
+    post.reload
+    expect(post.autosave).not_to be_nil
+    expect(post.autosave.content).to eq("To Sherlock Holmes she was always the woman.")
   end
 
   it "updates a post" do

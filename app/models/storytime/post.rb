@@ -1,6 +1,7 @@
 module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
+    include ActionView::Helpers::SanitizeHelper
 
     extend FriendlyId
     friendly_id :title, use: [:history]
@@ -11,6 +12,10 @@ module Storytime
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
     has_many :comments
+
+    has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
+
+    attr_accessor :preview
 
     validates_presence_of :title, :excerpt, :draft_content
     validates :title, length: { in: 1..255 }
@@ -34,6 +39,10 @@ module Storytime
 
     def self.human_name
       @human_name ||= type_name.humanize.split(" ").map(&:capitalize).join(" ")
+    end
+
+    def self.find_preview(id)
+      Post.friendly.find(id)
     end
 
     def human_name
@@ -75,6 +84,7 @@ module Storytime
 
     def populate_excerpt_from_content
       self.excerpt = (content || draft_content).slice(0..300) if excerpt.blank?
+      self.excerpt = strip_tags(self.excerpt)
     end
 
     def show_comments?

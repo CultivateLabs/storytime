@@ -1,5 +1,7 @@
 class Storytime.Dashboard.Editor
-  init: ()->
+  init: () ->
+    self = @
+
     mediaInstance = new Storytime.Dashboard.Media()
     mediaInstance.initPagination()
     mediaInstance.initInsert()
@@ -33,6 +35,26 @@ class Storytime.Dashboard.Editor
       return
     )
 
+    if $(".edit_post").length
+      form = $(".edit_post").last()
+
+      $("#preview_post").click(->
+        self.autosavePostForm()
+        return
+      )
+
+      if $("#main").data("preview")
+        $("#preview_post").trigger("click")
+        window.open $("#preview_post").attr("href")
+    else
+      form = $(".new_post").last()
+
+      $("#preview_new_post").click(->
+        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
+        $(".new_post").submit()
+        return
+      )
+
     # Summernote config and setup
     $(".summernote").summernote
       height: 300
@@ -52,11 +74,15 @@ class Storytime.Dashboard.Editor
         ['editing', ['undo', 'redo']]
         ['help', ['help']]
       ]
-
       onblur: ->
         $(".summernote").data("range", document.getSelection().getRangeAt(0))
         return
-
+      onfocus: ->
+        self.updateLater(1000) if $(".edit_post").length
+        return
+      onkeyup: ->
+        form.data "unsaved-changes", true
+        return
       onImageUpload: (files, editor, $editable) ->
         $("#media_file").fileupload('send', {files: files})
           .success((result, textStatus, jqXHR) ->
@@ -79,4 +105,46 @@ class Storytime.Dashboard.Editor
       $("#gallery_copy").remove()
       return
 
+    addUnloadHandler(form)
     return
+
+  autosavePostForm: () ->
+    self = @
+    post_id = $("#main").data("post-id")
+
+    data = []
+    data.push {name: "post[draft_content]", value: $(".summernote").code()}
+
+    $.ajax(
+      type: "POST"
+      url: "/dashboard/posts/#{post_id}/autosaves"
+      data: data
+    )
+
+  updateLater: (timer) ->
+    self = @
+    timer = 120000  unless timer?
+
+    timeoutId = window.setTimeout((->
+      self.autosavePostForm().done(->
+        self.updateLater(10000)
+
+        time_now = new Date().toLocaleTimeString()
+        $("#draft_last_saved_at").html "Draft saved at #{time_now}"
+      ).fail(->
+        console.log "Something went wrong while trying to autosave..."
+      )
+    ), timer)
+    return
+
+  addUnloadHandler = (form) ->
+    form.find("input, textarea").on("keyup", ->
+      form.data "unsaved-changes", true
+    )
+
+    $(".save").click(->
+      form.data "unsaved-changes", false
+    )
+
+    $(window).on "beforeunload", ->
+      "You haven't saved your changes." if form.data "unsaved-changes"
