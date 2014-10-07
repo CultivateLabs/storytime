@@ -25,7 +25,6 @@ module Storytime
 
     before_validation :populate_excerpt_from_content
     before_save :set_published_at
-    before_save :regenerate_slug
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
 
@@ -121,11 +120,6 @@ module Storytime
           DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
         end
       end
-    end
-
-    def regenerate_slug
-      binding.pry
-      self.slug = nil
     end
   end
 end
