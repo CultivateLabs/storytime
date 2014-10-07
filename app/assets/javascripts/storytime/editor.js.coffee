@@ -105,6 +105,12 @@ class Storytime.Dashboard.Editor
       $("#gallery_copy").remove()
       return
 
+    $(".datepicker").datepicker
+      dateFormat: "MM d, yy"
+
+    $(".timepicker").timepicker
+      showPeriod: true
+
     addUnloadHandler(form)
     return
 

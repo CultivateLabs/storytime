@@ -11,7 +11,7 @@
   <% end %>
   
   <small><div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div></small>
-  <%= f.input :excerpt %>
+  <%= f.input :excerpt, required: false %>
   
   <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
 
@@ -24,6 +24,8 @@
   <%= f.input :tag_list %>
   
   <%= f.input :published, as: :boolean, label: false, inline_label: true if Pundit.policy(current_user, @post).publish? %>
+
+  <%= f.input :published_at, as: :date_time_picker if @post.published? %>
   
   <div class="actions">
     <%= f.submit (@post.new_record? ? "Create #{@post.human_name}" : "Update #{@post.human_name}"), class: "btn btn-primary save" %>

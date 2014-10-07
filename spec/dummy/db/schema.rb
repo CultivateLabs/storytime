@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916183056) do
+ActiveRecord::Schema.define(version: 20141007035925) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

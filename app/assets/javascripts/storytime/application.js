@@ -14,7 +14,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery.ui.widget
+//= require jquery-ui/core
+//= require jquery-ui/datepicker
+//= require jquery-ui/position
+//= require jquery-ui/widget
+//= require jquery.ui.timepicker
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
 //= require chosen.jquery
