@@ -60,7 +60,7 @@ module Storytime
       end
 
       def tag_counts
-        Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_tags.id")
+        Storytime::Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_tags.id")
 
         #Tagging.group("storytime_taggings.tag_id").includes(:tag)
       end
@@ -108,6 +108,10 @@ module Storytime
 
     def author_name
       user.storytime_name.blank? ? user.email : user.storytime_name
+    end
+
+    def should_generate_new_friendly_id?
+      slug.blank? || (published_at_changed? && published_at_change.first.nil?)
     end
 
     def set_published_at
