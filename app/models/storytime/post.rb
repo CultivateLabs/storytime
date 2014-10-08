@@ -111,7 +111,7 @@ module Storytime
     end
 
     def should_generate_new_friendly_id?
-      slug.blank? || (published_at_changed? && published_at_change.first.nil?)
+      published_at_changed? && published_at_change.first.nil?
     end
 
     def set_published_at
