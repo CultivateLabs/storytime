@@ -1,6 +1,7 @@
 require 'pundit'
 require 'bootstrap-sass'
 require 'jquery-rails'
+require 'jquery-ui-rails'
 require 'jbuilder'
 require 'kaminari'
 require 'simple_form'

@@ -35,7 +35,7 @@ describe "Post path" do
     FactoryGirl.create(:site, post_slug_style: :day_and_name)
     post = FactoryGirl.create(:post)
     date = post.created_at.to_date
-    expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.month}/#{date.day}/#{post.slug}")
+    expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}")
 
     get url_for([post, only_path: true])
     
@@ -48,7 +48,7 @@ describe "Post path" do
     FactoryGirl.create(:site, post_slug_style: :month_and_name)
     post = FactoryGirl.create(:post)
     date = post.created_at.to_date
-    expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.month}/#{post.slug}")
+    expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.strftime('%m')}/#{post.slug}")
 
     get url_for([post, only_path: true])
     
