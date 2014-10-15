@@ -21,6 +21,8 @@
 //= require jquery.ui.timepicker
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
+//= require codemirror/codemirror
+//= require codemirror/xml
 //= require chosen.jquery
 //= require summernote
 //= require_tree .

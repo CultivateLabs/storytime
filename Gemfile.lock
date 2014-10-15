@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    storytime (0.0.5)
+    storytime (0.1.0)
       bootstrap-sass (>= 3.1)
       carrierwave (>= 0.9)
       coffee-rails (>= 4.0)

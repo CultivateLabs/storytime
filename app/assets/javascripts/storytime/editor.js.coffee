@@ -57,6 +57,12 @@ class Storytime.Dashboard.Editor
 
     # Summernote config and setup
     $(".summernote").summernote
+      codemirror:
+        htmlMode: true
+        lineNumbers: true
+        lineWrapping: true
+        mode: 'text/html'
+        theme: 'monokai'
       height: 300
       minHeight: null
       maxHeight: null

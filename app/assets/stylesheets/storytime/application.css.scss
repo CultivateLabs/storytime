@@ -5,10 +5,12 @@
 @import "jquery-ui/core";
 @import "jquery-ui/datepicker";
 @import "jquery-ui/theme";
-@import "summernote";
 
 @import "chosen.css.scss";
+@import "codemirror/codemirror";
+@import "codemirror/monokai";
 @import "jquery.ui.timepicker";
+@import "summernote";
 
 @import "storytime/admin.css.scss";
 @import "storytime/devise.css.scss";
