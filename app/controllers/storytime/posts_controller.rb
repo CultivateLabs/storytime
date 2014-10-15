@@ -13,7 +13,7 @@ module Storytime
       end
       
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
-      @posts = @posts.published.order(created_at: :desc).page(params[:page])
+      @posts = @posts.published.order(published_at: :desc).page(params[:page])
       
       respond_to do |format|
         format.atom
