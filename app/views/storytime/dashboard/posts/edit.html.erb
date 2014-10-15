@@ -1,6 +1,6 @@
 <%= render 'list' %>
 
-<div id="main" class="pane" data-post-id="<%= @post.slug %>" data-preview="<%= params[:preview] %>">
+<div id="main" class="pane" data-post-id="<%= @post.slug || @post.id %>" data-preview="<%= params[:preview] %>">
   <h3 class="heading">
     Edit <%= @post.human_name %>
     <span class="pull-right">
