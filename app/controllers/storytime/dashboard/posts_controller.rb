@@ -49,6 +49,7 @@ module Storytime
       def update
         authorize @post
         @post.draft_user_id = current_user.id
+        
         if @post.update(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
           redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.update.success')
@@ -90,7 +91,7 @@ module Storytime
         post = @post || current_post_type.new(user: current_user)
         permitted_attrs = policy(post).permitted_attributes
         permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
-        params.require(:post).permit(*permitted_attrs)
+        params.require(:post).permit(*permitted_attrs, :tag_list => [])
       end
 
       def current_post_type
