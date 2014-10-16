@@ -88,12 +88,10 @@ module Storytime
 
     def tag_list=(names_or_ids)
       self.tags = names_or_ids.map do |n|
-        if n.empty?
+        if n.empty? || n == "nv__"
           ""
         elsif n.include?("nv__") || n.to_i == 0
-          n.sub!("nv__", "")
-
-          Storytime::Tag.where(name: n.strip).first_or_create!
+          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create!
         else
           Storytime::Tag.find(n)
         end

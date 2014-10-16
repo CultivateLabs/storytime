@@ -114,7 +114,7 @@ class Storytime.Dashboard.Editor
 
     # Add new tags
     $("#post_tag_ids").next("div").find(".search-field").children("input").on 'keyup', (e) ->
-      if e.which is 13
+      if e.which is 13 and $("#post_tag_ids").next("div").find(".search-field").children("input").val().length > 0
         searched_tag = $("#post_tag_ids").next("div").find(".search-field").children("input").val()
         $("#post_tag_ids").append('<option value="nv__' + searched_tag + '">' + searched_tag + '</option>')
 
