@@ -91,7 +91,7 @@ module Storytime
         post = @post || current_post_type.new(user: current_user)
         permitted_attrs = policy(post).permitted_attributes
         permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
-        params.require(:post).permit(*permitted_attrs, :tag_list => [])
+        params.require(:post).permit(*permitted_attrs)
       end
 
       def current_post_type
