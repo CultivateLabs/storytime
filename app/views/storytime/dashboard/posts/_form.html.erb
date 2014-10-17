@@ -21,7 +21,7 @@
     <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
   </div>
 
-  <%= f.input :tag_list %>
+  <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
   
   <%= f.input :published, as: :boolean, label: false, inline_label: true if Pundit.policy(current_user, @post).publish? %>
 
