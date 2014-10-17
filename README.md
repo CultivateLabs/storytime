@@ -10,7 +10,9 @@ gem "storytime"
 
 Run the install generator:
 
-  $ rails generate storytime:install
+```terminal
+$ rails generate storytime:install
+```
 
 The generator will install a Storytime initializer containing various configuration options. After running the install generator be sure to review and update the generated initializer file as necessary.
 
