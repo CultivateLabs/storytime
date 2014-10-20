@@ -8,12 +8,6 @@
       <%= f.input :root_post_id, collection: @site.root_post_options, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") } %>
       <%= f.input :ga_tracking_id %>
 
-      <!-- Header and Footer only get rendered in the storytime applicaiton layout, not the main app -->
-      <% unless Storytime.layout.present? %>
-        <%= f.input :header %>
-        <%= f.input :footer %>
-      <% end %>
-
       <div class="actions">
         <%= f.submit class: "btn btn-primary" %>
       </div>

@@ -6,8 +6,6 @@ class CreateStorytimeSites < ActiveRecord::Migration
       t.string :ga_tracking_id
       t.integer :root_page_content, default: 0
       t.references :root_post, index: true
-      t.text :header
-      t.text :footer
 
       t.timestamps
     end

@@ -15,12 +15,12 @@
   </head>
 
   <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %> <%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
-
-
     <%= render "storytime/application/storytime/navigation" %>
     <%= render "storytime/application/storytime/flash" %>
     <%= render 'storytime/application/storytime/header' unless devise_controller? %>
+
     <%= yield %>
+    
     <%= render 'storytime/application/storytime/footer' unless devise_controller? %>
     <%= render 'storytime/sites/google_analytics_code' %>
   </body>
