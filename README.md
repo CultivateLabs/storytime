@@ -35,6 +35,13 @@ class User < ActiveRecord::Base
 end
 ```
 
+
+## Text Snippets
+
+Text snippets are small chunks of user-editable content that can be re-used in various places in your host app.
+Storytime provides these since we take the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
+
+
 ## Custom Post Types
 
 Storytime supports custom post types and takes the opinion that these are a concern of the host app. To add a custom post type, define a new model in your host app that inherits from Storytime's post class.

@@ -11,9 +11,9 @@ module Storytime
     end
 
     def self.seed
-      create(name: "writer")
-      create(name: "editor")
-      create(name: "admin")
+      find_or_create_by(name: "writer")
+      find_or_create_by(name: "editor")
+      find_or_create_by(name: "admin")
     end
   end
 end

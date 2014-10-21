@@ -7,12 +7,12 @@ module Storytime
     validates :title, length: { in: 1..200 }
 
     def save_with_seeds(user)
-      setup_seeds
+      self.class.setup_seeds
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
       save
     end
 
-    def setup_seeds
+    def self.setup_seeds
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed

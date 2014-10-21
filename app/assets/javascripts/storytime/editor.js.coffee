@@ -2,14 +2,8 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
-    mediaInstance = new Storytime.Dashboard.Media()
-    mediaInstance.initPagination()
-    mediaInstance.initInsert()
-    mediaInstance.initFeaturedImageSelector()
-
-    $(document).on 'shown.bs.modal', ()->
-      mediaInstance.initUpload()
-      return
+    @initMedia()
+    @initWysiwyg()
 
     # Title character limit
     title_character_limit = $("#title_character_limit").data("limit")
@@ -55,6 +49,26 @@ class Storytime.Dashboard.Editor
         return
       )
 
+    $(".datepicker").datepicker
+      dateFormat: "MM d, yy"
+
+    $(".timepicker").timepicker
+      showPeriod: true
+
+    addUnloadHandler(form)
+    return
+
+  initMedia: ()->
+    mediaInstance = new Storytime.Dashboard.Media()
+    mediaInstance.initPagination()
+    mediaInstance.initInsert()
+    mediaInstance.initFeaturedImageSelector()
+
+    $(document).on 'shown.bs.modal', ()->
+      mediaInstance.initUpload()
+      return
+
+  initWysiwyg: ()->
     # Summernote config and setup
     $(".summernote").summernote
       codemirror:
@@ -110,15 +124,6 @@ class Storytime.Dashboard.Editor
     $(".note-image-dialog").on 'hide.bs.modal', () ->
       $("#gallery_copy").remove()
       return
-
-    $(".datepicker").datepicker
-      dateFormat: "MM d, yy"
-
-    $(".timepicker").timepicker
-      showPeriod: true
-
-    addUnloadHandler(form)
-    return
 
   autosavePostForm: () ->
     self = @

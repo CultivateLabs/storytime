@@ -19,6 +19,13 @@ en:
         success: "Site successfully created."
       update:
         success: "Site successfully updated."
+    snippets:
+      create:
+        success: "Text snippet successfully created."
+      update:
+        success: "Text snippet successfully updated."
+      destroy:
+        success: "Text snippet successfully deleted."
     users:
       create:
         success: "User successfully created."
