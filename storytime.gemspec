@@ -7,8 +7,8 @@ require "storytime/version"
 Gem::Specification.new do |s|
   s.name        = "storytime"
   s.version     = Storytime::VERSION
-  s.authors     = ["Ben Roesch, David Van Der Beek"]
-  s.email       = ["ben@federisgroup.com, david@federisgroup.com"]
+  s.authors     = ["Ben Roesch, David Van Der Beek, Brandon Robins"]
+  s.email       = ["ben@flyoverworks.com, david@flyoverworks.com, brandon@flyoverworks.com"]
   s.summary     = "A simple cms and blogging engine for rails apps."
   s.description = "A simple cms and blogging engine for rails apps."
   s.license     = "MIT"
