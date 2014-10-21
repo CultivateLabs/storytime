@@ -20,6 +20,12 @@
   <div id="featured_media_container">
     <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
   </div>
+  
+  <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+  <%= link_to "Select Secondary Image", "#", class: "btn btn-default", id: "secondary_media_button" %>
+  <div id="secondary_media_container">
+    <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+  </div>
 
   <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
   
