@@ -49,13 +49,14 @@
       </div>
       <div id="post_featured_images" class="panel-collapse collapse">
         <div class="panel-body">
-          <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
           
           <div class="col-md-6">
+            <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+            
             <div class="featured_image_block center-block">
               <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.featured_media %>display: none<% end %>"></span>
 
-              <div id="featured_media_container">
+              <div id="featured_media_container" class="image_container">
                 <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
               </div>
 
@@ -65,6 +66,26 @@
             </div>
 
             <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
+              Remove Image
+            </button>
+          </div>
+
+          <div class="col-md-6">
+            <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+            
+            <div class="featured_image_block center-block">
+              <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.secondary_media %>display: none<% end %>"></span>
+
+              <div id="secondary_media_container" class="image_container">
+                <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+              </div>
+
+              <div class="select_featured_image" <% if @post.secondary_media %>style="display: none"<% end %>>
+                <%= link_to "Select Secondary Image", "#", class: "btn btn-default", id: "secondary_media_button" %>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.secondary_media %>style="display: none"<% end %>>
               Remove Image
             </button>
           </div>

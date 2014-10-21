@@ -8,6 +8,7 @@ module Storytime
 
     belongs_to Storytime.user_class_symbol
     belongs_to :featured_media, class_name: "Media"
+    belongs_to :secondary_media, class_name: "Media"
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings

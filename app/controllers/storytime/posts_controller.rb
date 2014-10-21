@@ -38,9 +38,12 @@ module Storytime
       end
 
       @comments = @post.comments.order("created_at DESC")
-
       #allow overriding in the host app
-      render @post.slug if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
+      if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
+        render @post.slug 
+      elsif lookup_context.template_exists?("storytime/#{@post.type_name.pluralize}/show")
+        render "storytime/#{@post.type_name.pluralize}/show"
+      end
     end
 
   end
