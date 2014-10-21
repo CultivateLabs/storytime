@@ -81,7 +81,7 @@ class Storytime.Dashboard.Editor
         $(".summernote").data("range", document.getSelection().getRangeAt(0))
         return
       onfocus: ->
-        self.updateLater(1000) if $(".edit_post").length
+        self.updateLater(10000) if $(".edit_post").length
         return
       onkeyup: ->
         form.data "unsaved-changes", true
@@ -142,6 +142,11 @@ class Storytime.Dashboard.Editor
       $("#gallery_copy").remove()
       return
 
+    # Set published field on Publish button click
+    $(".publish").on 'click', () ->
+      $("#post_published").val(1)
+      return
+
     # Add handler to monitor unsaved changes
     addUnloadHandler(form)
     return
@@ -153,6 +158,9 @@ class Storytime.Dashboard.Editor
     data = []
     data.push {name: "post[draft_content]", value: $(".summernote").code()}
 
+    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    form.data "unsaved-changes", false
+ 
     $.ajax(
       type: "POST"
       url: "/dashboard/posts/#{post_id}/autosaves"
@@ -163,26 +171,39 @@ class Storytime.Dashboard.Editor
     self = @
     timer = 120000  unless timer?
 
-    timeoutId = window.setTimeout((->
-      self.autosavePostForm().done(->
-        self.updateLater(10000)
+    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
 
-        time_now = new Date().toLocaleTimeString()
-        $("#draft_last_saved_at").html "Draft saved at #{time_now}"
-      ).fail(->
-        console.log "Something went wrong while trying to autosave..."
-      )
+    timeoutId = window.setTimeout((->
+      if form.data("unsaved-changes") is true
+        self.autosavePostForm().done(->
+          self.updateLater timer
+
+          time_now = new Date().toLocaleTimeString()
+          $("#draft_last_saved_at").html "Draft saved at #{time_now}"
+          return
+        ).fail(->
+          console.log "Something went wrong while trying to autosave..."
+          return
+        )
+
+        return
+      else
+        self.updateLater timer
+        return
     ), timer)
     return
 
   addUnloadHandler = (form) ->
     form.find("input, textarea").on("keyup", ->
       form.data "unsaved-changes", true
+      return
     )
 
     $(".save").click(->
       form.data "unsaved-changes", false
+      return
     )
 
     $(window).on "beforeunload", ->
       "You haven't saved your changes." if form.data "unsaved-changes"
+      return

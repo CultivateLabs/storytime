@@ -13,7 +13,7 @@ module Storytime
     end
 
     def delete_resource_link(resource, href = nil, remote = true)
-      resource_name = resource.class.to_s.downcase.split("::").last
+      resource_name = resource.class.to_s.split('::').last.underscore.humanize(capitalize: false)
       opts = {
         id: "delete_#{resource_name}_#{resource.id}", 
         class: "btn btn-danger btn-xs btn-delete-resource delete-#{resource_name}-button", 

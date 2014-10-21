@@ -33,7 +33,7 @@ module Storytime
 
       authorize @post
       
-      if params[:preview].nil? && params[:id] != @post.slug
+      if params[:preview].nil? && ((@site.post_slug_style != "post_id") && (params[:id] != @post.slug))
         return redirect_to @post, :status => :moved_permanently
       end
 

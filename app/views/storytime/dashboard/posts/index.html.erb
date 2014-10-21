@@ -3,8 +3,8 @@
 <div id="main" class="pane">
   <div class="scroll-y">
     <div class="padding no-content center">
-      <h3>Select a Post to Edit</h3>
-      <%= link_to "or Create One", url_for([:new, :dashboard, :post]), class: 'btn btn-info' %>
+      <h3>Select a <%= current_post_type.type_name.titleize %> to Edit</h3>
+      <%= link_to "or Create One", url_for([:new, :dashboard, :post, type: current_post_type.type_name]), class: "btn btn-info" %>
     </div>
   </div>
 </div>

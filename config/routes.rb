@@ -4,7 +4,6 @@
   namespace :dashboard do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
-    resources :posts, except: [:show]
     resources :posts, except: [:show], shallow: true do
       resources :autosaves, only: [:create]
     end
