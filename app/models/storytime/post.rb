@@ -4,7 +4,7 @@ module Storytime
     include ActionView::Helpers::SanitizeHelper
 
     extend FriendlyId
-    friendly_id :title, use: [:history]
+    friendly_id :slug_candidates, use: [:history]
 
     belongs_to Storytime.user_class_symbol
     belongs_to :featured_media, class_name: "Media"
@@ -115,8 +115,13 @@ module Storytime
       user.storytime_name.blank? ? user.email : user.storytime_name
     end
 
+    def slug_candidates
+      if slug.nil? then [:title] elsif slug_changed? then [:slug] end
+    end
+
     def should_generate_new_friendly_id?
-      published_at_changed? && published_at_change.first.nil?
+      self.slug = nil if slug == ""
+      slug_changed? || (published_at_changed? && published_at_change.first.nil?)
     end
 
     def set_published_at
