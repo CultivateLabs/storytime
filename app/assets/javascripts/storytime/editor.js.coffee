@@ -6,6 +6,7 @@ class Storytime.Dashboard.Editor
     mediaInstance.initPagination()
     mediaInstance.initInsert()
     mediaInstance.initFeaturedImageSelector()
+    mediaInstance.initSecondaryImageSelector()
 
     # Check if post is new or not
     if $(".edit_post").length
