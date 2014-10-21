@@ -4,44 +4,95 @@
   <%= hidden_field_tag :type, @post.type_name %>
   <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
 
-  <div class="post_title_field">
+  <div class="post_field post_title">
     <small>
       <div class="pull-right" id="title_character_limit" data-limit="<%= Storytime.post_title_character_limit %>"></div>
     </small>
     <%= f.input :title, autofocus: true %>
   </div>
   
-  <div class="post_additional_fields">
+
+  <div class="post_field post_additional_fields">
     <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
       <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
     <% end %>
   </div>
   
-  <div class="post_excerpt_field">
+
+  <div class="post_field post_excerpt">
     <small>
       <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
     </small>
     <%= f.input :excerpt, required: false %>
   </div>
   
-  <div class="post_content_field">
+
+  <div class="post_field post_content">
     <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
   </div>
 
-  <div class="post_featured_media_field">
-    <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
-    <%= link_to "Select Featured Image", "#", class: "btn btn-default", id: "featured_media_button" %>
-    <div id="featured_media_container">
-      <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
-    </div>
-  </div>
 
-  <div class="post_tags_field">
+  <div class="post_field post_tags">
     <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
   </div>
-  
 
-  <%= f.input :published_at, as: :date_time_picker if @post.published? %>
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span class="glyphicon glyphicon-picture"></span>
+          <a data-toggle="collapse" data-parent="#accordion" href="#post_featured_images">
+            Featured Images
+          </a>
+        </h4>
+      </div>
+      <div id="post_featured_images" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+          
+          <div class="col-md-6">
+            <div class="featured_image_block center-block">
+              <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.featured_media %>display: none<% end %>"></span>
+
+              <div id="featured_media_container">
+                <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
+              </div>
+
+              <div class="select_featured_image" <% if @post.featured_media %>style="display: none"<% end %>>
+                <%= link_to "Select Featured Image", "#", class: "btn btn-default", id: "featured_media_button" %>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
+              Remove Image
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <span class="glyphicon glyphicon-cog"></span>
+          <a data-toggle="collapse" data-parent="#accordion" href="#post_advanced_settings">
+            Advanced Settings
+          </a>
+        </h4>
+      </div>
+      <div id="post_advanced_settings" class="panel-collapse collapse">
+        <div class="panel-body">
+
+          <%= f.input :slug %>
+
+          <%= f.input :published_at, as: :date_time_picker, input_html: { style: "display: inline" } if @post.published? %>
+
+        </div>
+      </div>
+    </div>
+  </div>
   
   <hr>
 

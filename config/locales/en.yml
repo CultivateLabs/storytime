@@ -1,6 +1,7 @@
 en:
   common:
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this %{resource_name}?"
+    
   flash:
     comments:
       create:
@@ -27,6 +28,7 @@ en:
     roles:
       update:
         success: "Permissions successfully updated."
+  
   simple_form:
     labels:
       site:
@@ -37,3 +39,19 @@ en:
         content: "Comment Content"
       user:
         storytime_name: "Name"
+  
+  footer:
+    attribute: 'Powered by <a href="http://www.github.com/FlyoverWorks/storytime" target="_blank">Storytime</a>.'
+  
+  dashboard:
+    sites:
+      new: "New Storytime Site"
+    posts:
+      select_or_create: "Select a %{resource} to Edit"
+      create_post: "Create One"
+      new:
+        header: "New %{resource}"
+
+
+  layout:
+    title: "Storytime"

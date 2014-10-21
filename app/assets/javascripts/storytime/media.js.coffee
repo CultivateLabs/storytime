@@ -35,10 +35,14 @@ class Storytime.Dashboard.Media
       e.preventDefault()
       if self.selectingFeatured
         $("#featured_media_id").val $(@).data("media-id")
+
         if $("#featured_media_image").length > 0
           $("#featured_media_image").attr("src", $(@).data("thumb-url"))
         else
           $("#featured_media_container").html("<img id='featured_media_image' src='#{$(@).data("thumb-url")}' />")
+
+        $(".select_featured_image").hide()
+        $(".remove_featured_image").show()
 
         $("#insertMediaModal").modal("hide")
         return
@@ -49,6 +53,15 @@ class Storytime.Dashboard.Media
         $(".summernote").data("range").insertNode(node)
         $(".note-image-dialog").modal("hide")
         return
+
+    $(document).on "click", "button.remove_featured_image", (e) ->
+      e.preventDefault()
+      
+      $("#featured_media_id").val ""
+      $("#featured_media_container").html("")
+
+      $(".select_featured_image").show()
+      $(".remove_featured_image").hide()
     return
 
   initFeaturedImageSelector: ()->
