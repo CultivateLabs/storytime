@@ -13,9 +13,19 @@ module Storytime
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 255
 
-  # Enable file uploads through Carrierwave
+  # Enable file uploads through Carrierwave.
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
+
+  # Path of Storytime's dashboard, relative to
+  # Storytime's mount point within the host app.
+  mattr_accessor :dashboard_namespace_path
+  @@dashboard_namespace_path = "/dashboard"
+
+  # Path of Storytime's home page, relative to
+  # Storytime's mount point within the hose app.
+  mattr_accessor :home_page_path
+  @@home_page_path = "/"
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types

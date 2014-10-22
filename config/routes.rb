@@ -1,7 +1,7 @@
  Storytime::Engine.routes.draw do
   resources :comments
 
-  namespace :dashboard do
+  namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
     resources :posts, except: [:show], shallow: true do
@@ -21,13 +21,13 @@
 
   # using a page as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
-    get "/", to: "pages#show"
+    get Storytime.home_page_path, to: "pages#show", as: :root_post
     resources :posts, only: :index
   end
 
   # using blog index as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "posts" } do
-    resources :posts, path: "/", only: :index, as: :root_post
+    resources :posts, path: Storytime.home_page_path, only: :index, as: :root_post
   end
 
   # index page for post types that are excluded from primary feed
