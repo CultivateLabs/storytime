@@ -42,5 +42,10 @@ module Storytime
     def user_class_symbol
       @@user_class.underscore.to_sym
     end
+
+    def snippet(name)
+      snippet = Storytime::Snippet.find_by(name: name)
+      snippet.nil? ? "" : snippet.content.html_safe
+    end
   end
 end

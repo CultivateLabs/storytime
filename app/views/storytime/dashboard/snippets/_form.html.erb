@@ -1,0 +1,11 @@
+<%= simple_form_for [:dashboard, @snippet] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name, autofocus: true %>
+  <%= f.input :content, as: :text, input_html: { rows: 20, class: "summernote" } %>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary save" %>
+  </div>
+<% end %>
+
+<%= render "storytime/dashboard/media/modal" %>

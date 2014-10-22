@@ -62,6 +62,15 @@ class Storytime.Dashboard.Media
 
         $("#insertMediaModal").modal("hide")
         return
+      else if self.selectingSecondary
+        $("#secondary_media_id").val $(@).data("media-id")
+        if $("#secondary_media_image").length > 0
+          $("#secondary_media_image").attr("src", $(@).data("thumb-url"))
+        else
+          $("#secondary_media_container").html("<img id='secondary_media_image' src='#{$(@).data("thumb-url")}' />")
+
+        $("#insertMediaModal").modal("hide")
+        return
       else
         image_tag = "<img src='#{$(@).data("image-url")}' />"
         node = $(".summernote").data("range").createContextualFragment(image_tag)
@@ -110,6 +119,20 @@ class Storytime.Dashboard.Media
 
     $(document).on 'hidden.bs.modal', ()->
       self.selectingFeatured = false
+      self.selectingSecondary = false
+      return
+
+    return
+    
+  initSecondaryImageSelector: ()->
+    self = @
+    $(document).on "click", "#secondary_media_button", (e)->
+      e.preventDefault()
+      self.selectingSecondary = true
+      $("#insertMediaModal").modal("show")
+      return
+
+    $(document).on 'hidden.bs.modal', ()->
       self.selectingSecondary = false
       return
 

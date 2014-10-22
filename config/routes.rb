@@ -7,6 +7,7 @@
     resources :posts, except: [:show], shallow: true do
       resources :autosaves, only: [:create]
     end
+    resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
     resources :users
@@ -21,13 +22,13 @@
 
   # using a page as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "page" } do
-    get Storytime.home_page_path, to: "pages#show", as: :root_post
+    get Storytime.home_page_path, to: "pages#show", as: :storytime_root_post
     resources :posts, only: :index
   end
 
   # using blog index as the home page
   constraints ->(request){ Storytime::Site.first && Storytime::Site.first.root_page_content == "posts" } do
-    resources :posts, path: Storytime.home_page_path, only: :index, as: :root_post
+    resources :posts, path: Storytime.home_page_path, only: :index, as: :storytime_root_post
   end
 
   # index page for post types that are excluded from primary feed
@@ -47,15 +48,3 @@
 
   get "/", to: "application#setup", as: :storytime_root unless Storytime::Site.first # should only get here during app setup
 end
-
-
-# Custom Post types:
-# /portfolio
-# /portfolio/storyport
-
-# Page Posts:
-# /page-slug
-
-# Blog:
-# Index: / or /blog based on site selection
-# Show: based on selection
