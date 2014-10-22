@@ -1,0 +1,30 @@
+<div id="list" class="pane">
+  <h3 class="heading"> 
+    Text Snippets
+    
+    <%= link_to url_for([:new, :dashboard, :snippet]), class: "btn btn-info btn-sm pull-right" do %>
+      <i class="glyphicon glyphicon-plus"></i>
+    <% end %>
+  </h3>
+  <div class="scroll-y">
+    <ul class="dashboard-list">
+      <% @snippets.each do |snippet| %>
+        <li id="snippet_<%= snippet.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, snippet])) %>">
+          <div class="row">
+            <div class="col-md-8">
+              <%= link_to snippet.name, url_for([:edit, :dashboard, snippet, page_number: params[:page_number]]) %>
+            </div>
+            <div class="col-md-4">
+              <span class="pull-right">
+                <%= delete_resource_link snippet, url_for([:dashboard, snippet]), !current_page?(url_for([:edit, :dashboard, snippet])) %>
+              </span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <div class="pagination-wrapper">
+      <%= paginate @snippets, param_name: "page_number" %>
+    </div>
+  </div>
+</div>

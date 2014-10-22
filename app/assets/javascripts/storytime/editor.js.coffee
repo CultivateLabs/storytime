@@ -2,32 +2,8 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
-    mediaInstance = new Storytime.Dashboard.Media()
-    mediaInstance.initPagination()
-    mediaInstance.initInsert()
-    mediaInstance.initFeaturedImageSelector()
-    mediaInstance.initSecondaryImageSelector()
-
-    # Check if post is new or not
-    if $(".edit_post").length
-      form = $(".edit_post").last()
-
-      $("#preview_post").click(->
-        self.autosavePostForm()
-        return
-      )
-
-      if $("#main").data("preview")
-        $("#preview_post").trigger("click")
-        window.open $("#preview_post").attr("href")
-    else
-      form = $(".new_post").last()
-
-      $("#preview_new_post").click(->
-        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
-        $(".new_post").submit()
-        return
-      )
+    @initMedia()
+    @initWysiwyg()
 
     # Title character limit
     title_character_limit = $("#title_character_limit").data("limit")
@@ -53,6 +29,72 @@ class Storytime.Dashboard.Editor
       return
     )
 
+    if $(".edit_post").length
+      form = $(".edit_post").last()
+
+      $("#preview_post").click(->
+        self.autosavePostForm()
+        return
+      )
+
+      if $("#main").data("preview")
+        $("#preview_post").trigger("click")
+        window.open $("#preview_post").attr("href")
+    else
+      form = $(".new_post").last()
+
+      $("#preview_new_post").click(->
+        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
+        $(".new_post").submit()
+        return
+      )
+
+    # Setup Chosen select field
+    $(".chosen-select").chosen
+      placeholder_text_multiple: "Select or enter one or more Tags"
+      search_contains: true
+
+    # Setup datepicker
+    $(".datepicker").datepicker
+      dateFormat: "MM d, yy"
+
+    # Setup timepicker
+    $(".timepicker").timepicker
+      showPeriod: true
+
+    # On modal show initialize media upload
+    $(document).on 'shown.bs.modal', () ->
+      mediaInstance.initUpload()
+      return
+
+    # Add new tags
+    $("#post_tag_ids").next("div").find(".search-field").children("input").on 'keyup', (e) ->
+      if e.which is 13 and $("#post_tag_ids").next("div").find(".search-field").children("input").val().length > 0
+        searched_tag = $("#post_tag_ids").next("div").find(".search-field").children("input").val()
+        $("#post_tag_ids").append('<option value="nv__' + searched_tag + '">' + searched_tag + '</option>')
+
+        selected_tags = $("#post_tag_ids").val() || []
+        selected_tags.push "nv__#{searched_tag}"
+
+        $("#post_tag_ids").val selected_tags
+        $("#post_tag_ids").trigger 'chosen:updated'
+      return
+
+    # Add handler to monitor unsaved changes
+    addUnloadHandler(form)
+    return
+
+  initMedia: ()->
+    mediaInstance = new Storytime.Dashboard.Media()
+    mediaInstance.initPagination()
+    mediaInstance.initInsert()
+    mediaInstance.initFeaturedImageSelector()
+
+    $(document).on 'shown.bs.modal', ()->
+      mediaInstance.initUpload()
+      return
+
+  initWysiwyg: ()->
     # Summernote config and setup
     $(".summernote").summernote
       codemirror:
@@ -95,38 +137,6 @@ class Storytime.Dashboard.Editor
           )
         return
 
-    # Setup Chosen select field
-    $(".chosen-select").chosen
-      placeholder_text_multiple: "Select or enter one or more Tags"
-      search_contains: true
-
-    # Setup datepicker
-    $(".datepicker").datepicker
-      dateFormat: "MM d, yy"
-
-    # Setup timepicker
-    $(".timepicker").timepicker
-      showPeriod: true
-
-    # On modal show initialize media upload
-    $(document).on 'shown.bs.modal', () ->
-      mediaInstance.initUpload()
-      return
-
-    # Add new tags
-    $("#post_tag_ids").next("div").find(".search-field").children("input").on 'keyup', (e) ->
-      if e.which is 13 and $("#post_tag_ids").next("div").find(".search-field").children("input").val().length > 0
-        searched_tag = $("#post_tag_ids").next("div").find(".search-field").children("input").val()
-        $("#post_tag_ids").append('<option value="nv__' + searched_tag + '">' + searched_tag + '</option>')
-
-        selected_tags = $("#post_tag_ids").val() || []
-        selected_tags.push "nv__#{searched_tag}"
-
-        $("#post_tag_ids").val selected_tags
-        $("#post_tag_ids").trigger 'chosen:updated'
-        
-      return
-
     # Show Gallery when using Summernote insertPicture modal
     $(".note-image-dialog").on 'shown.bs.modal', () ->
       $(".note-image-dialog").find(".row-fluid").append(
@@ -142,10 +152,6 @@ class Storytime.Dashboard.Editor
     $(".note-image-dialog").on 'hide.bs.modal', () ->
       $("#gallery_copy").remove()
       return
-
-    # Add handler to monitor unsaved changes
-    addUnloadHandler(form)
-    return
 
   autosavePostForm: () ->
     self = @

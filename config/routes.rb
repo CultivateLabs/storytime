@@ -8,6 +8,7 @@
     resources :posts, except: [:show], shallow: true do
       resources :autosaves, only: [:create]
     end
+    resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
     resources :users
