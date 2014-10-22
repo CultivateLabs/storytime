@@ -41,6 +41,15 @@ end
 Text snippets are small chunks of user-editable content that can be re-used in various places in your host app.
 Storytime provides these since we take the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
 
+An example might be if you had a home page in your host app at ```app/views/home/index.html.erb```. You could create two snippets named "first-column-text" and "second-column-text" and access them through the ```Storytime.snippet``` method. Content returned from that method is marked HTML-safe, so you can include simple html content in your text snippets.
+
+```
+<h1>My Home Page</h1>
+<div class="row">
+  <div class="col-md-6"><%= Storytime.snippet("first-column-text") %></div>
+  <div class="col-md-6"><%= Storytime.snippet("second-column-text") %></div>
+</div>
+```
 
 ## Custom Post Types
 
