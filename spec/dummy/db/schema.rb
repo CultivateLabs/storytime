@@ -101,8 +101,6 @@ ActiveRecord::Schema.define(version: 20141021073356) do
     t.string   "ga_tracking_id"
     t.integer  "root_page_content", default: 0
     t.integer  "root_post_id"
-    t.text     "header"
-    t.text     "footer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

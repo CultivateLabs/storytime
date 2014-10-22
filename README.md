@@ -10,7 +10,9 @@ gem "storytime"
 
 Run the install generator:
 
-  $ rails generate storytime:install
+```terminal
+$ rails generate storytime:install
+```
 
 The generator will install a Storytime initializer containing various configuration options. After running the install generator be sure to review and update the generated initializer file as necessary.
 
@@ -89,13 +91,15 @@ included_in_primary_feed?
 Defines whether the post type should show up in the primary post feed. If your definition of this method returns false, a new link will be shown in the dashboard header. If it returns true, Storytime will show it as an option in the new post button on the dashboard.
 
 
-Lastly, you can add fields to the post form for your custom type. In the host app, add a partial for your fields: ```app/views/storytime/dashboard/posts/_your_post_type_fields.html.erb```, where ```your_post_type``` is the underscored version of your custom post type class (the example class above would be ```_video_post_fields.html.erb```). This partial will be included in the form and passed a form builder variable named f. 
+Additionally, you can add fields to the post form for your custom type. In the host app, add a partial for your fields: ```app/views/storytime/dashboard/posts/_your_post_type_fields.html.erb```, where ```your_post_type``` is the underscored version of your custom post type class (the example class above would be ```_video_post_fields.html.erb```). This partial will be included in the form and passed a form builder variable named f. 
 
 For example, if we had created a migration in the host app to add a url field to the posts table, we could do:
 ```
 # app/views/storytime/dashboard/posts/_video_post_fields.html.erb
 <%= f.text_field :url %>
 ```
+
+To create a custom #show view for your custom type, we could add one to ```app/views/storytime/your_post_type/show.html.erb```, where ```your_post_type``` is the underscored version of your custom post type class (the example class above would be ```video_post```).
 
 
 ## Using S3 for Image Uploads

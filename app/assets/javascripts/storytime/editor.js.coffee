@@ -49,12 +49,38 @@ class Storytime.Dashboard.Editor
         return
       )
 
+    # Setup Chosen select field
+    $(".chosen-select").chosen
+      placeholder_text_multiple: "Select or enter one or more Tags"
+      search_contains: true
+
+    # Setup datepicker
     $(".datepicker").datepicker
       dateFormat: "MM d, yy"
 
+    # Setup timepicker
     $(".timepicker").timepicker
       showPeriod: true
 
+    # On modal show initialize media upload
+    $(document).on 'shown.bs.modal', () ->
+      mediaInstance.initUpload()
+      return
+
+    # Add new tags
+    $("#post_tag_ids").next("div").find(".search-field").children("input").on 'keyup', (e) ->
+      if e.which is 13 and $("#post_tag_ids").next("div").find(".search-field").children("input").val().length > 0
+        searched_tag = $("#post_tag_ids").next("div").find(".search-field").children("input").val()
+        $("#post_tag_ids").append('<option value="nv__' + searched_tag + '">' + searched_tag + '</option>')
+
+        selected_tags = $("#post_tag_ids").val() || []
+        selected_tags.push "nv__#{searched_tag}"
+
+        $("#post_tag_ids").val selected_tags
+        $("#post_tag_ids").trigger 'chosen:updated'
+      return
+
+    # Add handler to monitor unsaved changes
     addUnloadHandler(form)
     return
 
@@ -111,6 +137,7 @@ class Storytime.Dashboard.Editor
           )
         return
 
+    # Show Gallery when using Summernote insertPicture modal
     $(".note-image-dialog").on 'shown.bs.modal', () ->
       $(".note-image-dialog").find(".row-fluid").append(
         "<div id='gallery_copy'>
@@ -121,6 +148,7 @@ class Storytime.Dashboard.Editor
         </div>")
       return
 
+    # Remove Gallery when closing out Summernote insertPicture modal
     $(".note-image-dialog").on 'hide.bs.modal', () ->
       $("#gallery_copy").remove()
       return

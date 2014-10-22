@@ -1,6 +1,4 @@
-<% if @site && @site.header.present? %>
-  <%= raw @site.header %>
-<% else %>
+<header>
   <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -24,7 +22,7 @@
             <li><%= link_to "Sign In", main_app.new_user_session_path %></li>
           <% end %>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div>
     </div>
   </div>
-<% end %>
+</header>

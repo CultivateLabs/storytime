@@ -8,6 +8,7 @@ module Storytime
 
     belongs_to Storytime.user_class_symbol
     belongs_to :featured_media, class_name: "Media"
+    belongs_to :secondary_media, class_name: "Media"
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
@@ -86,11 +87,16 @@ module Storytime
       tags.map(&:name).join(", ")
     end
 
-    def tag_list=(names)
-      self.taggings.destroy_all
-      self.tags = names.split(",").map do |n|
-        Tag.where(name: n.strip).first_or_create!
-      end
+    def tag_list=(names_or_ids)
+      self.tags = names_or_ids.map do |n|
+        if n.empty? || n == "nv__"
+          ""
+        elsif n.include?("nv__") || n.to_i == 0
+          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create!
+        else
+          Storytime::Tag.find(n)
+        end
+      end.delete_if { |x| x == "" }
     end
 
     def populate_excerpt_from_content
