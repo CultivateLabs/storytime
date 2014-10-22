@@ -122,9 +122,11 @@
   <div class="post_actions">
     <% if @post.persisted? %>
       <%= link_to 'Delete',  url_for([:dashboard, @post]),  method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: @post.human_name) }, class: "btn btn-danger" %>
+      <%= link_to "Preview", post_path(@post, preview: true), class: "btn btn-info", id: "preview_post", target: "_blank" %>
+    <% else %>
+      <button id="preview_post" class="btn btn-info">Preview</button>
     <% end %>
 
-    <%= link_to "Preview", post_path(@post, preview: true), class: "btn btn-info", id: "preview_post", target: "_blank" %>
     <%= f.submit "Save Draft", class: "btn btn-default save" unless @post.published? %>
 
     <div class="pull-right">

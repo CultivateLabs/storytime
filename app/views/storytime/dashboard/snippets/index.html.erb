@@ -4,7 +4,10 @@
   <div class="scroll-y">
     <div class="padding no-content center">
       <h3>Select a Text Snippet to Edit</h3>
-      <%= link_to "or Create One", url_for([:new, :dashboard, :snippet]), class: 'btn btn-info' %>
+
+      <h4 style="margin-top: 10px;">- OR - </h4>
+
+      <%= link_to "Create One", url_for([:new, :dashboard, :snippet]), class: 'btn btn-info', style: "margin-top: 0" %>
     </div>
   </div>
 </div>

@@ -37,7 +37,7 @@
   end
 
   # pages at routes like /about
-  constraints ->(request){ Storytime::Page.published.where(slug: request.params[:id]).any? } do
+  constraints ->(request){ Storytime::Page.friendly.exists?(request.params[:id]) } do
     resources :pages, only: :show, path: "/"
   end
 

@@ -7,11 +7,16 @@ module Storytime
     def show
       @page = if request.path == "/"
         Page.published.find @site.root_post_id 
+      elsif params[:preview]
+        page = Page.find_preview(params[:id])
+        page.content = page.autosave.content
+        page.preview = true
+        page
       else
         Page.published.friendly.find(params[:id])
       end
       
-      if params[:id] != @page.slug && request.path != "/"
+      if params[:preview].nil? && ((params[:id] != @page.slug) && (request.path != "/"))
         return redirect_to @page, :status => :moved_permanently
       end
 

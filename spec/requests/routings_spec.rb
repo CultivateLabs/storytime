@@ -57,15 +57,15 @@ describe "Post path" do
     expect(request.params[:id]).to eq(post.slug)
   end
 
-  it "uses /post-slug when site#post_slug_style is post_name" do
-    FactoryGirl.create(:site, post_slug_style: :post_name)
+  it "uses /post-id when site#post_slug_style is post_id" do
+    FactoryGirl.create(:site, post_slug_style: :post_id)
     post = FactoryGirl.create(:post)
-    expect(url_for([post, only_path: true])).to  eq("/#{post.slug}")
+    expect(url_for([post, only_path: true])).to eq("/posts/#{post.id}")
 
     get url_for([post, only_path: true])
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.slug)
+    expect(request.params[:id]).to eq(post.id.to_s)
   end
 end

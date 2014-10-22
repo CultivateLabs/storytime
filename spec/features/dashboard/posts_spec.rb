@@ -27,7 +27,7 @@ describe "In the dashboard, Posts" do
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
-    click_button "Create Blog Post"
+    click_button "Save Draft"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
@@ -48,7 +48,7 @@ describe "In the dashboard, Posts" do
     fill_in "post_title", with: "Snow Crash"
     fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
     find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
-    click_button "Save and Preview"
+    click_button "Preview"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
@@ -91,7 +91,7 @@ describe "In the dashboard, Posts" do
     visit url_for([:edit, :dashboard, post, only_path: true])
     fill_in "post_title", with: "The Story"
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
-    click_button "Update Blog"
+    click_button "Save Draft"
     
     page.should have_content(I18n.t('flash.posts.update.success'))
     Storytime::BlogPost.count.should == 1

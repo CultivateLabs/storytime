@@ -18,7 +18,7 @@ module Storytime
 
     attr_accessor :preview, :published_at_date, :published_at_time
 
-    validates_presence_of :title, :draft_content
+    validates_presence_of :title, :draft_content, :content
     validates :title, length: { in: 1..Storytime.post_title_character_limit }
     validates :excerpt, length: { in: 0..Storytime.post_excerpt_character_limit }
     validates :user, presence: true

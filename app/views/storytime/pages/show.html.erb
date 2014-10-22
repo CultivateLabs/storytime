@@ -1,4 +1,10 @@
-<div class="container">
+<div class="container">  
+  <% if params[:preview] %>
+    <div class="alert alert-info" role="alert">
+      Currently viewing a preview of "<%= @page.title %>".
+    </div>
+  <% end %>
+
   <div class="row">
     <div class="col-md-12">
       <%= @page.content.html_safe %>

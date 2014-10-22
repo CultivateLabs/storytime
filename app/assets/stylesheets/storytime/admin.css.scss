@@ -105,4 +105,10 @@
   font-size: 0.55em;
   font-style: normal;
 }
+
 textarea { resize:vertical; }
+
+.autosave_available {
+  color: red;
+  margin-bottom: 20px;
+}

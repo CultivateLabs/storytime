@@ -22,7 +22,7 @@ module Storytime
     end
 
     def show
-      @post = if !params[:preview].nil?
+      @post = if params[:preview]
         post = Post.find_preview(params[:id])
         post.content = post.autosave.content
         post.preview = true

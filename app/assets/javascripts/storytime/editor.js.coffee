@@ -38,12 +38,13 @@ class Storytime.Dashboard.Editor
       )
 
       if $("#main").data("preview")
-        $("#preview_post").trigger("click")
         window.open $("#preview_post").attr("href")
     else
       form = $(".new_post").last()
 
-      $("#preview_new_post").click(->
+      $("#preview_post").click(->
+        form.data "unsaved-changes", false
+        
         $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
         $(".new_post").submit()
         return
@@ -100,7 +101,9 @@ class Storytime.Dashboard.Editor
       mediaInstance.initUpload()
       return
 
-  initWysiwyg: ()->
+  initWysiwyg: () ->
+    self = @
+    
     # Summernote config and setup
     $(".summernote").summernote
       codemirror:
@@ -133,6 +136,7 @@ class Storytime.Dashboard.Editor
         self.updateLater(10000) if $(".edit_post").length
         return
       onkeyup: ->
+        form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
         form.data "unsaved-changes", true
         return
       onImageUpload: (files, editor, $editable) ->

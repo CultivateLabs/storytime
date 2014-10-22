@@ -1,8 +1,8 @@
 <% if autosavable.autosave && !params[:autosave].present? %>
-  <div id="autosaves" style="margin-bottom: 20px; color: red; <% if autosavable.autosave.nil? %>display:none<% end %>">
+  <div id="autosaves" class="autosave_available" <% if autosavable.autosave.nil? %>style="display:none"<% end %>>
     <div id="autosaves-toggle" data-toggle="collapse" data-target="#autosaves-panel">
-      There is an autosave of this post that is different than the version below.
-      <%= link_to "View the autosave.", storytime.edit_dashboard_post_path(autosavable, autosave: autosavable.autosave.id) %>
+      <%= t('dashboard.posts.autosaves.available', resource: autosavable.human_name) %>
+      <%= link_to t('dashboard.posts.autosaves.view_autosave'), storytime.edit_dashboard_post_path(autosavable, autosave: autosavable.autosave.id) %>
     </div>
   </div>
 <% end %>
