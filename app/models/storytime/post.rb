@@ -18,9 +18,9 @@ module Storytime
 
     attr_accessor :preview, :published_at_date, :published_at_time
 
-    validates_presence_of :title, :excerpt, :draft_content
-    validates :title, length: { in: 1..255 }
-    validates :excerpt, length: { in: 1..600 }
+    validates_presence_of :title, :draft_content
+    validates :title, length: { in: 1..Storytime.post_title_character_limit }
+    validates :excerpt, length: { in: 0..Storytime.post_excerpt_character_limit }
     validates :user, presence: true
     validates :type, inclusion: { in: Storytime.post_types }
 
@@ -122,7 +122,7 @@ module Storytime
 
     def should_generate_new_friendly_id?
       self.slug = nil if slug == ""
-      slug_changed? || (published_at_changed? && published_at_change.first.nil?)
+      slug_changed? || (slug.nil? && published_at_changed? && published_at_change.first.nil?)
     end
 
     def set_published_at

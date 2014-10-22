@@ -18,7 +18,9 @@
         <% end %>
       <% end %>
       
-      <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.url_for([:dashboard, Storytime::Media]) %></li>
+      <% if Storytime.enable_file_upload %>
+        <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.url_for([:dashboard, Storytime::Media]) %></li>
+      <% end %>
 
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
         <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.url_for([:dashboard, Storytime.user_class]) %></li>

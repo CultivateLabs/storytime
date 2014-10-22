@@ -38,67 +38,69 @@
 
 
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <span class="glyphicon glyphicon-picture"></span>
-          <a data-toggle="collapse" data-parent="#accordion" href="#post_featured_images">
-            Featured Images
-          </a>
-        </h4>
-      </div>
-      <div id="post_featured_images" class="panel-collapse collapse">
-        <div class="panel-body">
-          
-          <div class="col-md-6">
-            <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+    <% if Storytime.enable_file_upload %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <span class="glyphicon glyphicon-picture"></span>
+            <a data-toggle="collapse" href="#post_featured_images">
+              Featured Images
+            </a>
+          </h4>
+        </div>
+        <div id="post_featured_images" class="panel-collapse collapse">
+          <div class="panel-body">
             
-            <div class="featured_image_block center-block">
-              <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.featured_media %>display: none<% end %>"></span>
+            <div class="col-md-6">
+              <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+              
+              <div class="featured_image_block center-block">
+                <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.featured_media %>display: none<% end %>"></span>
 
-              <div id="featured_media_container" class="image_container">
-                <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
+                <div id="featured_media_container" class="image_container">
+                  <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
+                </div>
+
+                <div class="select_featured_image" <% if @post.featured_media %>style="display: none"<% end %>>
+                  <%= link_to "Select Featured Image", "#", class: "btn btn-primary", id: "featured_media_button" %>
+                </div>
               </div>
 
-              <div class="select_featured_image" <% if @post.featured_media %>style="display: none"<% end %>>
-                <%= link_to "Select Featured Image", "#", class: "btn btn-default", id: "featured_media_button" %>
-              </div>
+              <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
+                Remove Image
+              </button>
             </div>
 
-            <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
-              Remove Image
-            </button>
-          </div>
+            <div class="col-md-6">
+              <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+              
+              <div class="featured_image_block center-block">
+                <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.secondary_media %>display: none<% end %>"></span>
 
-          <div class="col-md-6">
-            <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
-            
-            <div class="featured_image_block center-block">
-              <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.secondary_media %>display: none<% end %>"></span>
+                <div id="secondary_media_container" class="image_container">
+                  <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+                </div>
 
-              <div id="secondary_media_container" class="image_container">
-                <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+                <div class="select_featured_image" <% if @post.secondary_media %>style="display: none"<% end %>>
+                  <%= link_to "Select Secondary Image", "#", class: "btn btn-primary", id: "secondary_media_button" %>
+                </div>
               </div>
 
-              <div class="select_featured_image" <% if @post.secondary_media %>style="display: none"<% end %>>
-                <%= link_to "Select Secondary Image", "#", class: "btn btn-default", id: "secondary_media_button" %>
-              </div>
+              <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.secondary_media %>style="display: none"<% end %>>
+                Remove Image
+              </button>
             </div>
 
-            <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.secondary_media %>style="display: none"<% end %>>
-              Remove Image
-            </button>
           </div>
-
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
           <span class="glyphicon glyphicon-cog"></span>
-          <a data-toggle="collapse" data-parent="#accordion" href="#post_advanced_settings">
+          <a data-toggle="collapse" href="#post_advanced_settings">
             Advanced Settings
           </a>
         </h4>
@@ -132,4 +134,4 @@
   </div>
 <% end %>
 
-<%= render "storytime/dashboard/media/modal" %>
+<%= render "storytime/dashboard/media/modal" if Storytime.enable_file_upload %>

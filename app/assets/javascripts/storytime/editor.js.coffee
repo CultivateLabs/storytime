@@ -61,7 +61,7 @@ class Storytime.Dashboard.Editor
         lineWrapping: true
         mode: 'text/html'
         theme: 'monokai'
-      height: 300
+      height: 200
       minHeight: null
       maxHeight: null
       toolbar: [
@@ -129,13 +129,14 @@ class Storytime.Dashboard.Editor
 
     # Show Gallery when using Summernote insertPicture modal
     $(".note-image-dialog").on 'shown.bs.modal', () ->
-      $(".note-image-dialog").find(".row-fluid").append(
-        "<div id='gallery_copy'>
-          <h5>Gallery</h5>
-          <div id='media_gallery'>" + 
-            $("#media_gallery").html() + 
-          "</div>
-        </div>")
+      if $("#media_gallery").length > 0
+        $(".note-image-dialog").find(".row-fluid").append(
+          "<div id='gallery_copy'>
+            <h5>Gallery</h5>
+            <div id='media_gallery'>" + 
+              $("#media_gallery").html() + 
+            "</div>
+          </div>")
       return
 
     # Remove Gallery when closing out Summernote insertPicture modal
@@ -206,5 +207,4 @@ class Storytime.Dashboard.Editor
     )
 
     $(window).on "beforeunload", ->
-      "You haven't saved your changes." if form.data "unsaved-changes"
-      return
+      return "You haven't saved your changes." if form.data "unsaved-changes"
