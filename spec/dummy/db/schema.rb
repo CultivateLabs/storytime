@@ -82,9 +82,10 @@ ActiveRecord::Schema.define(version: 20141021073356) do
     t.text     "excerpt"
     t.datetime "published_at"
     t.integer  "featured_media_id"
-    t.boolean  "featured",          default: false
+    t.boolean  "featured",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "secondary_media_id"
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"

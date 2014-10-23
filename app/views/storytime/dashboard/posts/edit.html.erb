@@ -1,17 +1,14 @@
 <%= render 'list' %>
 
-<div id="main" class="pane" data-post-id="<%= @post.slug || @post.id %>" data-preview="<%= params[:preview] %>">
+<div id="main" class="pane" data-post-id="<%= @post.slug || @post.id %>" data-dashboard-namespace="<%= Storytime.dashboard_namespace_path %>" data-preview="<%= params[:preview] %>">
   <h3 class="heading">
     Edit <%= @post.human_name %>
     <span class="pull-right">
       <span id="draft_last_saved_at" class="draft_saved"></span>
-
-      <%= link_to "View Published Post", @post, class: "btn btn-default", target: "_blank" if @post.published? %>
-      <%= link_to "View Preview", post_path(@post, preview: true), class: "btn btn-default", id: "preview_post", target: "_blank" %>
     </span>
   </h3>
   
-  <div class="scroll-y">
+  <div class="scroll-y edit_form">
     <div class="padding">
       <%= autosave_info @post %>
       <%= versions_info @post %>

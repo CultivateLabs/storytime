@@ -1,8 +1,37 @@
 require 'spec_helper'
 
 describe Storytime::Post do
-  it "Sets the page slug on create" do
+  it "sets the page slug on create" do
     post = FactoryGirl.create(:post)
+    post.slug.should == post.title.parameterize
+  end
+
+  it "sets slug to user inputted value" do
+    post = FactoryGirl.create(:post)
+
+    post.slug = "random slug here"
+    post.save
+
+    post.slug.should == "random-slug-here"
+  end
+
+  it "does not allow the same slug" do
+    post_1 = FactoryGirl.create(:post)
+    post_2 = FactoryGirl.create(:post)
+
+    post_2.slug = post_1.slug
+    post_2.save
+
+    post_2.slug.should_not == post_1.slug
+    post_2.slug.should include(post_1.slug)
+  end
+
+  it "does not allow a blank slug" do
+    post = FactoryGirl.create(:post)
+    post.slug = ""
+    post.save
+
+    post.slug.should_not == ""
     post.slug.should == post.title.parameterize
   end
 

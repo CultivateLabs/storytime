@@ -3,14 +3,14 @@
     <div class='modal-content'>
       <div class='modal-header'>
         <a class='close' data-dismiss='modal'>&times;</a>
-        <h4>Select Media</h4>
+        <h4><%= t('dashboard.media.select_media') %></h4>
       </div>
       <div class='modal-body'>
         <div class="clearfix hide">
-          <label for="mediaByURL">By URL:</label>
+          <label for="mediaByURL"><%= t('dashboard.media.select_media_by_url') %></label>
           <input id="mediaByURL" value='http://' class='form-control'>
           <div class="pull-right">
-            <button id="mediaByUrlSelectButton" class='btn btn-primary' data-dismiss='modal'>Select</button>
+            <button id="mediaByUrlSelectButton" class='btn btn-primary' data-dismiss='modal'><%= t('dashboard.media.select_media_from_file') %></button>
           </div>
         </div>
 
