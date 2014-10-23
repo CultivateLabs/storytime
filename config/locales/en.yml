@@ -59,7 +59,7 @@ en:
       edit: "Site Settings"
       basic_info: "Basic Info"
       permissions: "Permissions"
-      save_settings: "Save Site Settings"
+      save_permissions: "Save Permissions"
     users:
       users_header: "Users"
       create_new_user: "New User"

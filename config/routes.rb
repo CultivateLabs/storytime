@@ -41,7 +41,7 @@
     resources :pages, only: :show, path: "/"
   end
 
-  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, constraints: ->(request){ request.params[:component_1] != "assets" }
+  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, as: :post_type, constraints: ->(request){ request.params[:component_1] != "assets" }
   resources :posts, only: nil do
     resources :comments, only: [:create, :destroy]
   end
