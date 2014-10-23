@@ -2,13 +2,15 @@ module Storytime
   module Dashboard
     module MediaHelper
       def show_media_insert_button?
-        referrer_action = request.referrer.nil? ? nil : request.referrer.split("/").last
-        params[:controller].split("/").last != "media" || referrer_action == "edit"
+        !show_large_gallery?
       end
 
       def show_large_gallery?
         referrer_action = request.referrer.nil? ? nil : request.referrer.split("/").last
-        params[:controller].split("/").last != "media" || referrer_action != "edit"
+        controller = params[:controller].split("/").last
+        action = params[:action]
+
+        controller == "media" && action == "index" || controller == "media" && action == "create" && referrer_action == "media"
       end
 
       def gallery_type
