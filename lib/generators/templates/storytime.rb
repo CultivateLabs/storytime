@@ -13,7 +13,7 @@ Storytime.configure do |config|
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
-  # config.dashboard_namespace_path = "/dashboard"
+  # config.dashboard_namespace_path = "/storytime"
 
   # Path of Storytime's home page, relative to
   # Storytime's mount point within the hose app.
