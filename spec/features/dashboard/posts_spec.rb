@@ -76,7 +76,9 @@ describe "In the dashboard, Posts" do
 
     page.execute_script "Storytime.instance.editor.autosavePostForm()"
 
-    expect(page).to have_content("Draft saved at")
+    visit url_for([:edit, :dashboard, post, only_path: true])
+
+    page.should have_content("View the autosave.")
 
     post.reload
     expect(post.autosave).not_to be_nil
