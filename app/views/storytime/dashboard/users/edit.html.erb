@@ -1,5 +1,6 @@
 <div class="container">
-  <h2>Edit User</h2>
+  <h2><%= t('dashboard.users.edit_user_header') %></h2>
+  
   <%= simple_form_for [:dashboard, @user] do |f| %>
     <%= f.input :email %>
     <%= f.input :storytime_name %>

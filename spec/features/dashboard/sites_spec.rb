@@ -25,7 +25,7 @@ describe "In the dashboard, Sites" do
 
       visit edit_dashboard_site_path(current_site)
       fill_in "site_title", with: "The Site's New Name"
-      click_button "Update Site"
+      click_button "Save Site Settings"
       
       page.should have_content(I18n.t('flash.sites.update.success'))
       Storytime::Site.count.should == 1

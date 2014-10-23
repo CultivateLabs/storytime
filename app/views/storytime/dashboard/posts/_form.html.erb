@@ -44,7 +44,7 @@
           <h4 class="panel-title">
             <span class="glyphicon glyphicon-picture"></span>
             <a data-toggle="collapse" href="#post_featured_images">
-              Featured Images
+              <%= t('dashboard.posts.featured_images') %>
             </a>
           </h4>
         </div>
@@ -67,7 +67,7 @@
               </div>
 
               <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
-                Remove Image
+                <%= t('dashboard.posts.remove_image') %>
               </button>
             </div>
 
@@ -87,7 +87,7 @@
               </div>
 
               <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.secondary_media %>style="display: none"<% end %>>
-                Remove Image
+                <%= t('dashboard.posts.remove_image') %>
               </button>
             </div>
 
@@ -101,7 +101,7 @@
         <h4 class="panel-title">
           <span class="glyphicon glyphicon-cog"></span>
           <a data-toggle="collapse" href="#post_advanced_settings">
-            Advanced Settings
+            <%= t('dashboard.posts.advanced_settings') %>
           </a>
         </h4>
       </div>

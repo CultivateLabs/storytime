@@ -4,7 +4,7 @@
   <td><%= user.storytime_role.name.humanize if user.storytime_role %></td>
   <td class='right'>
     <div class="btn-group">
-      <%= link_to "Edit", edit_polymorphic_url([:dashboard, user]), class: "btn btn-xs btn-default" %>
+      <%= link_to t('dashboard.users.edit_user_button'), edit_polymorphic_url([:dashboard, user]), class: "btn btn-xs btn-default" %>
       <%= delete_resource_link user, polymorphic_url([:dashboard, user]) unless user == current_user %>
     </div>
   </td>

@@ -53,12 +53,36 @@ en:
   dashboard:
     sites:
       new: "New Storytime Site"
+      root_page_content_hint: "Select whether to show users an index of blog posts or a static page when they land on the Storytime route."
+      root_post_id_label: "Home Page"
+      root_post_id_hint: "Select a page to direct users to when they land on the Storytime route."
+      edit: "Site Settings"
+      basic_info: "Basic Info"
+      permissions: "Permissions"
+      save_settings: "Save Site Settings"
+    users:
+      users_header: "Users"
+      create_new_user: "New User"
+      edit_user_button: "Edit"
+      edit_user_header: "Edit User"
+      email: "Email"
+      name: "Name"
+      role: "Role"
+      actions: "Actions"
+    media:
+      media_header: "Media"
+      select_media: "Select Media"
+      select_media_by_url: "By URL:"
+      select_media_from_file: "Select"
     posts:
       autosaves:
         available: "There is an autosave of this %{resource} that may be different than the version below."
         view_autosave: "View the autosave."
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"
+      advanced_settings: "Advanced Settings"
+      featured_images: "Featured Images"
+      remove_image: "Remove Image"
       new:
         header: "New %{resource}"
 

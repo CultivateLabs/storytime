@@ -1,10 +1,10 @@
 <% media_controller = 'storytime/dashboard/media' %>
 
-<div class="<% if params[:controller] == media_controller %>col-md-4 thumb_gallery<% else %>tiny_gallery<% end %>">
+<div class="<% if params[:controller] == media_controller && request.referrer.split("/").last != "edit" %>col-md-4 thumb_gallery<% else %>tiny_gallery<% end %>">
   <div class="media-file" id="media_<%= media.id %>">
     <div class="media-thumb">
       <%= link_to media.file_url, target: "_blank" do %>
-        <% if params[:controller] == media_controller %>
+        <% if params[:controller] == media_controller && request.referrer.split("/").last != "edit" %>
           <%= image_tag media.file_url(:thumb) %>
         <% else %>
           <%= image_tag media.file_url(:tiny) %>
@@ -15,7 +15,7 @@
     <div class="action-buttons">
       <%= delete_resource_link media, dashboard_media_path(media) %>
       <% if show_media_insert_button? %>
-        <button class="btn btn-info btn-xs insert-image-button" data-media-id="<%= media.id %>" data-image-url="<%= full_media_file_url media %>" data-thumb-url="<%= full_media_file_url media, :thumb %>">Select</button>
+        <button class="btn btn-info btn-xs insert-image-button" data-media-id="<%= media.id %>" data-image-url="<%= full_media_file_url media %>" data-thumb-url="<%= full_media_file_url media, :thumb %>" data-tiny-url="<%= full_media_file_url media, :tiny %>">Select</button>
       <% end %>
     </div>
   </div>

@@ -1,16 +1,16 @@
 <div class="container">
   <h2>
-    Users
-    <%= link_to "New User", new_dashboard_user_path, class: "btn btn-default pull-right" %>
+    <%= t('dashboard.users.users_header') %>
+    <%= link_to t('dashboard.users.create_new_user'), new_dashboard_user_path, class: "btn btn-default pull-right" %>
   </h2>
 
   <table class='table'>
     <thead>
       <tr>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th class='right'>Actions</th>
+        <th><%= t('dashboard.users.email') %></th>
+        <th><%= t('dashboard.users.name') %></th>
+        <th><%= t('dashboard.users.role') %></th>
+        <th class='right'><%= t('dashboard.users.actions') %></th>
       </tr>
     </thead>
     <tbody>
