@@ -38,7 +38,7 @@
     <ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= current_user.email %>
+          <%= current_user.storytime_name.blank? ? current_user.email : current_user.storytime_name %>
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
