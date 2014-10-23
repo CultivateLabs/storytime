@@ -2,7 +2,7 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
-    @initMedia()
+    mediaInstance = @initMedia()
     @initWysiwyg()
 
     # Title character limit
@@ -85,6 +85,7 @@ class Storytime.Dashboard.Editor
     # Set published field on Publish button click
     $(".publish").on 'click', () ->
       $("#post_published").val(1)
+      form.data "unsaved-changes", false
       return
 
     # Add handler to monitor unsaved changes
@@ -96,10 +97,13 @@ class Storytime.Dashboard.Editor
     mediaInstance.initPagination()
     mediaInstance.initInsert()
     mediaInstance.initFeaturedImageSelector()
+    mediaInstance.initSecondaryImageSelector()
 
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()
       return
+
+    mediaInstance
 
   initWysiwyg: () ->
     self = @

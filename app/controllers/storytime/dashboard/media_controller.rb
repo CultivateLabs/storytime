@@ -8,7 +8,7 @@ module Storytime
       def index
         redirect_to url_for([:dashboard, Storytime::Post]) unless Storytime.enable_file_upload
 
-        @media = Media.order("created_at DESC").page(params[:page]).per(10)
+        @media = Media.order("created_at DESC").page(params[:page]).per(9)
         authorize @media
         render partial: "gallery", content_type: Mime::HTML if request.xhr?
       end

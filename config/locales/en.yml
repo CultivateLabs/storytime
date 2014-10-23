@@ -55,7 +55,7 @@ en:
       new: "New Storytime Site"
     posts:
       autosaves:
-        available: "There is an autosave of this %{resource} that's different than the version below."
+        available: "There is an autosave of this %{resource} that may be different than the version below."
         view_autosave: "View the autosave."
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"

@@ -16,15 +16,15 @@ class Storytime.Dashboard.Media
       $('#media_file').fileupload({
         dataType: 'json',
         done: (e, data)->
-          $("#media_gallery").prepend(data.result.html)
+          $(".media_container").prepend(data.result.html)
           return
         
         progressall: (e, data)->
-          progress = parseInt(data.loaded / data.total * 100, 10);
-          $('#progress .progress-bar').css('width', progress + '%');
+          progress = parseInt(data.loaded / data.total * 100, 10)
+          $('#progress .progress-bar').css('width', progress + '%')
           return
         
-      }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+      }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled')
       @uploadInitialized = true
       return
     return
@@ -119,20 +119,6 @@ class Storytime.Dashboard.Media
 
     $(document).on 'hidden.bs.modal', ()->
       self.selectingFeatured = false
-      self.selectingSecondary = false
-      return
-
-    return
-    
-  initSecondaryImageSelector: ()->
-    self = @
-    $(document).on "click", "#secondary_media_button", (e)->
-      e.preventDefault()
-      self.selectingSecondary = true
-      $("#insertMediaModal").modal("show")
-      return
-
-    $(document).on 'hidden.bs.modal', ()->
       self.selectingSecondary = false
       return
 

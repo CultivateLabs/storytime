@@ -1,16 +1,38 @@
-.media-file{
-  float: left;
-  padding: 15px 19px;
-  width: 112px;
-  border-top: 1px solid #dddddd;
+.thumb_gallery {
+  .media-file{
+    float: left;
+    padding: 15px 19px;
+    // width: 112px;
+    border-top: 1px solid #dddddd;
 
-  .media-thumb{
+    .media-thumb{
+      height: 150px;
+      width: 250px;
+      text-align: center;
+    }
+
+    .action-buttons{
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+}
+
+.tiny_gallery {
+  .media-file {
+    border-top: 1px solid #dddddd;
+    float: left;
+    padding: 15px 19px;
+    width: 112px;
+  }
+
+  .media-thumb {
     height: 50px;
     width: 72px;
     text-align: center;
   }
 
-  .action-buttons{
+  .action-buttons {
     text-align: center;
     margin-top: 20px;
   }
