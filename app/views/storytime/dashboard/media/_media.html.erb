@@ -1,4 +1,4 @@
-<div class="<% if show_large_gallery? %>col-md-4 thumb_gallery<% else %>tiny_gallery<% end %>">
+<div class="<%= gallery_type %>">
   <div class="media-file" id="media_<%= media.id %>">
     <div class="media-thumb">
       <%= link_to media.file_url, target: "_blank" do %>

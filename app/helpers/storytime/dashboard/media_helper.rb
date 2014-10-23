@@ -11,6 +11,14 @@ module Storytime
         params[:controller].split("/").last != "media" || referrer_action != "edit"
       end
 
+      def gallery_type
+        if show_large_gallery?
+          "col-md-4 thumb_gallery"
+        else
+          "tiny_gallery"
+        end
+      end
+
       def full_media_file_url(media, size = nil)
         if media.file_url.starts_with?("http")
           media.file_url(size)
