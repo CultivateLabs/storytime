@@ -24,6 +24,10 @@ Storytime.configure do |config|
   # Storytime's mount point within the host app.
   # config.home_page_path = "/"
 
+  # Array of tags to allow from the Summernote WYSIWYG Editor.
+  # An empty array or nil setting will allow all tags.
+  # config.whitelisted_html_tags = %w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)
+
   # File upload options.
   config.enable_file_upload = true
 

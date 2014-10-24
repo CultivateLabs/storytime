@@ -27,11 +27,17 @@ module Storytime
   mattr_accessor :home_page_path
   @@home_page_path = "/"
 
+  # Array of tags to allow from the Summernote WYSIWYG Editor.
+  # An empty array or nil setting will allow all tags.
+  mattr_accessor :whitelisted_html_tags
+  @@whitelisted_html_tags = %w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)
+
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     
     def configure
       self.post_types ||= []
+
       yield self
     end
 

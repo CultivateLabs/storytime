@@ -25,6 +25,7 @@ module Storytime
     validates :type, inclusion: { in: Storytime.post_types }
 
     before_validation :populate_excerpt_from_content
+    before_save :sanitize_content
     before_save :set_published_at
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
@@ -123,6 +124,10 @@ module Storytime
     def should_generate_new_friendly_id?
       self.slug = nil if slug == ""
       slug_changed? || (slug.nil? && published_at_changed? && published_at_change.first.nil?)
+    end
+
+    def sanitize_content
+      self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_html_tags) unless Storytime.whitelisted_html_tags.blank?
     end
 
     def set_published_at
