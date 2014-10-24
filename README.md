@@ -48,9 +48,9 @@ After doing so, fire up your Rails server and access the Storytime dasboard, by 
 
 ## Text Snippets
 
-Text snippets are small chunks of user-editable content that can be re-used in various places in your host app. Snippets can be accessed through the `Storytime.snippet` method. Content returned from that method is marked HTML-safe, so you can even include simple html content in your text snippets.
-
 Storytime takes the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
+
+Text snippets are small chunks of user-editable content that can be re-used in various places in your host app. Snippets can be accessed through the `Storytime.snippet` method. Content returned from that method is marked HTML-safe, so you can even include simple html content in your text snippets.
 
 The following example shows two snippets named "first-column-text" and "second-column-text" being accessed through the `Storytime.snippet` method: 
 
