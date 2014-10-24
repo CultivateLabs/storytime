@@ -46,5 +46,7 @@
     resources :comments, only: [:create, :destroy]
   end
 
-  get "/", to: "application#setup", as: :storytime_root unless Storytime::Site.first # should only get here during app setup
+  constraints ->(request){ !Storytime::Site.first } do
+    get "/", to: "application#setup", as: :storytime_root  # should only get here during app setup
+  end
 end
