@@ -1,23 +1,25 @@
 <div class="container">
   <div class="row">
-    <h2><%= t('dashboard.sites.edit') %></h2>
-    <h3><%= t('dashboard.sites.basic_info') %></h3>
-    <%= render 'form' %>
-
-    <h3><%= t('dashboard.sites.permissions') %></h3>
     <div class="col-md-12">
-      <%= form_tag update_multiple_dashboard_roles_path, method: :patch do %>
-        <% Storytime::Role.all.each do |role| %>
-          <h4><%= role.label %></h4>
-          <%= simple_fields_for "roles[#{role.id}][]", role do |f| %>
-            <%= f.association :allowed_actions, as: :check_boxes, label: false %>
-          <% end %>
-        <% end %>
+      <h2><%= t('dashboard.sites.edit') %></h2>
+      <h3><%= t('dashboard.sites.basic_info') %></h3>
+      <%= render 'form' %>
 
-        <div class="pull-right">
-          <%= submit_tag t('dashboard.sites.save_permissions'), class: "btn btn-primary" %>
-        </div>
-      <% end %>
+      <h3><%= t('dashboard.sites.permissions') %></h3>
+      <div class="col-md-12">
+        <%= form_tag update_multiple_dashboard_roles_path, method: :patch do %>
+          <% Storytime::Role.all.each do |role| %>
+            <h4><%= role.label %></h4>
+            <%= simple_fields_for "roles[#{role.id}][]", role do |f| %>
+              <%= f.association :allowed_actions, as: :check_boxes, label: false %>
+            <% end %>
+          <% end %>
+
+          <div class="pull-right">
+            <%= submit_tag t('dashboard.sites.save_permissions'), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
