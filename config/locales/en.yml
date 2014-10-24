@@ -80,6 +80,7 @@ en:
         view_autosave: "View the autosave."
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"
+      additional_fields: "Additional Fields"
       advanced_settings: "Advanced Settings"
       featured_images: "Featured Images"
       remove_image: "Remove Image"

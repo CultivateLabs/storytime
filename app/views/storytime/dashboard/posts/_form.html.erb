@@ -12,13 +12,6 @@
   </div>
   
 
-  <div class="post_field post_additional_fields">
-    <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
-      <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
-    <% end %>
-  </div>
-  
-
   <div class="post_field post_excerpt">
     <small>
       <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
@@ -91,6 +84,23 @@
               </button>
             </div>
 
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+          <span class="glyphicon glyphicon-th-list"></span>
+          <a data-toggle="collapse" href="#post_additional_fields">
+            <%= t('dashboard.posts.additional_fields') %>
+          </a>
+        </div>
+        <div id="post_additional_fields" class="panel-collapse collapse in">
+          <div class="panel-body">
+              <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
           </div>
         </div>
       </div>
