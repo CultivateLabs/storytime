@@ -5,6 +5,11 @@ Storytime.configure do |config|
   # Name of the model you're using for Storytime users.
   config.user_class = 'User'
 
+  # Add custom post types to use within Storytime.
+  # Make sure that the custom post types inherit the
+  # from the Storytime::Post class.
+  # config.post_types += ['CustomPostType']
+
   # Character limit for Storytime::Post.title <= 255
   # config.post_title_character_limit = 255
 
@@ -16,7 +21,7 @@ Storytime.configure do |config|
   # config.dashboard_namespace_path = "/storytime"
 
   # Path of Storytime's home page, relative to
-  # Storytime's mount point within the hose app.
+  # Storytime's mount point within the host app.
   # config.home_page_path = "/"
 
   # File upload options.

@@ -23,7 +23,7 @@ module Storytime
   @@dashboard_namespace_path = "/storytime"
 
   # Path of Storytime's home page, relative to
-  # Storytime's mount point within the hose app.
+  # Storytime's mount point within the host app.
   mattr_accessor :home_page_path
   @@home_page_path = "/"
 
