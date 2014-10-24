@@ -127,7 +127,7 @@ module Storytime
     end
 
     def sanitize_content
-      self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_html_tags) unless Storytime.whitelisted_html_tags.blank?
+      self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_post_html_tags) unless Storytime.whitelisted_post_html_tags.blank?
     end
 
     def set_published_at
