@@ -18,7 +18,9 @@ $ rails generate storytime:install
 
 The generator will install a Storytime initializer containing various configuration options. After running the generator be sure to review and update the generated initializer file as necessary.
 
-The install generator will also add a line to your routes file responsible for mounting the Storytime engine. By default, Storytime is mounted at `/`. If you want to keep Storytime mounted at `/` make sure that it is the **last** entry in your routes file:
+The install generator will also add a line to your routes file responsible for mounting the Storytime engine. 
+
+By default, Storytime is mounted at `/`. If you want to keep that mount point make sure that this is the **last** entry in your routes file:
 
 ```ruby
 mount Storytime::Engine => "/"
