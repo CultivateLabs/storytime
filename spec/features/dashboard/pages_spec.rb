@@ -27,7 +27,7 @@ describe "In the dashboard, Pages" do
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
     find("#featured_media_id").set media.id
     
-    click_button "Create Page"
+    click_button "Save Draft"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::Page.count.should == 1
@@ -49,7 +49,7 @@ describe "In the dashboard, Pages" do
     visit url_for([:edit, :dashboard, pg])
     fill_in "post_title", with: "The Story"
     fill_in "post_draft_content", with: "It was a dark and stormy night..."
-    click_button "Update Page"
+    click_button "Save Draft"
     
     page.should have_content(I18n.t('flash.posts.update.success'))
     Storytime::Page.count.should == 1

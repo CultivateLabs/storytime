@@ -36,7 +36,8 @@ describe "In the dashboard, Sites" do
 
     it "new redirects to edit if a site already exists" do
       visit new_dashboard_site_path
-      page.should have_content("Editing site")
+      page.should have_content("Site Settings")
+      page.should have_content("Permissions")
     end
   end
 end

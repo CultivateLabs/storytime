@@ -1,9 +1,10 @@
 <div class="container">
-  <h2>Edit User</h2>
+  <h2><%= t('dashboard.users.edit_user_header') %></h2>
+  
   <%= simple_form_for [:dashboard, @user] do |f| %>
     <%= f.input :email %>
     <%= f.input :storytime_name %>
-    <%= f.association :storytime_role, include_blank: false, label_method: :label %>
+    <%= f.association :storytime_role, include_blank: true, label_method: :label %>
     <%= f.submit class: "btn btn-info" %>
   <% end %>
 </div>

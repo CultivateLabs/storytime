@@ -1,21 +1,22 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <%= simple_form_for [:dashboard, @site] do |f| %>
       <%= f.error_notification %>
       <%= f.input :title %>
       <%= f.input :post_slug_style, collection: post_slug_style_options %>
-      <%= f.input :root_page_content, collection: root_page_content_options, include_blank: false %>
-      <%= f.input :root_post_id, collection: @site.root_post_options, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") } %>
-      <%= f.input :ga_tracking_id %>
 
-      <!-- Header and Footer only get rendered in the storytime applicaiton layout, not the main app -->
-      <% unless Storytime.layout.present? %>
-        <%= f.input :header %>
-        <%= f.input :footer %>
+      <% unless params[:action] == "new" %>
+        <%= f.input :root_page_content, collection: root_page_content_options, include_blank: false, hint: t('dashboard.sites.root_page_content_hint') %>
+        
+        <%= f.input :root_post_id, collection: @site.root_post_options, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") }, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
+      
+        <%= f.input :ga_tracking_id %>
       <% end %>
 
-      <div class="actions">
-        <%= f.submit class: "btn btn-primary" %>
+      <div class="pull-right">
+        <div class="actions">
+          <%= f.submit class: "btn btn-primary" %>
+        </div>
       </div>
     <% end %>
   </div>

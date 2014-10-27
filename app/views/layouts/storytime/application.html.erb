@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Storytime</title>
+    <title><%= t('layout.title') %></title>
 
     <%= stylesheet_link_tag    "storytime/application", media: "all" %>
     <%= javascript_include_tag "storytime/application" %>
@@ -15,13 +15,13 @@
   </head>
 
   <body class="<%= params[:controller].split('/').join(' ') %> <%= params[:action] %> <%= params[:controller].parameterize %>-controller <%=params[:action]%>-action" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
-
-
     <%= render "storytime/application/storytime/navigation" %>
     <%= render "storytime/application/storytime/flash" %>
-    <%= render 'storytime/application/storytime/header' unless devise_controller? %>
+    <%= render "storytime/application/storytime/header" %>
+
     <%= yield %>
-    <%= render 'storytime/application/storytime/footer' unless devise_controller? %>
-    <%= render 'storytime/sites/google_analytics_code' %>
+    
+    <%= render "storytime/application/storytime/footer" %>
+    <%= render "storytime/sites/google_analytics_code" %>
   </body>
 </html>

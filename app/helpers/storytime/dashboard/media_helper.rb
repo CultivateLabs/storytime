@@ -2,15 +2,30 @@ module Storytime
   module Dashboard
     module MediaHelper
       def show_media_insert_button?
+        !show_large_gallery?
+      end
+
+      def show_large_gallery?
+        referrer_action = request.referrer.nil? ? nil : request.referrer.split("/").last
         controller = params[:controller].split("/").last
-        %w{pages posts}.include?(controller) || (request.referrer && (request.referrer.include?("pages") || request.referrer.include?("posts")))
+        action = params[:action]
+
+        controller == "media" && action == "index" || controller == "media" && action == "create" && referrer_action == "media"
+      end
+
+      def gallery_type
+        if show_large_gallery?
+          "col-md-4 thumb_gallery"
+        else
+          "tiny_gallery"
+        end
       end
 
       def full_media_file_url(media, size = nil)
         if media.file_url.starts_with?("http")
           media.file_url(size)
         else
-          storytime_root_url[0..-2]+media.file_url(size)
+          storytime_root_post_url[0..-2]+media.file_url(size)
         end
       end
     end

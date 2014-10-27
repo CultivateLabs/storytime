@@ -1,0 +1,13 @@
+<%= render 'list' %>
+
+<div id="main" class="pane">
+  <div class="scroll-y">
+    <div class="padding no-content center">
+      <h3>Select a Text Snippet to Edit</h3>
+
+      <h4 style="margin-top: 10px;">- OR - </h4>
+
+      <%= link_to "Create One", url_for([:new, :dashboard, :snippet]), class: 'btn btn-info', style: "margin-top: 0" %>
+    </div>
+  </div>
+</div>

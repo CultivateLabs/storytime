@@ -9,6 +9,10 @@ module Storytime
     end
     
     version :thumb do
+      process resize_to_fit: [250, 150]
+    end
+
+    version :tiny do
       process resize_to_fit: [50, 50]
     end
 

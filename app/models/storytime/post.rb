@@ -4,10 +4,11 @@ module Storytime
     include ActionView::Helpers::SanitizeHelper
 
     extend FriendlyId
-    friendly_id :title, use: [:history]
+    friendly_id :slug_candidates, use: [:history]
 
     belongs_to Storytime.user_class_symbol
     belongs_to :featured_media, class_name: "Media"
+    belongs_to :secondary_media, class_name: "Media"
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
@@ -17,13 +18,14 @@ module Storytime
 
     attr_accessor :preview, :published_at_date, :published_at_time
 
-    validates_presence_of :title, :excerpt, :draft_content
-    validates :title, length: { in: 1..255 }
-    validates :excerpt, length: { in: 1..600 }
+    validates_presence_of :title, :draft_content
+    validates :title, length: { in: 1..Storytime.post_title_character_limit }
+    validates :excerpt, length: { in: 0..Storytime.post_excerpt_character_limit }
     validates :user, presence: true
     validates :type, inclusion: { in: Storytime.post_types }
 
     before_validation :populate_excerpt_from_content
+    before_save :sanitize_content
     before_save :set_published_at
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
@@ -115,8 +117,17 @@ module Storytime
       user.storytime_name.blank? ? user.email : user.storytime_name
     end
 
+    def slug_candidates
+      if slug.nil? then [:title] elsif slug_changed? then [:slug] end
+    end
+
     def should_generate_new_friendly_id?
-      published_at_changed? && published_at_change.first.nil?
+      self.slug = nil if slug == ""
+      slug_changed? || (slug.nil? && published_at_changed? && published_at_change.first.nil?)
+    end
+
+    def sanitize_content
+      self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_post_html_tags) unless Storytime.whitelisted_post_html_tags.blank?
     end
 
     def set_published_at

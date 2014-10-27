@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007035925) do
+ActiveRecord::Schema.define(version: 20141021073356) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -82,9 +82,10 @@ ActiveRecord::Schema.define(version: 20141007035925) do
     t.text     "excerpt"
     t.datetime "published_at"
     t.integer  "featured_media_id"
-    t.boolean  "featured",          default: false
+    t.boolean  "featured",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "secondary_media_id"
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
@@ -101,13 +102,18 @@ ActiveRecord::Schema.define(version: 20141007035925) do
     t.string   "ga_tracking_id"
     t.integer  "root_page_content", default: 0
     t.integer  "root_post_id"
-    t.text     "header"
-    t.text     "footer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id"
+
+  create_table "storytime_snippets", force: true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "storytime_taggings", force: true do |t|
     t.integer  "tag_id"

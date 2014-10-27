@@ -11,12 +11,13 @@ module ActionDispatch
           post = options[key]
 
           if post.is_a?(Storytime::Page)
+            options[:component_1] = nil
             options[:id] = post
           else
             case site.post_slug_style
             when "default"
-              options[:id] = post
               options[:component_1] = "posts"
+              options[:id] = post
             when "day_and_name" 
               date = post.created_at.to_date
               options[:component_1] = date.strftime("%Y") # 4 digit year
@@ -28,9 +29,9 @@ module ActionDispatch
               options[:component_1] = date.strftime("%Y") # 4 digit year
               options[:component_2] = date.strftime("%m") # 2 digit month
               options[:id] = post
-            when "post_name"
-              options[:component_1] = nil
-              options[:id] = post
+            when "post_id"
+              options[:component_1] = "posts"
+              options[:id] = post.id
             end
           end
         end

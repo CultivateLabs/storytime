@@ -1,3 +1,7 @@
-<% if @site && @site.footer.present? %>
-  <%= raw @site.footer %>
-<% end %>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted center">
+      <%= t('footer.attribute').html_safe %>
+    </p>
+  </div>
+</footer>

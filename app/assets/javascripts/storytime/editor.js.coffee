@@ -2,31 +2,8 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
-    mediaInstance = new Storytime.Dashboard.Media()
-    mediaInstance.initPagination()
-    mediaInstance.initInsert()
-    mediaInstance.initFeaturedImageSelector()
-
-    # Check if post is new or not
-    if $(".edit_post").length
-      form = $(".edit_post").last()
-
-      $("#preview_post").click(->
-        self.autosavePostForm()
-        return
-      )
-
-      if $("#main").data("preview")
-        $("#preview_post").trigger("click")
-        window.open $("#preview_post").attr("href")
-    else
-      form = $(".new_post").last()
-
-      $("#preview_new_post").click(->
-        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
-        $(".new_post").submit()
-        return
-      )
+    mediaInstance = @initMedia()
+    @initWysiwyg()
 
     # Title character limit
     title_character_limit = $("#title_character_limit").data("limit")
@@ -52,50 +29,30 @@ class Storytime.Dashboard.Editor
       return
     )
 
-    # Summernote config and setup
-    $(".summernote").summernote
-      codemirror:
-        htmlMode: true
-        lineNumbers: true
-        lineWrapping: true
-        mode: 'text/html'
-        theme: 'monokai'
-      height: 300
-      minHeight: null
-      maxHeight: null
-      toolbar: [
-        ['style', ['style']]
-        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
-        # ['fontname', ['fontname']]
-        # ['fontsize', ['fontsize']]
-        ['color', ['color']]
-        ['para', ['ul', 'ol', 'paragraph']]
-        # ['height', ['height']]
-        ['table', ['table']]
-        ['insert', ['link', 'picture', 'video', 'hr']]
-        ['view', ['fullscreen', 'codeview']]
-        ['editing', ['undo', 'redo']]
-        ['help', ['help']]
-      ]
-      onblur: ->
-        $(".summernote").data("range", document.getSelection().getRangeAt(0))
+    if $(".edit_post").length
+      form = $(".edit_post").last()
+
+      $("#preview_post").click(->
+        self.autosavePostForm()
         return
-      onfocus: ->
-        self.updateLater(1000) if $(".edit_post").length
+      )
+
+      if $("#main").data("preview")
+        window.open $("#preview_post").attr("href")
+    else
+      form = $(".new_post").last()
+
+      $("#preview_post").click(->
+        form.data "unsaved-changes", false
+        
+        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
+        $(".new_post").submit()
         return
-      onkeyup: ->
-        form.data "unsaved-changes", true
-        return
-      onImageUpload: (files, editor, $editable) ->
-        $("#media_file").fileupload('send', {files: files})
-          .success((result, textStatus, jqXHR) ->
-            editor.insertImage($editable, result.file_url)
-            return
-          )
-        return
+      )
 
     # Setup Chosen select field
     $(".chosen-select").chosen
+      no_results_text: "No results were found... Press 'Enter' to create a new tag named "
       placeholder_text_multiple: "Select or enter one or more Tags"
       search_contains: true
 
@@ -123,18 +80,87 @@ class Storytime.Dashboard.Editor
 
         $("#post_tag_ids").val selected_tags
         $("#post_tag_ids").trigger 'chosen:updated'
-        
       return
+
+    # Set published field on Publish button click
+    $(".publish").on 'click', () ->
+      $("#post_published").val(1)
+      form.data "unsaved-changes", false
+      return
+
+    # Add handler to monitor unsaved changes
+    addUnloadHandler(form)
+    return
+
+  initMedia: ()->
+    mediaInstance = new Storytime.Dashboard.Media()
+    mediaInstance.initPagination()
+    mediaInstance.initInsert()
+    mediaInstance.initFeaturedImageSelector()
+    mediaInstance.initSecondaryImageSelector()
+
+    $(document).on 'shown.bs.modal', ()->
+      mediaInstance.initUpload()
+      return
+
+    mediaInstance
+
+  initWysiwyg: () ->
+    self = @
+    
+    # Summernote config and setup
+    $(".summernote").summernote
+      codemirror:
+        htmlMode: true
+        lineNumbers: true
+        lineWrapping: true
+        mode: 'text/html'
+        theme: 'monokai'
+      height: 200
+      minHeight: null
+      maxHeight: null
+      toolbar: [
+        ['style', ['style']]
+        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
+        # ['fontname', ['fontname']]
+        # ['fontsize', ['fontsize']]
+        ['color', ['color']]
+        ['para', ['ul', 'ol', 'paragraph']]
+        # ['height', ['height']]
+        ['table', ['table']]
+        ['insert', ['link', 'picture', 'video', 'hr']]
+        ['view', ['fullscreen', 'codeview']]
+        ['editing', ['undo', 'redo']]
+        ['help', ['help']]
+      ]
+      onblur: ->
+        $(".summernote").data("range", document.getSelection().getRangeAt(0))
+        return
+      onfocus: ->
+        self.updateLater(10000) if $(".edit_post").length
+        return
+      onkeyup: ->
+        form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+        form.data "unsaved-changes", true
+        return
+      onImageUpload: (files, editor, $editable) ->
+        $("#media_file").fileupload('send', {files: files})
+          .success((result, textStatus, jqXHR) ->
+            editor.insertImage($editable, result.file_url)
+            return
+          )
+        return
 
     # Show Gallery when using Summernote insertPicture modal
     $(".note-image-dialog").on 'shown.bs.modal', () ->
-      $(".note-image-dialog").find(".row-fluid").append(
-        "<div id='gallery_copy'>
-          <h5>Gallery</h5>
-          <div id='media_gallery'>" + 
-            $("#media_gallery").html() + 
-          "</div>
-        </div>")
+      if $("#media_gallery").length > 0
+        $(".note-image-dialog").find(".row-fluid").append(
+          "<div id='gallery_copy'>
+            <h5>Gallery</h5>
+            <div id='media_gallery'>" + 
+              $("#media_gallery").html() + 
+            "</div>
+          </div>")
       return
 
     # Remove Gallery when closing out Summernote insertPicture modal
@@ -142,20 +168,20 @@ class Storytime.Dashboard.Editor
       $("#gallery_copy").remove()
       return
 
-    # Add handler to monitor unsaved changes
-    addUnloadHandler(form)
-    return
-
   autosavePostForm: () ->
     self = @
     post_id = $("#main").data("post-id")
+    dashboard_namespace = $("#main").data("dashboard-namespace")
 
     data = []
     data.push {name: "post[draft_content]", value: $(".summernote").code()}
 
+    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    form.data "unsaved-changes", false
+ 
     $.ajax(
       type: "POST"
-      url: "/dashboard/posts/#{post_id}/autosaves"
+      url: "#{dashboard_namespace}/posts/#{post_id}/autosaves"
       data: data
     )
 
@@ -163,26 +189,38 @@ class Storytime.Dashboard.Editor
     self = @
     timer = 120000  unless timer?
 
-    timeoutId = window.setTimeout((->
-      self.autosavePostForm().done(->
-        self.updateLater(10000)
+    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
 
-        time_now = new Date().toLocaleTimeString()
-        $("#draft_last_saved_at").html "Draft saved at #{time_now}"
-      ).fail(->
-        console.log "Something went wrong while trying to autosave..."
-      )
+    timeoutId = window.setTimeout((->
+      if form.data("unsaved-changes") is true
+        self.autosavePostForm().done(->
+          self.updateLater timer
+
+          time_now = new Date().toLocaleTimeString()
+          $("#draft_last_saved_at").html "Draft saved at #{time_now}"
+          return
+        ).fail(->
+          console.log "Something went wrong while trying to autosave..."
+          return
+        )
+
+        return
+      else
+        self.updateLater timer
+        return
     ), timer)
     return
 
   addUnloadHandler = (form) ->
     form.find("input, textarea").on("keyup", ->
       form.data "unsaved-changes", true
+      return
     )
 
     $(".save").click(->
       form.data "unsaved-changes", false
+      return
     )
 
     $(window).on "beforeunload", ->
-      "You haven't saved your changes." if form.data "unsaved-changes"
+      return "You haven't saved your changes." if form.data "unsaved-changes"

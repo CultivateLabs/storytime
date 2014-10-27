@@ -13,15 +13,32 @@ module Storytime
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 255
 
-  # Enable file uploads through Carrierwave
+  # Enable file uploads through Carrierwave.
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
+
+  # Path of Storytime's dashboard, relative to
+  # Storytime's mount point within the host app.
+  mattr_accessor :dashboard_namespace_path
+  @@dashboard_namespace_path = "/storytime"
+
+  # Path of Storytime's home page, relative to
+  # Storytime's mount point within the host app.
+  mattr_accessor :home_page_path
+  @@home_page_path = "/"
+
+  # Array of tags to allow from the Summernote WYSIWYG
+  # Editor when editing Posts and custom post types.
+  # An empty array, "", or nil setting will permit all tags.
+  mattr_accessor :whitelisted_post_html_tags
+  @@whitelisted_post_html_tags = []
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     
     def configure
       self.post_types ||= []
+
       yield self
     end
 
@@ -31,6 +48,11 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
+    end
+
+    def snippet(name)
+      snippet = Storytime::Snippet.find_by(name: name)
+      snippet.nil? ? "" : snippet.content.html_safe
     end
   end
 end

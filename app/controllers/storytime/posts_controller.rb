@@ -22,9 +22,9 @@ module Storytime
     end
 
     def show
-      @post = if !params[:preview].nil?
+      @post = if params[:preview]
         post = Post.find_preview(params[:id])
-        post.content = post.autosave.content
+        post.content = post.autosave.content if post.autosave
         post.preview = true
         post
       else
@@ -33,7 +33,7 @@ module Storytime
 
       authorize @post
       
-      if params[:preview].nil? && params[:id] != @post.slug
+      if params[:preview].nil? && ((@site.post_slug_style != "post_id") && (params[:id] != @post.slug))
         return redirect_to @post, :status => :moved_permanently
       end
 
