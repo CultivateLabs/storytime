@@ -46,6 +46,12 @@ end
 
 After doing so, fire up your Rails server and access the Storytime dasboard, by default located at `http://localhost:3000/storytime`.
 
+*Optional:* While not necessary, you may want to copy over the non-dashboard Storytime views to your app for customization:
+
+```console
+$ rails generate storytime:views
+```
+
 ## Text Snippets
 
 Storytime takes the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
