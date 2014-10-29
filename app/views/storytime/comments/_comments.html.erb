@@ -1,12 +1,8 @@
 <div class="row">
   <div class="col-md-12">
     <div class="comments">
-      <% if !Storytime.disqus_forum_shortname.blank? %>
-        <%= render "storytime/comments/disqus" %>
-      <% else %>
-        <%= render "storytime/comments/form" %>
-        <%= render @comments %>
-      <% end %>
+      <%= render "storytime/comments/form" %>
+      <%= render @comments %>
     </div>    
   </div>
 </div>
