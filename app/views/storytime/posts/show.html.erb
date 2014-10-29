@@ -16,5 +16,5 @@
     </div>
   </div>
 
-  <%= render "storytime/comments/comments" if @post.show_comments? && !@post.preview %>
+  <%= render_comments if @post.show_comments? && !@post.preview %>
 </div>
