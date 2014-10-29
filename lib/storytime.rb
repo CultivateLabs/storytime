@@ -5,18 +5,6 @@ module Storytime
   mattr_accessor :user_class
   @@user_class = 'User'
 
-  # Character limit for Storytime::Post.title <= 255
-  mattr_accessor :post_title_character_limit
-  @@post_title_character_limit = 255
-
-  # Character limit for Storytime::Post.excerpt <= 255
-  mattr_accessor :post_excerpt_character_limit
-  @@post_excerpt_character_limit = 255
-
-  # Enable file uploads through Carrierwave.
-  mattr_accessor :enable_file_upload
-  @@enable_file_upload = true
-
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   mattr_accessor :dashboard_namespace_path
@@ -27,11 +15,28 @@ module Storytime
   mattr_accessor :home_page_path
   @@home_page_path = "/"
 
+  # Enable file uploads through Carrierwave.
+  mattr_accessor :enable_file_upload
+  @@enable_file_upload = true
+
+  # Character limit for Storytime::Post.title <= 255
+  mattr_accessor :post_title_character_limit
+  @@post_title_character_limit = 255
+
+  # Character limit for Storytime::Post.excerpt <= 255
+  mattr_accessor :post_excerpt_character_limit
+  @@post_excerpt_character_limit = 255
+
   # Array of tags to allow from the Summernote WYSIWYG
   # Editor when editing Posts and custom post types.
   # An empty array, "", or nil setting will permit all tags.
   mattr_accessor :whitelisted_post_html_tags
   @@whitelisted_post_html_tags = []
+
+  # Enable Disqus comments using your forum's shortname,
+  # the unique identifier for your website as registered on Disqus.
+  mattr_accessor :disqus_forum_shortname
+  @@disqus_forum_shortname = ""
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types

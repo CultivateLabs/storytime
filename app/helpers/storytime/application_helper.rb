@@ -38,6 +38,13 @@ module Storytime
       end
     end
 
+    def render_comments
+      if Storytime.disqus_forum_shortname.blank?
+        render "storytime/comments/comments"
+      else
+        render "storytime/comments/disqus"
+      end
+    end
 
     def method_missing method, *args, &block
       if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
