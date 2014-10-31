@@ -101,7 +101,7 @@ module Storytime
     end
 
     def populate_excerpt_from_content
-      self.excerpt = (content || draft_content).slice(0..300) if excerpt.blank?
+      self.excerpt = (content || draft_content).slice(0..Storytime.post_excerpt_character_limit) if excerpt.blank?
       self.excerpt = strip_tags(self.excerpt)
     end
 
