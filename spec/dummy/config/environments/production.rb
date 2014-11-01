@@ -39,6 +39,7 @@ Rails.application.configure do
   #   config.assets.paths << root.join('assets', sub)
   # end
   config.assets.precompile << %r(storytime/bootstrap/glyphicons-halflings-regular\.(?:eot|svg|ttf|woff)$)
+  config.assets.precompile << %r(storytime/font-awesome/fontawesome-webfont\.(?:eot|svg|ttf|woff)$)
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
