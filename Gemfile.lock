@@ -6,7 +6,7 @@ PATH
       carrierwave (>= 0.9)
       coffee-rails (>= 4.0)
       fog (>= 1.18)
-      font-awesome-sass (>= 4.0.3)
+      font-awesome-sass (>= 4.2)
       friendly_id (>= 5.0)
       jbuilder (>= 1.5)
       jquery-rails (>= 3.0)
@@ -111,7 +111,7 @@ GEM
       fog-softlayer
       ipaddress (~> 0.5)
       nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.5.1)
+    fog-brightbox (0.6.1)
       fog-core (~> 1.22)
       fog-json
       inflecto
@@ -131,13 +131,13 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.21)
+    fog-softlayer (0.3.23)
       fog-core
       fog-json
     fog-xml (0.1.0)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-sass (4.2.1)
+    font-awesome-sass (4.2.2)
       sass (~> 3.2)
     formatador (0.2.4)
     friendly_id (5.0.4)
@@ -155,7 +155,7 @@ GEM
     i18n (0.6.9)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jbuilder (2.2.3)
+    jbuilder (2.2.4)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)

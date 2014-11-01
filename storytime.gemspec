@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave", ">= 0.9"
   s.add_dependency "mini_magick", ">= 3.7"
   s.add_dependency "nokogiri", ">= 1.6"
-  s.add_dependency "font-awesome-sass", ">= 4.0.3"
+  s.add_dependency "font-awesome-sass", ">= 4.2"
   s.add_dependency "jquery-ui-rails", "~> 5.0"
   
   s.add_development_dependency "devise", "~> 3.2"
