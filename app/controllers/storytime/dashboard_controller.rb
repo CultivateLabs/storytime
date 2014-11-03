@@ -17,6 +17,7 @@ module Storytime
   
     def load_media
       @media = Media.order("created_at DESC").page(1).per(10)
+      @large_gallery = false
     end
 
   end

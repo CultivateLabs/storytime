@@ -10,6 +10,9 @@ module Storytime
 
         @media = Media.order("created_at DESC").page(params[:page]).per(9)
         authorize @media
+
+        @large_gallery = false if params[:large_gallery] == "false"
+
         render partial: "gallery", content_type: Mime::HTML if request.xhr?
       end
 

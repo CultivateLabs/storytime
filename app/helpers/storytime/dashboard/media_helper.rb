@@ -6,6 +6,8 @@ module Storytime
       end
 
       def show_large_gallery?
+        return false if @large_gallery == false
+
         referrer_action = request.referrer.nil? ? nil : request.referrer.split("/").last
         controller = params[:controller].split("/").last
         action = params[:action]
