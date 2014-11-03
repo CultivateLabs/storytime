@@ -141,3 +141,11 @@ end
 ```
 
 Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server.
+
+
+## Screen Shots
+![Post Editor](https://www.dropbox.com/s/55qyetwgw0g0ii8/Screen%20Shot%202014-11-03%20at%202.18.43%20PM.png?dl=0 "Post Editor")
+![User Management](https://www.dropbox.com/s/uy4a57uizls27tf/Screen%20Shot%202014-11-03%20at%202.21.16%20PM.png?dl=0 "User Management")
+![Site Settings](https://www.dropbox.com/s/1e7c1cbaq3in92z/Screen%20Shot%202014-11-03%20at%202.21.36%20PM.png?dl=0 "Site Settings")
+![Media Uploads](https://www.dropbox.com/s/olxe07g1e0ptfvz/Screen%20Shot%202014-11-03%20at%202.24.13%20PM.png?dl=0 "Media Uploads")
+
