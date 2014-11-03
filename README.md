@@ -1,5 +1,7 @@
 # Storytime
 
+Storytime is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
+
 ## Setup
 
 Add storytime to your Gemfile:
