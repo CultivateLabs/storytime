@@ -1,6 +1,13 @@
 # Storytime
 
-Storytime is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
+Storytime is Rails 4+ CMS and bloging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
+
+With Storytime, we have a few guiding principals:
+* Content, copy, and very basic formatting belongs in the CMS
+* Complex page structure (html), styling (css), and interactions (javascript) belong in the host app
+* Customization & extension should be supported by Storytime, but the app specific details belong in the host app, not the CMS/database
+
+
 
 ## Setup
 
@@ -47,6 +54,8 @@ end
 ```
 
 After doing so, fire up your Rails server and access the Storytime dasboard, by default located at `http://localhost:3000/storytime`.
+
+Storytime also requires you to have Imagemagick installed.
 
 *Optional:* While not necessary, you may want to copy over the non-dashboard Storytime views to your app for customization:
 
