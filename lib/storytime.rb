@@ -23,9 +23,9 @@ module Storytime
   mattr_accessor :post_title_character_limit
   @@post_title_character_limit = 255
 
-  # Character limit for Storytime::Post.excerpt <= 255
+  # Character limit for Storytime::Post.excerpt
   mattr_accessor :post_excerpt_character_limit
-  @@post_excerpt_character_limit = 255
+  @@post_excerpt_character_limit = 500
 
   # Array of tags to allow from the Summernote WYSIWYG
   # Editor when editing Posts and custom post types.

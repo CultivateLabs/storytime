@@ -23,8 +23,8 @@ Storytime.configure do |config|
   # Character limit for Storytime::Post.title <= 255
   # config.post_title_character_limit = 255
 
-  # Character limit for Storytime::Post.excerpt <= 255
-  # config.post_excerpt_character_limit = 255
+  # Character limit for Storytime::Post.excerpt
+  # config.post_excerpt_character_limit = 500
 
   # Array of tags to allow from the Summernote WYSIWYG Editor.
   # An empty array or nil setting will allow all tags.
