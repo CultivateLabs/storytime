@@ -156,17 +156,17 @@ Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KE
 
 ## Screen Shots
 Post Editor:
-![Post Editor](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/2/Screen_Shot_2014-11-03_at_2.18.43_PM.png "Post Editor")
+![Post Editor](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/post-editor.png "Post Editor")
 
 
 User Management:
-![User Management](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/3/Screen_Shot_2014-11-03_at_2.21.16_PM.png "User Management")
+![User Management](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/user-management.png "User Management")
 
 
 Site Settings:
-![Site Settings](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/4/Screen_Shot_2014-11-03_at_2.21.36_PM.png "Site Settings")
+![Site Settings](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/site-settings.png "Site Settings")
 
 
 Media Uploads:
-![Media Uploads](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/5/Screen_Shot_2014-11-03_at_2.24.13_PM.png "Media Uploads")
+![Media Uploads](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/media.png "Media Uploads")
 
