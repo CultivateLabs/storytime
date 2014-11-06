@@ -1,4 +1,4 @@
-class AddSecondaryMediaIdToPost < ActiveRecord::Migration
+class AddSecondaryMediaIdToStorytimePost < ActiveRecord::Migration
   def change
     add_reference :storytime_posts, :secondary_media
   end
