@@ -1,8 +1,8 @@
 module ActionDispatch
   module Routing
     class RouteSet
-      
-      def url_for_with_storytime(options = {})
+
+      def handle_storytime_urls(options)
         if options[:controller] == "storytime/posts" && options[:action] == "index"
           options[:use_route] = "root_post_index" if Storytime::Site.first.root_page_content == "posts"
         elsif options[:controller] == "storytime/posts" && options[:action] == "show"
@@ -35,14 +35,22 @@ module ActionDispatch
             end
           end
         end
-
-        url_for_without_storytime(options)
-      rescue Exception => e
-        # binding.pry
+      end
+      
+      if Rails::VERSION::MINOR >= 2
+        def url_for_with_storytime(options, route_name = nil, url_strategy = UNKNOWN)
+          handle_storytime_urls(options)
+          url_for_without_storytime(options, route_name, url_strategy)
+        end
+      else
+        def url_for_with_storytime(options = {})
+          handle_storytime_urls(options)
+          url_for_without_storytime(options)
+        end
       end
 
       alias_method_chain :url_for, :storytime
+
     end
   end
 end
-
