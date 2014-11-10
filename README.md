@@ -7,6 +7,8 @@ With Storytime, we have a few guiding principles:
 * Complex page structure (html), styling (css), and interactions (javascript) belong in the host app
 * Customization & extension should be supported by Storytime, but the app specific details belong in the host app, not the CMS/database
 
+Based on these principles, it can be useful to think of the host app as the "theme" for the CMS/blog instance. Storytime provides the CMS/blog plumbing, but the host app handles presentation details that are specific to the particular site/app.
+
 
 
 ## Setup
