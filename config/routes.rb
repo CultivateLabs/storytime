@@ -10,6 +10,7 @@
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
+    resources :subscriptions
     resources :users
     resources :roles do 
       collection do

@@ -13,6 +13,7 @@ module Storytime
       manage_site   = Action.find_by(guid: "47342a")
       manage_users  = Action.find_by(guid: "1f7d47")
       manage_snippets = Action.find_by(guid: "5qg25i")
+      manage_subscriptions = Action.find_by(guid: "d29d76")
 
       create(role: writer, action: publish_own)
       create(role: editor, action: publish_own)
@@ -26,6 +27,8 @@ module Storytime
 
       create(role: editor, action: manage_snippets)
       create(role: admin, action: manage_snippets)
+
+      create(role: admin, action: manage_subscriptions)
     end
   end
 end

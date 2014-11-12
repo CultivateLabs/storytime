@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021073356) do
+ActiveRecord::Schema.define(version: 20141111215653) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -111,6 +111,13 @@ ActiveRecord::Schema.define(version: 20141021073356) do
   create_table "storytime_snippets", force: true do |t|
     t.string   "name"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "storytime_subscriptions", force: true do |t|
+    t.string   "email"
+    t.boolean  "subscribed", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

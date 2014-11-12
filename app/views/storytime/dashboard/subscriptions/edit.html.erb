@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>Edit Subscription</h2>
+
+  <%= simple_form_for [:dashboard, @subscription] do |f| %>
+    <%= f.input :email %>
+    <%= f.input :subscribed, as: :boolean %>
+    <%= f.submit class: "btn btn-info" %>
+  <% end %>
+</div>

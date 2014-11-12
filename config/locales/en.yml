@@ -27,6 +27,13 @@ en:
         success: "Text snippet successfully updated."
       destroy:
         success: "Text snippet successfully deleted."
+    subscriptions:
+      create:
+        success: "Subscription successfully created."
+      update:
+        success: "Subscription successfully updated."
+      destroy:
+        success: "Subscription successfully deleted."
     users:
       create:
         success: "User successfully created."
