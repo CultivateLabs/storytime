@@ -38,6 +38,14 @@ module Storytime
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
 
+  # Email regex used to validate email format validity.
+  mattr_accessor :email_regexp
+  @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+
+  # To delay mailers or not...
+  mattr_accessor :delay_mailers
+  @@delay_mailers = false
+
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     

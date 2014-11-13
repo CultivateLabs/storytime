@@ -3,8 +3,13 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class SubscriptionsController < DashboardController
+      skip_before_action :authenticate_user!, only: [:unsubscribe]
+      skip_before_action :verify_storytime_user, only: [:unsubscribe]
+      
       before_action :load_subscriptions, only: [:index]
       before_action :set_subscription, only: [:edit, :update, :destroy]
+
+      skip_after_action :verify_authorized, only: [:unsubscribe]
 
       respond_to :json, only: :destroy
 
@@ -48,10 +53,22 @@ module Storytime
         respond_with @subscription
       end
 
+      def unsubscribe
+        @subscription = Storytime::Subscription.find_by(token: params[:t])
+
+        if @subscription.nil?
+          redirect_to main_app.storytime_path, alert: I18n.t('flash.subscriptions.unsubscribe.not_found')
+        else
+          @subscription.update_attributes(subscribed: false)
+        end
+      end
+
     private
 
       def subscription_params
-        params.require(:subscription).permit(:email, :subscribed)
+        subscription = @subscription || Storytime::Subscription.new
+        permitted_attrs = policy(subscription).permitted_attributes
+        params.require(:subscription).permit(*permitted_attrs)
       end
 
       def set_subscription

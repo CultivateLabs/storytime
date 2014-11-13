@@ -10,6 +10,7 @@
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
+    get "subscriptions/unsubscribe", to: "subscriptions#unsubscribe"
     resources :subscriptions
     resources :users
     resources :roles do 

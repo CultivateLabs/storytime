@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20141111215653) do
   create_table "storytime_subscriptions", force: true do |t|
     t.string   "email"
     t.boolean  "subscribed", default: true
+    t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

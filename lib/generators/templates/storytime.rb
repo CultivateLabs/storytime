@@ -34,6 +34,9 @@ Storytime.configure do |config|
   # the unique identifier for your website as registered on Disqus.
   # config.disqus_forum_shortname = ""
 
+  # Email regex used to validate email format validity.
+  # config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+
   # File upload options.
   config.enable_file_upload = true
 
