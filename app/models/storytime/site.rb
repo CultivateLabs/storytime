@@ -1,5 +1,7 @@
 module Storytime
   class Site < ActiveRecord::Base
+    extend Storytime::Enum if Rails::VERSION::MINOR < 1
+
     enum post_slug_style: [:default, :day_and_name, :month_and_name, :post_id]
     enum root_page_content: [:posts, :page]
 

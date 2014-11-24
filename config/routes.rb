@@ -4,7 +4,7 @@
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
-    resources :posts, except: [:show], shallow: true do
+    resources :posts, except: [:show] do
       resources :autosaves, only: [:create]
     end
     resources :snippets, except: [:show]

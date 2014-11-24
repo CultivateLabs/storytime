@@ -1,4 +1,4 @@
-<% content_for :head, auto_discovery_link_tag(:atom, url_for([Storytime::BlogPost, format: "atom"])) %>
+<% content_for :head, auto_discovery_link_tag(:atom, Storytime::BlogPost, format: "atom") %>
 
 <div class="container">
   <div class="row">
