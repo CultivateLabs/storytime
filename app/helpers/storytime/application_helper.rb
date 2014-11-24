@@ -9,11 +9,12 @@ module Storytime
       return if ["storytime/pages", "storytime/posts"].include? params[:controller]
       
       current_controller = params[:controller].split("/").last
-      'class="active"'.html_safe if controller == current_controller
+
+      'class="active"'.html_safe if controller == current_controller && (type.nil? or type == params[:type])
     end
 
     def delete_resource_link(resource, href = nil, remote = true)
-      humanized_resource_name = resource.class.to_s.split('::').last.underscore.humanize(capitalize: false)
+      humanized_resource_name = resource.class.to_s.split('::').last.underscore.humanize.downcase
       resource_name = resource.class.to_s.downcase.split("::").last
 
       opts = {

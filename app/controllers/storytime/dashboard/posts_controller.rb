@@ -38,8 +38,10 @@ module Storytime
 
         if @post.save
           @post.create_autosave(post_params.slice(:draft_content)) if params[:preview] == "true"
+          
           opts = params[:preview] == "true" ? { preview: true } : {}
-          redirect_to url_for([:edit, :dashboard, @post, opts]), notice: I18n.t('flash.posts.create.success')
+
+          redirect_to edit_dashboard_post_path(@post, opts), notice: I18n.t('flash.posts.create.success')
         else
           load_media
           render :new
@@ -52,7 +54,7 @@ module Storytime
         
         if @post.update(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
-          redirect_to url_for([:edit, :dashboard, @post]), notice: I18n.t('flash.posts.update.success')
+          redirect_to [:edit, :dashboard, @post], notice: I18n.t('flash.posts.update.success')
         else
           load_media
           render :edit
@@ -65,7 +67,7 @@ module Storytime
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
         
         respond_with [:dashboard, @post] do |format|
-          format.html{ redirect_to url_for([:dashboard, Storytime::Post, type: @post.type_name])}
+          format.html{ redirect_to [:dashboard, Storytime::Post], type: @post.type_name }
         end
       end
 
