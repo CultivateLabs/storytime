@@ -9,7 +9,7 @@
         <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
           <div class="row">
             <div class="col-md-8">
-              <%= link_to post.title, url_for([:edit, :dashboard, post, page_number: params[:page_number]]) %>    
+              <%= link_to post.title, [:edit, :dashboard, post], page_number: params[:page_number] %>    
             </div>
             <div class="col-md-4">
               <span class="pull-right">
