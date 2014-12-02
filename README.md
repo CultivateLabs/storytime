@@ -13,7 +13,7 @@ Based on these principles, it can be useful to think of the host app as the "the
 
 ## Setup
 
-Add storytime to your Gemfile:
+Storytime assumes that your host app has an authentication system like Devise already installed. This is a pre-requisite for Storytime. Once you have that set up, add storytime to your Gemfile:
 
 ```ruby
 gem "storytime"
