@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-After doing so, fire up your Rails server and access the Storytime dasboard, by default located at `http://localhost:3000/storytime`.
+After doing so, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
 
 Storytime also requires you to have Imagemagick installed.
 
