@@ -8,7 +8,7 @@ class Storytime::ApplicationController < ApplicationController
   
   helper :all
 
-  helper_method :current_man if Storytime.user_class_symbol != :user
+  helper_method :current_user if Storytime.user_class_symbol != :user
 
   def setup
     url = if Storytime.user_class.count == 0
