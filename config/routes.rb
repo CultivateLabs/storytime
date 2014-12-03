@@ -10,7 +10,7 @@
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
-    resources :users, path: Storytime.user_class.to_s.underscore.pluralize
+    resources :users, path: Storytime.user_class_underscore.pluralize
     resources :roles do 
       collection do
         patch :update_multiple
