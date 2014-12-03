@@ -27,7 +27,7 @@
       <% end %>
 
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.url_for([:dashboard, Storytime.user_class]) %></li>
+        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.url_for([:dashboard, :users]) %></li>
       <% end %>
 
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
@@ -43,7 +43,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><%= link_to "My Account", storytime.edit_dashboard_user_path(current_user) %></li>
-          <li><%= link_to "Sign Out", main_app.destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Sign Out", main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), method: :delete %></li>
         </ul>
       </li>
     </ul>

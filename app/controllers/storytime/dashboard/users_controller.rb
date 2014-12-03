@@ -49,7 +49,7 @@ module Storytime
 
     private
       def user_params
-        params.require(:user).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
+        params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
       end
 
       def load_user

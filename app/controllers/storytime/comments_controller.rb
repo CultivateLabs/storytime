@@ -10,8 +10,10 @@ module Storytime
     respond_to :json, only: :destroy
 
     def create
-      @comment = current_user.storytime_comments.new(comment_params)
+      @comment = Comment.new(comment_params)
+      @comment.user = current_user
       @comment.post = @post
+
       authorize @comment
       opts = { notice: I18n.t('flash.comments.create.success') } if @comment.save
       redirect_to @post, opts
@@ -31,7 +33,7 @@ module Storytime
     end
 
     def comment_params
-      params.require(:comment).permit(*policy(@comment || current_user.storytime_comments.new).permitted_attributes)
+      params.require(:comment).permit(*policy(@comment || Comment.new).permitted_attributes)
     end
 
   end

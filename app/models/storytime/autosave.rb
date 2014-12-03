@@ -1,6 +1,6 @@
 module Storytime
   class Autosave < ActiveRecord::Base
-    belongs_to Storytime.user_class_symbol
+    belongs_to :user, class_name: Storytime.user_class.to_s
     belongs_to :autosavable, polymorphic: true
 
     attr_accessor :draft_content

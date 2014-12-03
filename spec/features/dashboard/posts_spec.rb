@@ -47,18 +47,16 @@ describe "In the dashboard, Posts" do
     visit url_for([:new, :dashboard, :post, only_path: true])
     fill_in "post_title", with: "Snow Crash"
     fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
-    find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
+
+    find(".note-editable").set "The Deliverator belongs to an elite order, a hallowed sub-category."
     click_button "Preview"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
 
-    # Check to see if popup is opened?
-    # Check to see if popup is directed to correct post.
-
     post = Storytime::BlogPost.last
     post.title.should == "Snow Crash"
-    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
+    post.draft_content.should == "<p>The Deliverator belongs to an elite order, a hallowed sub-category.</p>"
     post.user.should == current_user
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
