@@ -6,6 +6,7 @@ module Storytime
       module ClassMethods
         def storytime_user
           belongs_to :storytime_role, class_name: "Storytime::Role"
+          
           has_many :storytime_posts, class_name: "Storytime::Post"
           has_many :storytime_pages, class_name: "Storytime::Page"
           has_many :storytime_media, class_name: "Storytime::Media"
@@ -13,6 +14,10 @@ module Storytime
           has_many :storytime_comments, class_name: "Storytime::Comment"
 
           class_eval <<-EOS
+            def self.policy_class
+              UserPolicy
+            end
+
             def storytime_user?
               !storytime_role.nil?
             end
