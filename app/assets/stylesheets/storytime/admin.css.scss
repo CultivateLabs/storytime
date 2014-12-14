@@ -43,7 +43,6 @@
     padding: 0;
     list-style: none;
     li {
-      padding: 20px;
       border-bottom: 1px solid #ccc;
       border-left: 4px solid transparent;
       background: #fff;
@@ -52,6 +51,8 @@
       }
       a {
         text-decoration: none;
+        display: block;
+        padding: 20px;
       }
       &:hover {
         border-left: 4px solid #ccc;
