@@ -1,4 +1,3 @@
-# This migration comes from storytime (originally 20140916183056)
 class CreateStorytimeAutosaves < ActiveRecord::Migration
   def change
     create_table :storytime_autosaves do |t|
