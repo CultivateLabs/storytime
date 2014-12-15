@@ -1,3 +1,4 @@
+# This migration comes from storytime (originally 20140501174341)
 class CreateStorytimePosts < ActiveRecord::Migration
   def change
     create_table :storytime_posts do |t|

@@ -1,3 +1,4 @@
+# This migration comes from storytime (originally 20140521191728)
 class CreateStorytimePermissions < ActiveRecord::Migration
   def change
     create_table :storytime_permissions do |t|

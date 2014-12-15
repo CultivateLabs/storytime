@@ -1,3 +1,4 @@
+# This migration comes from storytime (originally 20141021073356)
 class CreateStorytimeSnippets < ActiveRecord::Migration
   def up
     create_table :storytime_snippets do |t|

@@ -1,3 +1,4 @@
+# This migration comes from storytime (originally 20140509191309)
 class CreateFriendlyIdSlugs < ActiveRecord::Migration
   def change
     create_table :friendly_id_slugs do |t|

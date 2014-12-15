@@ -7,19 +7,14 @@
     <ul class="dashboard-list">
       <% @posts.each do |post| %>
         <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
-          <div class="row">
-            <div class="col-md-8">
-              <%= link_to post.title, [:edit, :dashboard, post], page_number: params[:page_number] %>    
-            </div>
-            <div class="col-md-4">
-              <span class="pull-right">
-                <% unless post.published? %>
-                  <span class="label label-warning">Draft</span>
-                <% end %>
-                <%= delete_resource_link post, url_for([:dashboard, post]), !current_page?(url_for([:edit, :dashboard, post])) %>
-              </span>
-            </div>
-          </div>
+          <%= link_to [:edit, :dashboard, post], page_number: params[:page_number] do %>
+            <%= post.title %>
+            <span class="pull-right">
+              <% unless post.published? %>
+                <span class="label label-warning">Draft</span>
+              <% end %>
+            </span>
+          <% end %>
         </li>
       <% end %>
     </ul>
