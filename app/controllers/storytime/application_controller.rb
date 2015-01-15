@@ -1,7 +1,11 @@
 class Storytime::ApplicationController < ApplicationController
   layout Storytime.layout || "storytime/application"
+
+  include Storytime::Concerns::ControllerContentFor
+  
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
   helper :all
 
   def setup

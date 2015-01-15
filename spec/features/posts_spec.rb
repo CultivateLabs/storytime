@@ -8,7 +8,7 @@ describe "Posts" do
   it "lists posts" do
     3.times{ FactoryGirl.create(:post) }
     static_page = FactoryGirl.create(:page)
-    visit url_for([Storytime::BlogPost, only_path: true])
+    visit "/"
 
     within ".post-list" do
       Storytime::Post.primary_feed.each do |p|

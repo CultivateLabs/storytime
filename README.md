@@ -2,10 +2,12 @@
 
 Storytime is Rails 4+ CMS and bloging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
 
-With Storytime, we have a few guiding principals:
+With Storytime, we have a few guiding principles:
 * Content, copy, and very basic formatting belongs in the CMS
 * Complex page structure (html), styling (css), and interactions (javascript) belong in the host app
 * Customization & extension should be supported by Storytime, but the app specific details belong in the host app, not the CMS/database
+
+Based on these principles, it can be useful to think of the host app as the "theme" for the CMS/blog instance. Storytime provides the CMS/blog plumbing, but the host app handles presentation details that are specific to the particular site/app.
 
 
 
@@ -157,6 +159,9 @@ Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KE
 ## Screen Shots
 Post Editor:
 ![Post Editor](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/post-editor.png "Post Editor")
+
+Text Snippets:
+![Text Snippets](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/text-snippets.png "Text Snippets")
 
 
 User Management:

@@ -13,6 +13,7 @@ require 'font-awesome-sass'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
+require 'storytime/concerns/controller_content_for'
 require 'storytime/controller_helpers'
 
 require 'storytime/importers/importer'

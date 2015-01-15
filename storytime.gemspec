@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["spec/**/*"]
+  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/public/uploads/**/*"]
 
   s.add_dependency "rails", ">= 4.0"
   s.add_dependency "pundit", ">= 0.2"
