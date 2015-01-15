@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'pry'
+
 describe "In the dashboard, Posts" do
   before{ login_admin }
 
@@ -47,7 +47,9 @@ describe "In the dashboard, Posts" do
     visit url_for([:new, :dashboard, :post, only_path: true])
     fill_in "post_title", with: "Snow Crash"
     fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
-    find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
+    
+    # Use find(".note-editable").set instead of fill_in "post_draft_content" because of Summernote (js)
+    find(".note-editable").set "The Deliverator belongs to an elite order, a hallowed sub-category."
     click_button "Preview"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
@@ -58,7 +60,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.last
     post.title.should == "Snow Crash"
-    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
+    post.draft_content.should == "<p>The Deliverator belongs to an elite order, a hallowed sub-category.</p>"
     post.user.should == current_user
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
@@ -118,5 +120,4 @@ describe "In the dashboard, Posts" do
 
     expect{ p1.reload }.to raise_error
   end
-  
 end

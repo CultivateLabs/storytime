@@ -8,6 +8,15 @@ module Storytime
     validates :root_post_id, presence: true, if: ->(site){ site.root_page_content == "page" }
     validates :title, length: { in: 1..200 }
 
+    after_create :ensure_routes_updated
+    after_update :ensure_routes_updated
+
+    def ensure_routes_updated
+      if id_changed? || root_post_id_changed? || post_slug_style_changed? || root_page_content_changed?
+        Rails.application.reload_routes!
+      end
+    end
+
     def save_with_seeds(user)
       self.class.setup_seeds
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))

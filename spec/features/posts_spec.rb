@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe "Posts" do
   before do
@@ -8,7 +9,7 @@ describe "Posts" do
   it "lists posts" do
     3.times{ FactoryGirl.create(:post) }
     static_page = FactoryGirl.create(:page)
-    visit "/"
+    visit url_for([Storytime::BlogPost, only_path: true])
 
     within ".post-list" do
       Storytime::Post.primary_feed.each do |p|
@@ -29,5 +30,4 @@ describe "Posts" do
     expect(page).to have_content(post.title)
     expect(page).to have_content(post.content)
   end
-  
 end
