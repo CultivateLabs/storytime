@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'pry'
+
 describe "In the dashboard, Posts" do
   before{ login_admin }
 
@@ -47,7 +47,9 @@ describe "In the dashboard, Posts" do
     visit url_for([:new, :dashboard, :post, only_path: true])
     fill_in "post_title", with: "Snow Crash"
     fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
-    find("#post_draft_content", visible: false).set "The Deliverator belongs to an elite order, a hallowed sub-category."
+
+    # Use find(".note-editable").set instead of fill_in "post_draft_content" because of Summernote (js)
+    find(".note-editable").set "The Deliverator belongs to an elite order, a hallowed sub-category."
     click_button "Preview"
     
     page.should have_content(I18n.t('flash.posts.create.success'))
@@ -58,7 +60,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.last
     post.title.should == "Snow Crash"
-    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
+    post.draft_content.should == "<p>The Deliverator belongs to an elite order, a hallowed sub-category.</p>"
     post.user.should == current_user
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
@@ -107,16 +109,17 @@ describe "In the dashboard, Posts" do
 
   it "deletes a post", js: true do
     3.times{|i| FactoryGirl.create(:post) }
-    visit url_for([:dashboard, Storytime::BlogPost, only_path: true])
-    p1 = Storytime::BlogPost.first
-    p2 = Storytime::BlogPost.last
+    expect(Storytime::BlogPost.count).to eq(3)
+
+    post = Storytime::BlogPost.first
+    visit url_for([:edit, :dashboard, post, only_path: true])
     
-    click_link("delete_blogpost_#{p1.id}")
+    click_link "Delete"
 
-    page.should_not have_content(p1.title)
-    page.should have_content(p2.title)
+    expect { post.reload }.to raise_error
 
-    expect{ p1.reload }.to raise_error
+    expect(page).to_not have_content(post.title)
+    expect(Storytime::Post.count).to eq(2)
   end
   
 end
