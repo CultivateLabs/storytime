@@ -4,6 +4,8 @@
   <%= f.input :content, as: :text, input_html: { rows: 20, class: "summernote" } %>
 
   <div class="actions">
+    <%= link_to "Delete", [:dashboard, @snippet], method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: "Snippet") }, class: "btn btn-danger" unless @snippet.new_record? %>
+
     <div class="pull-right">
       <%= f.submit class: "btn #{@snippet.persisted? ? 'btn-default' : 'btn-primary'} save" %>
     </div>

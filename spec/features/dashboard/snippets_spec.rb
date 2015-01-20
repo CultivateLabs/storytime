@@ -49,17 +49,19 @@ describe "In the dashboard, Snippets" do
     expect(snippet.content).to eq("It was a dark and stormy night...")
   end
 
-  it "deletes a snippet", js: true do
+  it "deletes a snippet" do
     3.times{|i| FactoryGirl.create(:snippet) }
-    visit url_for([:dashboard, Storytime::Snippet, only_path: true])
-    s1 = Storytime::Snippet.first
-    s2 = Storytime::Snippet.last
-    click_link("delete_snippet_#{s1.id}")
+    expect(Storytime::Snippet.count).to eq(3)
 
-    expect(page).to_not have_content(s1.name)
-    expect(page).to have_content(s2.name)
+    snippet = Storytime::Snippet.first
+    visit url_for([:edit, :dashboard, snippet, only_path: true])
 
-    expect{ s1.reload }.to raise_error
+    click_link "Delete"
+
+    expect { snippet.reload }.to raise_error
+
+    expect(page).to_not have_content(snippet.name)
+    expect(Storytime::Snippet.count).to eq(2)
   end
   
 end
