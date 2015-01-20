@@ -55,9 +55,6 @@ describe "In the dashboard, Posts" do
     page.should have_content(I18n.t('flash.posts.create.success'))
     Storytime::BlogPost.count.should == 1
 
-    # Check to see if popup is opened?
-    # Check to see if popup is directed to correct post.
-
     post = Storytime::BlogPost.last
     post.title.should == "Snow Crash"
     post.draft_content.should == "<p>The Deliverator belongs to an elite order, a hallowed sub-category.</p>"

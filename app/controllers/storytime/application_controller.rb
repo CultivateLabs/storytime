@@ -8,6 +8,12 @@ class Storytime::ApplicationController < ApplicationController
   
   helper :all
 
+  if Storytime.user_class_symbol != :user
+    helper_method :authenticate_user!
+    helper_method :current_user
+    helper_method :user_signed_in?
+  end
+
   def setup
     url = if Storytime.user_class.count == 0
       main_app.new_user_registration_url
@@ -20,6 +26,20 @@ class Storytime::ApplicationController < ApplicationController
     end
 
     redirect_to url
+  end
+
+  if Storytime.user_class_symbol != :user
+    def authenticate_user!
+      send("authenticate_#{Storytime.user_class.to_s.downcase}!".to_sym)
+    end
+
+    def current_user
+      send("current_#{Storytime.user_class.to_s.downcase}".to_sym)
+    end
+
+    def user_signed_in?
+      send("#{Storytime.user_class.to_s.downcase}_signed_in?".to_sym)
+    end
   end
 
 private

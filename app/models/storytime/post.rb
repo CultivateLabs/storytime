@@ -6,7 +6,7 @@ module Storytime
     extend FriendlyId
     friendly_id :slug_candidates, use: [:history]
 
-    belongs_to Storytime.user_class_symbol
+    belongs_to :user, class_name: Storytime.user_class.to_s
     belongs_to :featured_media, class_name: "Media"
     belongs_to :secondary_media, class_name: "Media"
 

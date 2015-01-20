@@ -13,7 +13,7 @@ Based on these principles, it can be useful to think of the host app as the "the
 
 ## Setup
 
-Add storytime to your Gemfile:
+Storytime assumes that your host app has an authentication system like Devise already installed. This is a pre-requisite for Storytime. Once you have that set up, add storytime to your Gemfile:
 
 ```ruby
 gem "storytime"
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-After doing so, fire up your Rails server and access the Storytime dasboard, by default located at `http://localhost:3000/storytime`.
+After doing so, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
 
 Storytime also requires you to have Imagemagick installed.
 

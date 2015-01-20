@@ -17,7 +17,9 @@ module Storytime
       end
 
       def create
-        @media = current_user.storytime_media.new(media_params)
+        @media = Media.new(media_params)
+        @media.user = current_user
+
         authorize @media
         @media.save
         respond_with :dashboard, @media do |format|
