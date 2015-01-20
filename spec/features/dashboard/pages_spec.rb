@@ -64,15 +64,17 @@ describe "In the dashboard, Pages" do
 
   it "deletes a page", js: true do
     3.times{|i| FactoryGirl.create(:page) }
-    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name, only_path: true])
-    p1 = Storytime::Page.first
-    p2 = Storytime::Page.last
-    click_link("delete_page_#{p1.id}")
+    expect(Storytime::Page.count).to eq(3)
 
-    page.should_not have_content(p1.title)
-    page.should have_content(p2.title)
+    storytime_page = Storytime::Page.first
+    visit url_for([:edit, :dashboard, storytime_page, type: Storytime::Page.type_name, only_path: true])
+    
+    click_link "Delete"
 
-    expect{ p1.reload }.to raise_error
+    expect { storytime_page.reload }.to raise_error
+
+    expect(page).to_not have_content(storytime_page.title)
+    expect(Storytime::Page.count).to eq(2)
   end
   
 end
