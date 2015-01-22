@@ -10,16 +10,7 @@
     <ul class="dashboard-list">
       <% @snippets.each do |snippet| %>
         <li id="snippet_<%= snippet.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, snippet])) %>">
-          <div class="row">
-            <div class="col-md-8">
-              <%= link_to snippet.name, [:edit, :dashboard, snippet], page_number: params[:page_number] %>
-            </div>
-            <div class="col-md-4">
-              <span class="pull-right">
-                <%= delete_resource_link snippet, url_for([:dashboard, snippet]), !current_page?(url_for([:edit, :dashboard, snippet])) %>
-              </span>
-            </div>
-          </div>
+          <%= link_to snippet.name, [:edit, :dashboard, snippet], page_number: params[:page_number] %>
         </li>
       <% end %>
     </ul>

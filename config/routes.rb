@@ -12,7 +12,7 @@
     resources :imports, only: [:new, :create]
     get "subscriptions/unsubscribe", to: "subscriptions#unsubscribe"
     resources :subscriptions
-    resources :users
+    resources :users, path: Storytime.user_class_underscore.pluralize
     resources :roles do 
       collection do
         patch :update_multiple

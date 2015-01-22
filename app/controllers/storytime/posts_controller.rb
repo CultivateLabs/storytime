@@ -24,7 +24,7 @@ module Storytime
     def show
       @post = if params[:preview]
         post = Post.find_preview(params[:id])
-        post.content = post.autosave.content if post.autosave
+        post.content = post.autosave.content
         post.preview = true
         post
       else
@@ -41,8 +41,8 @@ module Storytime
 
       @comments = @post.comments.order("created_at DESC")
       #allow overriding in the host app
-      if lookup_context.template_exists?("storytime/posts/#{@post.slug}")
-        render @post.slug 
+      if lookup_context.template_exists?("storytime/#{@post.type_name.pluralize}/#{@post.slug}")
+        render "storytime/#{@post.type_name.pluralize}/#{@post.slug}"
       elsif lookup_context.template_exists?("storytime/#{@post.type_name.pluralize}/show")
         render "storytime/#{@post.type_name.pluralize}/show"
       end
