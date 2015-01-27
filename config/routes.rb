@@ -16,6 +16,8 @@
         patch :update_multiple
       end
     end
+
+    get "/:resource_name", to: "admin#index", as: :admin_index
   end
 
   get 'tags/:tag', to: 'posts#index', as: :tag

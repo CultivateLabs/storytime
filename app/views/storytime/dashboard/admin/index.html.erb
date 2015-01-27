@@ -1,0 +1,20 @@
+<div class="container">
+  <h2><%= model_name.pluralize.titleize %></h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <%= render 'headers' %>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @collection.each do |item| %>
+        <tr>
+          <%= render 'row', item: item %>
+          <td>Edit | Delete</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
