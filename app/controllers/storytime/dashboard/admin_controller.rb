@@ -8,12 +8,13 @@ module Storytime
 
       def index
         @collection = model_class.all
+        # TODO: Update this to use the AdminPolicy
         authorize @site, :edit?
       end
 
     private
       def add_view_path
-        # prepend_view_path "app/views/#{model_name.pluralize.downcase}"
+        prepend_view_path "app/views/#{model_name.pluralize.downcase}"
       end
 
       def attributes 
