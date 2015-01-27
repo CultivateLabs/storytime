@@ -12,6 +12,8 @@ module Storytime
         Post.primary_feed
       end
       
+      @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
+
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(published_at: :desc).page(params[:page])
       
@@ -48,5 +50,14 @@ module Storytime
       end
     end
 
+    private
+
+      def get_search_type
+        if params[:type]
+          "#{params[:type].camelize}".constantize
+        else
+          Storytime::Post
+        end
+      end
   end
 end
