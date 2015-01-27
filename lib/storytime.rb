@@ -1,5 +1,6 @@
 require "storytime/engine"
 require "storytime/mysql_search_adapter"
+require "storytime/mysql_fulltext_search_adapter"
 require "storytime/postgres_search_adapter"
 require "storytime/sqlite3_search_adapter"
 
