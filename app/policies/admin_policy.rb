@@ -6,23 +6,24 @@ class AdminPolicy < Struct.new(:user, :admin)
     @admin = admin
   end
 
-  def manage?
-    true
-  end
-
   def create?
-    true
+    manage?
   end
 
   def read?
-    true
+    manage?
   end
 
   def update?
-    true
+    manage?
   end
 
   def destroy?
-    true
+    manage?
+  end
+
+  def manage?
+    action = Storytime::Action.find_by(guid: "3fj09k")
+    user.storytime_role.allowed_actions.include?(action)
   end
 end
