@@ -61,7 +61,7 @@ module Storytime
       end
 
       def add_view_path
-        prepend_view_path "app/views/#{model_name.pluralize.downcase}"
+        prepend_view_path "app/views/#{model_name.tableize}"
       end
 
       def permitted_params
