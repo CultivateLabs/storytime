@@ -6,6 +6,10 @@ class AdminPolicy < Struct.new(:user, :admin)
     @admin = admin
   end
 
+  def manage?
+    true
+  end
+
   def create?
     true
   end
