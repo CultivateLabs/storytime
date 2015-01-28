@@ -12,7 +12,7 @@ module Storytime
       find_by(guid: "47342a") || create(guid: "47342a", name: "Manage Site Settings")
       find_by(guid: "1f7d47") || create(guid: "1f7d47", name: "Manage Users")
       find_by(guid: "5qg25i") || create(guid: "5qg25i", name: "Manage Text Snippets")
-      find_by(guid: "3fj09k") || create(guid: "3fj09k", name: "Manage Admin Models")
+      find_by(guid: "3fj09k") || create(guid: "3fj09k", name: "Access Admin Section")
     end
   end
 end

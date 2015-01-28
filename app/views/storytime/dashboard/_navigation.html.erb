@@ -25,7 +25,7 @@
       <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
         <li class="dropdown">
           <%= link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
-            Models
+            Admin
             <span class="caret"></span>
           <% end %>
           <ul class="dropdown-menu" role="menu">
