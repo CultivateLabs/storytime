@@ -3,6 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class AdminController < DashboardController
+      before_action :load_model, only: [:edit, :update, :destroy]
       before_action :add_view_path
       helper_method :model_name, :model_class, :attributes, :form_attributes
 
@@ -28,12 +29,10 @@ module Storytime
       end
 
       def edit
-        @model = model_class.find(params[:id])
         authorize :admin, :update?
       end
 
       def update
-        @model = model_class.find(params[:id])
         authorize :admin, :update?
 
         if @model.update(params[model_name.to_sym].to_hash)
@@ -44,13 +43,16 @@ module Storytime
       end
 
       def delete
-        @model = model_class.find(params[:id])
         authorize :admin, :destroy?
         @model.destroy
         redirect_to dashboard_admin_index_path
       end
 
     private
+      def load_model
+        @model = model_class.find(params[:id])
+      end
+
       def add_view_path
         prepend_view_path "app/views/#{model_name.pluralize.downcase}"
       end
