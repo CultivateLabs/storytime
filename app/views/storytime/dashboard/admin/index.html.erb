@@ -1,24 +1,25 @@
 <div class="container">
   <h2>
     <%= model_name.pluralize.titleize %>
-    <%= link_to "New #{model_name.titleize}", dashboard_admin_new_path, class: "btn btn-default pull-right" %>
+    <%= link_to "New #{model_name.titleize}", dashboard_admin_new_path, class: "btn btn-success pull-right" %>
   </h2>
 
   <table class="table">
     <thead>
       <tr>
         <%= render 'headers' %>
-        <th>Actions</th>
+        <th class="text-right">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @collection.each do |item| %>
         <tr>
           <%= render 'row', item: item %>
-          <td>
-            <%= link_to "Edit", dashboard_admin_edit_path(id: item.id) %> 
-            | 
-            <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: "Are you sure?" }, id: "delete-#{model_name}-#{item.id}" %>
+          <td class="text-right">
+            <div class="btn-group btn-group-sm">
+              <%= link_to "Edit", dashboard_admin_edit_path(id: item.id), class: "btn btn-default" %> 
+              <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: "Are you sure you want do delete this #{model_name}?" }, id: "delete-#{model_name}-#{item.id}", class: "btn btn-default" %>
+            </div>
           </td>
         </tr>
       <% end %>
