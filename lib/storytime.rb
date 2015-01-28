@@ -38,6 +38,9 @@ module Storytime
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
 
+  mattr_accessor :admin_models
+  @@admin_models = []
+
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     

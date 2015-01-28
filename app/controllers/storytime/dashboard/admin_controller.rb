@@ -3,6 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class AdminController < DashboardController
+      before_action :ensure_valid_model
       before_action :load_model, only: [:edit, :update, :destroy]
       before_action :add_view_path
       helper_method :model_name, :model_class, :attributes, :form_attributes
@@ -49,6 +50,12 @@ module Storytime
       end
 
     private
+      def ensure_valid_model
+        unless Storytime.admin_models.include?(model_name.classify)
+          redirect_to storytime.dashboard_path, flash: { error: "You are attempting to access an admin page for a model that has not been configured in Storytime." }
+        end
+      end
+
       def load_model
         @model = model_class.find(params[:id])
       end
