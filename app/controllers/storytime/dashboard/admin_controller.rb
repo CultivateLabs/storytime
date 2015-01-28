@@ -8,8 +8,7 @@ module Storytime
 
       def index
         @collection = model_class.all
-        # TODO: Update this to use the AdminPolicy
-        authorize @site, :edit?
+        authorize :admin, :read?
       end
 
     private
