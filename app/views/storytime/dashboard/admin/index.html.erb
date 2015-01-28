@@ -18,7 +18,7 @@
           <td>
             <%= link_to "Edit", dashboard_admin_edit_path(id: item.id) %> 
             | 
-            <%= link_to "Delete", dashboard_admin_delete_path(id: item.id), method: :delete, data: { confirm: "Are you sure?" }, id: "delete-#{model_name}-#{item.id}" %>
+            <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: "Are you sure?" }, id: "delete-#{model_name}-#{item.id}" %>
           </td>
         </tr>
       <% end %>

@@ -42,7 +42,7 @@ module Storytime
         end
       end
 
-      def delete
+      def destroy
         authorize :admin, :destroy?
         @model.destroy
         redirect_to dashboard_admin_index_path
