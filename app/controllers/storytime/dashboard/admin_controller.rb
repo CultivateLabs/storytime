@@ -23,7 +23,7 @@ module Storytime
         authorize :admin, :create?
 
         if @model.save
-          redirect_to dashboard_admin_index_path
+          redirect_to dashboard_admin_index_path, notice: t('flash.admin.create.success', resource_name: model_name.titleize)
         else
           render :new
         end
@@ -37,7 +37,7 @@ module Storytime
         authorize :admin, :update?
 
         if @model.update(params[model_name.to_sym].to_hash)
-          redirect_to dashboard_admin_index_path
+          redirect_to dashboard_admin_index_path, notice: t('flash.admin.update.success', resource_name: model_name.titleize)
         else
           render :edit
         end
@@ -52,7 +52,7 @@ module Storytime
     private
       def ensure_valid_model
         unless Storytime.admin_models.include?(model_name.classify)
-          redirect_to storytime.dashboard_path, flash: { error: "You are attempting to access an admin page for a model that has not been configured in Storytime." }
+          redirect_to storytime.dashboard_path, flash: { error: t('dashboard.admin.unconfigured_model') }
         end
       end
 

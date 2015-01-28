@@ -5,6 +5,11 @@ describe "In the dashboard, Admin" do
     login_admin
   end
 
+  it "redirects with error if model is not configured" do 
+    visit dashboard_admin_index_path(resource_name: "things")
+    expect(page).to have_content I18n.t('dashboard.admin.unconfigured_model')
+  end
+
   it "lists widgets" do
     3.times{ FactoryGirl.create(:widget) }
     visit dashboard_admin_index_path(resource_name: "widgets")
