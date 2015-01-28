@@ -17,6 +17,7 @@
       end
     end
 
+    # Routes for generic admin controller
     get "/:resource_name", to: "admin#index", as: :admin_index
     get "/:resource_name/new", to: "admin#new", as: :admin_new
     post "/:resource_name", to: "admin#create", as: :admin_create
