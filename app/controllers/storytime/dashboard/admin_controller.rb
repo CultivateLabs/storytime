@@ -19,7 +19,7 @@ module Storytime
       end
 
       def create
-        @model = model_class.new(params[model_name.to_sym].to_hash)
+        @model = model_class.new(permitted_params)
         authorize :admin, :create?
 
         if @model.save
@@ -36,7 +36,7 @@ module Storytime
       def update
         authorize :admin, :update?
 
-        if @model.update(params[model_name.to_sym].to_hash)
+        if @model.update(permitted_params)
           redirect_to dashboard_admin_index_path, notice: t('flash.admin.update.success', resource_name: model_name.titleize)
         else
           render :edit
@@ -64,6 +64,10 @@ module Storytime
         prepend_view_path "app/views/#{model_name.pluralize.downcase}"
       end
 
+      def permitted_params
+        params.require(model_sym).permit(permitted_attributes.map(&:to_sym))
+      end
+
       def attributes 
         @attributes ||= model_class.columns.map(&:name)
       end
@@ -72,8 +76,20 @@ module Storytime
         @form_attributes ||= attributes.reject{ |v| form_blacklist.include?(v) }
       end
 
+      def permitted_attributes
+        @permitted_attributes ||= attributes.reject{ |v| attribute_blacklist.include?(v) }
+      end
+
       def form_blacklist
         ["id", "created_at", "updated_at"]
+      end
+
+      def attribute_blacklist
+        ["id", "created_at", "updated_at"]
+      end
+
+      def model_sym
+        model_name.to_sym
       end
 
       def model_class
