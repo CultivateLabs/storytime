@@ -54,8 +54,22 @@ module Storytime
 
       def get_search_type
         if params[:type]
-          "#{params[:type].camelize}".constantize
+          legal_search_types(params[:type])
         else
+          Storytime::Post
+        end
+      end
+
+      def legal_search_types(type)
+        begin
+          if Object.const_defined?("Storytime::#{type.camelize}")
+            "Storytime::#{type.camelize}".constantize
+          elsif Object.const_defined?("#{type.camelize}")
+            type.camelize.constantize
+          else
+            Storytime::Post
+          end
+        rescue NameError
           Storytime::Post
         end
       end
