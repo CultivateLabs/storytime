@@ -1,0 +1,6 @@
+<%= simple_form_for @model, url: dashboard_admin_create_path do |f| %>
+  <% form_attributes.each do |attribute| %>
+    <%= f.input attribute.to_sym %>
+  <% end %>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

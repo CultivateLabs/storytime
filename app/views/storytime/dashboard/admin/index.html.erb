@@ -1,5 +1,8 @@
 <div class="container">
-  <h2><%= model_name.pluralize.titleize %></h2>
+  <h2>
+    <%= model_name.pluralize.titleize %>
+    <%= link_to "New #{model_name.titleize}", dashboard_admin_new_path, class: "btn btn-default pull-right" %>
+  </h2>
 
   <table class="table">
     <thead>
@@ -12,7 +15,11 @@
       <% @collection.each do |item| %>
         <tr>
           <%= render 'row', item: item %>
-          <td>Edit | Delete</td>
+          <td>
+            <%= link_to "Edit", dashboard_admin_edit_path(id: item.id) %> 
+            | 
+            <%= link_to "Delete", dashboard_admin_delete_path(id: item.id), method: :delete, data: { confirm: "Are you sure?" }, id: "delete-#{model_name}-#{item.id}" %>
+          </td>
         </tr>
       <% end %>
     </tbody>

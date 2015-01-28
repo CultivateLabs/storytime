@@ -4,11 +4,50 @@ module Storytime
   module Dashboard
     class AdminController < DashboardController
       before_action :add_view_path
-      helper_method :model_name, :model_class, :attributes
+      helper_method :model_name, :model_class, :attributes, :form_attributes
 
       def index
         @collection = model_class.all
         authorize :admin, :read?
+      end
+
+      def new
+        @model = model_class.new
+        authorize :admin, :create?
+      end
+
+      def create
+        @model = model_class.new(params[model_name.to_sym].to_hash)
+        authorize :admin, :create?
+
+        if @model.save
+          redirect_to dashboard_admin_index_path
+        else
+          render :new
+        end
+      end
+
+      def edit
+        @model = model_class.find(params[:id])
+        authorize :admin, :update?
+      end
+
+      def update
+        @model = model_class.find(params[:id])
+        authorize :admin, :update?
+
+        if @model.update(params[model_name.to_sym].to_hash)
+          redirect_to dashboard_admin_index_path
+        else
+          render :edit
+        end
+      end
+
+      def delete
+        @model = model_class.find(params[:id])
+        authorize :admin, :destroy?
+        @model.destroy
+        redirect_to dashboard_admin_index_path
       end
 
     private
@@ -18,6 +57,14 @@ module Storytime
 
       def attributes 
         @attributes ||= model_class.columns.map(&:name)
+      end
+
+      def form_attributes
+        @form_attributes ||= attributes.reject{ |v| form_blacklist.include?(v) }
+      end
+
+      def form_blacklist
+        ["id", "created_at", "updated_at"]
       end
 
       def model_class
