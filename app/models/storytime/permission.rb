@@ -15,20 +15,20 @@ module Storytime
       manage_snippets = Action.find_by(guid: "5qg25i")
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
-      create(role: writer, action: publish_own)
-      create(role: editor, action: publish_own)
-      create(role: admin, action: publish_own)
+      find_or_create_by(role: writer, action: publish_own)
+      find_or_create_by(role: editor, action: publish_own)
+      find_or_create_by(role: admin, action: publish_own)
 
-      create(role: editor, action: manage_others)
-      create(role: admin, action: manage_others)
+      find_or_create_by(role: editor, action: manage_others)
+      find_or_create_by(role: admin, action: manage_others)
 
-      create(role: admin, action: manage_site)
-      create(role: admin, action: manage_users)
+      find_or_create_by(role: admin, action: manage_site)
+      find_or_create_by(role: admin, action: manage_users)
 
-      create(role: editor, action: manage_snippets)
-      create(role: admin, action: manage_snippets)
+      find_or_create_by(role: editor, action: manage_snippets)
+      find_or_create_by(role: admin, action: manage_snippets)
 
-      create(role: admin, action: manage_subscriptions)
+      find_or_create_by(role: admin, action: manage_subscriptions)
     end
   end
 end

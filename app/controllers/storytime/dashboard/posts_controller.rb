@@ -38,7 +38,7 @@ module Storytime
 
         if @post.save
           @post.create_autosave(post_params.slice(:draft_content)) if params[:preview] == "true"
-          
+
           opts = params[:preview] == "true" ? { preview: true } : {}
 
           redirect_to edit_dashboard_post_path(@post, opts), notice: I18n.t('flash.posts.create.success')
