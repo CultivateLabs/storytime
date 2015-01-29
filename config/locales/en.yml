@@ -107,3 +107,4 @@ en:
 
   layout:
     title: "Storytime"
+    subscribe_to: "Subscribe to %{site_name}"

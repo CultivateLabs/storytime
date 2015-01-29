@@ -16,14 +16,11 @@
             <li><%= link_to page.title, storytime.url_for(controller: "pages", action: "show", id: page.slug) %></li>
           <% end %>
           <li><%= link_to "Blog", storytime.url_for(Storytime::BlogPost.type_name.pluralize) %></li>
-          <li>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addSubscriptionModal">
-  Launch demo modal
-</button>
-            <%#= link_to "Subscribe to Dummy App", "/", data: {target: "#myModal"} %>
-          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to "#{t 'layout.subscribe_to', site_name: @site.title}", "#", data: {target: "#addSubscriptionModal", toggle: "modal"} %>
+          </li>
           <% unless user_signed_in? %>
             <li><%= link_to "Sign In", main_app.new_user_session_path %></li>
           <% end %>
