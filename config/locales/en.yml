@@ -30,12 +30,14 @@ en:
     subscriptions:
       create:
         success: "Subscription successfully created."
+        fail: "Could not create a subscription."
       update:
         success: "Subscription successfully updated."
       destroy:
-        success: "Subscription successfully deleted."
-      unsubscribe:
-        not_found: "Subscription could not be found."
+        success: >
+          You have been successfully removed form this subscriber list.
+          You will no longer hear from us.
+        fail: "Could not unsubscribe email."
     users:
       create:
         success: "User successfully created."

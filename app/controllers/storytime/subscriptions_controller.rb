@@ -8,9 +8,9 @@ module Storytime
       @subscription = Storytime::Subscription.new(permitted_attributes)
     
       if @subscription.save
-        flash[:success] = "Subscription created"
+        flash[:notice] = I18n.t('flash.subscriptions.create.success')
       else
-        flash[:alert] = "Unable to create a subscription"
+        flash[:error] = I18n.t('flash.subscriptions.create.fail')
       end
 
       redirect_to :back
@@ -18,9 +18,9 @@ module Storytime
 
     def destroy
       if params[:token] == @subscription.token
-        flash[:success] = "Successfully unsubscribed" if @subscription.unsubscribe!
+        flash[:notice] = I18n.t('flash.subscriptions.destroy.success') if @subscription.unsubscribe!
       else
-        flash[:alert] = "Unable to unsubscribe"
+        flash[:error] = I18n.t('flash.subscriptions.destroy.fail')
       end
 
       redirect_to Storytime.home_page_path
