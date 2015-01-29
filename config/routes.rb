@@ -1,5 +1,6 @@
  Storytime::Engine.routes.draw do
   resources :comments
+  resources :subscriptions, only: [:create]
 
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
