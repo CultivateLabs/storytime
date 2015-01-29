@@ -10,6 +10,7 @@ require 'fog/aws/storage'
 require 'carrierwave'
 require 'nokogiri'
 require 'font-awesome-sass'
+require 'leather'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
