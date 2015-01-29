@@ -99,12 +99,11 @@ en:
         header: "New %{resource}"
     subscriptions:
       unsubscribe:
-        header: "Thank You"
         message: >
           You have been successfully removed form this subscriber list.
           You will no longer hear from us.
-        go_back_to_site: "Go back to site."
 
   layout:
     title: "Storytime"
     subscribe_to: "Subscribe to %{site_name}"
+    subscribe_modal_msg: "Stay up-to-date with %{site_name} by signing up for our mailing list!"
