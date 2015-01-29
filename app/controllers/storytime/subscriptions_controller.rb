@@ -17,13 +17,13 @@ module Storytime
     end
 
     def destroy
-      if permitted_attributes[:token] == @subscription.token
-        flash[:success] = "Successfully unsubscribed" if @subscription.destroy
+      if params[:token] == @subscription.token
+        flash[:success] = "Successfully unsubscribed" if @subscription.unsubscribe!
       else
         flash[:alert] = "Unable to unsubscribe"
       end
 
-      render :back
+      redirect_to Storytime.home_page_path
     end
 
     private

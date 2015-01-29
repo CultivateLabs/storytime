@@ -1,6 +1,7 @@
  Storytime::Engine.routes.draw do
   resources :comments
   resources :subscriptions, only: [:create]
+  get "subscriptions/unsubscribe", to: "subscriptions#destroy"
 
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
@@ -11,7 +12,6 @@
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
-    get "subscriptions/unsubscribe", to: "subscriptions#unsubscribe"
     resources :subscriptions
     resources :users, path: Storytime.user_class_underscore.pluralize
     resources :roles do 
