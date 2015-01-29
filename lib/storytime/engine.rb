@@ -26,6 +26,8 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
+        
+        helper Storytime::SubscriptionsHelper
       end
     end
 

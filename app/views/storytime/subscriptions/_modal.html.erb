@@ -5,12 +5,9 @@
         <a class='close' data-dismiss='modal'>&times;</a>
         <h4>Subscribe to Site</h4>
       </div>
-      <%= simple_form_for Storytime::Subscription.new do |f| %>
-        <div class='modal-body'>
-          <%= f.input :email %>
-          <%= f.button :submit %>
-        </div>
-      <% end %>
+      <div class='modal-body'>
+        <%= storytime_email_subscription_form %>
+      </div>
     </div>
   </div>
 </div>

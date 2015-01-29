@@ -12,5 +12,9 @@ module Storytime
 
       self.token = OpenSSL::HMAC.hexdigest(digest, key, self.email)
     end
+
+    def unsubscribe!
+      update_attributes(subscribed: false)
+    end
   end
 end

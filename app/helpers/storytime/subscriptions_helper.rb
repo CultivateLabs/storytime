@@ -6,5 +6,9 @@ module Storytime
 
       "<label class='label #{status_label}'>#{status}</label>".html_safe
     end
+
+    def storytime_email_subscription_form
+      render "storytime/subscriptions/form"
+    end
   end
 end
