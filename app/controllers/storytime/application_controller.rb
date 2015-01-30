@@ -8,6 +8,8 @@ class Storytime::ApplicationController < ApplicationController
   
   helper :all
 
+  helper_method :dashboard_controller
+
   if Storytime.user_class_symbol != :user
     helper_method :authenticate_user!
     helper_method :current_user
@@ -43,6 +45,10 @@ class Storytime::ApplicationController < ApplicationController
   end
 
 private
+  def dashboard_controller
+    false
+  end
+
   def ensure_site
     redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.first
   end
