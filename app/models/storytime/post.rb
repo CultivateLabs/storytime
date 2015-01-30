@@ -118,11 +118,11 @@ module Storytime
     end
 
     def slug_candidates
-      if slug.nil? then [:title] elsif slug_changed? then [:slug] end
+      if slug.blank? then [:title] elsif slug_changed? then [:slug] end
     end
 
     def should_generate_new_friendly_id?
-      self.slug = nil if slug == ""
+      slug = nil if slug == ""
       slug_changed? || (slug.nil? && published_at_changed? && published_at_change.first.nil?)
     end
 
