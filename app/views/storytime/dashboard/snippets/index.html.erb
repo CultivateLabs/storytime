@@ -3,12 +3,10 @@
   <div id="left" class="hidden-xs full-width-xs">
     <div class="scroll-panel">      
       <div class="scroll-panel-header visible-xs">
-        <%= link_to "#", class: "btn btn-default btn-sm pull-left visible-xs", data: { toggle: "columns" } do %>
-          <i class="fa fa-chevron-left"></i>
-        <% end %>
+        <%= link_to icon("chevron-left"), "#", class: "btn btn-default btn-sm pull-left visible-xs", data: { toggle: "columns" } %>
       </div>
       <div class="scroll-panel-body">
-        <div class="text-center vertical-center absolute" style="width: 100%;">
+        <div class="text-center vertical-center absolute full-width">
           <h3>Choose a Text Snippet to edit</h3>
           <h5>Or</h5>
           <p><%= link_to "Create One", [:new, :dashboard, :snippet], class: "btn btn-default" %></p>

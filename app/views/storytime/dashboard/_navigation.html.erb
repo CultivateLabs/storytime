@@ -2,6 +2,30 @@
   <div class="nav-menu-header">
     <%= link_to "Storytime", main_app.storytime_path, class: "nav-menu-brand" %>
   </div>
+  
+  <div class="container-fluid">
+    <div class="row" style="padding: 5px 0; border-bottom: 1px solid #f1f1f1;">
+      <div class="col-xs-3 text-center" style="width: 20%;">
+        <%= link_to icon("eye"), main_app.storytime_path, class: "btn btn-default" %>
+      </div>
+      <div class="col-xs-3 text-center" style="width: 20%;">
+        <%= link_to icon("user"), storytime.edit_dashboard_user_path(current_user), class: "btn btn-default" %>
+      </div>
+      <% if Pundit.policy(current_user, Storytime.user_class).index? %>
+        <div class="col-xs-3 text-center" style="width: 20%;">
+          <%= link_to icon("users"), [:dashboard, :users], class: "btn btn-default" %>
+        </div>
+      <% end %>
+      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+        <div class="col-xs-3 text-center" style="width: 20%;">
+          <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default" %>
+        </div>
+      <% end %>
+      <div class="col-xs-3 text-center" style="width: 20%;">
+        <%= link_to icon("power-off"), main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
 
   <ul class="nav nav-menu-nav">
     <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
@@ -10,8 +34,31 @@
       </li>
     <% end %>
   </ul>
+
+  <h4 class="nav-menu-divider">Posts</h4>
+  <ul class="nav nav-menu-nav">
+    <li <%= active_nav_item_class("posts", "blog_post") %>><%= link_to "Blog Posts", storytime.dashboard_posts_path(type: "blog_post") %></li>
+    <% Storytime.post_types.map{|post_type| post_type.constantize }.each do |post_type| %>
+      <% unless post_type.included_in_primary_feed? %>
+        <li <%= active_nav_item_class("posts", post_type.type_name) %>><%= link_to post_type.human_name.pluralize, storytime.dashboard_posts_path(type: post_type.type_name) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
+    <h4 class="nav-menu-divider">Admin</h4>
+    <ul class="nav nav-menu-nav">
+      <% Storytime.admin_models.each do |model| %>
+        <li class="<%= active_admin_model_class('widget') %>">
+          <%= link_to model.pluralize.titleize, storytime.dashboard_admin_index_url(resource_name: model.tableize) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </nav>
 <div id='off-canvas-overlay'></div>
+
+
 <% if false %>
 
 <div class="navbar navbar-inverse navbar-static-top" style="z-index: 1001; margin: 0;" role="navigation">

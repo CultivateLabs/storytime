@@ -1,3 +1,22 @@
+.nav-menu-default.nav-menu-fixed-left {
+  border-right: 1px solid #f1f1f1;
+}
+
 .nav-menu .nav-menu-header .nav-menu-brand {
   padding: 12px 15px;
+  background: #fff;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.nav-menu .nav-menu-divider {
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 15px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.nav-menu.nav-menu-default .nav-menu-nav li a {
+  background: #fff;
+  border-bottom: 1px solid #f1f1f1;
 }

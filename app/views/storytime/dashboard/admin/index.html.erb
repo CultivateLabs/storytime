@@ -1,28 +1,31 @@
-<div class="container">
-  <h2>
-    <%= model_name.pluralize.titleize %>
-    <%= link_to "New #{model_name.titleize}", dashboard_admin_new_path, class: "btn btn-success pull-right" %>
-  </h2>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <%= render 'headers' %>
-        <th class="text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @collection.each do |item| %>
-        <tr>
-          <%= render 'row', item: item %>
-          <td class="text-right">
-            <div class="btn-group btn-group-sm">
-              <%= link_to "Edit", dashboard_admin_edit_path(id: item.id), class: "btn btn-default" %> 
-              <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: model_name) }, id: "delete-#{model_name}-#{item.id}", class: "btn btn-default" %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <%= link_to icon("plus", "New"), dashboard_admin_new_path, class: "btn btn-sm btn-success btn-outline pull-right" %>
+      <h3 class="scroll-panel-title"><%= model_name.pluralize.titleize %></h3>
+    </div>
+    <div class="scroll-panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <%= render 'headers' %>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @collection.each do |item| %>
+            <tr class="table-row-link" data-url="<%= dashboard_admin_edit_url(id: item.id) %>">
+              <%= render 'row', item: item %>
+              <td class="text-right">
+                <div class="btn-group btn-group-sm">
+                  <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: model_name) }, id: "delete-#{model_name}-#{item.id}", class: "btn btn-sm btn-default" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

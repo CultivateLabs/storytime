@@ -22,3 +22,7 @@ $ ()->
     $(@).attr("disabled", false)
     alert("There was an error deleting your #{$(@).data('resource-type')}")
   )
+
+  $(".table-row-link").click ->
+    url = $(this).data('url')
+    document.location.href = url

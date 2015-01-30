@@ -2,7 +2,7 @@
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
-      <%= link_to icon('plus', 'New'), [:new, :dashboard, :snippet], class: "btn btn-primary btn-sm pull-right" %>
+      <%= link_to icon('plus', 'New'), [:new, :dashboard, :snippet], class: "btn btn-primary btn-sm pull-right" unless current_page?([:new, :dashboard, :snippet]) %>
       <h3 class="scroll-panel-title">
         Text Snippets
       </h3>

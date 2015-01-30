@@ -15,79 +15,10 @@
   }
 }
 
-.right { text-align: right; }
+.full-width { width: 100%; }
 
-.center { text-align: center; }
-.pane {
-  position: absolute;
-  top: 50px;
-  bottom: 0;
-  margin: 0;
-  .heading {
-    padding: 0 20px;
-    margin-bottom: 20px;
-    height: 66px;
-    .btn {
-      margin-top: -3px;
-    }
-  }
-}
-#list {
-  background: #F0F4F5;
-  left: 0;
-  width: 350px;
-  color: #333;
+#right {
   border-right: 1px solid #f1f1f1;
-  ul.dashboard-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    li {
-      border-bottom: 1px solid #ccc;
-      border-left: 4px solid transparent;
-      background: #fff;
-      &:first-child {
-        border-top: 1px solid #ccc;
-      }
-      a {
-        text-decoration: none;
-        display: block;
-        padding: 20px;
-      }
-      &:hover {
-        border-left: 4px solid #ccc;
-      }
-      &.active {
-        border-left: 4px solid #5BC0DE;
-        background: #E3F4F9;
-      }
-    }
-  }
-} 
-#main {
-  left: 350px;
-  right: 0;
-  background: #fff;
-  .no-content {
-    h3 {
-      color: #888;
-      margin-top: 15%;
-    }
-    .btn {
-      margin-top: 30px;
-    }
-  }
-}
-.scroll-y {
-  position: absolute;
-  top: 66px;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow-y: scroll;
-  .padding {
-    padding: 20px;
-  }
 }
 
 .form-group.check_boxes {
@@ -117,5 +48,15 @@ textarea { resize:vertical; }
 .pane {
   .edit_form {
     border-top: 1px solid #ccc;
+  }
+}
+
+.table-row-link {
+  &:hover {
+    cursor: pointer;
+  }
+  
+  td {
+    line-height: 2.15 !important;
   }
 }

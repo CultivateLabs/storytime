@@ -13,6 +13,10 @@ module Storytime
       'class="active"'.html_safe if controller == current_controller && (type.nil? or type == params[:type])
     end
 
+    def active_admin_model_class(model)
+      'active' if params[:controller] == 'storytime/dashboard/admin' && model_name == model
+    end
+
     def delete_resource_link(resource, href = nil, remote = true)
       humanized_resource_name = resource.class.to_s.split('::').last.underscore.humanize.downcase
       resource_name = resource.class.to_s.downcase.split("::").last
