@@ -19,6 +19,14 @@
         patch :update_multiple
       end
     end
+
+    # Routes for generic admin controller
+    get "/:resource_name", to: "admin#index", as: :admin_index
+    get "/:resource_name/new", to: "admin#new", as: :admin_new
+    post "/:resource_name", to: "admin#create", as: :admin_create
+    get "/:resource_name/:id/edit", to: "admin#edit", as: :admin_edit
+    patch "/:resource_name/:id", to: "admin#update", as: :admin_update
+    delete ":resource_name/:id", to: "admin#destroy", as: :admin_destroy
   end
 
   get 'tags/:tag', to: 'posts#index', as: :tag

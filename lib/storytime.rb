@@ -41,7 +41,7 @@ module Storytime
   # the unique identifier for your website as registered on Disqus.
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
-
+  
   # Email regex used to validate email format validity for subscriptions.
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
@@ -56,6 +56,9 @@ module Storytime
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
   mattr_accessor :search_adapter
   @@search_adapter = Storytime::PostgresSearchAdapter
+
+  mattr_accessor :admin_models
+  @@admin_models = []
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types

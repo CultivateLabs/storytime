@@ -172,4 +172,10 @@ ActiveRecord::Schema.define(version: 20150129215308) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["storytime_role_id"], name: "index_users_on_storytime_role_id"
 
+  create_table "widgets", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end

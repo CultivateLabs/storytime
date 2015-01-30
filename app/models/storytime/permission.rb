@@ -8,11 +8,12 @@ module Storytime
       editor = Role.find_by(name: "editor")
       admin  = Role.find_by(name: "admin")
 
-      publish_own   = Action.find_by(guid: "5030ed")
-      manage_others = Action.find_by(guid: "d8a1b1")
-      manage_site   = Action.find_by(guid: "47342a")
-      manage_users  = Action.find_by(guid: "1f7d47")
-      manage_snippets = Action.find_by(guid: "5qg25i")
+      publish_own          = Action.find_by(guid: "5030ed")
+      manage_others        = Action.find_by(guid: "d8a1b1")
+      manage_site          = Action.find_by(guid: "47342a")
+      manage_users         = Action.find_by(guid: "1f7d47")
+      manage_snippets      = Action.find_by(guid: "5qg25i")
+      manage_admin_models  = Action.find_by(guid: "3fj09k")
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
       find_or_create_by(role: writer, action: publish_own)
@@ -29,6 +30,8 @@ module Storytime
       find_or_create_by(role: admin, action: manage_snippets)
 
       find_or_create_by(role: admin, action: manage_subscriptions)
+      
+      find_or_create_by(role: admin, action: manage_admin_models)
     end
   end
 end
