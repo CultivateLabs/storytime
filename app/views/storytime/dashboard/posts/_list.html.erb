@@ -1,25 +1,17 @@
-<div id="list" class="pane">
-  <h3 class="heading"> 
-    <%= post_list_title(current_post_type) %>
-    <%= new_post_button(current_post_type) %>
-  </h3>
-  <div class="scroll-y">
-    <ul class="dashboard-list">
-      <% @posts.each do |post| %>
-        <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
-          <%= link_to [:edit, :dashboard, post], page_number: params[:page_number] do %>
-            <%= post.title %>
-            <span class="pull-right">
-              <% unless post.published? %>
-                <span class="label label-warning">Draft</span>
-              <% end %>
-            </span>
+<ul class="dashboard-list">
+  <% @posts.each do |post| %>
+    <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
+      <%= link_to [:edit, :dashboard, post], page_number: params[:page_number] do %>
+        <%= post.title %>
+        <span class="pull-right">
+          <% unless post.published? %>
+            <span class="label label-warning">Draft</span>
           <% end %>
-        </li>
+        </span>
       <% end %>
-    </ul>
-    <div class="pagination-wrapper">
-      <%= paginate @posts, param_name: "page_number" %>
-    </div>
-  </div>
+    </li>
+  <% end %>
+</ul>
+<div class="pagination-wrapper">
+  <%= paginate @posts, param_name: "page_number" %>
 </div>

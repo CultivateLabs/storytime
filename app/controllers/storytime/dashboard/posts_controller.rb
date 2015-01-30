@@ -114,7 +114,7 @@ module Storytime
           @posts.where(type: current_post_type)
         end
 
-        @posts = if params[:pubished].present? && params[:pubished] == 'true'
+        @posts = if params[:published].present? && params[:published] == 'true'
           @posts.published
         else
           @posts.draft
