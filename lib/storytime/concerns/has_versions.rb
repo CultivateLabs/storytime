@@ -24,6 +24,7 @@ module Storytime
           version.user_id = self.draft_user_id
           version.save
         end
+        self.publish! if self.published?
       end
 
       def activate_version

@@ -10,6 +10,7 @@ With Storytime, we have a few guiding principles:
 Based on these principles, it can be useful to think of the host app as the "theme" for the CMS/blog instance. Storytime provides the CMS/blog plumbing, but the host app handles presentation details that are specific to the particular site/app.
 
 ## Sample App
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/flyoverworks/storytime-example)
 
 ## Setup
@@ -155,6 +156,26 @@ end
 ```
 
 Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server.
+
+## Subscriptions
+
+While many people and companies focus on growing their social media followings, there's a wealth of evidence that a robust email list is significantly more valuable. We wanted to make it easy for Storytime bloggers to collect email addresses from their readers, so we added the following features for email collection and management:
+
+* Email collection & storage support
+* Basic email list management
+* Optional notification of list members when new blog posts are published
+* 1-click unsubscribe support
+
+To enable subscription sign-up within a custom view, simply use the `storytime_email_subscription_form` helper wherever you'd like to collect email addresses. For example:
+
+```
+# a simple post#show template
+<div class="post"><%= @post.content %></div>
+<div>Enjoy this post? Sign up and we'll notify you of future posts!</div>
+<%= storytime_email_subscription_form %>
+```
+
+In the future, we plan to also add support for automatically adding colelcted emails to dedicated email marketing platforms, such as [Mailkimp](http://www.mailkimp.com).
 
 ## Search
 

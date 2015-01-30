@@ -24,11 +24,7 @@ module Storytime
       end
 
       def full_media_file_url(media, size = nil)
-        if media.file_url.starts_with?("http")
-          media.file_url(size)
-        else
-          Storytime.home_page_path[0..-2]+media.file_url(size)
-        end
+        media.file_url(size)
       end
     end
   end
