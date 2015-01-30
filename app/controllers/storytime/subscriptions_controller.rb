@@ -29,7 +29,7 @@ module Storytime
     private
 
       def permitted_attributes
-        params.require(:subscription).permit(:email, :t)
+        params.require(:subscription).permit(:email, :t, :site_id)
       end
 
       def set_subscription
