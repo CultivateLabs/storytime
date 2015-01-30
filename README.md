@@ -156,6 +156,39 @@ end
 
 Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server.
 
+## Search
+
+You can search Storytime post types through search adapters available to Storytime. By default, Storytime.search_adapter will use the Postgres search adapter. If you are using a database other than Postgres be sure to change the search_adapter type in your Storytime initializer. Available search adapters include support for Postgres, MySql, MySql Fulltext (MySql v5.6.4+), and Sqlite3, and are as follows:
+
+`Storytime::PostgresSearchAdapter`, `Storytime::MysqlSearchAdapter`, `Storytime::MysqlFulltextSearchAdapter`, `Storytime::Sqlite3SearchAdapter`
+
+### Search using Storytime.search_adapter.search()
+
+To search all Storytime post types pass the search string to the adapter's search function:
+
+```
+Storytime.search_adapter.search("search terms")
+```
+
+To search a specific Storytime post type pass the search string along with the post type to the adapter's search function:
+
+```
+Storytime.search_adapter.search("search terms", Storytime::BlogPost)
+```
+
+### Search using Storytime::PostsController
+
+The ability to search through post types is also available in Storytime::Posts#Index.
+
+```
+http://localhost:3000/posts?search=search_terms
+```
+
+To limit the search results to a particular post type, pass the specific post type as the parameter `type`.
+
+```
+http://localhost:3000/posts?search=search_terms&type=blog_post
+```
 
 ## Screen Shots
 Post Editor:

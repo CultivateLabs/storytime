@@ -1,0 +1,5 @@
+<%= simple_form_for Storytime::Subscription.new do |f| %>
+  <%= f.input :site_id, as: :hidden, input_html: { value: @storytime_site.id }  %>
+  <div class="storytime-subscription-input"><%= f.input :email %></div>
+  <div class="storytime-subscription-submit"><%= f.submit %></div>
+<% end %>

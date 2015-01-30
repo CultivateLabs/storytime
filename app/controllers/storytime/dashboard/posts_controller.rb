@@ -38,7 +38,9 @@ module Storytime
 
         if @post.save
           @post.create_autosave(post_params.slice(:draft_content)) if params[:preview] == "true"
-          
+
+          publish if post_params['published'] == "1"
+
           opts = params[:preview] == "true" ? { preview: true } : {}
 
           redirect_to edit_dashboard_post_path(@post, opts), notice: I18n.t('flash.posts.create.success')
@@ -51,9 +53,12 @@ module Storytime
       def update
         authorize @post
         @post.draft_user_id = current_user.id
-        
+
         if @post.update(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
+
+          publish if post_params['published'] == "1"
+
           redirect_to [:edit, :dashboard, @post], notice: I18n.t('flash.posts.update.success')
         else
           load_media
@@ -94,6 +99,18 @@ module Storytime
         permitted_attrs = policy(post).permitted_attributes
         permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
         params.require(:post).permit(*permitted_attrs)
+      end
+
+      def publish
+        unless @post.published?
+          @post.publish!
+
+          if post_params[:send_subscriber_email] == "1"
+            @site.active_email_subscriptions.each do |subscription|
+              Storytime::SubscriptionMailer.new_post_email(@post, subscription).deliver
+            end
+          end
+        end
       end
 
       def current_post_type

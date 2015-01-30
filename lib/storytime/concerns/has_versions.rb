@@ -24,7 +24,6 @@ module Storytime
           version.user_id = self.draft_user_id
           version.save
         end
-        self.publish! if self.published?
       end
 
       def activate_version
@@ -43,7 +42,6 @@ module Storytime
       end
 
       def published=(val)
-        self.published_at = Time.now if val == "1" && published_at.blank?
       end
 
       def published

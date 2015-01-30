@@ -12,6 +12,8 @@ module Storytime
         Post.primary_feed
       end
       
+      @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
+
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(published_at: :desc).page(params[:page])
       
@@ -48,5 +50,28 @@ module Storytime
       end
     end
 
+    private
+
+      def get_search_type
+        if params[:type]
+          legal_search_types(params[:type])
+        else
+          Storytime::Post
+        end
+      end
+
+      def legal_search_types(type)
+        begin
+          if Object.const_defined?("Storytime::#{type.camelize}")
+            "Storytime::#{type.camelize}".constantize
+          elsif Object.const_defined?("#{type.camelize}")
+            type.camelize.constantize
+          else
+            Storytime::Post
+          end
+        rescue NameError
+          Storytime::Post
+        end
+      end
   end
 end

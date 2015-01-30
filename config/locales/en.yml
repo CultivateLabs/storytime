@@ -27,6 +27,17 @@ en:
         success: "Text snippet successfully updated."
       destroy:
         success: "Text snippet successfully deleted."
+    subscriptions:
+      create:
+        success: "Subscription successfully created."
+        fail: "Could not create a subscription."
+      update:
+        success: "Subscription successfully updated."
+      destroy:
+        success: >
+          You have been successfully removed form this subscriber list.
+          You will no longer hear from us.
+        fail: "Could not unsubscribe email."
     users:
       create:
         success: "User successfully created."
@@ -87,6 +98,7 @@ en:
       new:
         header: "New %{resource}"
 
-
   layout:
     title: "Storytime"
+    subscribe_to: "Subscribe to %{site_name}"
+    subscribe_modal_msg: "Stay up-to-date with %{site_name} by signing up for our mailing list!"

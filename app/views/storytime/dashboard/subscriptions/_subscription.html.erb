@@ -1,0 +1,10 @@
+<tr id="subscription_<%= subscription.id %>">
+  <td><%= subscription.email %></td>
+  <td><%= subscription_label(subscription) %></td>
+  <td class="right">
+    <div class="btn-group">
+      <%= link_to "Edit", edit_polymorphic_url([:dashboard, subscription]), class: "btn btn-xs btn-default" %>
+      <%= delete_resource_link subscription, polymorphic_url([:dashboard, subscription]) %>
+    </div>
+  </td>
+</tr>
