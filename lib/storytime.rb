@@ -84,7 +84,7 @@ module Storytime
     end
 
     def home_page_route_options
-      site = Storytime::Site.first
+      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
 
       if site
         if site.root_page_content == "page"
@@ -98,7 +98,7 @@ module Storytime
     end
 
     def post_index_path_options
-      site = Storytime::Site.first
+      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
 
       if site && site.root_page_content == "posts"
         { path: Storytime.home_page_path }
