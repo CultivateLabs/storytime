@@ -97,11 +97,6 @@ en:
       remove_image: "Remove Image"
       new:
         header: "New %{resource}"
-    subscriptions:
-      unsubscribe:
-        message: >
-          You have been successfully removed form this subscriber list.
-          You will no longer hear from us.
 
   layout:
     title: "Storytime"

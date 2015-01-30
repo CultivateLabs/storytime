@@ -49,15 +49,4 @@ describe "In the dashboard, Subscriptions" do
     expect(subscription.email).to eq("johndoe@example.com")
     expect(subscription.subscribed?).to eq(false)
   end
-
-  describe "unsubscribe link" do
-    it "unsubscribes an email address" do
-      subscription = FactoryGirl.create(:subscription)
-      token = subscription.token
-
-      visit url_for([:dashboard, :subscriptions, :unsubscribe, {:t => token}])
-
-      expect(page).to have_content(I18n.t('dashboard.subscriptions.unsubscribe.message'))
-    end
-  end
 end
