@@ -17,7 +17,7 @@ module Storytime
     end
 
     def destroy
-      if params[:token] == @subscription.token
+      if params[:t] == @subscription.token
         flash[:notice] = I18n.t('flash.subscriptions.destroy.success') if @subscription.unsubscribe!
       else
         flash[:error] = I18n.t('flash.subscriptions.destroy.fail')
@@ -29,7 +29,7 @@ module Storytime
     private
 
       def permitted_attributes
-        params.require(:subscription).permit(:email, :token)
+        params.require(:subscription).permit(:email, :t)
       end
 
       def set_subscription

@@ -1,5 +1,9 @@
 module Storytime
   class Subscription < ActiveRecord::Base
+    belongs_to :site
+
+    scope :active, -> { where(subscribed: true) }
+
     validates_presence_of :email
     validates_format_of :email, with: Storytime.email_regexp
     validates :email, uniqueness: true

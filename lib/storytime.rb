@@ -42,9 +42,9 @@ module Storytime
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
-  # To delay mailers or not...
-  mattr_accessor :delay_mailers
-  @@delay_mailers = false
+  # Email address of the sender of subscription emails.
+  mattr_accessor :subscription_email_from
+  @@subscription_email_from = "no-reply@example.com"
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
