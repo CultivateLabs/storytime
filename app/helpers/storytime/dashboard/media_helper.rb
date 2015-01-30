@@ -27,7 +27,7 @@ module Storytime
         if media.file_url.starts_with?("http")
           media.file_url(size)
         else
-          storytime_root_post_url[0..-2]+media.file_url(size)
+          Storytime.home_page_path[0..-2]+media.file_url(size)
         end
       end
     end

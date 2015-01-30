@@ -118,5 +118,4 @@ describe "In the dashboard, Posts" do
     expect(page).to_not have_content(post.title)
     expect(Storytime::Post.count).to eq(2)
   end
-  
 end

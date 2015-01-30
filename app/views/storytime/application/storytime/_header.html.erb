@@ -18,6 +18,9 @@
           <li><%= link_to "Blog", storytime.url_for(Storytime::BlogPost.type_name.pluralize) %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to "#{t 'layout.subscribe_to', site_name: @site.title}", "#", data: {target: "#addSubscriptionModal", toggle: "modal"} %>
+          </li>
           <% unless user_signed_in? %>
             <li><%= link_to "Sign In", main_app.new_user_session_path %></li>
           <% end %>
@@ -26,3 +29,4 @@
     </div>
   </div>
 </header>
+<%= render partial: "storytime/subscriptions/modal" %>

@@ -42,6 +42,14 @@ module Storytime
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
 
+  # Email regex used to validate email format validity for subscriptions.
+  mattr_accessor :email_regexp
+  @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+
+  # Email address of the sender of subscription emails.
+  mattr_accessor :subscription_email_from
+  @@subscription_email_from = "no-reply@example.com"
+
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
@@ -73,6 +81,30 @@ module Storytime
     def snippet(name)
       snippet = Storytime::Snippet.find_by(name: name)
       snippet.nil? ? "" : snippet.content.html_safe
+    end
+
+    def home_page_route_options
+      site = Storytime::Site.first
+
+      if site
+        if site.root_page_content == "page"
+          { to: "pages#show", as: :storytime_root_post }
+        else
+          { to: "posts#index", as: :storytime_root_post }
+        end
+      else
+        { to: "application#setup", as: :storytime_root }
+      end
+    end
+
+    def post_index_path_options
+      site = Storytime::Site.first
+
+      if site && site.root_page_content == "posts"
+        { path: Storytime.home_page_path }
+      else
+        {}
+      end
     end
   end
 end

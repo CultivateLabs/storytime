@@ -143,6 +143,12 @@
       <%= f.submit "Publish", class: "btn btn-primary publish", publish: true unless @post.published? %>
       <%= f.submit "Update", class: "btn btn-default save" if @post.published? %>
     </div>
+
+
+    <div class="notify_subscribers_checkbox pull-right">
+      <%= f.input :send_subscriber_email, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+    </div>
+
   </div>
 <% end %>
 

@@ -16,7 +16,7 @@ module Storytime
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
-    attr_accessor :preview, :published_at_date, :published_at_time
+    attr_accessor :preview, :published_at_date, :published_at_time, :send_subscriber_email
 
     validates_presence_of :title, :draft_content
     validates :title, length: { in: 1..Storytime.post_title_character_limit }
@@ -118,11 +118,11 @@ module Storytime
     end
 
     def slug_candidates
-      if slug.nil? then [:title] elsif slug_changed? then [:slug] end
+      if slug.blank? then [:title] elsif slug_changed? then [:slug] end
     end
 
     def should_generate_new_friendly_id?
-      self.slug = nil if slug == ""
+      slug = nil if slug == ""
       slug_changed? || (slug.nil? && published_at_changed? && published_at_change.first.nil?)
     end
 

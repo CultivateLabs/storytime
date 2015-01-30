@@ -1,0 +1,16 @@
+<div id="addSubscriptionModal" class='modal fade'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <a class='close' data-dismiss='modal'>&times;</a>
+        <h4><%= t 'layout.subscribe_to', site_name: @site.title %></h4>
+      </div>
+      <div class='modal-body'>
+        <p><%= t 'layout.subscribe_modal_msg', site_name: @site.title %></p>
+
+        <br>
+        <%= storytime_email_subscription_form %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class Storytime.Dashboard.Subscriptions
+  

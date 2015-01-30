@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>A new post was published on <%= @site.title %></h4>
+    <p>
+      We published a new post, "<%= link_to @post.title, post_url(@post) %>", on our blog.
+    </p>
+  </body>
+  <footer>If you no longer want to receive these emails, <%= link_to "click here", unsubscribe_mailing_list_url(email: @subscription.email, t: @subscription.token) %>.</footer>
+</html>

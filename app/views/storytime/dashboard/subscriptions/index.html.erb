@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>
+    Subscriptions
+    <%= link_to "New Subscription", new_dashboard_subscription_path, class: "btn btn-default pull-right" %>
+  </h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Subscription Status</th>
+        <th class="right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'subscription', collection: @subscriptions %>
+    </tbody>
+  </table>
+</div>

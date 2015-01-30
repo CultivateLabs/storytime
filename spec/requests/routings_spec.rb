@@ -4,6 +4,7 @@ describe "Root path" do
   it "routes to posts#index when site#root_page_content is posts" do
     FactoryGirl.create(:site, root_page_content: :posts)
     get "/"
+
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("index")
   end
@@ -12,6 +13,7 @@ describe "Root path" do
     home_page = FactoryGirl.create(:page)
     FactoryGirl.create(:site, root_page_content: :page, root_post_id: home_page.id)
     get "/"
+    
     expect(request.params[:controller]).to eq("storytime/pages")
     expect(request.params[:action]).to eq("show")
     expect(response.body).to match(home_page.title)
