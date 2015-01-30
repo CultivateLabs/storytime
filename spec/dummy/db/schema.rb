@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111164439) do
+ActiveRecord::Schema.define(version: 20150129215308) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -102,8 +102,6 @@ ActiveRecord::Schema.define(version: 20141111164439) do
     t.string   "ga_tracking_id"
     t.integer  "root_page_content", default: 0
     t.integer  "root_post_id"
-    t.text     "header"
-    t.text     "footer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -123,6 +121,7 @@ ActiveRecord::Schema.define(version: 20141111164439) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   create_table "storytime_taggings", force: true do |t|
