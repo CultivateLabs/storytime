@@ -6,19 +6,14 @@
       <h3 class="scroll-panel-title"><%= current_post_type.type_name.titleize.pluralize %></h3>
     </div>
     <div class="scroll-panel-body">
-      Posts List
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
+          <%= link_to "Drafts", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: nil] %>
+        </li>
+        <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">
+          <%= link_to "Published", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: 'true'] %>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
-
-<!-- <div id="main" class="pane">
-  <div class="scroll-y">
-    <div class="padding no-content center">
-      <h3><%= t('dashboard.posts.select_or_create', resource: current_post_type.type_name.titleize) %></h3>
-
-      <h4 style="margin-top: 10px;">- OR - </h4>
-
-      <%= link_to t('dashboard.posts.create_post'), [:new, :dashboard, :post], type: current_post_type.type_name, class: "btn btn-info", style: "margin-top: 0" %>
-    </div>
-  </div>
-</div> -->
