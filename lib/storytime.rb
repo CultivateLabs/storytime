@@ -1,4 +1,8 @@
 require "storytime/engine"
+require "storytime/mysql_search_adapter"
+require "storytime/mysql_fulltext_search_adapter"
+require "storytime/postgres_search_adapter"
+require "storytime/sqlite3_search_adapter"
 
 module Storytime
   # Model to use for Storytime users.
@@ -38,13 +42,20 @@ module Storytime
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
 
-  # Email regex used to validate email format validity.
+  # Email regex used to validate email format validity for subscriptions.
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   # Email address of the sender of subscription emails.
   mattr_accessor :subscription_email_from
   @@subscription_email_from = "no-reply@example.com"
+
+  # Search adapter to use for searching through Storytime Posts or
+  # Post subclasses. Options for the search adapter include:
+  # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
+  # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
+  mattr_accessor :search_adapter
+  @@search_adapter = Storytime::PostgresSearchAdapter
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types

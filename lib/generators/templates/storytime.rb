@@ -34,8 +34,14 @@ Storytime.configure do |config|
   # the unique identifier for your website as registered on Disqus.
   # config.disqus_forum_shortname = ""
 
-  # Email regex used to validate email format validity.
+  # Email regex used to validate email format validity for subscriptions.
   # config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+
+  # Search adapter to use for searching through Storytime Posts or
+  # Post subclasses. Options for the search adapter include:
+  # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
+  # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
+  # config.search_adapter = Storytime::PostgresSearchAdapter
 
   # File upload options.
   config.enable_file_upload = true

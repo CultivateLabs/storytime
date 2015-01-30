@@ -40,5 +40,4 @@
   resources :posts, only: nil do
     resources :comments, only: [:create, :destroy]
   end
-
 end
