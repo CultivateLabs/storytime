@@ -1,13 +1,20 @@
-<%= render 'list' %>
-
-<div id="main" class="pane">
-  <div class="scroll-y">
-    <div class="padding no-content center">
-      <h3><%= t('dashboard.posts.select_or_create', resource: current_post_type.type_name.titleize) %></h3>
-
-      <h4 style="margin-top: 10px;">- OR - </h4>
-
-      <%= link_to t('dashboard.posts.create_post'), [:new, :dashboard, :post], type: current_post_type.type_name, class: "btn btn-info", style: "margin-top: 0" %>
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <%= link_to icon("plus", "New"), storytime.url_for([:new, :dashboard, :post, type: current_post_type.type_name]), class: "btn btn-sm btn-success btn-outline pull-right" %>
+      <h3 class="scroll-panel-title"><%= current_post_type.type_name.titleize.pluralize %></h3>
+    </div>
+    <div class="scroll-panel-body">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
+          <%= link_to "Drafts", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: nil] %>
+        </li>
+        <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">
+          <%= link_to "Published", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: 'true'] %>
+        </li>
+      </ul>
+      <%= render 'list' %>
     </div>
   </div>
 </div>

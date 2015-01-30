@@ -1,21 +1,18 @@
-<div id="list" class="pane">
-  <h3 class="heading"> 
-    Text Snippets
-    
-    <%= link_to url_for([:new, :dashboard, :snippet]), class: "btn btn-info btn-sm pull-right" do %>
-      <i class="glyphicon glyphicon-plus"></i>
-    <% end %>
-  </h3>
-  <div class="scroll-y">
-    <ul class="dashboard-list">
-      <% @snippets.each do |snippet| %>
-        <li id="snippet_<%= snippet.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, snippet])) %>">
-          <%= link_to snippet.name, [:edit, :dashboard, snippet], page_number: params[:page_number] %>
-        </li>
-      <% end %>
-    </ul>
-    <div class="pagination-wrapper">
-      <%= paginate @snippets, param_name: "page_number" %>
+<div id="right" class="full-width-xs <%= 'hidden-xs' unless params[:action] == 'index' %>">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <%= link_to icon('plus', 'New'), [:new, :dashboard, :snippet], class: "btn btn-primary btn-sm pull-right" unless current_page?([:new, :dashboard, :snippet]) %>
+      <h3 class="scroll-panel-title">
+        Text Snippets
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+      <div class="list-group">
+        <% @snippets.each do |snippet| %>
+          <%= link_to snippet.name, [:edit, :dashboard, snippet], page_number: params[:page_number], class: "list-group-item #{'active' if current_page?(url_for([:edit, :dashboard, snippet]))}", id: "snippet_#{snippet.id}" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

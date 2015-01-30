@@ -1,13 +1,17 @@
-<%= render 'list' %>
-
-<div id="main" class="pane">
-  <div class="scroll-y">
-    <div class="padding no-content center">
-      <h3>Select a Text Snippet to Edit</h3>
-
-      <h4 style="margin-top: 10px;">- OR - </h4>
-
-      <%= link_to "Create One", url_for([:new, :dashboard, :snippet]), class: 'btn btn-info', style: "margin-top: 0" %>
+<div id="main">
+  <%= render 'list' %>
+  <div id="left" class="hidden-xs full-width-xs">
+    <div class="scroll-panel">      
+      <div class="scroll-panel-header visible-xs">
+        <%= link_to icon("chevron-left"), "#", class: "btn btn-default btn-sm pull-left visible-xs", data: { toggle: "columns" } %>
+      </div>
+      <div class="scroll-panel-body">
+        <div class="text-center vertical-center absolute full-width">
+          <h3>Choose a Text Snippet to edit</h3>
+          <h5>Or</h5>
+          <p><%= link_to "Create One", [:new, :dashboard, :snippet], class: "btn btn-default" %></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

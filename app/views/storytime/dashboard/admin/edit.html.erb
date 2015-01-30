@@ -1,9 +1,3 @@
-<div class="container">
-  <h2>Edit <%= model_name.titleize %></h2>
-
-  <%= simple_form_for @model, url: dashboard_admin_update_path do |f| %>
-    <%= render "fields", f: f %>
-    <%= f.submit "Save", class: "btn btn-primary" %>
-    <%= link_to "Cancel", dashboard_admin_index_path, class: "btn btn-default" %>
-  <% end %>
+<div id="main">
+  <%= render 'form' %>
 </div>

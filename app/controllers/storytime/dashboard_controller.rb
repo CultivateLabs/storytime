@@ -20,5 +20,9 @@ module Storytime
       @large_gallery = false
     end
 
+    def dashboard_controller
+      true
+    end
+
   end
 end

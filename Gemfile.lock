@@ -12,6 +12,7 @@ PATH
       jquery-rails (>= 3.0)
       jquery-ui-rails (~> 5.0)
       kaminari (>= 0.15)
+      leather (= 3.3.3.1)
       mini_magick (>= 3.7)
       nokogiri (>= 1.6)
       pundit (>= 0.2)
@@ -22,7 +23,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.2.8)
+    CFPropertyList (2.3.0)
     actionmailer (4.1.0)
       actionpack (= 4.1.0)
       actionview (= 4.1.0)
@@ -51,14 +52,18 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (5.0.0.3)
+      execjs
+      json
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.1.0)
-      sass (~> 3.2)
+    bootstrap-sass (3.3.3)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     capybara (2.4.1)
       mime-types (>= 1.16)
@@ -84,7 +89,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.0)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     devise (3.2.4)
@@ -95,7 +100,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    excon (0.42.0)
+    excon (0.43.0)
     execjs (2.2.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -105,32 +110,47 @@ GEM
     ffi (1.9.3)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.25.0)
+    fog (1.27.0)
+      fog-atmos
+      fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.25)
+      fog-core (~> 1.27, >= 1.27.3)
+      fog-ecloud
       fog-json
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
       fog-sakuracloud (>= 0.0.4)
+      fog-serverlove
       fog-softlayer
+      fog-storm_on_demand
       fog-terremark
       fog-vmfusion
       fog-voxel
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
       nokogiri (~> 1.5, >= 1.5.11)
-      opennebula
-    fog-brightbox (0.7.0)
+    fog-atmos (0.1.0)
+      fog-core
+      fog-xml
+    fog-aws (0.0.8)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-brightbox (0.7.1)
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.25.0)
+    fog-core (1.27.4)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
+    fog-ecloud (0.0.2)
+      fog-core
+      fog-xml
     fog-json (1.0.0)
       multi_json (~> 1.0)
     fog-profitbricks (0.0.1)
@@ -141,10 +161,16 @@ GEM
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
-    fog-sakuracloud (0.1.1)
+    fog-sakuracloud (1.0.0)
       fog-core
       fog-json
-    fog-softlayer (0.3.25)
+    fog-serverlove (0.1.1)
+      fog-core
+      fog-json
+    fog-softlayer (0.4.0)
+      fog-core
+      fog-json
+    fog-storm_on_demand (0.1.0)
       fog-core
       fog-json
     fog-terremark (0.0.3)
@@ -162,7 +188,7 @@ GEM
     font-awesome-sass (4.2.2)
       sass (~> 3.2)
     formatador (0.2.4)
-    friendly_id (5.0.4)
+    friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     guard (2.6.0)
       formatador (>= 0.2.4)
@@ -173,11 +199,25 @@ GEM
     guard-rspec (4.2.8)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    haml (4.0.6)
+      tilt
+    haml-rails (0.8.2)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 3.1, < 5.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
+    high_voltage (2.2.1)
     hike (1.2.3)
+    html2haml (2.0.0)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.5)
     i18n (0.6.9)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jbuilder (2.2.5)
+    jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -186,11 +226,17 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
-    kaminari (0.16.1)
+    kaminari (0.16.2)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
+    leather (3.3.3.1)
+      bootstrap-sass (~> 3.3.3)
+      devise
+      haml-rails
+      high_voltage
+      rails (>= 4.0)
     listen (2.7.3)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -202,20 +248,16 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_magick (4.0.1)
+    mini_magick (4.0.2)
     mini_portile (0.6.0)
     minitest (5.3.3)
     multi_json (1.10.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.1)
+    net-ssh (2.9.2)
     nio4r (1.0.0)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
-    opennebula (4.10.1)
-      json
-      nokogiri
-      rbvmomi
     orm_adapter (0.5.0)
     poltergeist (1.5.1)
       capybara (~> 2.1)
@@ -256,10 +298,6 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.4)
       ffi (>= 0.5.0)
-    rbvmomi (1.8.2)
-      builder
-      nokogiri (>= 1.4.1)
-      trollop
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -276,12 +314,16 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sass (3.2.19)
-    sass-rails (4.0.5)
+    ruby_parser (3.6.4)
+      sexp_processor (~> 4.1)
+    sass (3.4.10)
+    sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.2)
-      sprockets (~> 2.8, < 3.0)
-      sprockets-rails (~> 2.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (~> 1.1)
+    sexp_processor (4.4.5)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -294,7 +336,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.2)
+    sprockets-rails (2.2.4)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -306,7 +348,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    trollop (2.0)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
     warden (1.2.3)
