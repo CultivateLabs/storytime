@@ -16,7 +16,7 @@ module Storytime
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
-    attr_accessor :preview, :published_at_date, :published_at_time
+    attr_accessor :preview, :published_at_date, :published_at_time, :send_subscriber_email
 
     validates_presence_of :title, :draft_content
     validates :title, length: { in: 1..Storytime.post_title_character_limit }

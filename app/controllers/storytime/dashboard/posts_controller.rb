@@ -105,8 +105,10 @@ module Storytime
         unless @post.published?
           @post.publish!
 
-          @site.active_email_subscriptions.each do |subscription|
-            Storytime::SubscriptionMailer.new_post_email(@post, subscription).deliver
+          if post_params[:send_subscriber_email] == "1"
+            @site.active_email_subscriptions.each do |subscription|
+              Storytime::SubscriptionMailer.new_post_email(@post, subscription).deliver
+            end
           end
         end
       end
