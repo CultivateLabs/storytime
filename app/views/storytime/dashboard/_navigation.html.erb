@@ -3,6 +3,7 @@
     <%= link_to "Storytime", main_app.storytime_path, class: "nav-menu-brand" %>
   </div>
   
+  
   <div class="container-fluid">
     <div class="row" style="padding: 5px 0; border-bottom: 1px solid #f1f1f1;">
       <div class="col-xs-3 text-center" style="width: 20%;">
@@ -25,7 +26,7 @@
         <%= link_to icon("power-off"), main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), class: "btn btn-default" %>
       </div>
     </div>
-  </div>
+  </div> 
 
   <ul class="nav nav-menu-nav">
     <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>

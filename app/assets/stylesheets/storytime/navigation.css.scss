@@ -1,5 +1,10 @@
 .nav-menu-default.nav-menu-fixed-left {
   border-right: 1px solid #f1f1f1;
+  position: absolute;
+}
+
+#main {
+  background: #fff;
 }
 
 .nav-menu .nav-menu-header .nav-menu-brand {
