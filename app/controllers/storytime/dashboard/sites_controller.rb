@@ -22,7 +22,7 @@ module Storytime
         authorize @site
 
         if @site.save_with_seeds(current_user)
-          redirect_to edit_dashboard_site_url(@site), notice: I18n.t('flash.sites.create.success')
+          redirect_to storytime.dashboard_url, notice: I18n.t('flash.sites.create.success')
         else
           render :new
         end

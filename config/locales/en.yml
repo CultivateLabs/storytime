@@ -70,7 +70,7 @@ en:
     admin:
       unconfigured_model: "You are attempting to access an admin page for a model that has not been configured in Storytime."
     sites:
-      new: "New Storytime Site"
+      new: "Set Up Your Site"
       root_page_content_hint: "Select whether to show users an index of blog posts or a static page when they land on the Storytime route."
       root_post_id_label: "Home Page"
       root_post_id_hint: "Select a page to direct users to when they land on the Storytime route."

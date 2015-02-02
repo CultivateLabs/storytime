@@ -8,7 +8,7 @@ describe "In the dashboard, Sites" do
 
     visit new_dashboard_site_path
     fill_in "site_title", with: "The Site"
-    click_button "Create Site"
+    click_button "Save"
     
     page.should have_content(I18n.t('flash.sites.create.success'))
     Storytime::Site.count.should == 1
