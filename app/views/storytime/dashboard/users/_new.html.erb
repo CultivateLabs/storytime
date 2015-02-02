@@ -8,6 +8,7 @@
       </h3>
     </div>
     <div class="scroll-panel-body">
+      <%= f.input :storytime_name %>
       <%= f.input :email %>
       <%= f.association :storytime_role, include_blank: false, label_method: :label %>
       <%= f.input :password %>

@@ -1,6 +1,7 @@
 <div class="scroll-panel">
   <div class="scroll-panel-header">
-    <%= link_to icon("plus", t('dashboard.users.create_new_user')), new_dashboard_user_path, class: "btn btn-sm btn-success btn-outline pull-right storytime-modal-trigger", remote: true %>
+    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= link_to icon("plus", t('dashboard.users.create_new_user')), new_dashboard_user_path, class: "btn btn-sm btn-success btn-outline pull-right storytime-modal-trigger", remote: true, id: "new-user-link" %>
     <h3 class="scroll-panel-title">
       <%= t('dashboard.users.users_header') %>
     </h3>
@@ -12,7 +13,7 @@
           <th><%= t('dashboard.users.email') %></th>
           <th><%= t('dashboard.users.name') %></th>
           <th><%= t('dashboard.users.role') %></th>
-          <th class='right'><%= t('dashboard.users.actions') %></th>
+          <th class='text-right'><%= t('dashboard.users.actions') %></th>
         </tr>
       </thead>
       <tbody>

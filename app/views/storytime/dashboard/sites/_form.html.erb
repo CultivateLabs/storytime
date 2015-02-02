@@ -1,6 +1,7 @@
 <%= simple_form_for [:dashboard, @site], remote: true, html: { class: "storytime-modal-form" } do |f| %>
   <div class="scroll-panel">
     <div class="scroll-panel-header">
+      <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <%= f.submit "Save", class: "btn btn-sm btn-success btn-outline pull-right" %>
       <h3 class="scroll-panel-title">
         Site Settings

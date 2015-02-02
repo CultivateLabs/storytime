@@ -10,7 +10,7 @@
         <%= link_to icon("eye"), main_app.storytime_path, class: "btn btn-default" %>
       </div>
       <div class="col-xs-3 text-center" style="width: 20%;">
-        <%= link_to icon("user"), storytime.edit_dashboard_user_path(current_user), class: "btn btn-default storytime-modal-trigger", remote: true %>
+        <%= link_to icon("user"), storytime.edit_dashboard_user_path(current_user), class: "btn btn-default storytime-modal-trigger", remote: true, id: "profile-link" %>
       </div>
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
         <div class="col-xs-3 text-center" style="width: 20%;">
@@ -19,7 +19,7 @@
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
         <div class="col-xs-3 text-center" style="width: 20%;">
-          <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default storytime-modal-trigger", id: "site-settings", remote: true %>
+          <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default storytime-modal-trigger", remote: true, id: "site-settings-link" %>
         </div>
       <% end %>
       <div class="col-xs-3 text-center" style="width: 20%;">

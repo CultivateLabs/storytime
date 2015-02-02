@@ -10,5 +10,16 @@
       @include box-shadow(none);
       border: none;
     }
+  
+    .scroll-panel {
+      .scroll-panel-header {
+        .scroll-panel-title, .btn.pull-left ~ .scroll-panel-title {
+          float: none;
+          text-align: center;
+          margin: 0 100px;
+          font-weight: 200;
+        }
+      }
+    }
   }
 }
