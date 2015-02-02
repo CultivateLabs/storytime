@@ -157,7 +157,7 @@ end
 
 Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server.
 
-## Subscriptions
+## Email Subscriptions
 
 While many people and companies focus on growing their social media followings, there's a wealth of evidence that a robust email list is significantly more valuable. We wanted to make it easy for Storytime bloggers to collect email addresses from their readers, so we added the following features for email collection and management:
 
