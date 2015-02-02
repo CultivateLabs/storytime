@@ -11,10 +11,10 @@
 
       <ul class="nav nav-tabs">
         <li role="presentation">
-          <%= link_to icon("cog", t('dashboard.sites.edit')), [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger btn btn-default" %>
+          <%= link_to icon("cog", t('dashboard.sites.edit')), [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger" %>
         </li>
         <li role="presentation" class="active">
-          <%= link_to icon("lock", "Permissions"), edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger btn btn-default" %>
+          <%= link_to icon("lock", "Permissions"), edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger" %>
         </li>
       </ul>
 
