@@ -7,19 +7,10 @@
     </h3>
   </div>
   <div class="scroll-panel-body">
-    <table class='table'>
-      <thead>
-        <tr>
-          <th><%= t('dashboard.users.email') %></th>
-          <th><%= t('dashboard.users.name') %></th>
-          <th><%= t('dashboard.users.role') %></th>
-          <th class='text-right'><%= t('dashboard.users.actions') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render partial: 'user.html.erb', collection: @users %>
-      </tbody>
-    </table>
+    
+    <ul class="list-group list-group-button-links">
+      <%= render partial: 'user.html.erb', collection: @users %>
+    </ul>
 
     <%= paginate @users %>
   </div>

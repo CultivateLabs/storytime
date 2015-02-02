@@ -6,7 +6,7 @@ module Storytime
     end
 
     def dashboard_nav_class
-      if ["storytime/dashboard/pages", "storytime/dashboard/posts"].include?(params[:controller]) && ["new", "edit"].include?(params[:action])
+      if ["storytime/dashboard/pages", "storytime/dashboard/posts"].include?(params[:controller]) && ["new", "edit", "update", "create"].include?(params[:action])
         "off-canvas-left"
       elsif dashboard_controller
         "off-canvas-left-sm absolute"

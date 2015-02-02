@@ -12,6 +12,8 @@
         <% @snippets.each do |snippet| %>
           <%= link_to snippet.name, [:edit, :dashboard, snippet], page_number: params[:page_number], class: "list-group-item #{'active' if current_page?(url_for([:edit, :dashboard, snippet]))}", id: "snippet_#{snippet.id}" %>
         <% end %>
+
+        <%= paginate @snippets, param_name: "page_number" %>
       </div>
     </div>
   </div>
