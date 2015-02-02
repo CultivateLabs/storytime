@@ -29,12 +29,15 @@ $ ()->
 
   $(document).on('ajax:success', '.storytime-modal-trigger', (e, data, status, xhr)->
     $("#storytime-modal .modal-content").html(data.html)
+    console.log "SHOWING MODAL"
     $("#storytime-modal").modal("show")
   )
 
   $(document).on('ajax:success', '.storytime-modal-form', (e, data, status, xhr)->
-    $("#storytime-modal").modal("hide")
+    unless $(e.target).hasClass("storytime-modal-trigger")
+      $("#storytime-modal").modal("hide")
   ).on("ajax:error", ".storytime-modal-form", (e, xhr, status, error)->
-    data = JSON.parse(xhr.responseText)
-    $("#storytime-modal .modal-content").html(data.html)
+    unless $(e.target).hasClass("storytime-modal-trigger")
+      data = JSON.parse(xhr.responseText)
+      $("#storytime-modal .modal-content").html(data.html)
   )

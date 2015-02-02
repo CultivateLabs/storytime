@@ -3,18 +3,21 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class UsersController < DashboardController
+      before_action :expire_cache
       before_action :load_user, only: [:edit, :update, :destroy]
 
-      respond_to :json, only: :destroy
+      respond_to :json
 
       def index
         @users = Storytime.user_class.page(params[:page]).per(20)
         authorize @users
+        render :index, status: 200
       end
 
       def new
         @user = Storytime.user_class.new
         authorize @user
+        render :new, status: 200
       end
 
       def create
@@ -22,22 +25,24 @@ module Storytime
         authorize @user
 
         if @user.save
-          redirect_to dashboard_users_path, notice: I18n.t('flash.users.create.success')
-        else
           render :new
+        else
+          render :new, status: 422
         end
       end
 
       def edit
         authorize @user
+        render :edit, status: 200
       end
 
       def update
         authorize @user
+
         if @user.update(user_params)
-          redirect_to dashboard_users_path, notice: I18n.t('flash.users.update.success')
-        else
           render :edit
+        else
+          render :edit, status: 422
         end
       end
 
@@ -48,6 +53,10 @@ module Storytime
       end
 
     private
+      def expire_cache
+        expires_now
+      end
+
       def user_params
         params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
       end

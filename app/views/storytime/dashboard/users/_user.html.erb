@@ -4,7 +4,7 @@
   <td><%= user.storytime_role.name.humanize if user.storytime_role %></td>
   <td class='right'>
     <div class="btn-group">
-      <%= link_to t('dashboard.users.edit_user_button'), url_for(:controller => 'dashboard/users', :action => 'edit', :id => user.id), class: "btn btn-xs btn-default" %>
+      <%= link_to t('dashboard.users.edit_user_button'), url_for(:controller => 'dashboard/users', :action => 'edit', :id => user.id), class: "btn btn-xs btn-default storytime-modal-trigger", remote: true %>
       <%= delete_resource_link user, dashboard_user_url(user) unless user == current_user %>
     </div>
   </td>
