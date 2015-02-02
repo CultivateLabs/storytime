@@ -5,12 +5,22 @@ module Storytime
       site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
 
+    def dashboard_nav_class
+      if ["storytime/dashboard/pages", "storytime/dashboard/posts"].include?(params[:controller]) && ["new", "edit"].include?(params[:action])
+        "off-canvas-left"
+      elsif dashboard_controller
+        "off-canvas-left-sm absolute"
+      else
+        "off-canvas-left"
+      end
+    end
+
     def active_nav_item_class(controller, type = nil)
       return if ["storytime/pages", "storytime/posts"].include? params[:controller]
       
       current_controller = params[:controller].split("/").last
 
-      'class="active"'.html_safe if controller == current_controller && (type.nil? or type == params[:type])
+      'class="active"'.html_safe if controller == current_controller && ((type.nil? && [nil, 'blog_post'].include?(params[:type])) || type == params[:type])
     end
 
     def active_admin_model_class(model)

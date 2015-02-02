@@ -20,24 +20,22 @@ describe "In the dashboard, Sites" do
   context "as a logged in user" do
     before{ login_admin }
 
-    it "updates a site" do
-      Storytime::Site.count.should == 1
+    it "updates a site", js: true do
+      site = Storytime::Site.last
 
-      visit edit_dashboard_site_path(current_site)
+      visit storytime.dashboard_path
+      click_link "site-settings"
       fill_in "site_title", with: "The Site's New Name"
-      click_button "Update Site"
+      click_button "Save"
       
-      page.should have_content(I18n.t('flash.sites.update.success'))
-      Storytime::Site.count.should == 1
+      wait_for_ajax
 
-      s = Storytime::Site.last
-      s.title.should == "The Site's New Name"
+      expect(site.reload.title).to eq "The Site's New Name"
     end
 
-    it "new redirects to edit if a site already exists" do
+    it "new redirects to the dashboard if a site already exists" do
       visit new_dashboard_site_path
-      page.should have_content("Site Settings")
-      page.should have_content("Permissions")
+      expect(current_url).to eq storytime.dashboard_url
     end
   end
 end

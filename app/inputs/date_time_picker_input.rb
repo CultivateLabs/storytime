@@ -1,5 +1,5 @@
 class DateTimePickerInput < SimpleForm::Inputs::Base
-  def input
+  def input(wrapper_options)
     template.content_tag(:div, class: 'form-group date time form_datetime') do
       template.concat @builder.text_field(attribute_name, date_input_html_options)
       template.concat @builder.text_field(attribute_name, time_input_html_options)

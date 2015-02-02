@@ -1,0 +1,14 @@
+.modal-full-height {
+  .modal-dialog {
+    margin: 0 auto;
+    height: 100%;
+
+    .modal-content {
+      height: 100%;
+      @include border-top-radius(0);
+      @include border-bottom-radius(0);
+      @include box-shadow(none);
+      border: none;
+    }
+  }
+}

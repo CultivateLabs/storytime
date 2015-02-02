@@ -1,9 +1,15 @@
-<div class="row">
-  <div class="col-md-12">
-    <%= simple_form_for [:dashboard, @site] do |f| %>
+<%= simple_form_for [:dashboard, @site], remote: true, html: { class: "storytime-modal-form" } do |f| %>
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= f.submit "Save", class: "btn btn-success btn-outline pull-right" %>
+      <h3 class="scroll-panel-title">
+        Site Settings
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
       <%= f.error_notification %>
       <%= f.input :title %>
-      <%= f.input :post_slug_style, collection: post_slug_style_options %>
+      <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
 
       <% unless params[:action] == "new" %>
         <%= f.input :root_page_content, collection: root_page_content_options, include_blank: false, hint: t('dashboard.sites.root_page_content_hint') %>
@@ -12,12 +18,6 @@
       
         <%= f.input :ga_tracking_id %>
       <% end %>
-
-      <div class="pull-right">
-        <div class="actions">
-          <%= f.submit class: "btn btn-primary" %>
-        </div>
-      </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

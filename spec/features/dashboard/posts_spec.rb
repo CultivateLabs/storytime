@@ -3,15 +3,17 @@ require 'spec_helper'
 describe "In the dashboard, Posts" do
   before{ login_admin }
 
-  it "lists posts" do
-    3.times{ FactoryGirl.create(:post) }
+  it "lists draft posts" do
+    3.times{ FactoryGirl.create(:post, published_at: nil) }
+    3.times{ FactoryGirl.create(:post, published_at: 2.hours.ago) }
     FactoryGirl.create(:post)
     static_page = FactoryGirl.create(:page)
     visit url_for([:dashboard, Storytime::Post, type: Storytime::BlogPost.type_name, only_path: true])
     
-    within "#list" do
+    within "#main" do
       Storytime::Post.primary_feed.each do |p|
-        expect(page).to have_content(p.title)
+        expect(page).to have_content(p.title) if p.published_at.nil?
+        expect(page).not_to have_content(p.title) if p.published_at.present?
       end
 
       expect(page).not_to have_content(static_page.title)

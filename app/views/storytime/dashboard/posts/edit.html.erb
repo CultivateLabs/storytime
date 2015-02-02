@@ -1,15 +1,12 @@
-<%= render 'list' %>
-
-<div id="main" class="pane" data-post-id="<%= @post.slug || @post.id %>" data-dashboard-namespace="<%= Storytime.dashboard_namespace_path %>" data-preview="<%= params[:preview] %>">
-  <h3 class="heading">
-    Edit <%= @post.human_name %>
-    <span class="pull-right">
-      <span id="draft_last_saved_at" class="draft_saved"></span>
-    </span>
-  </h3>
-  
-  <div class="scroll-y edit_form">
-    <div class="padding">
+<div id="main" data-post-id="<%= @post.slug || @post.id %>" data-dashboard-namespace="<%= Storytime.dashboard_namespace_path %>" data-preview="<%= params[:preview] %>">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <h3 class="scroll-panel-title">
+        Edit <%= @post.human_name %>
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
       <%= autosave_info @post %>
       <%= versions_info @post %>
       <%= render 'form' %>

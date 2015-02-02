@@ -1,12 +1,13 @@
-<%= render 'list' %>
-
-<div id="main" class="pane">
-  <h3 class="heading">
-    <%= t('dashboard.posts.new.header', resource: @post.human_name) %>
-  </h3>
-  <div class="scroll-y edit_form">
-    <div class="padding">
-      <%= render 'form' %>
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <h3 class="scroll-panel-title">
+        <%= t('dashboard.posts.new.header', resource: @post.human_name) %>
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+      <%= render "form" %>
     </div>
   </div>
 </div>

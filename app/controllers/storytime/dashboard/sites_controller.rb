@@ -5,7 +5,8 @@ module Storytime
     class SitesController < DashboardController
       before_action :set_site, only: [:edit, :update]
       before_action :redirect_if_site_exists, only: :new
-      
+      respond_to :json, only: [:edit, :update]
+
       def new
         @site = Site.new
         authorize @site
@@ -13,6 +14,7 @@ module Storytime
 
       def edit
         authorize @site
+        render :site
       end
 
       def create
@@ -28,8 +30,11 @@ module Storytime
 
       def update
         authorize @site
-        flash[:notice] = I18n.t('flash.sites.update.success') if @site.update(site_params)
-        render :edit
+        if @site.update(site_params)
+          render :site
+        else
+          render :site, status: 422
+        end
       end
 
     private
@@ -44,7 +49,7 @@ module Storytime
       end
 
       def redirect_if_site_exists
-        redirect_to edit_dashboard_site_url(Site.first) if Site.first
+        redirect_to storytime.dashboard_url if Site.first
       end
 
     end

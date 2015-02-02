@@ -10,6 +10,8 @@ module Storytime
       respond_to :json, only: :destroy
       respond_to :html, only: :destroy
 
+      set_tab :blog_posts
+
       def index
         authorize @posts
       end

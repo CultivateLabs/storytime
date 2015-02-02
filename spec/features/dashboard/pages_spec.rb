@@ -5,13 +5,30 @@ describe "In the dashboard, Pages" do
     login_admin
   end
 
-  it "lists pages" do
+  it "lists draft pages" do
     post = FactoryGirl.create(:post)
     3.times{ FactoryGirl.create(:page) }
+    3.times{ FactoryGirl.create(:page, published_at: nil) }
     visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name])
     
     Storytime::Page.all.each do |p|
-      page.should have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true]))
+      expect(page).to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.nil?
+      expect(page).not_to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.present?
+      page.should_not have_content(p.content)
+    end
+
+    page.should_not have_link(post.title, href: url_for([:edit, :dashboard, post, only_path: true]))
+  end
+
+  it "lists published pages" do
+    post = FactoryGirl.create(:post)
+    3.times{ FactoryGirl.create(:page) }
+    3.times{ FactoryGirl.create(:page, published_at: nil) }
+    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name, published: true])
+    
+    Storytime::Page.all.each do |p|
+      expect(page).to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.present?
+      expect(page).not_to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.nil?
       page.should_not have_content(p.content)
     end
 

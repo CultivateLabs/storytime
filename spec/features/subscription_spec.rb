@@ -14,7 +14,7 @@ describe "Subscriptions" do
     visit "/"
     click_link "#{I18n.t('layout.subscribe_to', site_name: site.title)}"
     fill_in "subscription_email", with: email_address
-    click_button "Create Subscription"
+    click_button "Subscribe"
 
     expect(Storytime::Subscription.count).to eq(1)
     subscription = Storytime::Subscription.first

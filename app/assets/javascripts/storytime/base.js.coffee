@@ -26,3 +26,15 @@ $ ()->
   $(".table-row-link").click ->
     url = $(this).data('url')
     document.location.href = url
+
+  $(document).on('ajax:success', '.storytime-modal-trigger', (e, data, status, xhr)->
+    $("#storytime-modal .modal-content").html(data.html)
+    $("#storytime-modal").modal("show")
+  )
+
+  $(document).on('ajax:success', '.storytime-modal-form', (e, data, status, xhr)->
+    $("#storytime-modal").modal("hide")
+  ).on("ajax:error", ".storytime-modal-form", (e, xhr, status, error)->
+    data = JSON.parse(xhr.responseText)
+    $("#storytime-modal .modal-content").html(data.html)
+  )
