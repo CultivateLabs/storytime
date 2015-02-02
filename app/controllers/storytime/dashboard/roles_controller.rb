@@ -3,10 +3,17 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class RolesController < DashboardController
+      respond_to :json
+
+      def edit_multiple
+        authorize @site, :update?
+        render :edit
+      end
+
       def update_multiple
         authorize @site, :update?
         @roles = Storytime::Role.update(params[:roles].keys, params[:roles].values)
-        redirect_to storytime.edit_dashboard_site_path(@site), notice: I18n.t("flash.roles.update.success")
+        render :edit
       end
     end
   end

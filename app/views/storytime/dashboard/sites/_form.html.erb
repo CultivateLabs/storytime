@@ -2,12 +2,22 @@
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <%= f.submit "Save", class: "btn btn-sm btn-success btn-outline pull-right" %>
+      <%= f.submit t('dashboard.sites.save_button'), class: "btn btn-sm btn-success btn-outline pull-right" %>
       <h3 class="scroll-panel-title">
-        Site Settings
+        <%= t('dashboard.sites.edit') %>
       </h3>
     </div>
     <div class="scroll-panel-body">
+
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active">
+          <%= link_to icon("cog", t('dashboard.sites.edit')), [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger btn btn-default" %>
+        </li>
+        <li role="presentation">
+          <%= link_to icon("lock", "Permissions"), edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger btn btn-default" %>
+        </li>
+      </ul>
+      
       <%= f.error_notification %>
       <%= f.input :title %>
       <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>

@@ -77,7 +77,8 @@ en:
       edit: "Site Settings"
       basic_info: "Basic Info"
       permissions: "Permissions"
-      save_permissions: "Save Permissions"
+      save_permissions: "Save"
+      save_button: "Save"
     users:
       users_header: "Users"
       create_new_user: "New User"
