@@ -39,6 +39,9 @@
         <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]) %>
       </li>
     <% end %>
+    <li>
+      <%= link_to "Subscriptions", [:dashboard, Storytime::Subscription], remote: true, class: "storytime-modal-trigger" %>
+    </li>
   </ul>
 
   <h4 class="nav-menu-divider">Posts</h4>

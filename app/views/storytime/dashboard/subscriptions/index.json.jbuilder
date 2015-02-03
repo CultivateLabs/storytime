@@ -1,0 +1,1 @@
+json.html(render partial: "index.html.erb")
