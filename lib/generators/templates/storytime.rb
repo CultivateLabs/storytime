@@ -5,7 +5,7 @@ Storytime.configure do |config|
   <%= @enable_layout ? nil : '# ' %>config.layout = '<%= @layout %>'
 
   # Name of the model you're using for Storytime users.
-  config.user_class = '<%= @user_class %>'
+  <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.

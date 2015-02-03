@@ -29,6 +29,7 @@ module Storytime
         @dev_media_storage = settings[:dev_media_storage]
 
         @enable_layout = settings[:enable_layout]
+        @enable_user_class = settings[:enable_user_class]
         @enable_dashboard_namespace_path = settings[:enable_dashboard_namespace_path]
         @enable_home_page_path = settings[:enable_home_page_path]
         @enable_post_types = settings[:enable_post_types]
