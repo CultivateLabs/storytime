@@ -42,7 +42,7 @@ describe "In the dashboard, Subscriptions" do
 
     visit storytime.dashboard_path
     click_link "subscriptions-link"
-    wait_for_ajax
+    # wait_for_ajax
     click_link "edit-subscription-#{subscription.id}"
     fill_in "subscription_email", with: "johndoe@example.com"
     uncheck "subscription_subscribed"
