@@ -42,7 +42,7 @@ module Storytime
       end
 
       def copy_initializer
-        template "storytime.rb", "storytime_test.rb"
+        template "storytime.rb", "config/initializers/storytime.rb"
       end
     end
   end

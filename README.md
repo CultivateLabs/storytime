@@ -23,6 +23,26 @@ gem "storytime"
 
 Run the bundle command to install it.
 
+After you install Storytime and add it to your Gemfile, you can either setup Storytime through a [guided command line interface](#guided-setup) or [manually](#manual-setup).
+
+### Guided Setup
+
+Storytime can setup your routes file, initializer, user model, copy migrations, migrate your database, and copy views into your app through a simple command line interface (CLI). In order to use the CLI, first create a binstub of Storytime by running the following command:
+
+```terminal
+$ bundle binstub storytime
+```
+
+After creating the binstub just run the following command to get started with the guided setup:
+
+```terminal
+$ storytime install 
+```
+
+After answering the prompts, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
+
+### Manual Setup
+
 After you install Storytime and add it to your Gemfile, you should run the generator:
 
 ```terminal
