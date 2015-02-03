@@ -3,12 +3,12 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class UsersController < DashboardController
+      before_action :load_users, only: :index
       before_action :load_user, only: [:edit, :update, :destroy]
 
       respond_to :json
 
       def index
-        @users = Storytime.user_class.page(params[:page]).per(20)
         authorize @users
         respond_with @users
       end
@@ -25,7 +25,8 @@ module Storytime
 
         respond_with @user do |format|
           if @user.save
-            format.json { render :new }
+            load_users
+            format.json { render :index }
           else
             format.json { render :new, status: :unprocessable_entity }
           end
@@ -42,7 +43,8 @@ module Storytime
 
         respond_with @user do |format|
           if @user.update(user_params)
-            format.json { render :edit }
+            load_users
+            format.json { render :index }
           else
             format.json { render :edit, status: :unprocessable_entity }
           end
@@ -58,6 +60,10 @@ module Storytime
     private
       def user_params
         params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
+      end
+
+      def load_users
+        @users = Storytime.user_class.page(params[:page]).per(20)
       end
 
       def load_user

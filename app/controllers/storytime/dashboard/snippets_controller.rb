@@ -32,7 +32,7 @@ module Storytime
 
         respond_with @snippet do |format|
           if @snippet.save
-            format.json { render :new }
+            format.json { render :index }
           else
             format.json { render :new, status: :unprocessable_entity }
           end
@@ -44,7 +44,7 @@ module Storytime
 
         respond_with @snippet do |format|
           if @snippet.update(snippet_params)
-            format.json { render :edit }
+            format.json { render :index }
           else
             format.json { render :edit, status: :unprocessable_entity }
           end

@@ -34,7 +34,11 @@ $ ()->
 
   $(document).on('ajax:success', '.storytime-modal-form', (e, data, status, xhr)->
     unless $(e.target).hasClass("storytime-modal-trigger")
-      $("#storytime-modal").modal("hide")
+      if $(this).data("redirect") == "index"
+        $("#storytime-modal .modal-content").html(data.html)
+        initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
+      $('body').append("<div class='flash'><div class='flash-success'>Your changes were saved successfully</div></div>")
+      $(".flash").show().delay(3000).fadeOut()
   ).on("ajax:error", ".storytime-modal-form", (e, xhr, status, error)->
     unless $(e.target).hasClass("storytime-modal-trigger")
       data = JSON.parse(xhr.responseText)

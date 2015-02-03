@@ -28,7 +28,8 @@ module Storytime
         authorize @subscription
 
         if @subscription.save
-          render :form
+          load_subscriptions
+          render :index
         else
           render :form, status: 422
         end
@@ -43,7 +44,8 @@ module Storytime
         authorize @subscription
 
         if @subscription.update(subscription_params)
-          render :form
+          load_subscriptions
+          render :index
         else
           render :form, status: 422
         end
