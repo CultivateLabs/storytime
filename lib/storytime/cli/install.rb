@@ -256,7 +256,7 @@ module Storytime
         end
 
         def copy_views
-          say "Now copying views", :cyan
+          say "Copying Storytime views...", :cyan
 
           `bin/rails generate storytime:views`
 
