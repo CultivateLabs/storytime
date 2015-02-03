@@ -11,8 +11,8 @@
 
       <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
       
-      <%= f.input :email %>
       <%= f.input :storytime_name %>
+      <%= f.input :email %>
       <%= f.association :storytime_role, include_blank: true, label_method: :label %>
     </div>
   </div>
