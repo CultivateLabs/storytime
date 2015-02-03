@@ -29,7 +29,6 @@ $ ()->
 
   $(document).on('ajax:success', '.storytime-modal-trigger', (e, data, status, xhr)->
     $("#storytime-modal .modal-content").html(data.html)
-    console.log "SHOWING MODAL"
     $("#storytime-modal").modal("show")
   )
 

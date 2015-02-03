@@ -2,14 +2,14 @@
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <%= link_to icon("angle-left"), [:dashboard, Storytime.user_class], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
-      <%= f.submit class: "btn btn-sm btn-success btn-outline pull-right" %>
+      <%= f.submit "Save", class: "btn btn-sm btn-success btn-outline pull-right" %>
       <h3 class="scroll-panel-title">
         New User
       </h3>
     </div>
     <div class="scroll-panel-body">
 
-      <%= render 'storytime/dashboard/settings_tabs' %>
+      <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
       
       <%= f.input :storytime_name %>
       <%= f.input :email %>

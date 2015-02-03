@@ -81,7 +81,7 @@ en:
       save_button: "Save"
     users:
       users_header: "Users"
-      create_new_user: "New User"
+      create_new_user: "New"
       edit_user_button: "Edit"
       edit_user_header: "Edit User"
       email: "Email"

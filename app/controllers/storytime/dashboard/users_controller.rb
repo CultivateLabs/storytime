@@ -3,7 +3,6 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class UsersController < DashboardController
-      before_action :expire_cache
       before_action :load_user, only: [:edit, :update, :destroy]
 
       respond_to :json
@@ -11,38 +10,42 @@ module Storytime
       def index
         @users = Storytime.user_class.page(params[:page]).per(20)
         authorize @users
-        render :index, status: 200
+        respond_with @users
       end
 
       def new
         @user = Storytime.user_class.new
         authorize @user
-        render :new, status: 200
+        respond_with @user
       end
 
       def create
         @user = Storytime.user_class.new(user_params)
         authorize @user
 
-        if @user.save
-          render :new
-        else
-          render :new, status: 422
+        respond_with @user do |format|
+          if @user.save
+            format.json { render :new }
+          else
+            format.json { render :new, status: :unprocessable_entity }
+          end
         end
       end
 
       def edit
         authorize @user
-        render :edit, status: 200
+        respond_with @user
       end
 
       def update
         authorize @user
 
-        if @user.update(user_params)
-          render :edit
-        else
-          render :edit, status: 422
+        respond_with @user do |format|
+          if @user.update(user_params)
+            format.json { render :edit }
+          else
+            format.json { render :edit, status: :unprocessable_entity }
+          end
         end
       end
 
@@ -53,10 +56,6 @@ module Storytime
       end
 
     private
-      def expire_cache
-        expires_now
-      end
-
       def user_params
         params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
       end

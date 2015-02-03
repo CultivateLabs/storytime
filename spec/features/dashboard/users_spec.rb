@@ -19,7 +19,7 @@ describe "In the dashboard, Users" do
       visit storytime.dashboard_path
       click_link "profile-link"
       fill_in "user_email", with: "new_email@example.com"
-      click_button "Update"
+      click_button "Save"
       wait_for_ajax
       expect(current_user.reload.email).to eq "new_email@example.com"
     end
@@ -27,11 +27,13 @@ describe "In the dashboard, Users" do
     it "creates a user", js: true do
       visit storytime.dashboard_path
       click_link "users-link"
+      wait_for_ajax
       click_link "new-user-link"
+      wait_for_ajax
       fill_in "user_email", with: "new_user@example.com"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
-      click_button "Create"
+      click_button "Save"
       wait_for_ajax
       expect(Storytime.user_class.last.email).to eq "new_user@example.com"
     end
