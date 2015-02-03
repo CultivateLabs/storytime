@@ -22,7 +22,7 @@
         <thead>
           <tr>
             <th></th>
-            <% Storytime::Role.all.each do |role| %>
+            <% @roles.each do |role| %>
               <th>
                 <%= role.label %>
                 <%= hidden_field_tag "roles[#{role.id}][allowed_action_ids][]", nil %>
@@ -31,10 +31,10 @@
           </tr>
         </thead>
         <tbody>
-          <% Storytime::Action.all.each do |action| %>
+          <% @actions.each do |action| %>
             <tr>
               <td><%= action.name %></td>
-              <% Storytime::Role.all.each do |role| %>
+              <% @roles.each do |role| %>
                 <td>
                   <input <%= 'checked' if role.allowed_action_ids.include?(action.id) %> class="check_boxes optional" id="roles_<%= role.id %>_allowed_action_ids_<%= action.id %>" name="roles[<%= role.id %>][allowed_action_ids][]" type="checkbox" value="<%= action.id %>">
                 </td>
