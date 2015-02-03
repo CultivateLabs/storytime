@@ -6,23 +6,28 @@
   
   <div class="container-fluid">
     <div class="row" style="padding: 5px 0; border-bottom: 1px solid #f1f1f1;">
-      <div class="col-xs-3 text-center" style="width: 20%;">
+      <div class="col-xs-2 text-center">
         <%= link_to icon("eye"), main_app.storytime_path, class: "btn btn-default" %>
       </div>
-      <div class="col-xs-3 text-center" style="width: 20%;">
+      <div class="col-xs-2 text-center">
         <%= link_to icon("user"), storytime.edit_dashboard_user_path(current_user), class: "btn btn-default storytime-modal-trigger", remote: true, id: "profile-link" %>
       </div>
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <div class="col-xs-3 text-center" style="width: 20%;">
+        <div class="col-xs-2 text-center">
           <%= link_to icon("users"), [:dashboard, :users], class: "btn btn-default storytime-modal-trigger", remote: true, id: "users-link" %>
         </div>
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Site).edit? %>
-        <div class="col-xs-3 text-center" style="width: 20%;">
+        <div class="col-xs-2 text-center">
           <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default storytime-modal-trigger", remote: true, id: "site-settings-link" %>
         </div>
       <% end %>
-      <div class="col-xs-3 text-center" style="width: 20%;">
+      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+        <div class="col-xs-2 text-center">
+          <%= link_to icon("lock"), edit_multiple_dashboard_roles_path, class: "btn btn-default storytime-modal-trigger", remote: true, id: "site-settings-link" %>
+        </div>
+      <% end %>
+      <div class="col-xs-2 text-center">
         <%= link_to icon("power-off"), main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), class: "btn btn-default" %>
       </div>
     </div>
