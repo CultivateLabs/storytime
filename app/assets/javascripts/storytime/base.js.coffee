@@ -1,14 +1,13 @@
-$ ()->
-  controller = $("body").data("controller")
-  action = $("body").data("action")
-
+initJS = (controller, action) ->
   controllerObj = Storytime.Utilities.controllerFromString(controller)
-  
   if controllerObj?
     instance = new controllerObj()
     instance["init"]() if typeof(instance["init"]) == "function"
     instance["init#{action}"]() if typeof(instance["init#{action}"]) == "function"
     Storytime.instance = instance
+
+$ ()->
+  initJS($("body").data("controller"), $("body").data("action"))
 
   $(".flash").delay(2000).fadeOut()
 
@@ -29,6 +28,7 @@ $ ()->
 
   $(document).on('ajax:success', '.storytime-modal-trigger', (e, data, status, xhr)->
     $("#storytime-modal .modal-content").html(data.html)
+    initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
     $("#storytime-modal").modal("show")
   )
 
@@ -39,4 +39,5 @@ $ ()->
     unless $(e.target).hasClass("storytime-modal-trigger")
       data = JSON.parse(xhr.responseText)
       $("#storytime-modal .modal-content").html(data.html)
+      initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
   )

@@ -8,6 +8,10 @@
       </h3>
     </div>
     <div class="scroll-panel-body">
+      
+      <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+      <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+
       <%= f.error_notification %>
       <%= f.input :name, autofocus: true %>
       <%= f.input :content, as: :text, input_html: { rows: 20, class: "summernote" } %>
