@@ -10,7 +10,7 @@ describe "In the dashboard, Users" do
       click_link "users-link"
       
       Storytime.user_class.all.each do |u|
-        expect(page).to have_content u.email
+        expect(page).to have_content u.storytime_name
       end
     end
 
@@ -37,14 +37,13 @@ describe "In the dashboard, Users" do
     end
 
     it "deletes a user", js: true do
-      FactoryGirl.create_list(:user, 3)
+      user = FactoryGirl.create(:user)
       visit storytime.dashboard_path
       click_link "users-link"
-      p1 = Storytime.user_class.first
-      p2 = Storytime.user_class.last
 
       expect {
-        click_link("delete_user_#{p2.id}")
+        find("#user_#{user.id}").hover
+        click_link("delete_user_#{user.id}")
         wait_for_ajax
       }.to change(Storytime.user_class, :count).by(-1)
     end

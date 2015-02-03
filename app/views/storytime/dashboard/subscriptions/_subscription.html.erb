@@ -1,5 +1,5 @@
 <li class="list-group-item" id="subscription_<%= subscription.id %>">
-  <%= link_to edit_polymorphic_url([:dashboard, subscription]), class: "list-group-link storytime-modal-trigger", remote: true do %>
+  <%= link_to edit_polymorphic_url([:dashboard, subscription]), class: "list-group-link storytime-modal-trigger", id: "edit-subscription-#{subscription.id}", remote: true do %>
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-8"><%= subscription.email %></div>
