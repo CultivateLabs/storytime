@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+  <% if Pundit.policy(current_user, Storytime.user_class).index? %>
+    <li role="presentation" <%= active_nav_item_class("users") %>>
+      <%= link_to icon("users", "Users"), [:dashboard, Storytime.user_class], remote: true, class: "storytime-modal-trigger" %>
+    </li>
+  <% end %>
+  <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+    <li role="presentation" <%= active_nav_item_class("sites") %>>
+      <%= link_to icon("cog", t('dashboard.sites.edit')), [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger" %>
+    </li>
+    <li role="presentation" <%= active_nav_item_class("roles") %>>
+      <%= link_to icon("lock", "Permissions"), edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger" %>
+    </li>
+  <% end %>
+  <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
+    <li role="presentation" <%= active_nav_item_class("subscriptions") %>>
+      <%= link_to icon("envelope", "Subscriptions"), [:dashboard, Storytime::Subscription], remote: true, class: "storytime-modal-trigger" %>
+    </li>
+  <% end %>
+</ul>

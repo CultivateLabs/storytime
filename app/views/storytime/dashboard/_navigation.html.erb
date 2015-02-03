@@ -21,8 +21,6 @@
         <div class="col-xs-2 text-center">
           <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default storytime-modal-trigger", remote: true, id: "site-settings-link" %>
         </div>
-      <% end %>
-      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
         <div class="col-xs-2 text-center">
           <%= link_to icon("lock"), edit_multiple_dashboard_roles_path, class: "btn btn-default storytime-modal-trigger", remote: true, id: "site-permissions-link" %>
         </div>
@@ -34,14 +32,14 @@
   </div> 
 
   <ul class="nav nav-menu-nav">
-    <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
-      <li <%= active_nav_item_class("snippets") %>>
-        <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]) %>
-      </li>
-    <% end %>
     <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
       <li>
         <%= link_to "Subscriptions", [:dashboard, Storytime::Subscription], remote: true, class: "storytime-modal-trigger", id: "subscriptions-link" %>
+      </li>
+    <% end %>
+    <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
+      <li <%= active_nav_item_class("snippets") %>>
+        <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]) %>
       </li>
     <% end %>
   </ul>

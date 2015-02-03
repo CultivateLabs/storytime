@@ -8,20 +8,7 @@
   </div>
   <div class="scroll-panel-body">
 
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="active">
-        <%= link_to icon("users", "Users"), [:dashboard, Storytime.user_class], remote: true, class: "storytime-modal-trigger" %>
-      </li>
-      <li role="presentation">
-        <%= link_to icon("cog", t('dashboard.sites.edit')), [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger" %>
-      </li>
-      <li role="presentation">
-        <%= link_to icon("lock", "Permissions"), edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger" %>
-      </li>
-      <li role="presentation">
-        <%= link_to icon("envelope", "Subscriptions"), [:dashboard, Storytime::Subscription], remote: true, class: "storytime-modal-trigger" %>
-      </li>
-    </ul>
+    <%= render 'storytime/dashboard/settings_tabs' %>
     
     <ul class="list-group list-group-button-links">
       <%= render partial: 'user.html.erb', collection: @users %>
