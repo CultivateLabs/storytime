@@ -7,7 +7,7 @@
 
       <h4 style="margin-top: 10px;">- OR - </h4>
 
-      <%= link_to t('dashboard.posts.create_post'), [:new, :dashboard, :post], type: current_post_type.type_name, class: "btn btn-info", style: "margin-top: 0" %>
+      <%= link_to t('dashboard.posts.create_post'), storytime.new_dashboard_post_path(type: current_post_type.type_name), class: "btn btn-info", style: "margin-top: 0" %>
     </div>
   </div>
 </div>
