@@ -79,11 +79,11 @@ module Storytime
     end
 
     def user_class_underscore
-      @@user_class.to_s.underscore
+      @@user_class.underscore
     end
 
     def user_class_underscore_all
-      @@user_class.to_s.underscore.gsub('/', '_')
+      @@user_class.underscore.gsub('/', '_')
     end
 
     def user_class_symbol
