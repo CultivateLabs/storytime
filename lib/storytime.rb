@@ -19,6 +19,14 @@ module Storytime
   mattr_accessor :home_page_path
   @@home_page_path = "/"
 
+  # Path used to log users out. 
+  mattr_accessor :logout_path
+  @@logout_path = '/users/sign_out'
+
+  # Method used for Storytime user logout path.
+  mattr_accessor :logout_method
+  @@logout_method = :delete
+
   # Enable file uploads through Carrierwave.
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
@@ -55,7 +63,7 @@ module Storytime
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
   mattr_accessor :search_adapter
-  @@search_adapter = Storytime::PostgresSearchAdapter
+  @@search_adapter = ''
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
@@ -72,6 +80,10 @@ module Storytime
 
     def user_class_underscore
       @@user_class.to_s.underscore
+    end
+
+    def user_class_underscore_all
+      @@user_class.to_s.underscore.gsub('/', '_')
     end
 
     def user_class_symbol

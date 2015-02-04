@@ -15,6 +15,12 @@ Storytime.configure do |config|
   # Storytime's mount point within the host app.
   # config.home_page_path = "/"
 
+  # Path used to log users out. 
+  # config.logout_path = '/users/sign_out'
+
+  # Method used for Storytime user logout path.
+  # config.logout_method = :delete
+
   # Add custom post types to use within Storytime.
   # Make sure that the custom post types inherit the
   # from the Storytime::Post class.
@@ -41,7 +47,7 @@ Storytime.configure do |config|
   # Post subclasses. Options for the search adapter include:
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
-  # config.search_adapter = Storytime::PostgresSearchAdapter
+  # config.search_adapter = ''
 
   # File upload options.
   config.enable_file_upload = true

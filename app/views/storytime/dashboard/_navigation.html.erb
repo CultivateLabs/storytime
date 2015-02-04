@@ -45,7 +45,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><%= link_to "My Account", storytime.edit_dashboard_user_path(current_user) %></li>
-          <li><%= link_to "Sign Out", main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), method: :delete %></li>
+          <li><%= link_to "Sign Out", Storytime.logout_path, method: Storytime.logout_method %></li>
         </ul>
       </li>
     </ul>
