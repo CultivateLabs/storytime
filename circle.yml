@@ -1,0 +1,3 @@
+database:
+  override:
+    - bundle exec rake app:db:setup --trace
