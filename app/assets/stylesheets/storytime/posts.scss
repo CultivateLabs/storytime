@@ -28,3 +28,14 @@
   margin-right: 30px;
   margin-top: -3px;
 }
+
+.post-action-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #f1f1f1;
+  z-index: 999;
+}

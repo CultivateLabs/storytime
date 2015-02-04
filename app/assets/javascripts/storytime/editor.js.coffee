@@ -55,6 +55,7 @@ class Storytime.Dashboard.Editor
       no_results_text: "No results were found... Press 'Enter' to create a new tag named "
       placeholder_text_multiple: "Select or enter one or more Tags"
       search_contains: true
+      width: '100%'
 
     # Setup datepicker
     $(".datepicker").datepicker
