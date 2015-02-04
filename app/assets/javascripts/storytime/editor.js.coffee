@@ -2,6 +2,8 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
+    (new Storytime.Dashboard.Contenteditable()).init()
+
     mediaInstance = @initMedia()
     @initWysiwyg()
 
@@ -9,7 +11,7 @@ class Storytime.Dashboard.Editor
     title_character_limit = $("#title_character_limit").data("limit")
     $("#title_character_limit").html title_character_limit - $("#post_title").val().length
 
-    $("#post_title").keypress((e) ->
+    $("[data-input='#post_title']").keypress((e) ->
       e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
       return
     ).keyup(->

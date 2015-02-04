@@ -38,5 +38,14 @@
 #title_character_limit {
   position: relative;
   top: 21px;
-  left: -45px;
+  left: -29px;
+}
+
+.contenteditable {
+  cursor: text;
+}
+
+.contenteditable:empty:before {
+  content: attr(placeholder);
+  color: #ccc;
 }

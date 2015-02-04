@@ -130,12 +130,18 @@
 
         <%= autosave_info @post if @post.persisted? %>
 
-        <%= f.error_notification %>
+        <%= f.error_notification if false %>
 
         <span id="title_character_limit" class="text-muted" data-limit="<%= Storytime.post_title_character_limit %>"></span>
-        <h2 contenteditable="true" style="outline: none; margin-top: 0;"><%= @post.title %></h2>
+        <h2 contenteditable="true" style="outline: none; margin-top: 0;" class="contenteditable" data-input="#post_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
+        
+        <% if @post.errors[:title].present? %>
+          <span class="has-error">
+            <span class="help-block"><%= @post.errors[:title][0] %></span>
+          </span>
+        <% end %>
 
-        <%= f.input :title, as: :hidden, autofocus: true, label: false, placeholder: "Title", input_html: { rows: 1, autocomplete: "off", style: "border: none; outline: none; font-size: 30px; height: auto; box-shadow: none; padding: 0;" } %>
+        <%= f.input :title, as: :hidden %>
 
         <div class="post_field post_content">
           <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
