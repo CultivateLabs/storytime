@@ -19,6 +19,14 @@ module Storytime
   mattr_accessor :home_page_path
   @@home_page_path = "/"
 
+  # Path used to log users out. 
+  mattr_accessor :logout_path
+  @@logout_path = '/users/sign_out'
+
+  # Method used for Storytime user logout path.
+  mattr_accessor :logout_method
+  @@logout_method = :delete
+
   # Enable file uploads through Carrierwave.
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
