@@ -55,7 +55,7 @@ module Storytime
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
   mattr_accessor :search_adapter
-  @@search_adapter = Storytime::PostgresSearchAdapter
+  @@search_adapter = ''
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
