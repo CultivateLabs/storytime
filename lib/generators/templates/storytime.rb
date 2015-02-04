@@ -15,6 +15,9 @@ Storytime.configure do |config|
   # Storytime's mount point within the host app.
   # config.home_page_path = "/"
 
+  # Path used to sign users in. 
+  # config.login_path = '/users/sign_in'
+
   # Path used to log users out. 
   # config.logout_path = '/users/sign_out'
 
