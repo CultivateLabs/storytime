@@ -23,9 +23,9 @@ module Storytime
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
 
-  # Character limit for Storytime::Post.title <= 255
+  # Character limit for Storytime::Post.title <= 100
   mattr_accessor :post_title_character_limit
-  @@post_title_character_limit = 255
+  @@post_title_character_limit = 100
 
   # Character limit for Storytime::Post.excerpt
   mattr_accessor :post_excerpt_character_limit

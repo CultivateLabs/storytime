@@ -51,11 +51,7 @@ class Storytime.Dashboard.Editor
       )
 
     # Setup Chosen select field
-    $(".chosen-select").chosen
-      no_results_text: "No results were found... Press 'Enter' to create a new tag named "
-      placeholder_text_multiple: "Select or enter one or more Tags"
-      search_contains: true
-      width: '100%'
+    @initChosen()
 
     # Setup datepicker
     $(".datepicker").datepicker
@@ -105,6 +101,13 @@ class Storytime.Dashboard.Editor
       return
 
     mediaInstance
+
+  initChosen: () ->
+    $(".chosen-select").chosen
+      no_results_text: "No results were found... Press 'Enter' to create a new tag named "
+      placeholder_text_multiple: "Select or enter one or more Tags"
+      search_contains: true
+      width: '100%'
 
   initWysiwyg: () ->
     self = @

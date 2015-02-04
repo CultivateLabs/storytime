@@ -20,8 +20,8 @@ Storytime.configure do |config|
   # from the Storytime::Post class.
   # config.post_types += ['CustomPostType']
 
-  # Character limit for Storytime::Post.title <= 255
-  # config.post_title_character_limit = 255
+  # Character limit for Storytime::Post.title <= 100
+  # config.post_title_character_limit = 100
 
   # Character limit for Storytime::Post.excerpt
   # config.post_excerpt_character_limit = 500

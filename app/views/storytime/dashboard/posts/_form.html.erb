@@ -1,41 +1,40 @@
-<%= simple_form_for [:dashboard, @post] do |f| %>
-  <%= f.error_notification %>
-
-  <%= hidden_field_tag :type, @post.type_name %>
-  <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
-
-  <div id="versions-panel" class="collapse post-action-panel">
-    <div style="padding: 20px 0;">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2">
-            <ul class="list-group" style="margin: 0;">
-              <% @post.versions.order(created_at: :desc).each do |version| %>
-                <li class="list-group-item">
-                  Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
-                  <%= "by #{version.user.email}" if version.user %>
-                  <span class="pull-right">
-                    <% if version == @post.latest_version %>
-                      Current Version
-                    <% else %>
-                      <%= simple_form_for [:dashboard, @post] do |f| %>
-                        <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
-                        <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
-                      <% end %>
+<div id="versions-panel" class="collapse post-action-panel">
+  <div style="padding: 20px;">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <ul class="list-group" style="margin: 0;">
+            <% @post.versions.order(created_at: :desc).each do |version| %>
+              <li class="list-group-item">
+                Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
+                <%= "by #{version.user.email}" if version.user %>
+                <span class="pull-right">
+                  <% if version == @post.latest_version %>
+                    Current Version
+                  <% else %>
+                    <%= simple_form_for [:dashboard, @post] do |f| %>
+                      <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
+                      <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
                     <% end %>
-                  </span>
-                </li>
-              <% end %>
-            </ul>
-            <%= link_to "Close", '#', class: "btn btn-default", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
-          </div>
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+          <%= link_to "Close", '#', class: "btn btn-default", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<%= simple_form_for [:dashboard, @post] do |f| %>
+
+  <%= hidden_field_tag :type, @post.type_name %>
+  <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
 
   <div id="post-advanced-settings" class="collapse post-action-panel">
-    <div style="padding: 20px 0;">
+    <div style="padding: 20px;">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
@@ -85,7 +84,7 @@
   
   <% if Storytime.enable_file_upload %>
     <div class="collapse post-action-panel" id="featured-images-panel">
-      <div style="padding: 20px 0;">
+      <div style="padding: 20px;">
         <div class="container-fluid">
 
           <div class="row">
@@ -138,20 +137,29 @@
       </div>
     </div>
   <% end %>
-
-  <%= autosave_info @post if @post.persisted? %>
-
-  <div class="post_field post_title">
-    <small>
-      <div class="pull-right" id="title_character_limit" data-limit="<%= Storytime.post_title_character_limit %>"></div>
-    </small>
-    <%= f.input :title, autofocus: true %>
-  </div>
   
 
-  <div class="post_field post_content">
-    <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+
+        <%= autosave_info @post if @post.persisted? %>
+
+        <%= f.error_notification %>
+
+        <span id="title_character_limit" class="text-muted" data-limit="<%= Storytime.post_title_character_limit %>"></span>
+        <h2 contenteditable="true" style="outline: none; margin-top: 0;"><%= @post.title %></h2>
+
+        <%= f.input :title, as: :hidden, autofocus: true, label: false, placeholder: "Title", input_html: { rows: 1, autocomplete: "off", style: "border: none; outline: none; font-size: 30px; height: auto; box-shadow: none; padding: 0;" } %>
+
+        <div class="post_field post_content">
+          <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: "Content" %>
+        </div>
+        
+      </div>
+    </div>
   </div>
+  
 
   <div class="panel-group" id="accordion">
     <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
