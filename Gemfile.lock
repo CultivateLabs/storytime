@@ -12,7 +12,7 @@ PATH
       jquery-rails (>= 3.0)
       jquery-ui-rails (~> 5.0)
       kaminari (>= 0.15)
-      leather (= 3.3.3.1)
+      leather (= 3.3.3.2)
       mini_magick (>= 3.7)
       nokogiri (>= 1.6)
       pundit (>= 0.2)
@@ -52,7 +52,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    autoprefixer-rails (5.0.0.3)
+    autoprefixer-rails (5.1.3)
       execjs
       json
     bcrypt (3.1.7)
@@ -102,8 +102,8 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.4)
-    excon (0.43.0)
-    execjs (2.2.2)
+    excon (0.44.1)
+    execjs (2.3.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -134,7 +134,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.0.8)
+    fog-aws (0.1.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -143,7 +143,7 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.27.4)
+    fog-core (1.28.0)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
@@ -187,7 +187,7 @@ GEM
     fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-sass (4.2.2)
+    font-awesome-sass (4.3.1)
       sass (~> 3.2)
     formatador (0.2.4)
     friendly_id (5.1.0)
@@ -233,7 +233,7 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
-    leather (3.3.3.1)
+    leather (3.3.3.2)
       bootstrap-sass (~> 3.3.3)
       devise
       haml-rails
@@ -250,7 +250,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_magick (4.0.2)
+    mini_magick (4.0.3)
     mini_portile (0.6.0)
     minitest (5.3.3)
     multi_json (1.10.1)
@@ -318,7 +318,7 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby_parser (3.6.4)
       sexp_processor (~> 4.1)
-    sass (3.4.10)
+    sass (3.4.11)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)

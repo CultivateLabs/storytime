@@ -1,0 +1,19 @@
+.scroll-panel .scroll-panel-header {
+  padding-top: $scroll-panel-header-padding;
+  padding-bottom: $scroll-panel-header-padding;
+
+  .btn-scroll-panel-header {
+    border: none;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    font-size: 1.3em;
+    background: none;
+
+    .hidden-xs {
+      margin-left: 6px;
+      font-size: 0.8em;
+      position: relative;
+      top: -1px;
+    }
+  }
+}

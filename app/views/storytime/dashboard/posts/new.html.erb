@@ -1,14 +1,20 @@
 <div id="main">
   <div class="scroll-panel">
     <div class="scroll-panel-header">
-      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+      <div class="pull-left">
+        <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
+        <%= link_to [:dashboard, Storytime::Post, type: @post.type_name], class: "btn btn-default btn-scroll-panel-header" do %>
+          <%= icon('angle-left') %>
+          <span class="hidden-xs"><%= @post.human_name.pluralize %></span>
+        <% end %>
+      </div>
       <div class="pull-right">
         <%= link_to icon('image'), '#', class: "btn btn-default btn-sm", data: { toggle: "collapse", target: '#featured-images-panel' } if Storytime.enable_file_upload %>
         <%= link_to "Preview / Publish", "#", class: 'btn btn-success btn-sm btn-outline', data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
       </div>
-      <h3 class="scroll-panel-title">
+      <!-- <h3 class="scroll-panel-title">
         <%= t('dashboard.posts.new.header', resource: @post.human_name) %>
-      </h3>
+      </h3> -->
     </div>
     <div class="scroll-panel-body">
       <%= render "form" %>

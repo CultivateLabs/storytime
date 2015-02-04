@@ -7,7 +7,8 @@
 }
 
 .nav-menu .nav-menu-header .nav-menu-brand {
-  padding: 12px 15px;
+  line-height: $scroll-panel-line-height;
+  padding: ($scroll-panel-header-padding - 0.5px) 15px;
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
 }

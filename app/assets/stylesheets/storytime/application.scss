@@ -1,3 +1,7 @@
+$scroll-panel-line-height: 30px;
+$scroll-panel-header-height: 65px;
+$scroll-panel-header-padding: (($scroll-panel-header-height - $scroll-panel-line-height) / 2);
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome-sprockets";
@@ -23,3 +27,4 @@
 @import "storytime/comments";
 @import "storytime/pagination";
 @import "storytime/navigation";
+@import "storytime/scroll-panels";

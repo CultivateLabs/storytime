@@ -4,22 +4,7 @@
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <ul class="list-group" style="margin: 0;">
-            <% @post.versions.order(created_at: :desc).each do |version| %>
-              <li class="list-group-item">
-                Created on <%= version.created_at.localtime.strftime("%m-%d-%Y @ %I:%M%p") %>
-                <%= "by #{version.user.email}" if version.user %>
-                <span class="pull-right">
-                  <% if version == @post.latest_version %>
-                    Current Version
-                  <% else %>
-                    <%= simple_form_for [:dashboard, @post] do |f| %>
-                      <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
-                      <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
-                    <% end %>
-                  <% end %>
-                </span>
-              </li>
-            <% end %>
+            <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: @post.versions.order(created_at: :desc), locals: { versionable: @post } %>
           </ul>
           <%= link_to "Close", '#', class: "btn btn-default", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
         </div>
