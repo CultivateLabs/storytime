@@ -117,7 +117,7 @@ class Storytime.Dashboard.Editor
         lineWrapping: true
         mode: 'text/html'
         theme: 'monokai'
-      height: 200
+      height: 400
       minHeight: null
       maxHeight: null
       toolbar: [
