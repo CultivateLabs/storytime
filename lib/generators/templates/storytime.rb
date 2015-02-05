@@ -2,54 +2,54 @@ Storytime.configure do |config|
   # Name of the layout to be used. e.g. the 'application'
   # layout uses /app/views/layout/application, in your
   # host app, as the layout.
-  # config.layout = 'application'
+  <%= @enable_layout ? nil : '# ' %>config.layout = '<%= @layout %>'
 
   # Name of the model you're using for Storytime users.
-  config.user_class = 'User'
+  <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
-  # config.dashboard_namespace_path = "/storytime"
+  <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'
 
   # Path of Storytime's home page, relative to
   # Storytime's mount point within the host app.
-  # config.home_page_path = "/"
+  <%= @enable_home_page_path ? nil : '# ' %>config.home_page_path = '<%= @home_page_path %>'
 
   # Add custom post types to use within Storytime.
   # Make sure that the custom post types inherit the
   # from the Storytime::Post class.
-  # config.post_types += ['CustomPostType']
+  <%= @enable_post_types ? nil : '# ' %>config.post_types += <%= @post_types %>
 
   # Character limit for Storytime::Post.title <= 255
-  # config.post_title_character_limit = 255
+  <%= @enable_post_title_character_limit ? nil : '# ' %>config.post_title_character_limit = <%= @post_title_character_limit %>
 
   # Character limit for Storytime::Post.excerpt
-  # config.post_excerpt_character_limit = 500
+  <%= @enable_post_excerpt_character_limit ? nil : '# ' %>config.post_excerpt_character_limit = <%= @post_excerpt_character_limit %>
 
   # Array of tags to allow from the Summernote WYSIWYG Editor.
   # An empty array or nil setting will allow all tags.
-  # config.whitelisted_html_tags = %w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)
+  <%= @enable_whitelisted_html_tags ? nil : '# ' %>config.whitelisted_html_tags = <%= @whitelisted_html_tags %>
 
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
-  # config.disqus_forum_shortname = ""
+  <%= @enable_disqus_forum_shortname ? nil : '# ' %>config.disqus_forum_shortname = '<%= @disqus_forum_shortname %>'
 
   # Email regex used to validate email format validity for subscriptions.
-  # config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+  <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>
 
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
-  # config.search_adapter = Storytime::PostgresSearchAdapter
+  <%= @enable_search_adapter ? nil : '# ' %>config.search_adapter = <%= @search_adapter %>
 
   # File upload options.
-  config.enable_file_upload = true
+  config.enable_file_upload = <%= @enable_file_upload %>
 
   if Rails.env.production?
-    config.s3_bucket = 'my-s3-bucket'
-    config.media_storage = :s3
+    config.media_storage = <%= @prod_media_storage %>
+    <%= @enable_file_upload && @prod_media_storage == ':s3' ? nil : '# ' %>config.s3_bucket = '<%= @s3_bucket %>'
   else
-    config.media_storage = :file
+    config.media_storage = <%= @dev_media_storage %>
   end
 end

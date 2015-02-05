@@ -15,13 +15,47 @@ Based on these principles, it can be useful to think of the host app as the "the
 
 ## Setup
 
-Storytime assumes that your host app has an authentication system like Devise already installed. This is a pre-requisite for Storytime. Once you have that set up, add storytime to your Gemfile:
+Add Storytime to your Gemfile:
 
 ```ruby
 gem "storytime"
 ```
 
 Run the bundle command to install it.
+
+After you install Storytime and add it to your Gemfile, you can either setup Storytime through a [guided command line interface](#guided-setup), a speedy [automated setup](#automated-setup), or [manually](#manual-setup).
+
+### Guided Setup
+
+Storytime can setup your routes file, initializer, user model, copy migrations, migrate your database, and copy views into your app through a simple command line interface (CLI). In order to use the CLI, first create a binstub of Storytime by running the following command:
+
+```terminal
+$ bundle binstub storytime
+```
+
+After creating the binstub just run the following command to get started with the guided setup:
+
+```terminal
+$ storytime install 
+```
+
+After answering the prompts, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
+
+### Automated Setup
+
+The automated setup goes through all of the steps in the [Guided Setup](#guided-setup), but instead of prompting you for values it just uses all the defaults allowing you to setup Storytime in seconds.
+
+In order to use the automated setup, first create a binstub of Storytime (see [Guided Setup](#guided-setup)). Next, run the install command with the -d option:
+
+```terminal
+$ storytime install -d
+```
+
+After the setup is complete, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
+
+### Manual Setup
+
+Manual setup of Storytime assumes that your host app has an authentication system like [Devise](https://github.com/plataformatec/devise) already installed. Before proceeding make sure you have properly set up Devise.
 
 After you install Storytime and add it to your Gemfile, you should run the generator:
 
