@@ -49,3 +49,37 @@
   content: attr(placeholder);
   color: #ccc;
 }
+
+.note-editable:empty:before {
+  content: "Write here...";
+  color: #ccc;
+}
+
+#published_at_date, #published_at_time {
+  cursor: pointer;
+  background: #fff;
+}
+
+.note-editor {
+  border: none;
+
+  .note-toolbar {
+    background: #fff;
+    border: none;
+    padding: 0 0 20px 0;
+  }
+
+  .note-editable {
+    padding: 0;
+  }
+
+  &.fullscreen {
+    .note-toolbar {
+      padding-left: 10px;
+      padding-bottom: 10px;
+    }
+    .note-editable {
+      padding: 10px;
+    }
+  }
+}

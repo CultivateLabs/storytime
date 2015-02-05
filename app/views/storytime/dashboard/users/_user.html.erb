@@ -1,15 +1,9 @@
 <li class="list-group-item" id="<%= Storytime.user_class_underscore %>_<%= user.id %>">
   <%= link_to url_for(:controller => 'dashboard/users', :action => 'edit', :id => user.id), class: "list-group-link storytime-modal-trigger", remote: true do %>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-8"><%= user.storytime_name.present? ? user.storytime_name : user.email %></div>
-        <% if user.storytime_role %>
-          <div class="col-xs-2">
-            <span class="label label-info pull-right"><%= user.storytime_role.name.humanize %></span>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <%= user.storytime_name.present? ? user.storytime_name : user.email %>
+    <% if user.storytime_role %>
+      <p class="text-danger no-margin"><%= user.storytime_role.name.humanize %></p>
+    <% end %>
   <% end %>
   <div class="list-group-actions">
     <%= delete_resource_link user, dashboard_user_url(user) unless user == current_user %>

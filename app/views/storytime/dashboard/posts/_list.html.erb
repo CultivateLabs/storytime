@@ -1,17 +1,22 @@
-<ul class="dashboard-list">
+<div class="list-group">
   <% @posts.each do |post| %>
-    <li id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>" class="<%= 'active' if current_page?(url_for([:edit, :dashboard, post])) %>">
-      <%= link_to [:edit, :dashboard, post], page_number: params[:page_number] do %>
-        <%= post.title %>
-        <span class="pull-right">
-          <% unless post.published? %>
-            <span class="label label-warning">Draft</span>
-          <% end %>
-        </span>
-      <% end %>
-    </li>
+    <%= link_to url_for([:edit, :dashboard, post, page_number: params[:page_number]]), id: "#{post.class.to_s.downcase.split("::").last}_#{post.id}", class: "list-group-item" do %>
+      <div class="row">
+        <div class="col-md-8">
+           <h4><%= post.title %></h4>
+        </div>
+      </div>
+     
+      <p class="text-muted">
+        <% if post.published? %>
+          Published <%= time_ago_in_words post.published_at %> ago
+        <% else %>
+          Last edited <%= time_ago_in_words post.updated_at %> ago
+        <% end %>
+      </p>
+    <% end %>
   <% end %>
-</ul>
+</div>
 <div class="pagination-wrapper">
   <%= paginate @posts, param_name: "page_number" %>
 </div>

@@ -24,6 +24,7 @@ describe "In the dashboard, Sites" do
       site = Storytime::Site.last
 
       visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
       click_link "site-settings-link"
       fill_in "site_title", with: "The Site's New Name"
       click_button "Save"

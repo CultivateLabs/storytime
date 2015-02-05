@@ -33,7 +33,7 @@ module Storytime
 
       opts = {
         id: "delete_#{resource_name}_#{resource.id}", 
-        class: "btn btn-danger btn-xs btn-delete-resource delete-#{resource_name}-button", 
+        class: "btn btn-danger btn-outline btn-xs btn-delete-resource delete-#{resource_name}-button", 
         data: { confirm: I18n.t('common.are_you_sure_you_want_to_delete', resource_name: humanized_resource_name), resource_id: resource.id, resource_type: resource_name },
         method: :delete
       }
@@ -42,7 +42,7 @@ module Storytime
         opts[:remote] = true
       end
       
-      link_to content_tag(:span, "", class: "glyphicon glyphicon-trash"), href || resource, opts
+      link_to content_tag(:i, "", class: "icon-st-icons-trash"), href || resource, opts
     end
     
     def tag_cloud(tags, classes)

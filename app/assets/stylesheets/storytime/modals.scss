@@ -13,11 +13,19 @@
   
     .scroll-panel {
       .scroll-panel-header {
+
+        .close {
+          float: right;
+          font-size: 37px;
+          font-weight: 100;
+          line-height: 28px;
+          color: #000;
+          @include opacity(0.5);
+        }
         .scroll-panel-title, .btn.pull-left ~ .scroll-panel-title {
           float: none;
           text-align: center;
           margin: 0 100px;
-          font-weight: 200;
         }
       }
     }

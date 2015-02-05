@@ -7,6 +7,7 @@ describe "In the dashboard, Users" do
     it "lists users", js: true do
       FactoryGirl.create_list(:user, 3)
       visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
       click_link "users-link"
       
       Storytime.user_class.all.each do |u|
@@ -17,6 +18,7 @@ describe "In the dashboard, Users" do
     it "edits a user", js: true do
       u = FactoryGirl.create :user
       visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
       click_link "profile-link"
       fill_in "user_email", with: "new_email@example.com"
       click_button "Save"
@@ -26,6 +28,7 @@ describe "In the dashboard, Users" do
 
     it "creates a user", js: true do
       visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
       click_link "users-link"
       wait_for_ajax
       click_link "new-user-link"
@@ -41,6 +44,7 @@ describe "In the dashboard, Users" do
     it "deletes a user", js: true do
       user = FactoryGirl.create(:user)
       visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
       click_link "users-link"
 
       expect {

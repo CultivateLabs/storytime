@@ -26,14 +26,14 @@ describe "In the dashboard, Snippets" do
 
     expect{
       fill_in "snippet_name", with: "jumbotron-text"
-      fill_in "snippet_content", with: "Hooray Writing!"
+      find(".note-editable").set("Hooray Writing!")
       click_button "Save"
       wait_for_ajax
     }.to change(Storytime::Snippet, :count).by(1)
   end
 
   it "updates a snippet", js: true do
-    snippet = FactoryGirl.create(:snippet)
+    snippet = FactoryGirl.create(:snippet, content: "Test")
 
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
@@ -42,13 +42,13 @@ describe "In the dashboard, Snippets" do
     click_link "edit-snippet-#{snippet.id}"
 
     fill_in "snippet_name", with: "new-name"
-    fill_in "snippet_content", with: "It was a dark and stormy night..."
+    find(".note-editable").set("It was a dark and stormy night...")
     click_button "Save"
     wait_for_ajax
 
     snippet.reload
     expect(snippet.name).to eq("new-name")
-    expect(snippet.content).to eq("It was a dark and stormy night...")
+    expect(snippet.content).to eq("TestIt was a dark and stormy night...")
   end
 
   it "deletes a snippet", js: true do

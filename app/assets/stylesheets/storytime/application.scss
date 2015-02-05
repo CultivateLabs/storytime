@@ -1,7 +1,29 @@
+$brand-primary: #4B71C3;
+$brand-danger: #B22E46;
+
 $scroll-panel-line-height: 30px;
 $scroll-panel-header-height: 65px;
 $scroll-panel-header-padding: (($scroll-panel-header-height - $scroll-panel-line-height) / 2);
 $border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
+
+$nav-tabs-border-color:                     transparent !default;
+$nav-tabs-link-hover-border-color:          transparent !default;
+$nav-tabs-active-link-hover-border-color:   transparent !default;
+
+$dropdown-border: #333;
+$dropdown-fallback-border: #333;
+
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-serif: 'Merriweather', serif;
+$headings-font-family: $font-family-serif;
+$headings-font-weight: 700;
+.serif {
+  font-family: $font-family-serif;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900|Open+Sans:400,300,600);
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -19,7 +41,9 @@ $border-radius-base: 0;
 @import "summernote";
 
 @import "storytime/admin";
+@import "storytime/buttons";
 @import "storytime/layout";
+@import "storytime/list-groups";
 @import "storytime/media";
 @import "storytime/modals";
 @import "storytime/posts";
@@ -29,3 +53,6 @@ $border-radius-base: 0;
 @import "storytime/pagination";
 @import "storytime/navigation";
 @import "storytime/scroll-panels";
+@import "storytime/tabs";
+
+@import "storytime/icons";

@@ -1,5 +1,5 @@
 <% if autosavable.autosave && !params[:autosave].present? && autosavable.autosave.content != autosavable.draft_content %>
-  <div id="autosaves" class="autosave_available" <% if autosavable.autosave.nil? %>style="display:none"<% end %>>
+  <div id="autosaves" class="text-danger" <% if autosavable.autosave.nil? %>style="display:none"<% end %>>
     <div id="autosaves-toggle" data-toggle="collapse" data-target="#autosaves-panel">
       <%= t('dashboard.posts.autosaves.available', resource: autosavable.human_name) %>
       <%= link_to t('dashboard.posts.autosaves.view_autosave'), storytime.edit_dashboard_post_path(autosavable, autosave: autosavable.autosave.id) %>

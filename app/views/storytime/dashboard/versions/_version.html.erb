@@ -7,7 +7,7 @@
     <% else %>
       <%= simple_form_for [:dashboard, versionable] do |f| %>
         <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
-        <%= f.submit "Restore Version", class: "btn btn-success btn-xs" %>
+        <%= f.submit "Restore Version", class: "btn btn-primary btn-outline btn-xs" %>
       <% end %>
     <% end %>
   </span>

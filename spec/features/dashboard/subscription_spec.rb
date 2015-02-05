@@ -8,6 +8,7 @@ describe "In the dashboard, Subscriptions" do
   it "lists subscriptions", js: true do
     3.times{ FactoryGirl.create(:subscription) }
     visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
     click_link "subscriptions-link"
     wait_for_ajax
 
@@ -18,6 +19,7 @@ describe "In the dashboard, Subscriptions" do
 
   it "creates a subscription", js: true do
     visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
     click_link "subscriptions-link"
     wait_for_ajax
     click_link "new-subscription-link"
@@ -41,6 +43,7 @@ describe "In the dashboard, Subscriptions" do
     expect(subscription.subscribed?).to eq(true)
 
     visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
     click_link "subscriptions-link"
     # wait_for_ajax
     click_link "edit-subscription-#{subscription.id}"

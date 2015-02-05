@@ -1,11 +1,7 @@
 <li class="list-group-item" id="subscription_<%= subscription.id %>">
   <%= link_to edit_polymorphic_url([:dashboard, subscription]), class: "list-group-link storytime-modal-trigger", id: "edit-subscription-#{subscription.id}", remote: true do %>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-8"><%= subscription.email %></div>
-        <div class="col-xs-2"><%= subscription_label(subscription) %></div>
-      </div>
-    </div>
+    <%= subscription.email %>
+    <p class="<%= subscription.subscribed? ? 'text-primary' : 'text-muted' %> no-margin"><%= subscription.subscribed? ? "Subscribed" : "Unsubscribed" %></p>
   <% end %>
   <div class="list-group-actions">
     <%= delete_resource_link subscription, polymorphic_url([:dashboard, subscription]) %>
