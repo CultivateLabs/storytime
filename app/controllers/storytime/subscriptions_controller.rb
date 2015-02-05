@@ -5,8 +5,9 @@ module Storytime
     before_action :set_subscription, only: [:destroy]
 
     def create
-      @subscription = Storytime::Subscription.new(permitted_attributes)
-    
+      @subscription = Storytime::Subscription.find_by(permitted_attributes) || Storytime::Subscription.new(permitted_attributes)
+      @subscription.subscribed = true if @subscription.subscribed == false
+
       if @subscription.save
         flash[:notice] = I18n.t('flash.subscriptions.create.success')
       else
