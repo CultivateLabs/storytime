@@ -154,7 +154,7 @@ module Storytime
             if post_title_character_limit.to_i > 255
               say "Character limit amount exceeds database maximum - setting limit to default/maximum amount (255).", :red
             else
-              init_hash[:post_title_character_limit] = post_excerpt_character_limit.to_i
+              init_hash[:post_title_character_limit] = post_title_character_limit.to_i
               init_hash[:enable_post_title_character_limit] = true
             end
           elsif !post_title_character_limit.blank?
