@@ -7,6 +7,54 @@ module Storytime
 
         def options; {}; end
 
+        def storytime_defaults
+          hash = {}
+          hash[:layout] = 'application'
+          hash[:user_class] = 'User'
+          hash[:dashboard_namespace_path] = '/storytime'
+          hash[:home_page_path] = '/'
+          hash[:post_types] = ['CustomPostType']
+          hash[:post_title_character_limit] = 255
+          hash[:post_excerpt_character_limit] = 500
+          hash[:whitelisted_html_tags] = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
+          hash[:disqus_forum_shortname] = ''
+          hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+          hash[:search_adapter] = "''"
+          hash[:enable_file_upload] = true
+          hash[:s3_bucket] = 'my-s3-bucket'
+          hash[:prod_media_storage] = ':s3'
+          hash[:dev_media_storage] = ':file'
+          hash
+        end
+
+        def automated
+          defaults = storytime_defaults
+          self.destination_root = File.expand_path("./")
+
+          say "Starting install of Storytime...", :cyan
+
+          say "Setting up Storytime engine mount point...", :cyan
+          inject_storytime_mount("/")
+          say "Storytime mount point added to routes file\n\n", :green
+
+          say "Setting up Storytime initializer file...", :cyan
+          Storytime::Generators::Initializer.start [storytime_defaults]
+          say "Finished setting up Storytime initializer.\n\n", :green
+
+          check_user_model(defaults[:user_class])
+          add_storytime_user(defaults[:user_class])
+          copy_migrations
+          migrate_db
+          copy_views
+
+          say "Finished installing Storytime.", :green
+          say "Start up your Rails server and navigate to http://localhost:3000#{defaults[:mount_point]} to use Storytime.", :green
+        end
+
+        def inject_storytime_mount(mount_point)
+          inject_into_file "config/routes.rb", "\n  mount Storytime::Engine => '#{mount_point}'\n", :before => /^end/
+        end
+
         def interactive
           begin
             require File.expand_path('config/environment.rb')
@@ -24,8 +72,8 @@ module Storytime
           check_user_model(init_hash[:user_class])
           add_storytime_user(init_hash[:user_class])
           copy_migrations
-          migrate_db
-          copy_views
+          migrate_db unless no? "Would you like to migrate your database now? [y/n] (y)", :yellow
+          copy_views unless no? "Would you like to copy Storytime's views to your host app? [y/n] (y)", :yellow
 
           say "Finished installing Storytime.", :green
           say "Start up your Rails server and navigate to http://localhost:3000#{mount_point} to use Storytime.", :green
@@ -43,7 +91,7 @@ module Storytime
             mount_point.prepend("/")
           end
 
-          inject_into_file "config/routes.rb", "\n  mount Storytime::Engine => '#{mount_point}'\n", :before => /^end/
+          inject_storytime_mount(mount_point)
 
           say "Storytime mount point added to routes file\n\n", :green
 
@@ -51,22 +99,7 @@ module Storytime
         end
 
         def setup_initializer_file(mount_point)
-          init_hash = {}
-          init_hash[:layout] = 'application'
-          init_hash[:user_class] = 'User'
-          init_hash[:dashboard_namespace_path] = '/storytime'
-          init_hash[:home_page_path] = '/'
-          init_hash[:post_types] = ['CustomPostType']
-          init_hash[:post_title_character_limit] = 255
-          init_hash[:post_excerpt_character_limit] = 500
-          init_hash[:whitelisted_html_tags] = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
-          init_hash[:disqus_forum_shortname] = ''
-          init_hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
-          init_hash[:search_adapter] = "''"
-          init_hash[:enable_file_upload] = true
-          init_hash[:s3_bucket] = 'my-s3-bucket'
-          init_hash[:prod_media_storage] = ':s3'
-          init_hash[:dev_media_storage] = ':file'
+          init_hash = storytime_defaults
 
           say "Setting up Storytime initializer file...", :cyan
 

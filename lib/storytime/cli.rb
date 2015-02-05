@@ -11,8 +11,13 @@ module Storytime
     map '-v' => :version
 
     desc 'install', 'Install Storytim in current Rails 4.0+ app'
+    option :use_defaults, :aliases => '-d', :type => :boolean, :default => false, :desc => 'install Storytime using default settings and no prompts'
     def install
-      Storytime::CLI::Install.interactive 
+      if options[:use_defaults]
+        Storytime::CLI::Install.automated
+      else
+        Storytime::CLI::Install.interactive 
+      end
     end
 
     desc 'version', 'Show version of Storytime'
