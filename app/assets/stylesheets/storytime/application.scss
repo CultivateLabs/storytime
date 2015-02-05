@@ -1,6 +1,7 @@
 $scroll-panel-line-height: 30px;
 $scroll-panel-header-height: 65px;
 $scroll-panel-header-padding: (($scroll-panel-header-height - $scroll-panel-line-height) / 2);
+$border-radius-base: 0;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
