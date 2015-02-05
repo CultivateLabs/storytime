@@ -25,6 +25,8 @@ Run the bundle command to install it.
 
 After you install Storytime and add it to your Gemfile, you can either setup Storytime through a [guided command line interface](#guided-setup), a speedy [automated setup](#automated-setup), or [manually](#manual-setup).
 
+**Note:** To use the image upload feature, Storytime requires you to have Imagemagick installed on your system.
+
 ### Guided Setup
 
 Storytime can setup your routes file, initializer, user model, copy migrations, migrate your database, and copy views into your app through a simple command line interface (CLI). In order to use the CLI, first create a binstub of Storytime by running the following command:
@@ -43,7 +45,7 @@ After answering the prompts, fire up your Rails server and access the Storytime 
 
 ### Automated Setup
 
-The automated setup goes through all of the steps in the [Guided Setup](#guided-setup), but instead of prompting you for values it just uses all the defaults allowing you to setup Storytime in seconds.
+The automated setup goes through all of the steps in the [Guided Setup](#guided-setup), but instead of prompting you for values it just uses all the defaults, allowing you to setup Storytime in seconds.
 
 In order to use the automated setup, first create a binstub of Storytime (see [Guided Setup](#guided-setup)). Next, run the install command with the -d option:
 
@@ -55,7 +57,7 @@ After the setup is complete, fire up your Rails server and access the Storytime 
 
 ### Manual Setup
 
-Manual setup of Storytime assumes that your host app has an authentication system like [Devise](https://github.com/plataformatec/devise) already installed. Before proceeding make sure you have properly set up Devise.
+Manual setup of Storytime assumes that your host app has an authentication system like [Devise](https://github.com/plataformatec/devise) already installed. *Before proceeding make sure you have properly set up Devise.*
 
 After you install Storytime and add it to your Gemfile, you should run the generator:
 
@@ -80,7 +82,7 @@ rake storytime:install:migrations
 rake db:migrate
 ```
 
-Add storytime to your user class:
+Add Storytime to your user class:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -92,8 +94,6 @@ end
 ```
 
 After doing so, fire up your Rails server and access the Storytime dashboard, by default located at `http://localhost:3000/storytime`.
-
-Storytime also requires you to have Imagemagick installed.
 
 *Optional:* While not necessary, you may want to copy over the non-dashboard Storytime views to your app for customization:
 
