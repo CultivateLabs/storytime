@@ -4430,7 +4430,7 @@
      */
     var tplDialog = function (className, title, body, footer) {
       return '<div class="' + className + ' modal" aria-hidden="false">' +
-               '<div class="modal-dialog">' +
+               '<div class="modal-dialog" style="width: 900px;">' +
                  '<div class="modal-content">' +
                    (title ?
                    '<div class="modal-header">' +
@@ -4900,12 +4900,18 @@
     var tplDialogs = function (lang, options) {
       var tplImageDialog = function () {
         var body =
-                   '<div class="note-group-select-from-files">' +
-                   '<h5>' + lang.image.selectFromFiles + '</h5>' +
-                   '<input class="note-image-input" type="file" name="files" accept="image/*" />' +
-                   '</div>' +
-                   '<h5>' + lang.image.url + '</h5>' +
-                   '<input class="note-image-url form-control span12" type="text" />';
+                   '<div class="row">' +
+                     '<div class="col-sm-6">' +
+                       '<div class="note-group-select-from-files">' +
+                         '<h5>' + lang.image.selectFromFiles + '</h5>' +
+                         '<input class="note-image-input" type="file" name="files" accept="image/*" />' +
+                       '</div>' +
+                     '</div>' +
+                     '<div class="col-sm-6">' +
+                       '<h5>' + lang.image.url + '</h5>' +
+                       '<input class="note-image-url form-control span12" type="text" />'
+                     '</div>' +
+                   '</div>';
         var footer = '<button href="#" class="btn btn-primary note-image-btn disabled" disabled>' + lang.image.insert + '</button>';
         return tplDialog('note-image-dialog', lang.image.insert, body, footer);
       };

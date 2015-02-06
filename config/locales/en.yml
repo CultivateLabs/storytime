@@ -110,3 +110,9 @@ en:
     title: "Storytime"
     subscribe_to: "Subscribe to %{site_name}"
     subscribe_modal_msg: "Stay up-to-date with %{site_name} by signing up for our mailing list!"
+
+  pagination:
+    first: "<i class='fa fa-caret-left'></i><i class='fa fa-caret-left'></i>"
+    previous: "<i class='fa fa-caret-left'></i>"
+    next: "<i class='fa fa-caret-right'></i>"
+    last: "<i class='fa fa-caret-right'></i><i class='fa fa-caret-right'></i>"

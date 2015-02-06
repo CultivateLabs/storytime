@@ -16,11 +16,17 @@ class Storytime.Dashboard.Media
       $('#media_file').fileupload({
         dataType: 'json',
         done: (e, data)->
-          $(".media_container").prepend(data.result.html)
+          lastRow = $("#media_gallery").children(".row").last()
+          if lastRow.children(".col-sm-3").length == 5
+            $("#media_gallery").append("<div class='row'>#{data.result.html}</div>")
+          else
+            lastRow.append(data.result.html)
+          $("#progress").hide()
           return
         
         progressall: (e, data)->
           progress = parseInt(data.loaded / data.total * 100, 10)
+          $("#progress").show()
           $('#progress .progress-bar').css('width', progress + '%')
           return
         

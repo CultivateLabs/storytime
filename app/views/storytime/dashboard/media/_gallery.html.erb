@@ -1,9 +1,12 @@
 <div id="media_gallery">
-  <div class="clearfix">
-    <div class="media_container">
-      <%= render partial: "storytime/dashboard/media/media.html.erb", collection: @media %>
+
+  <% @media.in_groups_of(5, false) do |media_row| %>
+    <div class="row">
+      <% media_row.each do |media| %>
+        <%= render partial: "storytime/dashboard/media/media.html.erb", locals: { media: media } %>
+      <% end %>
     </div>
-  </div>
+  <% end %>
 
   <%= paginate @media, remote: true, params: { controller: "dashboard/media",
                                                action: "index",

@@ -8,9 +8,13 @@ $border-radius-base: 0;
 $border-radius-large: 0;
 $border-radius-small: 0;
 
-$nav-tabs-border-color:                     transparent !default;
-$nav-tabs-link-hover-border-color:          transparent !default;
-$nav-tabs-active-link-hover-border-color:   transparent !default;
+$nav-tabs-border-color:                     transparent;
+$nav-tabs-link-hover-border-color:          transparent;
+$nav-tabs-active-link-hover-border-color:   transparent;
+
+$pagination-active-color:              #333;
+$pagination-active-bg:                 #fff;
+$pagination-active-border:             #ddd;
 
 $dropdown-border: #333;
 $dropdown-fallback-border: #333;

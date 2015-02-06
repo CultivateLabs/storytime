@@ -1,20 +1,13 @@
-<div class="<%= gallery_type %>">
-  <div class="media-file" id="media_<%= media.id %>">
-    <div class="media-thumb">
-      <%= link_to media.file_url, target: "_blank" do %>
-        <% if show_large_gallery? %>
-          <%= image_tag media.file_url(:thumb) %>
-        <% else %>
-          <%= image_tag media.file_url(:tiny) %>
-        <% end %>
-      <% end %>
-    </div>
+<div class="col-xs-3" style="width: 20%;" id="media_<%= media.id %>">
+  <%= link_to image_tag(media.file_url(:thumb), class: "img-responsive"), media.file_url, target: "_blank" %>
 
-    <div class="action-buttons">
+  <div style="padding: 5px; background: #f1f1f1;">
+    <div class="pull-right">
       <%= delete_resource_link media, dashboard_media_path(media) %>
       <% if show_media_insert_button? %>
-        <button class="btn btn-info btn-xs insert-image-button" data-media-id="<%= media.id %>" data-image-url="<%= full_media_file_url media %>" data-thumb-url="<%= full_media_file_url media, :thumb %>" data-tiny-url="<%= full_media_file_url media, :tiny %>">Select</button>
+        <button class="btn btn-primary btn-outline btn-xs insert-image-button" data-media-id="<%= media.id %>" data-image-url="<%= full_media_file_url media %>" data-thumb-url="<%= full_media_file_url media, :thumb %>" data-tiny-url="<%= full_media_file_url media, :tiny %>">Select</button>
       <% end %>
     </div>
+    <div class="clearfix"></div>
   </div>
 </div>
