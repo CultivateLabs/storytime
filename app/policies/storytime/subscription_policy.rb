@@ -37,7 +37,7 @@ module Storytime
     end
 
     def permitted_attributes
-      [:email, :subscribed, :site_id]
+      [:email, :subscribed]
     end
   end
 end
