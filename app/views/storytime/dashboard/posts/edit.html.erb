@@ -39,7 +39,7 @@
 
         <%= link_to "Preview", post_path(@post, preview: true), class: "btn btn-sm btn-primary btn-outline margin-right margin-left", id: "preview_post", target: "_blank" %>
 
-        <%= link_to (@post.published? ? "Update" : "Save / Publish"), "#", class: 'btn btn-primary btn-sm btn-outline', data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
+        <%= link_to (@post.published? ? "Update" : "Save / Publish"), "#", class: 'btn btn-primary btn-sm btn-outline', data: { toggle: 'collapse', target: '#post-advanced-settings' }, id: "advanced-settings-panel-toggle" %>
       </div>
       <!-- <h3 class="scroll-panel-title">
         Edit <%= @post.human_name %>

@@ -1,8 +1,0 @@
-74 examples, 7 failures in 66.8297 seconds
-./spec/features/dashboard/media_spec.rb:37
-./spec/features/dashboard/pages_spec.rb:38
-./spec/features/dashboard/pages_spec.rb:61
-./spec/features/dashboard/pages_spec.rb:82
-./spec/features/dashboard/posts_spec.rb:71
-./spec/features/dashboard/posts_spec.rb:92
-./spec/features/dashboard/snippets_spec.rb:35
