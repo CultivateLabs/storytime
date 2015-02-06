@@ -40,6 +40,7 @@ describe "In the dashboard, Snippets" do
     wait_for_ajax
 
     click_link "edit-snippet-#{snippet.id}"
+    wait_for_ajax
 
     fill_in "snippet_name", with: "new-name"
     find(".note-editable").set("It was a dark and stormy night...")

@@ -6,7 +6,7 @@
           <ul class="list-group" style="margin: 0;">
             <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: @post.versions.order(created_at: :desc), locals: { versionable: @post } %>
           </ul>
-          <%= link_to "Close", '#', class: "btn btn-default", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
+          <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
         </div>
       </div>
     </div>
@@ -76,19 +76,48 @@
           <div class="row">
             <div class="col-md-8 col-md-offset-2">
               <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="well text-center featured_image_block <%= 'has-image' if @post.featured_media %>">
+                        <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+                        <div id="featured_media_container" class="image_container">
+                          <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-block remove_featured_image">
+                          <%= t('dashboard.posts.remove_image') %>
+                        </button>
+                        <i class="icon-st-icons-images select_featured_image"></i>
+                        <div class="select_featured_image">
+                          <%= link_to "Select Featured Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "featured_media_button" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="well text-center featured_image_block <%= 'has-image' if @post.secondary_media %>">
+                        <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+                        <div id="secondary_media_container" class="image_container">
+                          <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-block remove_featured_image">
+                          <%= t('dashboard.posts.remove_image') %>
+                        </button>
+                        <i class="icon-st-icons-images select_featured_image"></i>
+                        <div class="select_featured_image">
+                          <%= link_to "Select Secondary Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "secondary_media_button" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#featured-images-panel' } %>
+                </div>
+              </div>
+
+              <!-- <div class="row">
                 <div class="col-md-6">
-                  <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+                  
                   
                   <div class="featured_image_block center-block">
-                    <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.featured_media %>display: none<% end %>"></span>
-
-                    <div id="featured_media_container" class="image_container">
-                      <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
-                    </div>
-
-                    <div class="select_featured_image" <% if @post.featured_media %>style="display: none"<% end %>>
-                      <%= link_to "Select Featured Image", "#", class: "btn btn-primary", id: "featured_media_button" %>
-                    </div>
                   </div>
 
                   <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.featured_media %>style="display: none"<% end %>>
@@ -97,26 +126,17 @@
                 </div>
 
                 <div class="col-md-6">
-                  <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+                  
                   
                   <div class="featured_image_block center-block">
-                    <span class="glyphicon glyphicon-picture select_featured_image" style="<% if @post.secondary_media %>display: none<% end %>"></span>
-
-                    <div id="secondary_media_container" class="image_container">
-                      <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
-                    </div>
-
-                    <div class="select_featured_image" <% if @post.secondary_media %>style="display: none"<% end %>>
-                      <%= link_to "Select Secondary Image", "#", class: "btn btn-primary", id: "secondary_media_button" %>
-                    </div>
                   </div>
 
                   <button type="button" class="btn btn-danger remove_featured_image center-block" <% unless @post.secondary_media %>style="display: none"<% end %>>
                     <%= t('dashboard.posts.remove_image') %>
                   </button>
                 </div>
-              </div>
-              <%= link_to "Close", '#', class: "btn btn-default", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#featured-images-panel' } %>
+              </div> -->
+              
             </div>
           </div>
         </div>

@@ -43,8 +43,7 @@ class Storytime.Dashboard.Media
         else
           $("#featured_media_container").html("<img id='featured_media_image' src='#{$(@).data("thumb-url")}' />")
 
-        featured_media.parent().parent().find(".select_featured_image").hide()
-        featured_media.parent().parent().find(".remove_featured_image").show()
+        featured_media.parent().parent().addClass("has-image")
 
         $("#insertMediaModal").modal("hide")
         return
@@ -57,8 +56,7 @@ class Storytime.Dashboard.Media
         else
           $("#secondary_media_container").html("<img id='secondary_media_image' src='#{$(@).data("thumb-url")}' />")
 
-        secondary_media.parent().parent().find(".select_featured_image").hide()
-        secondary_media.parent().parent().find(".remove_featured_image").show()
+        secondary_media.parent().parent().addClass("has-image")
 
         $("#insertMediaModal").modal("hide")
         return
@@ -85,8 +83,7 @@ class Storytime.Dashboard.Media
       $(this).parent().find("input").val ""
       $(this).parent().find(".image_container").html ""
 
-      $(this).parent().find(".select_featured_image").show()
-      $(this).parent().find(".remove_featured_image").hide()
+      $(this).parent().removeClass("has-image")
       return
     return
 

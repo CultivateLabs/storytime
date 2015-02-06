@@ -49,19 +49,33 @@
 }
 
 .featured_image_block {
-  background-color: rgba(91,192,222, 0.2);
-  border: 1px solid #C2C2C2;
-  height: 152px;
-  text-align: center;
-  width: 252px;
+  padding: 0;
 
-  span.select_featured_image {
+  .select_featured_image .btn {
+    margin: 20px 0 40px 0;
+  }
+
+  i.select_featured_image {
     display: inherit;
     font-size: 45px;
-    padding: 25px 0 20px 0;
+    padding: 40px 0 0 0;
+  }
+
+  img {
+    width: 100%;
   }
 
   .remove_featured_image {
-    margin-top: 10px;
+    display: none;
+  }
+
+  &.has-image {
+    .remove_featured_image {
+      display: block;
+    }
+
+    .select_featured_image {
+      display: none;
+    }
   }
 }
