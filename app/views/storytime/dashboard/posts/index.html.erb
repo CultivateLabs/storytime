@@ -6,8 +6,8 @@
         <i class="icon-st-icons-st-logo"></i>
       <% end %>
       
-      <%= link_to "New", storytime.url_for([:new, :dashboard, :post, type: current_post_type.type_name]), class: "btn btn-sm btn-primary btn-outline pull-right" %>
-      <h3 class="scroll-panel-title"><%= current_post_type.type_name.titleize.pluralize %></h3>
+      <%= new_post_button(current_post_type) %>
+      <h3 class="scroll-panel-title"><%= post_list_title(current_post_type) %></h3>
     </div>
     <div class="scroll-panel-body">
       <ul class="nav nav-tabs">

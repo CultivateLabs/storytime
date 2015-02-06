@@ -4,6 +4,6 @@ class VideoPost < Storytime::Post
   end
 
   def self.included_in_primary_feed?
-    false
+    true
   end
 end
