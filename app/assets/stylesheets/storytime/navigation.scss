@@ -3,26 +3,21 @@
   top: 10px;
   left: 15px;
   z-index: 1030;
-  height: 55px;
-  width: 150px;
+  padding: 7px 12px 0 12px;
+  text-decoration: none;
   background-color: #fff;
-  background-image: image-url('storytime/storytime-logo-nav.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 101px 40px;
+  color: #333;
+  font-size: 30px;
   @include box-shadow(1px 1px 3px #ccc);
 
   &.dark {
     background: #000;
-    background-image: image-url('storytime/storytime-logo-nav-light.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 101px 40px;
+    color: #fff;
   }
 
   &.rounded {
-    @include border-top-radius(30px);
-    @include border-bottom-radius(30px);
+    @include border-top-radius(5px);
+    @include border-bottom-radius(5px);
   }
 }
 

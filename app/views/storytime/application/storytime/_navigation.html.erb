@@ -1,4 +1,8 @@
 <% if user_signed_in? && !devise_controller? && current_user.storytime_user? %>
   <%= render 'storytime/dashboard/navigation' %>
-  <%= link_to "", "#", id: "storytime-app-menu-toggle", class: storytime_button_classes, data: { toggle: "off-canvas", target: "#dashboard-nav" } unless dashboard_controller %>
+  <% unless dashboard_controller %>
+    <%= link_to "#", id: "storytime-app-menu-toggle", class: storytime_button_classes, data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
+      <i class="icon-st-icons-st-logo"></i>
+    <% end %>
+  <% end %>
 <% end %>
