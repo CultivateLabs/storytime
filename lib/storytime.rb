@@ -31,12 +31,6 @@ module Storytime
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 500
 
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, "", or nil setting will permit all tags.
-  mattr_accessor :whitelisted_post_html_tags
-  @@whitelisted_post_html_tags = []
-
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
   mattr_accessor :disqus_forum_shortname

@@ -31,7 +31,6 @@
 //= require codemirror/addons/edit/closebrackets
 //= require tidy
 //= require chosen.jquery
-//= require summernote
 //= require medium-editor.min
 //= require_tree .
 
