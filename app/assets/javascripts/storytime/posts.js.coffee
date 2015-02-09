@@ -25,6 +25,7 @@ class Storytime.Dashboard.Posts
         $(".post-action-panel.in").collapse("hide")
 
     $(".post-action-panel").on "show.bs.collapse", ->
+      $(".toggle-codemirror").hide()
       $(".post-action-panel").removeClass "in"
       $(".scroll-panel-header").fadeOut
         duration: 'fast'
@@ -35,6 +36,7 @@ class Storytime.Dashboard.Posts
       $(".chosen-select").trigger("chosen:updated")
 
     $(".post-action-panel").on "hide.bs.collapse", ->
+      $(".toggle-codemirror").show()
       $(".scroll-panel-header").fadeIn
         duration: 'fast'
         easing: 'swing'

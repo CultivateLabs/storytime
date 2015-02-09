@@ -120,10 +120,56 @@ class Storytime.Dashboard.Editor
       buttonLabels: 'fontawesome'
     })
 
+
+    codemirror = CodeMirror.fromTextArea $("#post_draft_content")[0],
+      mode: 'htmlmixed'
+      theme: 'solarized dark'
+      tabSize: 2
+      autoCloseTags: true
+      lineNumbers: true
+
+    codemirror.on "change", () ->
+      if $(".CodeMirror").is(":visible")
+        code = codemirror.getValue()
+        $('.medium-editor').html(code)
+        $("#post_draft_content").val(code)
+
     $('.medium-editor').on 'input', () ->
       input = $($(this).data('input'))
       html = $(this).html()
+      html = tidy_html5 html, 
+        "indent": "auto",
+        "indent-spaces": 2,
+        "wrap": 80,
+        "markup": true,
+        "output-xml": false,
+        "numeric-entities": true,
+        "quote-marks": true,
+        "quote-nbsp": false,
+        "show-body-only": true,
+        "quote-ampersand": false,
+        "break-before-br": true,
+        "uppercase-tags": false,
+        "uppercase-attributes": false,
+        "drop-font-tags": true,
+        "tidy-mark": false
+      
       input.val(html)
+      codemirror.setValue(html)
+
+    $(".toggle-codemirror").on "click", () ->
+      $("#editor").toggle()
+      $(".CodeMirror").toggle()
+      codemirror.refresh()
+      if $(".CodeMirror").is(":visible")
+        editor.deactivate()
+      else
+        editor.activate()
+
+    $(".post-action-panel").on "show.bs.collapse", ->
+      editor.activate()
+      $("#editor").show()
+      $(".CodeMirror").hide()
     
     # # Summernote config and setup
     # $(".summernote").summernote

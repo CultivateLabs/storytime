@@ -39,8 +39,8 @@ $headings-font-weight: 700;
 @import "jquery-ui/theme";
 
 @import "chosen.css.scss";
-@import "codemirror/codemirror";
-@import "codemirror/monokai";
+@import "codemirror";
+@import "codemirror/themes/solarized";
 @import "jquery.ui.timepicker";
 @import "summernote";
 @import "medium-editor.min";

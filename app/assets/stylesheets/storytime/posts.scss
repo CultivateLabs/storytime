@@ -1,3 +1,14 @@
+.CodeMirror {
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+}
+
+
 .row.page-admin {
   padding: 10px;
   &:hover {

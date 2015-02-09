@@ -124,7 +124,7 @@
   <% end %>
   
 
-  <div class="container-fluid">
+  <div class="container-fluid" id="editor">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
@@ -145,15 +145,15 @@
         
         <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
         <div class="medium-editor" data-input="#post_draft_content" contenteditable='true' style="outline: none; min-height: 500px; margin-top: 30px;"><%= raw @post.draft_content %></div>
-
-        <%= f.input :draft_content, as: :hidden %>
         
       </div>
     </div>
   </div>
   
+  <%= f.input :draft_content, as: :text, label: false %>
 
-  
+  <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-default", style: "position: absolute; top: 15px; right: 20px; z-index: 1030;" %>
+
 <% end %>
 
 <%= render "storytime/dashboard/media/modal" if Storytime.enable_file_upload %>
