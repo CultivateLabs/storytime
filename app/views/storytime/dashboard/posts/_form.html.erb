@@ -142,10 +142,11 @@
         <% end %>
 
         <%= f.input :title, as: :hidden %>
+        
+        <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
+        <div class="medium-editor" data-input="#post_draft_content" contenteditable='true' style="outline: none; min-height: 500px; margin-top: 30px;"><%= raw @post.draft_content %></div>
 
-        <div class="post_field post_content serif">
-          <%= f.input :draft_content, as: :text, input_html: { rows: 20, class: "summernote" }, label: false, wrapper: false %>
-        </div>
+        <%= f.input :draft_content, as: :hidden %>
         
       </div>
     </div>

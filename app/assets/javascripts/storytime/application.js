@@ -26,6 +26,7 @@
 //= require codemirror/xml
 //= require chosen.jquery
 //= require summernote
+//= require medium-editor.min
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})

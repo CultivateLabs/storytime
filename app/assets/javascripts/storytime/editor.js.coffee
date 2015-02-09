@@ -113,66 +113,77 @@ class Storytime.Dashboard.Editor
 
   initWysiwyg: () ->
     self = @
+    editor = new MediumEditor('.medium-editor', {
+      buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'quote', 'unorderedlist', 'pre']
+      toolbarAlign: 'center'
+      diffLeft: -170
+      buttonLabels: 'fontawesome'
+    })
+
+    $('.medium-editor').on 'input', () ->
+      input = $($(this).data('input'))
+      html = $(this).html()
+      input.val(html)
     
-    # Summernote config and setup
-    $(".summernote").summernote
-      codemirror:
-        htmlMode: true
-        lineNumbers: true
-        lineWrapping: true
-        mode: 'text/html'
-        theme: 'monokai'
-      # height: '100%'
-      minHeight: null
-      maxHeight: null
-      toolbar: [
-        ['style', ['style']]
-        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
-        # ['fontname', ['fontname']]
-        # ['fontsize', ['fontsize']]
-        ['color', ['color']]
-        ['para', ['ul', 'ol', 'paragraph']]
-        # ['height', ['height']]
-        ['table', ['table']]
-        ['insert', ['link', 'picture', 'video', 'hr']]
-        ['view', ['fullscreen', 'codeview']]
-        ['editing', ['undo', 'redo']]
-        ['help', ['help']]
-      ]
-      onblur: ->
-        $(".summernote").data("range", document.getSelection().getRangeAt(0))
-        return
-      onfocus: ->
-        self.updateLater(10000) if $(".edit_post").length
-        return
-      onkeyup: ->
-        form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
-        form.data "unsaved-changes", true
-        return
-      onImageUpload: (files, editor, $editable) ->
-        $("#media_file").fileupload('send', {files: files})
-          .success((result, textStatus, jqXHR) ->
-            editor.insertImage($editable, result.file_url)
-            return
-          )
-        return
+    # # Summernote config and setup
+    # $(".summernote").summernote
+    #   codemirror:
+    #     htmlMode: true
+    #     lineNumbers: true
+    #     lineWrapping: true
+    #     mode: 'text/html'
+    #     theme: 'monokai'
+    #   # height: '100%'
+    #   minHeight: null
+    #   maxHeight: null
+    #   toolbar: [
+    #     ['style', ['style']]
+    #     ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
+    #     # ['fontname', ['fontname']]
+    #     # ['fontsize', ['fontsize']]
+    #     ['color', ['color']]
+    #     ['para', ['ul', 'ol', 'paragraph']]
+    #     # ['height', ['height']]
+    #     ['table', ['table']]
+    #     ['insert', ['link', 'picture', 'video', 'hr']]
+    #     ['view', ['fullscreen', 'codeview']]
+    #     ['editing', ['undo', 'redo']]
+    #     ['help', ['help']]
+    #   ]
+    #   onblur: ->
+    #     $(".summernote").data("range", document.getSelection().getRangeAt(0))
+    #     return
+    #   onfocus: ->
+    #     self.updateLater(10000) if $(".edit_post").length
+    #     return
+    #   onkeyup: ->
+    #     form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    #     form.data "unsaved-changes", true
+    #     return
+    #   onImageUpload: (files, editor, $editable) ->
+    #     $("#media_file").fileupload('send', {files: files})
+    #       .success((result, textStatus, jqXHR) ->
+    #         editor.insertImage($editable, result.file_url)
+    #         return
+    #       )
+    #     return
 
-    # Show Gallery when using Summernote insertPicture modal
-    $(".note-image-dialog").on 'shown.bs.modal', () ->
-      if $("#media_gallery").length > 0
-        $(".note-image-dialog").find(".row-fluid").append(
-          "<div id='gallery_copy'>
-            <h5>Gallery</h5>
-            <div id='media_gallery'>" + 
-              $("#media_gallery").html() + 
-            "</div>
-          </div>")
-      return
+    # # Show Gallery when using Summernote insertPicture modal
+    # $(".note-image-dialog").on 'shown.bs.modal', () ->
+    #   if $("#media_gallery").length > 0
+    #     $(".note-image-dialog").find(".row-fluid").append(
+    #       "<div id='gallery_copy'>
+    #         <h5>Gallery</h5>
+    #         <div id='media_gallery'>" + 
+    #           $("#media_gallery").html() + 
+    #         "</div>
+    #       </div>")
+    #   return
 
-    # Remove Gallery when closing out Summernote insertPicture modal
-    $(".note-image-dialog").on 'hide.bs.modal', () ->
-      $("#gallery_copy").remove()
-      return
+    # # Remove Gallery when closing out Summernote insertPicture modal
+    # $(".note-image-dialog").on 'hide.bs.modal', () ->
+    #   $("#gallery_copy").remove()
+    #   return
 
   autosavePostForm: () ->
     self = @
@@ -180,7 +191,7 @@ class Storytime.Dashboard.Editor
     dashboard_namespace = $("#main").data("dashboard-namespace")
 
     data = []
-    data.push {name: "post[draft_content]", value: $(".summernote").code()}
+    data.push {name: "post[draft_content]", value: $("#post_draft_content").val()}
 
     form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
     form.data "unsaved-changes", false
