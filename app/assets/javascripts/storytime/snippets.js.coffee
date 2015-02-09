@@ -1,5 +1,4 @@
 class Storytime.Dashboard.Snippets
   init: ()->
-    @editor = new Storytime.Dashboard.Editor()
-    @editor.initMedia()
-    @editor.initWysiwyg()
+    (new Storytime.Dashboard.Editor()).initMedia()
+    (new Storytime.Dashboard.Wysiwyg()).init()

@@ -1,8 +1,12 @@
 <%= simple_form_for [:dashboard, @snippet], remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
-  <div class="scroll-panel">
+  <div class="scroll-panel wysiwyg" id="wysiwyg-snippet">
     <div class="scroll-panel-header">
       <%= link_to icon("angle-left"), [:dashboard, Storytime::Snippet], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
-      <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      <div class="pull-right">
+        <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-sm btn-default", style: "margin-right: 10px;", data: { toggle: "codemirror", target: "#editor-snippet" }  %>
+        <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      </div>
+      
       <h3 class="scroll-panel-title">
         <%= @snippet.new_record? ? "New" : "Edit" %> Text Snippet
       </h3>
@@ -14,7 +18,12 @@
 
       <%= f.error_notification %>
       <%= f.input :name, autofocus: true %>
-      <%= f.input :content, as: :text, input_html: { rows: 20, class: "summernote" } %>
+      <div id="editor-snippet">
+        <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
+        <div class="medium-editor" id="medium-editor-snippet" data-input="#snippet_content" contenteditable='true' style="outline: none;"><%= raw @snippet.content %></div>
+      </div>
+      <%= f.input :content, as: :text, label: false, input_html: { class: "codemirror" }  %>
+      
       <%= render "storytime/dashboard/media/modal.html.erb" %>
     </div>
   </div>

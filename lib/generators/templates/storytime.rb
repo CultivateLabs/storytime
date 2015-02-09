@@ -26,10 +26,6 @@ Storytime.configure do |config|
   # Character limit for Storytime::Post.excerpt
   # config.post_excerpt_character_limit = 500
 
-  # Array of tags to allow from the Summernote WYSIWYG Editor.
-  # An empty array or nil setting will allow all tags.
-  # config.whitelisted_html_tags = %w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)
-
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
   # config.disqus_forum_shortname = ""
