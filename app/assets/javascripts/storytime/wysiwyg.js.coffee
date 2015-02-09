@@ -29,69 +29,64 @@ class Storytime.Dashboard.Wysiwyg
     "tidy-mark": false
 
   init: () ->
-    # TODO: FIGURE OUT A WAY TO GET RID OF ALL THIS DUPLICATION
-    mediumEditor = new MediumEditor('#medium-editor-post', mediumEditorOptions)
-    mediumEditor2 = new MediumEditor('#medium-editor-snippet', mediumEditorOptions)
+    self = @
+    self.bindTogglesToPanels()
+    mediumEditor = self.setupMedium()
 
-    if $("#post_draft_content").length > 0
-      codeMirror = CodeMirror.fromTextArea $("#post_draft_content")[0], codeMirrorOptions
+    $(".wysiwyg").each () ->
+      codeMirror = CodeMirror.fromTextArea $(this).find(".codemirror")[0], codeMirrorOptions
 
-    if $("#snippet_content").length > 0
-      codeMirror2 = CodeMirror.fromTextArea $("#snippet_content")[0], codeMirrorOptions
+      self.bindCodeMirror $(this), codeMirror
+      self.bindMedium $(this), codeMirror
+      self.bindCodeToggle $(this), codeMirror, mediumEditor
+      self.bindActionPanel $(this), mediumEditor
 
-    if codeMirror
-      codeMirror.on "change", () ->
-        if $("#wysiwyg-post .CodeMirror").is(":visible")
-          code = codeMirror.getValue()
-          $('#medium-editor-post').html(code)
-          $($('#medium-editor-post').data('input')).val(code)
+  setupMedium: ->
+    $('.medium-editor-toolbar').remove()
+    $('.medium-editor-anchor-preview').remove()
+    mediumEditor = new MediumEditor('.medium-editor', mediumEditorOptions)
+    mediumEditor
 
-    if codeMirror2
-      codeMirror2.on "change", () ->
-        if $("#wysiwyg-snippet .CodeMirror").is(":visible")
-          code = codeMirror2.getValue()
-          $('#medium-editor-snippet').html(code)
-          $($('#medium-editor-snippet').data('input')).val(code)
+  bindCodeMirror: (wysiwyg, codemirror) ->
+    codemirror.on "change", () ->
+      if wysiwyg.find(".CodeMirror").is(":visible")
+        code = codemirror.getValue()
+        wysiwyg.find(".medium-editor").html(code)
+        $(wysiwyg.find(".medium-editor").data('input')).val(code)
 
-    $('#medium-editor-post').on 'input', () ->
+  bindMedium: (wysiwyg, codemirror) ->
+    wysiwyg.find('.medium-editor').on 'input', () ->
       input = $($(this).data('input'))
       html = tidy_html5 $(this).html(), tidyOptions
       input.val(html)
-      codeMirror.setValue(html)
+      codemirror.setValue(html)
 
-    $('#medium-editor-snippet').on 'input', () ->
-      input = $($(this).data('input'))
-      html = tidy_html5 $(this).html(), tidyOptions
-      input.val(html)
-      codeMirror2.setValue(html)
+  bindCodeToggle: (wysiwyg, codemirror, mediumEditor) ->
+    toggle = wysiwyg.find("[data-toggle='codemirror']")
+    unless toggle.hasClass "bound"
+      toggle.addClass("bound")
+      wysiwyg.on "click", "[data-toggle='codemirror']", () ->
+        editor = wysiwyg.find('.editor')
+        code = wysiwyg.find('.CodeMirror')
+        editor.toggle()
+        code.toggle()
+        codemirror.refresh()
+        if code.is(":visible")
+          $(this).text("WYSIWYG")
+          mediumEditor.deactivate()
+        else
+          $(this).text("HTML")
+          mediumEditor.activate()
 
-    $("[data-toggle='codemirror']").on "click", () ->
-      editor = $($(this).data('target'))
-      wysywyg = $(this).closest('.wysiwyg').find(".CodeMirror")
-      editor.toggle()
-      wysywyg.toggle()
-      if codeMirror
-        codeMirror.refresh()
-      if codeMirror2
-        codeMirror2.refresh()
-      if wysywyg.is(":visible")
-        $(this).text("WYSIWYG")
-        # SCOPE
-        mediumEditor.deactivate()
-        mediumEditor2.deactivate()
-      else
-        # SCOPE
-        $(this).text("HTML")
-        mediumEditor.activate()
-        mediumEditor2.activate()
-
+  bindActionPanel: (wysiwyg, mediumEditor) ->
+    $(".post-action-panel").on "show.bs.collapse", ->
+      mediumEditor.activate()
+      wysiwyg.find('.editor').show()
+      wysiwyg.find('.CodeMirror').hide()
+  
+  bindTogglesToPanels: () ->
     $(".post-action-panel").on "show.bs.collapse", ->
       $("[data-toggle='codemirror']").hide()
 
     $(".post-action-panel").on "hide.bs.collapse", ->
       $("[data-toggle='codemirror']").show()
-
-    $(".post-action-panel").on "show.bs.collapse", ->
-      mediumEditor.activate()
-      $("#editor").show()
-      $(".CodeMirror").hide()

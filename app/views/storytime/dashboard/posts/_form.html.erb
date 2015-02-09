@@ -125,7 +125,7 @@
   
 
   <div class="wysiwyg" id="wysiwyg-post">
-    <div class="container-fluid" id="editor-post">
+    <div class="container-fluid editor">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
@@ -153,7 +153,7 @@
     
     <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror" } %>
 
-    <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-default", style: "position: absolute; top: 15px; right: 20px; z-index: 1030;", data: { toggle: "codemirror", target: "#editor-post" } %>
+    <%= link_to "HTML", "#", class: "btn btn-default", style: "position: absolute; top: 15px; right: 20px; z-index: 1030;", data: { toggle: "codemirror" } %>
   </div>
 
 <% end %>

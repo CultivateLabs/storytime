@@ -3,7 +3,7 @@
     <div class="scroll-panel-header">
       <%= link_to icon("angle-left"), [:dashboard, Storytime::Snippet], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
       <div class="pull-right">
-        <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-sm btn-default", style: "margin-right: 10px;", data: { toggle: "codemirror", target: "#editor-snippet" }  %>
+        <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-sm btn-default", style: "margin-right: 10px;", data: { toggle: "codemirror" }  %>
         <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
       </div>
       
@@ -18,7 +18,7 @@
 
       <%= f.error_notification %>
       <%= f.input :name, autofocus: true %>
-      <div id="editor-snippet">
+      <div class="editor">
         <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
         <div class="medium-editor" id="medium-editor-snippet" data-input="#snippet_content" contenteditable='true' style="outline: none;"><%= raw @snippet.content %></div>
       </div>
