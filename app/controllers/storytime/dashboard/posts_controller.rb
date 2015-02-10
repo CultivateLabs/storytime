@@ -34,6 +34,7 @@ module Storytime
       def create
         @post = new_post(post_params)
         @post.draft_user_id = current_user.id
+        @post.site = Storytime::Site.first # if we ever go multi-site, this would likely become current_site
         authorize @post
 
         if @post.save

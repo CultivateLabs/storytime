@@ -9,6 +9,7 @@ module Storytime
     belongs_to :user, class_name: Storytime.user_class
     belongs_to :featured_media, class_name: "Media"
     belongs_to :secondary_media, class_name: "Media"
+    belongs_to :site
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
@@ -93,7 +94,9 @@ module Storytime
         if n.empty? || n == "nv__"
           ""
         elsif n.include?("nv__") || n.to_i == 0
-          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create!
+          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create do |tag|
+            tag.site_id = self.site_id
+          end
         else
           Storytime::Tag.find(n)
         end
