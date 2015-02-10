@@ -47,7 +47,8 @@ class Storytime.Dashboard.Wysiwyg
     mediumEditor = self.setupMedium()
 
     $(".wysiwyg").each () ->
-      codeMirror = CodeMirror.fromTextArea $(this).find(".codemirror")[0], codeMirrorOptions
+      unless $(this).find(".CodeMirror").length > 0
+        codeMirror = CodeMirror.fromTextArea $(this).find(".codemirror")[0], codeMirrorOptions
 
       self.bindCodeMirror $(this), codeMirror
       self.bindMedium $(this), codeMirror
