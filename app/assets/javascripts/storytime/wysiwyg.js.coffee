@@ -74,9 +74,14 @@ class Storytime.Dashboard.Wysiwyg
         if code.is(":visible")
           $(this).text("WYSIWYG")
           mediumEditor.deactivate()
+          $("#storytime-modal").addClass("modal-wide")
         else
           $(this).text("HTML")
           mediumEditor.activate()
+          $("#storytime-modal").removeClass("modal-wide")
+          
+    $("#storytime-modal").on 'hide.bs.modal', ->
+      $(this).removeClass "modal-wide"
 
   bindActionPanel: (wysiwyg, mediumEditor) ->
     $(".post-action-panel").on "show.bs.collapse", ->

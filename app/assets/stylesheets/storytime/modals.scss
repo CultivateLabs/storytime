@@ -1,3 +1,15 @@
+.modal-dialog {
+  @include transition(all 0.3s);
+}
+
+@media (min-width: $screen-lg-min) {
+  .modal-wide {
+    .modal-dialog {
+      width: 1000px;
+    }
+  }
+}
+
 .modal-full-height {
   .modal-dialog {
     margin: 0 auto;
