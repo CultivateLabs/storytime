@@ -97,6 +97,7 @@ class Storytime.Dashboard.Editor
     mediaInstance.initInsert()
     mediaInstance.initFeaturedImageSelector()
     mediaInstance.initSecondaryImageSelector()
+    mediaInstance.initImageSelector()
 
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()
@@ -110,67 +111,7 @@ class Storytime.Dashboard.Editor
       placeholder_text_multiple: "Select or enter one or more Tags"
       search_contains: true
       width: '100%'
-    
-    # # Summernote config and setup
-    # $(".summernote").summernote
-    #   codemirror:
-    #     htmlMode: true
-    #     lineNumbers: true
-    #     lineWrapping: true
-    #     mode: 'text/html'
-    #     theme: 'monokai'
-    #   # height: '100%'
-    #   minHeight: null
-    #   maxHeight: null
-    #   toolbar: [
-    #     ['style', ['style']]
-    #     ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
-    #     # ['fontname', ['fontname']]
-    #     # ['fontsize', ['fontsize']]
-    #     ['color', ['color']]
-    #     ['para', ['ul', 'ol', 'paragraph']]
-    #     # ['height', ['height']]
-    #     ['table', ['table']]
-    #     ['insert', ['link', 'picture', 'video', 'hr']]
-    #     ['view', ['fullscreen', 'codeview']]
-    #     ['editing', ['undo', 'redo']]
-    #     ['help', ['help']]
-    #   ]
-    #   onblur: ->
-    #     $(".summernote").data("range", document.getSelection().getRangeAt(0))
-    #     return
-    #   onfocus: ->
-    #     self.updateLater(10000) if $(".edit_post").length
-    #     return
-    #   onkeyup: ->
-    #     form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
-    #     form.data "unsaved-changes", true
-    #     return
-    #   onImageUpload: (files, editor, $editable) ->
-    #     $("#media_file").fileupload('send', {files: files})
-    #       .success((result, textStatus, jqXHR) ->
-    #         editor.insertImage($editable, result.file_url)
-    #         return
-    #       )
-    #     return
-
-    # # Show Gallery when using Summernote insertPicture modal
-    # $(".note-image-dialog").on 'shown.bs.modal', () ->
-    #   if $("#media_gallery").length > 0
-    #     $(".note-image-dialog").find(".row-fluid").append(
-    #       "<div id='gallery_copy'>
-    #         <h5>Gallery</h5>
-    #         <div id='media_gallery'>" + 
-    #           $("#media_gallery").html() + 
-    #         "</div>
-    #       </div>")
-    #   return
-
-    # # Remove Gallery when closing out Summernote insertPicture modal
-    # $(".note-image-dialog").on 'hide.bs.modal', () ->
-    #   $("#gallery_copy").remove()
-    #   return
-
+      
   autosavePostForm: () ->
     self = @
     post_id = $("#main").data("post-id")

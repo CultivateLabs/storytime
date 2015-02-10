@@ -44,7 +44,7 @@ describe "In the dashboard, Pages" do
     find('#post-title-input').set("The Story")
     click_link "Publish"
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
-    find(".note-editable").set("It was a dark and stormy night...")
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     
     click_button "Save Draft"
     
@@ -53,7 +53,7 @@ describe "In the dashboard, Pages" do
 
     pg = Storytime::Page.last
     pg.title.should == "The Story"
-    pg.draft_content.should == "<p>It was a dark and stormy night...</p>"
+    pg.draft_content.should == "It was a dark and stormy night..."
     pg.user.should == current_user
     pg.should_not be_published
     pg.type.should == "Storytime::Page"
@@ -66,7 +66,7 @@ describe "In the dashboard, Pages" do
     
     visit url_for([:edit, :dashboard, pg, only_path: true])
     find('#post-title-input').set("The Story")
-    find(".note-editable").set "It was a dark and stormy night..."
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_link "advanced-settings-panel-toggle"
     click_button "Save Draft"
     

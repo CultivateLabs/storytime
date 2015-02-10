@@ -19,6 +19,7 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/position
 //= require jquery-ui/widget
+//= require jquery-ui/resizable
 //= require jquery.ui.timepicker
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js

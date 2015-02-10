@@ -124,6 +124,8 @@
       </div>
     <% end %>
     
+    <%= link_to "Image", "#", class: "btn btn-sm btn-default insert-media-button" %>
+    
     <div class="container-fluid editor">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -151,8 +153,6 @@
     </div>
     
     <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror" } %>
-
-    
 
   <% end %>
 </div>

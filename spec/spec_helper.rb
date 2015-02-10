@@ -16,7 +16,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.register_driver :poltergeist_st do |app|
-  Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Logger.new('/dev/null'), phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'])
+  Capybara::Poltergeist::Driver.new(app, phantomjs_logger: Logger.new('/dev/null'), phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'], js_errors: false)
 end
 
 Capybara.javascript_driver = :poltergeist_st

@@ -26,9 +26,9 @@ describe "In the dashboard, Posts" do
 
     visit url_for([:new, :dashboard, :post, only_path: true])
     find('#post-title-input').set("The Story")
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_link "Publish"
     fill_in "post_excerpt", with: "It was a dark and stormy night..."
-    find(".note-editable").set("It was a dark and stormy night...")
     # find("#featured_media_id").set media.id
     click_button "Save Draft"
     
@@ -37,7 +37,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.last
     post.title.should == "The Story"
-    post.draft_content.should == "<p>It was a dark and stormy night...</p>"
+    post.draft_content.should == "It was a dark and stormy night..."
     post.user.should == current_user
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
@@ -52,8 +52,7 @@ describe "In the dashboard, Posts" do
     click_link "Publish"
     fill_in "post_excerpt", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
 
-    # Use find(".note-editable").set instead of fill_in "post_draft_content" because of Summernote (js)
-    find(".note-editable").set "The Deliverator belongs to an elite order, a hallowed sub-category."
+    fill_in "post_draft_content", with: "The Deliverator belongs to an elite order, a hallowed sub-category."
     click_link "Cancel"
     click_button "Preview"
     
@@ -62,7 +61,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.last
     post.title.should == "Snow Crash"
-    post.draft_content.should == "<p>The Deliverator belongs to an elite order, a hallowed sub-category.</p>"
+    post.draft_content.should == "The Deliverator belongs to an elite order, a hallowed sub-category."
     post.user.should == current_user
     post.should_not be_published
     post.type.should == "Storytime::BlogPost"
@@ -96,7 +95,7 @@ describe "In the dashboard, Posts" do
 
     visit url_for([:edit, :dashboard, post, only_path: true])
     find('#post-title-input').set("The Story")
-    find(".note-editable").set "It was a dark and stormy night..."
+    fill_in "post_draft_content", with: "It was a dark and stormy night..."
     click_link "advanced-settings-panel-toggle"
     click_button "Save Draft"
     
@@ -105,7 +104,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.last
     post.title.should == "The Story"
-    post.draft_content.should == "<p>It was a dark and stormy night...</p>"
+    post.draft_content.should == "It was a dark and stormy night..."
     post.user.should == original_creator
     post.should_not be_published
   end
