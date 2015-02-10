@@ -1,4 +1,4 @@
-<div id="main">
+<div id="main" class="wysiwyg">
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <div class="pull-left">
@@ -21,9 +21,6 @@
         <button id="preview_post" class="btn btn-primary btn-outline btn-sm margin-right">Preview</button>
         <%= link_to "Save / Publish", "#", class: 'btn btn-primary btn-sm btn-outline', data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
       </div>
-      <!-- <h3 class="scroll-panel-title">
-        <%= t('dashboard.posts.new.header', resource: @post.human_name) %>
-      </h3> -->
     </div>
     <div class="scroll-panel-body">
       <%= render "form" %>

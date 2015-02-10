@@ -75,11 +75,11 @@ class Storytime.Dashboard.Wysiwyg
         code.toggle()
         codemirror.refresh()
         if code.is(":visible")
-          $(this).text("WYSIWYG")
+          # $(this).text("WYSIWYG")
           mediumEditor.deactivate()
           $("#storytime-modal").addClass("modal-wide")
         else
-          $(this).text("HTML")
+          # $(this).text("HTML")
           mediumEditor.activate()
           $("#storytime-modal").removeClass("modal-wide")
 

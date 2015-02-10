@@ -1,130 +1,129 @@
-<div id="versions-panel" class="collapse post-action-panel">
-  <div style="padding: 20px;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <ul class="list-group" style="margin: 0;">
-            <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: @post.versions.order(created_at: :desc), locals: { versionable: @post } %>
-          </ul>
-          <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px; margin-right: 15px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%= simple_form_for [:dashboard, @post] do |f| %>
-
-  <%= hidden_field_tag :type, @post.type_name %>
-  <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
-
-  <div id="post-advanced-settings" class="collapse post-action-panel">
+<div>
+  <div id="versions-panel" class="collapse post-action-panel">
     <div style="padding: 20px;">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-
-            <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
-              <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
-            <% end %>
-            
-            <div class="post_field post_excerpt">
-              <small>
-                <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
-              </small>
-              <%= f.input :excerpt, required: false %>
-            </div>
-
-            <div class="post_field post_tags">
-              <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-<%= @post.published? ? '6' : '12' %>">
-                <%= f.input :slug, input_html: { value: (@post.persisted? ? @post.slug : nil) } %>
-              </div>
-              <% if @post.published? %>
-                <div class="col-sm-6">
-                  <%= f.input :published_at, as: :date_time_picker, label: "Published", input_html: { style: "display: inline;" } %>
-                </div>
-              <% end %>
-            </div>
-    
-            <hr>
-
-            <div class="post_actions">
-              <%= link_to "Cancel", '#', class: "btn btn-default", data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
-
-              <div class="pull-right">
-                <%= f.submit "Save Draft", class: "btn btn-default save" unless @post.published? %>
-                <%= f.submit "Publish", class: "btn btn-primary btn-outline publish", publish: true unless @post.published? %>
-                <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
-              </div>
-
-              <div class="notify_subscribers_checkbox pull-right">
-                <%= f.input :send_subscriber_email, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
-              </div>
-
-            </div>
+            <ul class="list-group" style="margin: 0;">
+              <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: @post.versions.order(created_at: :desc), locals: { versionable: @post } %>
+            </ul>
+            <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px; margin-right: 15px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <% if Storytime.enable_file_upload %>
-    <div class="collapse post-action-panel" id="featured-images-panel">
+
+  <%= simple_form_for [:dashboard, @post] do |f| %>
+
+    <%= hidden_field_tag :type, @post.type_name %>
+    <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
+
+    <div id="post-advanced-settings" class="collapse post-action-panel">
       <div style="padding: 20px;">
         <div class="container-fluid">
-
           <div class="row">
             <div class="col-md-8 col-md-offset-2">
+
+              <% if lookup_context.template_exists?("storytime/dashboard/posts/_#{@post.type_name}_fields") %>
+                <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
+              <% end %>
+              
+              <div class="post_field post_excerpt">
+                <small>
+                  <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
+                </small>
+                <%= f.input :excerpt, required: false %>
+              </div>
+
+              <div class="post_field post_tags">
+                <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
+              </div>
+
               <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="well text-center featured_image_block <%= 'has-image' if @post.featured_media %>">
-                        <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
-                        <div id="featured_media_container" class="image_container">
-                          <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
-                        </div>
-                        <button type="button" class="btn btn-danger btn-block remove_featured_image">
-                          <%= t('dashboard.posts.remove_image') %>
-                        </button>
-                        <i class="icon-st-icons-images select_featured_image"></i>
-                        <div class="select_featured_image">
-                          <%= link_to "Select Featured Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "featured_media_button" %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="well text-center featured_image_block <%= 'has-image' if @post.secondary_media %>">
-                        <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
-                        <div id="secondary_media_container" class="image_container">
-                          <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
-                        </div>
-                        <button type="button" class="btn btn-danger btn-block remove_featured_image">
-                          <%= t('dashboard.posts.remove_image') %>
-                        </button>
-                        <i class="icon-st-icons-images select_featured_image"></i>
-                        <div class="select_featured_image">
-                          <%= link_to "Select Secondary Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "secondary_media_button" %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#featured-images-panel' } %>
+                <div class="col-sm-<%= @post.published? ? '6' : '12' %>">
+                  <%= f.input :slug, input_html: { value: (@post.persisted? ? @post.slug : nil) } %>
                 </div>
-              </div>              
+                <% if @post.published? %>
+                  <div class="col-sm-6">
+                    <%= f.input :published_at, as: :date_time_picker, label: "Published", input_html: { style: "display: inline;" } %>
+                  </div>
+                <% end %>
+              </div>
+      
+              <hr>
+
+              <div class="post_actions">
+                <%= link_to "Cancel", '#', class: "btn btn-default", data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
+
+                <div class="pull-right">
+                  <%= f.submit "Save Draft", class: "btn btn-default save" unless @post.published? %>
+                  <%= f.submit "Publish", class: "btn btn-primary btn-outline publish", publish: true unless @post.published? %>
+                  <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
+                </div>
+
+                <div class="notify_subscribers_checkbox pull-right">
+                  <%= f.input :send_subscriber_email, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
-  
+    
+    <% if Storytime.enable_file_upload %>
+      <div class="collapse post-action-panel" id="featured-images-panel">
+        <div style="padding: 20px;">
+          <div class="container-fluid">
 
-  <div class="wysiwyg" id="wysiwyg-post">
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-sm-10 col-sm-offset-1">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="well text-center featured_image_block <%= 'has-image' if @post.featured_media %>">
+                          <%= f.input :featured_media_id, as: :hidden, input_html: { id: "featured_media_id" } %>
+                          <div id="featured_media_container" class="image_container">
+                            <%= image_tag @post.featured_media.file_url(:thumb), id: "featured_media_image" if @post.featured_media %>
+                          </div>
+                          <button type="button" class="btn btn-danger btn-block remove_featured_image">
+                            <%= t('dashboard.posts.remove_image') %>
+                          </button>
+                          <i class="icon-st-icons-images select_featured_image"></i>
+                          <div class="select_featured_image">
+                            <%= link_to "Select Featured Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "featured_media_button" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="well text-center featured_image_block <%= 'has-image' if @post.secondary_media %>">
+                          <%= f.input :secondary_media_id, as: :hidden, input_html: { id: "secondary_media_id" } %>
+                          <div id="secondary_media_container" class="image_container">
+                            <%= image_tag @post.secondary_media.file_url(:thumb), id: "secondary_media_image" if @post.secondary_media %>
+                          </div>
+                          <button type="button" class="btn btn-danger btn-block remove_featured_image">
+                            <%= t('dashboard.posts.remove_image') %>
+                          </button>
+                          <i class="icon-st-icons-images select_featured_image"></i>
+                          <div class="select_featured_image">
+                            <%= link_to "Select Secondary Image", "#", class: "btn btn-primary btn-outline text-lighter", id: "secondary_media_button" %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px;", data: { toggle: 'collapse', target: '#featured-images-panel' } %>
+                  </div>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
     <div class="container-fluid editor">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -153,9 +152,9 @@
     
     <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror" } %>
 
-    <%= link_to "HTML", "#", class: "btn btn-default", style: "position: absolute; top: 15px; right: 20px; z-index: 1030;", data: { toggle: "codemirror" } %>
-  </div>
+    
 
-<% end %>
+  <% end %>
+</div>
 
 <%= render "storytime/dashboard/media/modal" if Storytime.enable_file_upload %>
