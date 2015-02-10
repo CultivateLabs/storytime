@@ -42,6 +42,9 @@ class Storytime.Dashboard.Wysiwyg
       self.bindActionPanel $(this), mediumEditor
 
   setupMedium: ->
+    # Medium-editor keeps adding toolbars when this method gets triggered 
+    # (i.e. when opening snippets modal on post edit page) and they all seem 
+    # to get activated at the same time, so this clears out existing ones first
     $('.medium-editor-toolbar').remove()
     $('.medium-editor-anchor-preview').remove()
     mediumEditor = new MediumEditor('.medium-editor', mediumEditorOptions)
@@ -79,7 +82,7 @@ class Storytime.Dashboard.Wysiwyg
           $(this).text("HTML")
           mediumEditor.activate()
           $("#storytime-modal").removeClass("modal-wide")
-          
+
     $("#storytime-modal").on 'hide.bs.modal', ->
       $(this).removeClass "modal-wide"
 
