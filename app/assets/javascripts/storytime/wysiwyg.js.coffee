@@ -28,13 +28,13 @@ class Storytime.Dashboard.Wysiwyg
     "drop-font-tags": true,
     "tidy-mark": false
 
-  editorDiv = "<div class='medium-image-controls' style='padding: 20px; background: #333; color: #fff;'>" +
+  editorDiv = "<div class='medium-image-controls' style='padding: 10px 0; background: #333; color: #fff;'>" +
                 "<div class='container-fluid'>" +
                   "<div class='row'>" +
-                    "<div class='col-md-6'>" +
+                    "<div class='col-xs-6'>" +
                       "<input type='text' id='medium-image-width' placeholder='Width' class='form-control' />" +
                     "</div>" +
-                    "<div class='col-md-6'>" +
+                    "<div class='col-xs-6'>" +
                       "<input type='text' id='medium-image-height' placeholder='Height' class='form-control' />" +
                     "</div>" +
                   "</div>" +
@@ -74,16 +74,14 @@ class Storytime.Dashboard.Wysiwyg
         $(".medium-active-image").css("width", "")
         $("#medium-image-height").val("")
       else
-        newWidth = parseFloat($(this).val())
-        $(".medium-active-image").css("width", newWidth)
+        $(".medium-active-image").css("width", $(this).val())
         $(".medium-active-image").css("height", "")
         $("#medium-image-height").val($(".medium-active-image").css("height"))
 
     $('body').on "keyup", "#medium-image-height", () ->
       # set the height, then find the new width and set that and remove the height so image remains responsive
-      newHeight = parseFloat($(this).val())
       $(".medium-active-image").css("width", "")
-      $(".medium-active-image").css("height", newHeight)
+      $(".medium-active-image").css("height", $(this).val())
       newWidth = $(".medium-active-image").css("width")
       $("#medium-image-width").val(newWidth)
       $(".medium-active-image").css("width", newWidth)
