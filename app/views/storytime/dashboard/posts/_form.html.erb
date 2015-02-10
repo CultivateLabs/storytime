@@ -120,7 +120,7 @@
 
           <%= f.input :slug %>
 
-          <%= f.input :published_at, as: :date_time_picker, input_html: { style: "display: inline" } if @post.published? %>
+          <%= f.input :published_at, as: :date_time_picker, input_html: { style: "display: inline" } %>
 
         </div>
       </div>
@@ -146,7 +146,7 @@
 
 
     <div class="notify_subscribers_checkbox pull-right">
-      <%= f.input :send_subscriber_email, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+      <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
     </div>
 
   </div>

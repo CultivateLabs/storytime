@@ -46,7 +46,7 @@ module Storytime
         if @post.save
           @post.create_autosave(post_params.slice(:draft_content)) if params[:preview] == "true"
 
-          publish if post_params['published'] == "1"
+          send_subscriber_notifications if @post.published? && post_params[:notifications_enabled] == "1"
 
           opts = params[:preview] == "true" ? { preview: true } : {}
 
@@ -64,7 +64,7 @@ module Storytime
         if @post.update(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
 
-          publish if post_params['published'] == "1"
+          send_subscriber_notifications if @post.published? && post_params[:notifications_enabled] == "1"
 
           redirect_to [:edit, :dashboard, @post], notice: I18n.t('flash.posts.update.success')
         else
@@ -108,15 +108,11 @@ module Storytime
         params.require(:post).permit(*permitted_attrs)
       end
 
-      def publish
-        unless @post.published?
-          @post.publish!
-
-          if post_params[:send_subscriber_email] == "1"
-            @site.active_email_subscriptions.each do |subscription|
-              Storytime::SubscriptionMailer.new_post_email(@post, subscription).deliver
-            end
-          end
+      def send_subscriber_notifications
+        if Storytime.on_publish_with_notifications.nil?
+          Storytime::PostNotifier.send_notifications_for(@post.id) if @post.published_at <= Time.now
+        else
+          Storytime.on_publish_with_notifications.call(@post)
         end
       end
 
