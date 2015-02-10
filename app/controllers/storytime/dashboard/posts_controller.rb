@@ -33,6 +33,12 @@ module Storytime
 
       def create
         @post = new_post(post_params)
+
+        if post_params["published"] == "0"
+          @post.published_at_date = nil
+          @post.published_at_time = nil
+        end
+
         @post.draft_user_id = current_user.id
         @post.site = Storytime::Site.first # if we ever go multi-site, this would likely become current_site
         authorize @post
