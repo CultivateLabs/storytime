@@ -70,10 +70,14 @@ class Storytime.Dashboard.Wysiwyg
         mediumEditor.deactivate()
 
     $('body').on "keyup", "#medium-image-width", () ->
-      newWidth = parseFloat($(this).val())
-      $(".medium-active-image").css("width", newWidth)
-      $(".medium-active-image").css("height", "")
-      $("#medium-image-height").val($(".medium-active-image").css("height"))
+      if $(this).val() == "" || $(this).val() == "auto"
+        $(".medium-active-image").css("width", "")
+        $("#medium-image-height").val("")
+      else
+        newWidth = parseFloat($(this).val())
+        $(".medium-active-image").css("width", newWidth)
+        $(".medium-active-image").css("height", "")
+        $("#medium-image-height").val($(".medium-active-image").css("height"))
 
     $('body').on "keyup", "#medium-image-height", () ->
       # set the height, then find the new width and set that and remove the height so image remains responsive
@@ -88,8 +92,8 @@ class Storytime.Dashboard.Wysiwyg
   openImageControls: (image) ->
     image.before(editorDiv)
     image.addClass("medium-active-image")
-    $("#medium-image-width").val(image.css("width"))
-    $("#medium-image-height").val(image.css("height"))
+    $("#medium-image-width").val(image[0].style.width)
+    $("#medium-image-height").val(image[0].style.height)
 
   closeImageControls: ->
     $(".medium-editor img").removeClass("medium-active-image")
