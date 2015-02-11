@@ -96,6 +96,15 @@ class Storytime.Dashboard.Wysiwyg
   closeImageControls: ->
     $(".medium-editor img").removeClass("medium-active-image")
     $(".medium-image-controls").remove()
+    @updateFromMediumEditor()
+
+  updateFromMediumEditor: ->
+    $('.medium-editor').each ->
+      input = $($(this).data('input'))
+      codemirror = input.siblings('.CodeMirror')[0].CodeMirror
+      html = $(this).html()
+      input.val(html)
+      codemirror.setValue(html)
 
   setupMedium: ->
     # Medium-editor keeps adding toolbars when this method gets triggered 
