@@ -175,11 +175,11 @@ To enable subscription sign-up within a custom view, simply use the `storytime_e
 <%= storytime_email_subscription_form %>
 ```
 
-In the future, we plan to also add support for automatically adding colelcted emails to dedicated email marketing platforms, such as [Mailkimp](http://www.mailkimp.com).
+In the future, we plan to also add support for automatically adding collected emails to dedicated email marketing platforms, such as [Mailkimp](http://www.mailkimp.com).
 
 ## Sending New Post Notifications
 
-When a post is published, Storytime will, by default, immediately send out an email to each active subscriber of your site (see [Email Subscriptions](#email-subscriptions)). Since there's many different ways that developers may want handle notifications or email, Storytime provides an `on_publish_with_notifications` hook to handle jjust about any situation.
+When a post is published, Storytime will, by default, immediately send out an email to each active subscriber of your site (see [Email Subscriptions](#email-subscriptions)). Since there's many different ways that developers may want handle notifications or email, Storytime provides an `on_publish_with_notifications` hook to handle just about any situation.
 
 `on_publish_with_notifications` accepts a lambda or Proc object that is called when a post is published with the "Notify subscribers of new post" option selected. The hook can be used to prevent inline emails, to schedule emails in the future, or to just handle new post notifications or email delivery differently. 
 
