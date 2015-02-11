@@ -43,6 +43,13 @@ module Storytime
       end
 
       def published=(val)
+        if val == "1"
+          self.published_at_date = Time.now.to_date
+          self.published_at_time = Time.now
+        else
+          self.published_at_date = nil
+          self.published_at_time = nil
+        end
       end
 
       def published

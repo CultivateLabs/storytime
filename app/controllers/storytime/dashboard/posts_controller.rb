@@ -33,12 +33,6 @@ module Storytime
 
       def create
         @post = new_post(post_params)
-
-        if post_params["published"] == "0"
-          @post.published_at_date = nil
-          @post.published_at_time = nil
-        end
-
         @post.draft_user_id = current_user.id
         @post.site = Storytime::Site.first # if we ever go multi-site, this would likely become current_site
         authorize @post
@@ -60,14 +54,8 @@ module Storytime
       def update
         authorize @post
         @post.draft_user_id = current_user.id
-        @post.assign_attributes(post_params)
-
-        if post_params["published"] == "0"
-          @post.published_at_date = nil
-          @post.published_at_time = nil
-        end
-
-        if @post.save
+        
+        if @post.update_attributes(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
 
           send_subscriber_notifications if @post.published? && post_params[:notifications_enabled] == "1"
