@@ -67,7 +67,7 @@ Storytime.configure do |config|
   # 
   ### In app/jobs/storytime_post_notification_job.rb:
   # class StorytimePostNotificationJob < ActiveJob::Base
-  #   queue_as :default
+  #   queue_as :mailers
   # 
   #   def perform(post_id)
   #     Storytime::PostNotifier.send_notifications_for(post_id)

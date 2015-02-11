@@ -177,6 +177,33 @@ To enable subscription sign-up within a custom view, simply use the `storytime_e
 
 In the future, we plan to also add support for automatically adding colelcted emails to dedicated email marketing platforms, such as [Mailkimp](http://www.mailkimp.com).
 
+## Sending New Post Notifications
+
+When a post is published, Storytime will, by default, immediately send out an email to each active subscriber of your site (see [Email Subscriptions](#email-subscriptions)). Since there's many different ways that developers may want handle notifications or email, Storytime provides an `on_publish_with_notifications` hook to handle jjust about any situation.
+
+`on_publish_with_notifications` accepts a lambda or Proc object that is called when a post is published with the "Notify subscribers of new post" option selected. The hook can be used to prevent inline emails, to schedule emails in the future, or to just handle new post notifications or email delivery differently. 
+
+The below code snippets shows how to schedule email notifications for a published post using the host app and ActiveJob (Rails 4.2+).
+
+_config/initializers/storytime.rb_
+```
+config.on_publish_with_notifications = Proc.new do |post|
+  wait_until = post.published_at + 1.minute
+  StorytimePostNotificationJob.set(wait_until: wait_until).perform_later(post.id)
+end
+```
+
+_app/jobs/storytime_post_notification_job.rb_
+``` app/jobs/storytime_post_notification_job.rb
+class StorytimePostNotificationJob < ActiveJob::Base
+  queue_as :mailers
+
+  def perform(post_id)
+    Storytime::PostNotifier.send_notifications_for(post_id)
+  end
+end
+```
+
 ## Search
 
 You can search Storytime post types through search adapters available to Storytime. By default, Storytime.search_adapter will use the Postgres search adapter. If you are using a database other than Postgres be sure to change the search_adapter type in your Storytime initializer. Available search adapters include support for Postgres, MySql, MySql Fulltext (MySql v5.6.4+), and Sqlite3, and are as follows:
