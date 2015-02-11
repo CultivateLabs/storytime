@@ -50,7 +50,7 @@ class Storytime.Dashboard.Wysiwyg
     $("body").click (e) ->
       target = $(e.target)
 
-      if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').length > 0
+      if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').is(":visible")
         self.closeImageControls()
         mediumEditor.activate()
       if target.is("img") && !target.hasClass("medium-active-image")
