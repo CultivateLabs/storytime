@@ -1,43 +1,45 @@
-.btn-primary.btn-outline:active, .btn-primary.btn-outline:focus {
-  background: #fff;
-  color: $brand-primary;
-}
-
-.btn {
-  text-transform: uppercase;
-  font-weight: lighter;
-
-  &.btn-delete-resource {
-    i {
-      position: relative;
-      top: 1px;
-    }
+.storytime {
+  .btn-primary.btn-outline:active, .btn-primary.btn-outline:focus {
+    background: #fff;
+    color: $brand-primary;
   }
 
-  &.btn-icon, &.btn-icon:active, &.btn-icon:focus {
-    font-size: 28px;
-    line-height: 30px;
-    padding: 0;
-    border: none;
-    outline: none;
-    @include box-shadow(none);
-    background: transparent;
+  .btn {
+    text-transform: uppercase;
+    font-weight: lighter;
 
-    &:hover {
+    &.btn-delete-resource {
+      i {
+        position: relative;
+        top: 1px;
+      }
+    }
+
+    &.btn-icon, &.btn-icon:active, &.btn-icon:focus {
+      font-size: 28px;
+      line-height: 30px;
+      padding: 0;
+      border: none;
+      outline: none;
+      @include box-shadow(none);
       background: transparent;
+
+      &:hover {
+        background: transparent;
+      }
+
+      i {
+        position: relative;
+        top: 2px;
+      }
     }
 
-    i {
-      position: relative;
-      top: 2px;
+    &.margin-right {
+      margin-right: 10px;
     }
-  }
 
-  &.margin-right {
-    margin-right: 10px;
-  }
-
-  &.margin-left {
-    margin-left: 10px;
+    &.margin-left {
+      margin-left: 10px;
+    }
   }
 }

@@ -19,7 +19,7 @@ describe "In the dashboard, Media" do
 
     attach_file('media_file', "./spec/support/images/success-kid.jpg")
 
-    page.should have_selector("#media_gallery img")
+    
     media = Storytime::Media.last
     page.should have_image(media.file_url(:thumb))
   end
@@ -52,16 +52,13 @@ describe "In the dashboard, Media" do
 
     visit url_for([:new, :dashboard, :post, type: Storytime::BlogPost.type_name, only_path: true])
 
-    page.should have_selector("button[data-event='showImageDialog']")
-    find("button[data-event='showImageDialog']").click
+    find(".insert-media-button").click
 
-    page.should have_selector(".note-image-dialog")
-    find(".insert-image-button").click
+    within "#media_#{media.id}" do
+      find(".insert-image-button").click
+    end
 
-    page.should_not have_selector(".note-image-dialog")
-
-    summernote_html = page.evaluate_script("$('.note-editable').html()")
-    summernote_html.should =~ /#{media.file_url}/
+    expect(page).to have_image(media.file_url)
   end
   
 end

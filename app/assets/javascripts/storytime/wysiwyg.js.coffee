@@ -152,11 +152,11 @@ class Storytime.Dashboard.Wysiwyg
 
         codemirror.refresh()
         if code.is(":visible")
-          # $(this).text("WYSIWYG")
+          $(this).children("i").removeClass("fa-code").addClass("fa-font")
           mediumEditor.deactivate()
           $("#storytime-modal").addClass("modal-wide")
         else
-          # $(this).text("HTML")
+          $(this).children("i").removeClass("fa-font").addClass("fa-code")
           mediumEditor.activate()
           $("#storytime-modal").removeClass("modal-wide")
 

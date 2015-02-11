@@ -1,13 +1,15 @@
-.well {
-  background-color: #ECEBEB;
-  border: none;
-  @include box-shadow(none);
+.storytime {
+  .well {
+    background-color: #ECEBEB;
+    border: none;
+    @include box-shadow(none);
 
-  .btn-primary {
-    background: #fff;
+    .btn-primary {
+      background: #fff;
 
-    &:hover, &:focus, &:active {
-      color: $brand-primary;
+      &:hover, &:focus, &:active {
+        color: $brand-primary;
+      }
     }
   }
 }
