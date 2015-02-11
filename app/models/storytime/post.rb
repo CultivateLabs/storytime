@@ -30,6 +30,7 @@ module Storytime
     before_save :set_published_at
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
+    scope :with_notifications, -> { where(notifications_enabled: true) }
 
     class << self
       def policy_class
