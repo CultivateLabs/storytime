@@ -38,4 +38,4 @@ class Storytime.Dashboard.Posts
       $(".scroll-panel-header").fadeIn
         duration: 'fast'
         easing: 'swing'
-      $(".scroll-panel-body").animate({top: "65px"}, 'fast', 'swing')
+      $(".scroll-panel-body").animate({top: "130px"}, 'fast', 'swing')

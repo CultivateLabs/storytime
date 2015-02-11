@@ -28,18 +28,6 @@ class Storytime.Dashboard.Wysiwyg
     "drop-font-tags": true,
     "tidy-mark": false
 
-  editorDiv = "<div class='medium-image-controls' style='padding: 10px 0; background: #333; color: #fff;'>" +
-                "<div class='container-fluid'>" +
-                  "<div class='row'>" +
-                    "<div class='col-xs-6'>" +
-                      "<input type='text' id='medium-image-width' placeholder='Width' class='form-control' />" +
-                    "</div>" +
-                    "<div class='col-xs-6'>" +
-                      "<input type='text' id='medium-image-height' placeholder='Height' class='form-control' />" +
-                    "</div>" +
-                  "</div>" +
-                "</div>" +
-              "</div>" 
 
   init: () ->
     self = @
@@ -62,7 +50,7 @@ class Storytime.Dashboard.Wysiwyg
     $("body").click (e) ->
       target = $(e.target)
 
-      if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0)
+      if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').length > 0
         self.closeImageControls()
         mediumEditor.activate()
       if target.is("img") && !target.hasClass("medium-active-image")
@@ -87,15 +75,34 @@ class Storytime.Dashboard.Wysiwyg
       $(".medium-active-image").css("width", newWidth)
       $(".medium-active-image").css("height", "")
 
+    $('body').on "click", ".medium-image-float", () ->
+      direction = $(this).data("float")
+      image = $(".medium-active-image")
+      console.log direction
+      switch direction
+        when "left" then image.removeClass("pull-right pull-left").addClass("pull-left")
+        when "right" then image.removeClass("pull-right pull-left").addClass("pull-right")
+        when "none" then image.removeClass("pull-right pull-left")
+
+    $('body').on "click", ".medium-image-delete", () ->
+      image = $(".medium-active-image")
+      image.remove()
+      self.updateFromMediumEditor()
+      self.closeImageControls()
+      mediumEditor.activate()
+
+
   openImageControls: (image) ->
-    image.before(editorDiv)
     image.addClass("medium-active-image")
     $("#medium-image-width").val(image[0].style.width)
     $("#medium-image-height").val(image[0].style.height)
+    $("#medium-image-button").hide()
+    $(".medium-image-controls").show()
 
   closeImageControls: ->
     $(".medium-editor img").removeClass("medium-active-image")
-    $(".medium-image-controls").remove()
+    $("#medium-image-button").show()
+    $(".medium-image-controls").hide()
     @updateFromMediumEditor()
 
   updateFromMediumEditor: ->

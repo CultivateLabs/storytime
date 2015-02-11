@@ -75,7 +75,6 @@ class Storytime.Dashboard.Media
         html = $("[data-input='#post_draft_content']").html()
         input.val(html)
         codemirror = input.siblings(".CodeMirror")[0].CodeMirror
-        console.log "SETTING CDDEMIRROR VALUE"
         codemirror.setValue(html)
         $("#insertMediaModal").modal("hide")
         return

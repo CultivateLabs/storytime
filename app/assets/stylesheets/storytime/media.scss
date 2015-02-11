@@ -44,10 +44,17 @@
 //   }
 // }
 
+.medium-editor {
+  position: relative;
+}
+
 .medium-active-image {
   border: 3px solid #333;
 }
 
+.medium-image-controls {
+  display: none;
+}
 
 #media_file {
   border: none;
