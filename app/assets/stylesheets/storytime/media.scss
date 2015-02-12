@@ -1,6 +1,10 @@
 
   .medium-editor {
     position: relative;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .medium-active-image {
