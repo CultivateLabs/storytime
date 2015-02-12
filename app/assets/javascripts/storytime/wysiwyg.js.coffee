@@ -53,7 +53,7 @@ class Storytime.Dashboard.Wysiwyg
       if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').is(":visible")
         self.closeImageControls()
         mediumEditor.activate()
-      if target.is("img") && !target.hasClass("medium-active-image")
+      if target.is("img") && !target.hasClass("medium-active-image") # TODO: SCOPE THIS TO THE POST EDITING PAGE ONLY....
         self.openImageControls(target)
         mediumEditor.deactivate()
 
@@ -61,6 +61,7 @@ class Storytime.Dashboard.Wysiwyg
       if $(this).val() == "" || $(this).val() == "auto"
         $(".medium-active-image").css("width", "")
         $("#medium-image-height").val("")
+        $("#medium-image-width").val("")
       else
         $(".medium-active-image").css("width", $(this).val())
         $(".medium-active-image").css("height", "")
