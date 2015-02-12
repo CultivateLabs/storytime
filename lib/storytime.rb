@@ -5,6 +5,9 @@ require "storytime/postgres_search_adapter"
 require "storytime/sqlite3_search_adapter"
 
 module Storytime
+
+  autoload :StorytimeHelpers, "storytime/storytime_helpers"
+
   # Model to use for Storytime users.
   mattr_accessor :user_class
   @@user_class = 'User'
@@ -83,7 +86,11 @@ module Storytime
 
     def snippet(name)
       snippet = Storytime::Snippet.find_by(name: name)
-      snippet.nil? ? "" : snippet.content.html_safe
+      if snippet.nil?
+        ""
+      else
+        "<span class='storytime-snippet-#{snippet.id}'>#{snippet.content}</span>".html_safe
+      end
     end
 
     def home_page_route_options
