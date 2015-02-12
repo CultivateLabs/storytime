@@ -1,12 +1,15 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900|Open+Sans:400,300,600);
 @import "storytime/icons";
 
-// $brand-primary: #4B71C3;
-// $brand-danger: #B22E46;
+$st-brand-primary: #4B71C3;
+$st-btn-primary-color:              #fff !default;
+$st-btn-primary-bg:                 $st-brand-primary !default;
+$st-btn-primary-border:             darken($st-btn-primary-bg, 5%) !default;
 
-// $border-radius-base: 0;
-// $border-radius-large: 0;
-// $border-radius-small: 0;
+$st-brand-danger: #B22E46;
+$st-btn-danger-color:               #fff !default;
+$st-btn-danger-bg:                  $st-brand-danger !default;
+$st-btn-danger-border:              darken($st-btn-danger-bg, 5%) !default;
 
 $scroll-panel-line-height: 30px;
 $scroll-panel-header-height: 65px;

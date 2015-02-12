@@ -42,3 +42,23 @@
     margin-left: 10px;
   }
 }
+
+.btn-primary {
+  @include button-variant($st-btn-primary-color, $st-btn-primary-bg, $st-btn-primary-border);
+}
+
+.btn-danger {
+  @include button-variant($st-btn-danger-color, $st-btn-danger-bg, $st-btn-danger-border);
+}
+
+.btn-outline {
+  background-color: transparent;
+
+  &.btn-primary {
+    @include btn-outline-variant($st-btn-primary-color, $st-btn-primary-bg);
+  }
+
+  &.btn-danger {
+    @include btn-outline-variant($st-btn-danger-color, $st-btn-danger-bg);
+  }
+}

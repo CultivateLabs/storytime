@@ -14,7 +14,7 @@
       }
 
       i {
-        color: $brand-primary;
+        color: $st-brand-primary;
         font-size: 1.3em;
       }
 
@@ -29,8 +29,8 @@
       &:hover,
       &:focus {
         border: 1px solid $st-nav-tabs-active-link-hover-border-color;
-        border-bottom-color: $brand-primary;
-        color: $brand-primary;
+        border-bottom-color: $st-brand-primary;
+        color: $st-brand-primary;
       }
     }
   }
