@@ -49,12 +49,18 @@ class Storytime.Dashboard.Wysiwyg
 
     $("body").click (e) ->
       target = $(e.target)
-
-      if !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').is(":visible")
+      if !target.is(".medium-editor img") && !target.hasClass("medium-image-controls") && !(target.closest(".medium-image-controls").length > 0) && $('.medium-image-controls').is(":visible")
         self.closeImageControls()
         mediumEditor.activate()
-      if target.is("img") && !target.hasClass("medium-active-image") # TODO: SCOPE THIS TO THE POST EDITING PAGE ONLY....
-        self.openImageControls(target)
+
+    $("body").on 'click', '.medium-editor img', (e) ->
+      active = $(this).hasClass("medium-active-image")
+      unless active
+        $(this).addClass "medium-active-image"
+        $("#medium-image-width").val($(this)[0].style.width)
+        $("#medium-image-height").val($(this)[0].style.height)
+        $("#medium-image-button").hide()
+        $(".medium-image-controls").show()
         mediumEditor.deactivate()
 
     $('body').on "keyup", "#medium-image-width", () ->
@@ -79,7 +85,6 @@ class Storytime.Dashboard.Wysiwyg
     $('body').on "click", ".medium-image-float", () ->
       direction = $(this).data("float")
       image = $(".medium-active-image")
-      console.log direction
       switch direction
         when "left" then image.removeClass("pull-right pull-left").addClass("pull-left")
         when "right" then image.removeClass("pull-right pull-left").addClass("pull-right")
@@ -92,8 +97,8 @@ class Storytime.Dashboard.Wysiwyg
       self.closeImageControls()
       mediumEditor.activate()
 
-
   openImageControls: (image) ->
+    console.log image
     image.addClass("medium-active-image")
     $("#medium-image-width").val(image[0].style.width)
     $("#medium-image-height").val(image[0].style.height)
