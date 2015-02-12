@@ -1,33 +1,32 @@
-$brand-primary: #4B71C3;
-$brand-danger: #B22E46;
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900|Open+Sans:400,300,600);
+@import "storytime/icons";
+
+// $brand-primary: #4B71C3;
+// $brand-danger: #B22E46;
+
+// $border-radius-base: 0;
+// $border-radius-large: 0;
+// $border-radius-small: 0;
 
 $scroll-panel-line-height: 30px;
 $scroll-panel-header-height: 65px;
 $scroll-panel-header-padding: (($scroll-panel-header-height - $scroll-panel-line-height) / 2);
-$border-radius-base: 0;
-$border-radius-large: 0;
-$border-radius-small: 0;
+ 
+$st-pagination-active-color:              #333;
+$st-pagination-active-bg:                 #fff;
+$st-pagination-active-border:             #ddd;
+ 
+$st-nav-tabs-border-color:                     transparent;
+$st-nav-tabs-link-hover-border-color:          transparent;
+$st-nav-tabs-active-link-hover-border-color:   transparent;
 
-$nav-tabs-border-color:                     transparent;
-$nav-tabs-link-hover-border-color:          transparent;
-$nav-tabs-active-link-hover-border-color:   transparent;
+$st-dropdown-border: #333;
+$st-dropdown-fallback-border: #333;
 
-$pagination-active-color:              #333;
-$pagination-active-bg:                 #fff;
-$pagination-active-border:             #ddd;
-
-$dropdown-border: #333;
-$dropdown-fallback-border: #333;
-
-$font-family-sans-serif: 'Open Sans', sans-serif;
-$font-family-serif: 'Merriweather', serif;
-$headings-font-family: $font-family-serif;
-$headings-font-weight: 700;
-.serif {
-  font-family: $font-family-serif;
-}
-
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900|Open+Sans:400,300,600);
+$st-font-family-sans-serif: 'Open Sans', sans-serif;
+$st-font-family-serif: 'Merriweather', serif;
+$st-headings-font-family: $st-font-family-serif;
+$st-headings-font-weight: 700;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -45,21 +44,26 @@ $headings-font-weight: 700;
 @import "medium-editor.min";
 @import "medium-editor-default.min";
 
-@import "storytime/admin";
-@import "storytime/buttons";
-@import "storytime/layout";
-@import "storytime/list-groups";
-@import "storytime/media";
-@import "storytime/modals";
-@import "storytime/posts";
-@import "storytime/sites";
-@import "storytime/versions";
-@import "storytime/comments";
-@import "storytime/pagination";
-@import "storytime/navigation";
-@import "storytime/scroll-panels";
-@import "storytime/snippets";
-@import "storytime/tabs";
-@import "storytime/wells";
+.storytime {
+  font-family: $st-font-family-sans-serif;
+  
+  @import "storytime/dropdowns";
+  @import "storytime/pagination";
+  @import "storytime/tabs";
+  @import "storytime/type";
 
-@import "storytime/icons";
+  @import "storytime/admin";
+  @import "storytime/buttons";
+  @import "storytime/list-groups";
+  @import "storytime/media";
+  @import "storytime/modals";
+  @import "storytime/posts";
+  @import "storytime/versions";
+  @import "storytime/navigation";
+  @import "storytime/scroll-panels";
+  @import "storytime/wells";
+}
+
+@import "storytime/snippets";
+@import "storytime/layout";
+@import "storytime/comments";

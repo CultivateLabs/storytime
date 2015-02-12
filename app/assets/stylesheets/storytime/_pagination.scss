@@ -1,0 +1,14 @@
+.pagination {
+  margin: 0;
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      color: $st-pagination-active-color;
+      background-color: $st-pagination-active-bg;
+      border-color: $st-pagination-active-border;
+    }
+  }
+}

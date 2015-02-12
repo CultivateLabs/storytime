@@ -1,4 +1,4 @@
-.storytime {
+
   .flash {
     position: fixed;
     bottom: 20px;
@@ -16,12 +16,6 @@
     }
   }
 
-  .full-width { width: 100%; }
-
-  #right {
-    border-right: 1px solid #f1f1f1;
-  }
-
   .form-group.check_boxes {
     margin-left: 20px;
   }
@@ -31,20 +25,10 @@
     margin-left: 20px;
   }
 
-  .actions{ margin-top: 20px; }
-
   .draft_saved {
     color: #777777;
     font-size: 0.55em;
     font-style: normal;
-  }
-
-  textarea { resize:vertical; }
-
-  .pane {
-    .edit_form {
-      border-top: 1px solid #ccc;
-    }
   }
 
   .table-row-link {
@@ -56,4 +40,3 @@
       line-height: 2.15 !important;
     }
   }
-}
