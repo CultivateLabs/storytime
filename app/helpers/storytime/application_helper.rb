@@ -1,6 +1,10 @@
 module Storytime
   module ApplicationHelper
 
+    def logged_in_storytime_user?
+      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?
+    end
+
     def dashboard_nav_site_path(site)
       site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
