@@ -83,16 +83,6 @@ module Storytime
       @@user_class.underscore.to_sym
     end
 
-    def snippet(name)
-      ## TODO: figure out how to keep this method working. should call storytime_snippet(name) from storytime_helpers
-      snippet = Storytime::Snippet.find_by(name: name)
-      if snippet.nil?
-        ""
-      else
-        "<span class='storytime-snippet-#{snippet.id}'>#{snippet.content}</span>".html_safe
-      end
-    end
-
     def home_page_route_options
       site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
 

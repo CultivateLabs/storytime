@@ -71,15 +71,15 @@ $ rails generate storytime:views
 
 Storytime takes the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
 
-Text snippets are small chunks of user-editable content that can be re-used in various places in your host app. Snippets can be accessed through the `Storytime.snippet` method. Content returned from that method is marked HTML-safe, so you can even include simple html content in your text snippets.
+Text snippets are small chunks of user-editable content that can be re-used in various places in your host app. Snippets can be accessed through the `storytime_snippet` method. Content returned from that method is marked HTML-safe, so you can even include simple html content in your text snippets.
 
-The following example shows two snippets named "first-column-text" and "second-column-text" being accessed through the `Storytime.snippet` method: 
+The following example shows two snippets named "first-column-text" and "second-column-text" being accessed through the `storytime_snippet` method: 
 
 ```
 <h1>My Home Page</h1>
 <div class="row">
-  <div class="col-md-6"><%= Storytime.snippet("first-column-text") %></div>
-  <div class="col-md-6"><%= Storytime.snippet("second-column-text") %></div>
+  <div class="col-md-6"><%= storytime_snippet("first-column-text") %></div>
+  <div class="col-md-6"><%= storytime_snippet("second-column-text") %></div>
 </div>
 ```
 
