@@ -21,6 +21,18 @@ module Storytime
   mattr_accessor :home_page_path
   @@home_page_path = '/'
 
+  # Path used to sign users in. 
+  mattr_accessor :login_path
+  @@login_path = '/users/sign_in'
+
+  # Path used to log users out. 
+  mattr_accessor :logout_path
+  @@logout_path = '/users/sign_out'
+
+  # Method used for Storytime user logout path.
+  mattr_accessor :logout_method
+  @@logout_method = :delete
+
   # Enable file uploads through Carrierwave.
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
@@ -76,7 +88,11 @@ module Storytime
     end
 
     def user_class_underscore
-      @@user_class.to_s.underscore
+      @@user_class.underscore
+    end
+
+    def user_class_underscore_all
+      @@user_class.underscore.gsub('/', '_')
     end
 
     def user_class_symbol

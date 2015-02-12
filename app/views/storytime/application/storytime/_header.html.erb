@@ -22,7 +22,7 @@
             <%= link_to "#{t 'layout.subscribe_to', site_name: @site.title}", "#", data: {target: "#addSubscriptionModal", toggle: "modal"} %>
           </li>
           <% unless user_signed_in? %>
-            <li><%= link_to "Sign In", main_app.new_user_session_path %></li>
+            <li><%= link_to "Sign In", Storytime.login_path %></li>
           <% end %>
         </ul>
       </div>

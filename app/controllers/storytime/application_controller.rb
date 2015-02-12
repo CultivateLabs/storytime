@@ -32,15 +32,15 @@ class Storytime::ApplicationController < ApplicationController
 
   if Storytime.user_class_symbol != :user
     def authenticate_user!
-      send("authenticate_#{Storytime.user_class.to_s.downcase}!".to_sym)
+      send("authenticate_#{Storytime.user_class_underscore_all}!".to_sym)
     end
 
     def current_user
-      send("current_#{Storytime.user_class.to_s.downcase}".to_sym)
+      send("current_#{Storytime.user_class_underscore_all}".to_sym)
     end
 
     def user_signed_in?
-      send("#{Storytime.user_class.to_s.downcase}_signed_in?".to_sym)
+      send("#{Storytime.user_class_underscore_all}_signed_in?".to_sym)
     end
   end
 

@@ -15,6 +15,15 @@ Storytime.configure do |config|
   # Storytime's mount point within the host app.
   <%= @enable_home_page_path ? nil : '# ' %>config.home_page_path = '<%= @home_page_path %>'
 
+  # Path used to sign users in. 
+  # config.login_path = '/users/sign_in'
+
+  # Path used to log users out. 
+  # config.logout_path = '/users/sign_out'
+
+  # Method used for Storytime user logout path.
+  # config.logout_method = :delete
+
   # Add custom post types to use within Storytime.
   # Make sure that the custom post types inherit the
   # from the Storytime::Post class.
