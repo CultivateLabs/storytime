@@ -7,6 +7,7 @@ module Storytime
   autoload :PostgresSearchAdapter,      'storytime/postgres_search_adapter'
   autoload :Sqlite3SearchAdapter,       'storytime/sqlite3_search_adapter'
   autoload :StorytimeHelpers,           'storytime/storytime_helpers'
+  autoload :PostNotifier,               'storytime/post_notifier'
 
   # Model to use for Storytime users.
   mattr_accessor :user_class
@@ -64,6 +65,12 @@ module Storytime
   # Email address of the sender of subscription emails.
   mattr_accessor :subscription_email_from
   @@subscription_email_from = 'no-reply@example.com'
+
+  # Hook for handling notification delivery when publishing content.
+  # Accepts either a Lambda or Proc which can be setup to schedule
+  # a ActiveJob (Rails 4.2+).
+  mattr_accessor :on_publish_with_notifications
+  @@on_publish_with_notifications = nil
 
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:

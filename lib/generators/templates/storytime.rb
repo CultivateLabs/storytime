@@ -35,8 +35,9 @@ Storytime.configure do |config|
   # Character limit for Storytime::Post.excerpt
   <%= @enable_post_excerpt_character_limit ? nil : '# ' %>config.post_excerpt_character_limit = <%= @post_excerpt_character_limit %>
 
-  # Array of tags to allow from the Summernote WYSIWYG Editor.
-  # An empty array or nil setting will allow all tags.
+  # Array of tags to allow from the Summernote WYSIWYG
+  # Editor when editing Posts and custom post types.
+  # An empty array, '', or nil setting will permit all tags.
   <%= @enable_whitelisted_html_tags ? nil : '# ' %>config.whitelisted_html_tags = <%= @whitelisted_html_tags %>
 
   # Enable Disqus comments using your forum's shortname,
@@ -46,11 +47,33 @@ Storytime.configure do |config|
   # Email regex used to validate email format validity for subscriptions.
   <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>
 
+  # Email address of the sender of subscription emails.
+  # config.subscription_email_from = 'no-reply@example.com'
+
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
   <%= @enable_search_adapter ? nil : '# ' %>config.search_adapter = <%= @search_adapter %>
+
+  # Hook for handling notification delivery when publishing content.
+  # Accepts either a Lambda or Proc which can be set up to schedule
+  # an ActiveJob (Rails 4.2+), for example:
+  # 
+  # config.on_publish_with_notifications = Proc.new do |post|
+  #   wait_until = post.published_at + 1.minute
+  #   StorytimePostNotificationJob.set(wait_until: wait_until).perform_later(post.id)
+  # end
+  # 
+  ### In app/jobs/storytime_post_notification_job.rb:
+  # class StorytimePostNotificationJob < ActiveJob::Base
+  #   queue_as :mailers
+  # 
+  #   def perform(post_id)
+  #     Storytime::PostNotifier.send_notifications_for(post_id)
+  #   end
+  # end
+  config.on_publish_with_notifications = nil
 
   # File upload options.
   config.enable_file_upload = <%= @enable_file_upload %>

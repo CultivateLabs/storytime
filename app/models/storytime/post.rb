@@ -9,6 +9,7 @@ module Storytime
     belongs_to :user, class_name: Storytime.user_class
     belongs_to :featured_media, class_name: "Media"
     belongs_to :secondary_media, class_name: "Media"
+    belongs_to :site
 
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
@@ -16,7 +17,7 @@ module Storytime
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
-    attr_accessor :preview, :published_at_date, :published_at_time, :send_subscriber_email
+    attr_accessor :preview, :published_at_date, :published_at_time
 
     validates_presence_of :title, :draft_content
     validates :title, length: { in: 1..Storytime.post_title_character_limit }
@@ -29,6 +30,7 @@ module Storytime
     before_save :set_published_at
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
+    scope :notification_delivery_pending, -> { where(notifications_enabled: true, notifications_sent_at: nil) }
 
     class << self
       def policy_class
@@ -93,7 +95,9 @@ module Storytime
         if n.empty? || n == "nv__"
           ""
         elsif n.include?("nv__") || n.to_i == 0
-          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create!
+          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create do |tag|
+            tag.site_id = self.site_id
+          end
         else
           Storytime::Tag.find(n)
         end

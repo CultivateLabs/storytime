@@ -43,6 +43,13 @@ module Storytime
       end
 
       def published=(val)
+        if val == "1"
+          self.published_at_date = Time.now.to_date
+          self.published_at_time = Time.now
+        else
+          self.published_at_date = nil
+          self.published_at_time = nil
+        end
       end
 
       def published
@@ -61,8 +68,8 @@ module Storytime
         after_save :create_version, :activate_version
 
         self.draft_content_column = :content
-
-        scope :published, -> { where("published_at IS NOT NULL") }
+        
+        scope :published, -> { where("published_at IS NOT NULL").where("published_at <= ?", Time.now) }
         scope :draft, -> { where("published_at IS NULL") }
       end
 

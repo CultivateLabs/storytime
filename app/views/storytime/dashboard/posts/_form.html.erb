@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="notify_subscribers_checkbox pull-right">
-                  <%= f.input :send_subscriber_email, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+                  <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
                 </div>
 
               </div>
@@ -123,7 +123,7 @@
       </div>
     <% end %>
 
-    
+
     
     <div class="container-fluid editor">
       <div class="row">
@@ -146,7 +146,7 @@
           
           <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
           <div class="medium-editor" data-input="#post_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
-          
+
         </div>
       </div>
     </div>

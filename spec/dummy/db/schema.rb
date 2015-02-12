@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206203824) do
+ActiveRecord::Schema.define(version: 20150206205256) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -82,11 +82,14 @@ ActiveRecord::Schema.define(version: 20150206203824) do
     t.text     "excerpt"
     t.datetime "published_at"
     t.integer  "featured_media_id"
-    t.boolean  "featured",           default: false
+    t.boolean  "featured",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "secondary_media_id"
     t.string   "video_url"
+    t.integer  "site_id"
+    t.boolean  "notifications_enabled", default: false
+    t.datetime "notifications_sent_at"
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
@@ -114,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150206203824) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   create_table "storytime_subscriptions", force: true do |t|
@@ -139,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150206203824) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   create_table "storytime_versions", force: true do |t|
