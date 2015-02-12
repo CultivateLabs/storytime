@@ -7,6 +7,7 @@
       color: $text-color;
       font-size: 0.9em;
       text-transform: uppercase;
+      border-radius: 0;
 
       &:hover {
         border-color: $st-nav-tabs-link-hover-border-color $st-nav-tabs-link-hover-border-color $st-nav-tabs-border-color;

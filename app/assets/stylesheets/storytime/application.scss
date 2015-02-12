@@ -47,21 +47,22 @@ $st-headings-font-weight: 700;
 .storytime {
   font-family: $st-font-family-sans-serif;
   
+  @import "storytime/buttons";
   @import "storytime/dropdowns";
+  @import "storytime/forms";
+  @import "storytime/list-group";
   @import "storytime/pagination";
   @import "storytime/tabs";
   @import "storytime/type";
+  @import "storytime/wells";
 
   @import "storytime/admin";
-  @import "storytime/buttons";
-  @import "storytime/list-groups";
   @import "storytime/media";
   @import "storytime/modals";
   @import "storytime/posts";
   @import "storytime/versions";
   @import "storytime/navigation";
   @import "storytime/scroll-panels";
-  @import "storytime/wells";
 }
 
 @import "storytime/snippets";
