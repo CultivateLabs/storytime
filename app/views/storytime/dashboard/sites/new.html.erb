@@ -1,9 +1,20 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h1><%= t('dashboard.sites.new') %></h1>
-      
-      <%= render 'form' %>
+<div id="main">
+  <div class="scroll-panel bg-white">
+    <div class="scroll-panel-header">
+      <h3 class="scroll-panel-title text-center">
+        <%= t('dashboard.sites.new') %>
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= simple_form_for [:dashboard, @site] do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :title %>
+            <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
+            <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-</div>

@@ -5,44 +5,53 @@ describe "In the dashboard, Subscriptions" do
     login_admin
   end
 
-  it "lists subscriptions" do
+  it "lists subscriptions", js: true do
     3.times{ FactoryGirl.create(:subscription) }
-    visit url_for([:dashboard, Storytime::Subscription])
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    wait_for_ajax
 
     Storytime::Subscription.all.each do |s|
-      expect(page).to have_link("Edit", href: url_for([:edit, :dashboard, s]))  
+      expect(page).to have_content s.email
     end
   end
 
-  it "creates a subscription" do
-    expect(Storytime::Subscription.count).to eq(0)
+  it "creates a subscription", js: true do
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    wait_for_ajax
+    click_link "new-subscription-link"
+    wait_for_ajax
 
-    visit url_for([:new, :dashboard, :subscription, only_path: true])
-    fill_in "subscription_email", with: "some_random_email@example.com"
-
-    click_button "Create Subscription"
-
-    expect(page).to have_content(I18n.t('flash.subscriptions.create.success'))
-    expect(Storytime::Subscription.count).to eq(1)
+    expect{
+      fill_in "subscription_email", with: "some_random_email@example.com"
+      click_button "Save"
+      wait_for_ajax
+    }.to change(Storytime::Subscription, :count).by(1)
 
     subscription = Storytime::Subscription.last
-
     expect(subscription.email).to eq("some_random_email@example.com")
     expect(subscription.token).to_not eq(nil)
   end
 
-  it "updates a subscription" do
+  it "updates a subscription", js: true do
     subscription = FactoryGirl.create(:subscription)
 
     expect(Storytime::Subscription.count).to eq(1)
     expect(subscription.subscribed?).to eq(true)
 
-    visit url_for([:edit, :dashboard, subscription])
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    # wait_for_ajax
+    click_link "edit-subscription-#{subscription.id}"
     fill_in "subscription_email", with: "johndoe@example.com"
     uncheck "subscription_subscribed"
-    click_button "Update Subscription"
+    click_button "Save"
 
-    expect(page).to have_content(I18n.t('flash.subscriptions.update.success'))
+    wait_for_ajax
 
     subscription.reload
 

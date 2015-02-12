@@ -5,12 +5,22 @@ module Storytime
       site.nil? || site.new_record? ? storytime.new_dashboard_site_path : storytime.edit_dashboard_site_path(site)
     end
 
+    def dashboard_nav_class
+      if ["storytime/dashboard/pages", "storytime/dashboard/posts"].include?(params[:controller]) && ["new", "edit", "update", "create"].include?(params[:action])
+        "off-canvas-left"
+      elsif dashboard_controller
+        "off-canvas-left-sm absolute"
+      else
+        "off-canvas-left"
+      end
+    end
+
     def active_nav_item_class(controller, type = nil)
       return if ["storytime/pages", "storytime/posts"].include? params[:controller]
       
       current_controller = params[:controller].split("/").last
 
-      'class="active"'.html_safe if controller == current_controller && (type.nil? or type == params[:type])
+      'class="active"'.html_safe if controller == current_controller && ((type.nil? && [nil, 'blog_post'].include?(params[:type])) || type == params[:type])
     end
 
     def active_admin_model_class(model)
@@ -23,7 +33,7 @@ module Storytime
 
       opts = {
         id: "delete_#{resource_name}_#{resource.id}", 
-        class: "btn btn-danger btn-xs btn-delete-resource delete-#{resource_name}-button", 
+        class: "btn btn-danger btn-outline btn-xs btn-delete-resource delete-#{resource_name}-button", 
         data: { confirm: I18n.t('common.are_you_sure_you_want_to_delete', resource_name: humanized_resource_name), resource_id: resource.id, resource_type: resource_name },
         method: :delete
       }
@@ -32,7 +42,7 @@ module Storytime
         opts[:remote] = true
       end
       
-      link_to content_tag(:span, "", class: "glyphicon glyphicon-trash"), href || resource, opts
+      link_to content_tag(:i, "", class: "icon-st-icons-trash"), href || resource, opts
     end
     
     def tag_cloud(tags, classes)

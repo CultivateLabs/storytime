@@ -70,17 +70,18 @@ en:
     admin:
       unconfigured_model: "You are attempting to access an admin page for a model that has not been configured in Storytime."
     sites:
-      new: "New Storytime Site"
+      new: "Set Up Your Site"
       root_page_content_hint: "Select whether to show users an index of blog posts or a static page when they land on the Storytime route."
       root_post_id_label: "Home Page"
       root_post_id_hint: "Select a page to direct users to when they land on the Storytime route."
       edit: "Site Settings"
       basic_info: "Basic Info"
       permissions: "Permissions"
-      save_permissions: "Save Permissions"
+      save_permissions: "Save"
+      save_button: "Save"
     users:
       users_header: "Users"
-      create_new_user: "New User"
+      create_new_user: "New"
       edit_user_button: "Edit"
       edit_user_header: "Edit User"
       email: "Email"
@@ -94,8 +95,8 @@ en:
       select_media_from_file: "Select"
     posts:
       autosaves:
-        available: "There is an autosave of this %{resource} that may be different than the version below."
-        view_autosave: "View the autosave."
+        available: "There is an autosave of this %{resource} that is different than the version below."
+        view_autosave: "View the autosave"
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"
       additional_fields: "Additional Fields"
@@ -109,3 +110,9 @@ en:
     title: "Storytime"
     subscribe_to: "Subscribe to %{site_name}"
     subscribe_modal_msg: "Stay up-to-date with %{site_name} by signing up for our mailing list!"
+
+  pagination:
+    first: "<i class='fa fa-caret-left'></i><i class='fa fa-caret-left'></i>"
+    previous: "<i class='fa fa-caret-left'></i>"
+    next: "<i class='fa fa-caret-right'></i>"
+    last: "<i class='fa fa-caret-right'></i><i class='fa fa-caret-right'></i>"

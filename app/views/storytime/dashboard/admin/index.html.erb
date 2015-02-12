@@ -1,8 +1,12 @@
 <div id="main">
   <div class="scroll-panel">
     <div class="scroll-panel-header">
-      <%= link_to icon('bars'), "#", class: "btn btn-default btn-sm pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } %>
-      <%= link_to icon("plus", "New"), dashboard_admin_new_path, class: "btn btn-sm btn-success btn-outline pull-right" %>
+
+      <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
+        <i class="icon-st-icons-st-logo"></i>
+      <% end %>
+      
+      <%= link_to "New", dashboard_admin_new_path, class: "btn btn-sm btn-primary btn-outline pull-right" %>
       <h3 class="scroll-panel-title"><%= model_name.pluralize.titleize %></h3>
     </div>
     <div class="scroll-panel-body">
@@ -19,7 +23,9 @@
               <%= render 'row', item: item %>
               <td class="text-right">
                 <div class="btn-group btn-group-sm">
-                  <%= link_to "Delete", dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: model_name) }, id: "delete-#{model_name}-#{item.id}", class: "btn btn-sm btn-default" %>
+                  <%= link_to dashboard_admin_destroy_path(id: item.id), method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: model_name) }, id: "delete-#{model_name}-#{item.id}", class: "btn btn-sm btn-danger btn-outline" do %>
+                    <i class="icon-st-icons-trash"></i>
+                  <% end %>
                 </div>
               </td>
             </tr>

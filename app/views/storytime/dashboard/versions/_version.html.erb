@@ -1,0 +1,14 @@
+<li class="list-group-item">
+  Created <%= time_ago_in_words version.created_at.localtime %> ago
+  <%= "by #{version.user.storytime_name.present? ? version.user.storytime_name : version.user.email}" if version.user %>
+  <span class="pull-right">
+    <% if version == versionable.latest_version %>
+      Current Version
+    <% else %>
+      <%= simple_form_for [:dashboard, versionable] do |f| %>
+        <%= f.input :draft_version_id, as: :hidden, input_html: { value: version.id } %>
+        <%= f.submit "Restore Version", class: "btn btn-primary btn-outline btn-xs" %>
+      <% end %>
+    <% end %>
+  </span>
+</li>

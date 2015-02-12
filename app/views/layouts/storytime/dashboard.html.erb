@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +12,14 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body class="<%= params[:controller].parameterize %>-controller <%=params[:action]%>-action <%= yield(:body_class) %>" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>">
+  <body class="storytime <%= params[:controller].parameterize %>-controller <%=params[:action]%>-action <%= yield(:body_class) %>" data-controller="<%=params[:controller].camelize%>" data-action="<%=params[:action].camelize%>" style='background-color: #255D94; background-image: linear-gradient( rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),radial-gradient( at 40% 0%, #545ab6 0%, rgba(84, 90, 182, 0) 100%),radial-gradient( at 0% 100%, rgba(72, 160, 123, 0.8) 0%, rgba(118, 72, 160, 0) 50%); height: 100%; margin: 0;'>
+    
+    <div class="container-lg relative" style="height: 100%;">
+      <%= render "storytime/application/storytime/navigation" %>
+      <%= render "storytime/application/storytime/flash" %>
 
-    <%= render "storytime/application/storytime/navigation" %>
-    <%= render "storytime/application/storytime/flash" %>
-
-    <%= yield %>
+      <%= yield %>
+    </div>
 
   </body>
 </html>

@@ -11,7 +11,7 @@ module Storytime
 
       def post_list_title(post_type)
         if !post_type.included_in_primary_feed?
-          post_type.human_name
+          post_type.human_name.pluralize
         else
           "Blog Posts"
         end

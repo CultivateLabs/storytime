@@ -2,10 +2,14 @@ require 'rails'
 require 'storytime/engine'
 
 module Storytime
+<<<<<<< HEAD
   autoload :MysqlSearchAdapter,         'storytime/mysql_search_adapter'
   autoload :MysqlFulltextSearchAdapter, 'storytime/mysql_fulltext_search_adapter'
   autoload :PostgresSearchAdapter,      'storytime/postgres_search_adapter'
   autoload :Sqlite3SearchAdapter,       'storytime/sqlite3_search_adapter'
+=======
+  autoload :StorytimeHelpers, "storytime/storytime_helpers"
+>>>>>>> medium-editor
 
   # Model to use for Storytime users.
   mattr_accessor :user_class
@@ -37,9 +41,9 @@ module Storytime
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
 
-  # Character limit for Storytime::Post.title <= 255
+  # Character limit for Storytime::Post.title <= 100
   mattr_accessor :post_title_character_limit
-  @@post_title_character_limit = 255
+  @@post_title_character_limit = 100
 
   # Character limit for Storytime::Post.excerpt
   mattr_accessor :post_excerpt_character_limit
@@ -97,11 +101,6 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
-    end
-
-    def snippet(name)
-      snippet = Storytime::Snippet.find_by(name: name)
-      snippet.nil? ? '' : snippet.content.html_safe
     end
 
     def home_page_route_options

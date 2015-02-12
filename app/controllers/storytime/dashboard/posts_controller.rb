@@ -10,6 +10,8 @@ module Storytime
       respond_to :json, only: :destroy
       respond_to :html, only: :destroy
 
+      set_tab :blog_posts
+
       def index
         authorize @posts
       end
@@ -123,7 +125,7 @@ module Storytime
       helper_method :current_post_type
 
       def load_posts
-        @posts = policy_scope(Storytime::Post).order(created_at: :desc).page(params[:page_number]).per(10)
+        @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)
         
         @posts = if current_post_type.included_in_primary_feed?
           @posts.primary_feed
@@ -132,9 +134,9 @@ module Storytime
         end
 
         @posts = if params[:published].present? && params[:published] == 'true'
-          @posts.published
+          @posts.published.order(published_at: :desc)
         else
-          @posts.draft
+          @posts.draft.order(updated_at: :desc)
         end
       end
 

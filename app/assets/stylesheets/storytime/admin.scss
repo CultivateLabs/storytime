@@ -1,0 +1,42 @@
+
+  .flash {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000;
+    .flash-notice, .flash-success {
+      padding: 10px 40px;
+      background: #9FBB58;
+      color: white;
+    }
+    .flash-error, .flash-alert {
+      padding: 10px 40px;
+      background: #E25440;
+      color: white;
+    }
+  }
+
+  .form-group.check_boxes {
+    margin-left: 20px;
+  }
+
+  .radio,
+  .checkbox {
+    margin-left: 20px;
+  }
+
+  .draft_saved {
+    color: #777777;
+    font-size: 0.55em;
+    font-style: normal;
+  }
+
+  .table-row-link {
+    &:hover {
+      cursor: pointer;
+    }
+    
+    td {
+      line-height: 2.15 !important;
+    }
+  }

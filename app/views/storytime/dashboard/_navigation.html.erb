@@ -1,43 +1,75 @@
-<nav class="nav-menu nav-menu-default nav-menu-fixed-left off-canvas off-canvas-left<%= '-sm' if dashboard_controller %>" id="dashboard-nav">
-  <div class="nav-menu-header">
-    <%= link_to "Storytime", main_app.storytime_path, class: "nav-menu-brand" %>
-  </div>
-  
-  <div class="container-fluid">
-    <div class="row" style="padding: 5px 0; border-bottom: 1px solid #f1f1f1;">
-      <div class="col-xs-3 text-center" style="width: 20%;">
-        <%= link_to icon("eye"), main_app.storytime_path, class: "btn btn-default" %>
-      </div>
-      <div class="col-xs-3 text-center" style="width: 20%;">
-        <%= link_to icon("user"), storytime.edit_dashboard_user_path(current_user), class: "btn btn-default" %>
-      </div>
-      <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <div class="col-xs-3 text-center" style="width: 20%;">
-          <%= link_to icon("users"), [:dashboard, :users], class: "btn btn-default" %>
-        </div>
+<nav class="nav-menu nav-menu-default nav-menu-fixed-left off-canvas <%= dashboard_nav_class %>" id="dashboard-nav">
+  <div class="nav-menu-header relative">
+    <%= link_to image_tag("storytime/storytime-logo-nav.png", style: "height: 45px;"), main_app.storytime_path, class: "nav-menu-brand" %>
+    <div class="btn-group" style="position: absolute; top: 50%; margin-top: -17px; right: 15px;">
+      <%= link_to "", id: "utility-menu-toggle", class: "btn btn-icon dropdown-toggle", data: { toggle: "dropdown" }, style: "color: #666; box-shadow: none;" do %>
+        <i class="icon-st-icons-utilitymenu"></i>
       <% end %>
-      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
-        <div class="col-xs-3 text-center" style="width: 20%;">
-          <%= link_to icon("cog"), dashboard_nav_site_path(@site), class: "btn btn-default" %>
-        </div>
-      <% end %>
-      <div class="col-xs-3 text-center" style="width: 20%;">
-        <%= link_to icon("power-off"), main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), class: "btn btn-default" %>
-      </div>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <% if Pundit.policy(current_user, Storytime.user_class).index? %>
+          <li>
+            <%= link_to [:dashboard, :users], class: "storytime-modal-trigger", remote: true, id: "users-link" do %>
+              <i class="icon-st-icons-users"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">Users</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to storytime.edit_dashboard_user_path(current_user), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
+              <i class="icon-st-icons-profile"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">My Account</span>
+            <% end %>
+          </li>
+        <% end %>
+        
+        <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+          <li>
+            <%= link_to dashboard_nav_site_path(@site), class: "storytime-modal-trigger", remote: true, id: "site-settings-link" do %>
+              <i class="icon-st-icons-settings"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">Site Settings</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to edit_multiple_dashboard_roles_path, class: "storytime-modal-trigger", remote: true, id: "site-permissions-link" do %>
+              <i class="icon-st-icons-permission"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">Permissions</span>
+            <% end %>
+          </li>
+        <% end %>
+        <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
+          <li>
+            <%= link_to [:dashboard, Storytime::Subscription], class: "storytime-modal-trigger", remote: true, id: "subscriptions-link" do %>
+              <i class="icon-st-icons-subscribe"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">Subsciptions</span>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="divider"></li>
+        <li>
+          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path") do %>
+            <i class="icon-st-icons-logout"></i>
+            <span style="margin-left: 10px; margin-right: 6px;">Log Out</span>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
 
   <ul class="nav nav-menu-nav">
     <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
       <li <%= active_nav_item_class("snippets") %>>
-        <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]) %>
+        <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]), class: "storytime-modal-trigger", remote: true, id: "snippets-link" %>
+      </li>
+    <% end %>
+    <% if Pundit.policy(current_user, Storytime::Media).index? %>
+      <li <%= active_nav_item_class("media") %>>
+        <%= link_to "Media", [:dashboard, Storytime::Media] %>
       </li>
     <% end %>
   </ul>
 
   <h4 class="nav-menu-divider">Posts</h4>
   <ul class="nav nav-menu-nav">
-    <li <%= active_nav_item_class("posts", "blog_post") %>><%= link_to "Blog Posts", storytime.dashboard_posts_path(type: "blog_post") %></li>
+    <li <%= active_nav_item_class("posts") %>><%= link_to "Blog Posts", storytime.dashboard_posts_path(type: "blog_post") %></li>
     <% Storytime.post_types.map{|post_type| post_type.constantize }.each do |post_type| %>
       <% unless post_type.included_in_primary_feed? %>
         <li <%= active_nav_item_class("posts", post_type.type_name) %>><%= link_to post_type.human_name.pluralize, storytime.dashboard_posts_path(type: post_type.type_name) %></li>
@@ -58,75 +90,10 @@
 </nav>
 <div id='off-canvas-overlay'></div>
 
-
-<% if false %>
-
-<div class="navbar navbar-inverse navbar-static-top" style="z-index: 1001; margin: 0;" role="navigation">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <%= link_to "Storytime", main_app.storytime_path, class: "navbar-brand" %>
-  </div>
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-      <li <%= active_nav_item_class("posts", "blog_post") %>><%= link_to "Blog Posts", storytime.dashboard_posts_path(type: "blog_post") %></li>
-      
-      <% Storytime.post_types.map{|post_type| post_type.constantize }.each do |post_type| %>
-        <% unless post_type.included_in_primary_feed? %>
-          <li <%= active_nav_item_class("posts", post_type.type_name) %>><%= link_to post_type.human_name.pluralize, storytime.dashboard_posts_path(type: post_type.type_name) %></li>
-        <% end %>
-      <% end %>
-
-      <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
-        <li <%= active_nav_item_class("snippets") %>><%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]) %></li>
-      <% end %>
-
-      <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
-        <li class="dropdown">
-          <%= link_to "#", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
-            Admin
-            <span class="caret"></span>
-          <% end %>
-          <ul class="dropdown-menu" role="menu">
-            <% Storytime.admin_models.each do |model| %>
-              <li><%= link_to model.pluralize.titleize, storytime.dashboard_admin_index_url(resource_name: model.tableize) %></li>
-            <% end %>
-          </ul>
-        </li>
-      <% end %>
-      
-      <% if Storytime.enable_file_upload %>
-        <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.url_for([:dashboard, Storytime::Media]) %></li>
-      <% end %>
-
-      <li <%= active_nav_item_class("Subscriptions") %>><%= link_to "Subscriptions", dashboard_subscriptions_path %></li>
-
-      <% if Pundit.policy(current_user, Storytime.user_class).index? %>
-        <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.url_for([:dashboard, :users]) %></li>
-      <% end %>
-
-      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
-        <li <%= active_nav_item_class("sites") %>><%= link_to "Settings", dashboard_nav_site_path(@site) %></li>
-      <% end %>
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right" style="margin-right: 15px;">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= current_user.storytime_name.blank? ? current_user.email : current_user.storytime_name %>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to "My Account", storytime.edit_dashboard_user_path(current_user) %></li>
-          <li><%= link_to "Sign Out", Storytime.logout_path, method: Storytime.logout_method %></li>
-        </ul>
-      </li>
-    </ul>
+<div class="modal modal-full-height fade" id="storytime-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+ 
+    </div>
   </div>
 </div>
-
-<% end %>

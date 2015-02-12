@@ -2,14 +2,16 @@ class Storytime.Dashboard.Editor
   init: () ->
     self = @
 
+    (new Storytime.Dashboard.Contenteditable()).init()
+
     mediaInstance = @initMedia()
-    @initWysiwyg()
+    (new Storytime.Dashboard.Wysiwyg()).init()
 
     # Title character limit
     title_character_limit = $("#title_character_limit").data("limit")
     $("#title_character_limit").html title_character_limit - $("#post_title").val().length
 
-    $("#post_title").keypress((e) ->
+    $("[data-input='#post_title']").keypress((e) ->
       e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
       return
     ).keyup(->
@@ -51,10 +53,7 @@ class Storytime.Dashboard.Editor
       )
 
     # Setup Chosen select field
-    $(".chosen-select").chosen
-      no_results_text: "No results were found... Press 'Enter' to create a new tag named "
-      placeholder_text_multiple: "Select or enter one or more Tags"
-      search_contains: true
+    @initChosen()
 
     # Setup datepicker
     $(".datepicker").datepicker
@@ -98,6 +97,7 @@ class Storytime.Dashboard.Editor
     mediaInstance.initInsert()
     mediaInstance.initFeaturedImageSelector()
     mediaInstance.initSecondaryImageSelector()
+    mediaInstance.initImageSelector()
 
     $(document).on 'shown.bs.modal', ()->
       mediaInstance.initUpload()
@@ -105,76 +105,20 @@ class Storytime.Dashboard.Editor
 
     mediaInstance
 
-  initWysiwyg: () ->
-    self = @
-    
-    # Summernote config and setup
-    $(".summernote").summernote
-      codemirror:
-        htmlMode: true
-        lineNumbers: true
-        lineWrapping: true
-        mode: 'text/html'
-        theme: 'monokai'
-      height: 200
-      minHeight: null
-      maxHeight: null
-      toolbar: [
-        ['style', ['style']]
-        ['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']]
-        # ['fontname', ['fontname']]
-        # ['fontsize', ['fontsize']]
-        ['color', ['color']]
-        ['para', ['ul', 'ol', 'paragraph']]
-        # ['height', ['height']]
-        ['table', ['table']]
-        ['insert', ['link', 'picture', 'video', 'hr']]
-        ['view', ['fullscreen', 'codeview']]
-        ['editing', ['undo', 'redo']]
-        ['help', ['help']]
-      ]
-      onblur: ->
-        $(".summernote").data("range", document.getSelection().getRangeAt(0))
-        return
-      onfocus: ->
-        self.updateLater(10000) if $(".edit_post").length
-        return
-      onkeyup: ->
-        form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
-        form.data "unsaved-changes", true
-        return
-      onImageUpload: (files, editor, $editable) ->
-        $("#media_file").fileupload('send', {files: files})
-          .success((result, textStatus, jqXHR) ->
-            editor.insertImage($editable, result.file_url)
-            return
-          )
-        return
-
-    # Show Gallery when using Summernote insertPicture modal
-    $(".note-image-dialog").on 'shown.bs.modal', () ->
-      if $("#media_gallery").length > 0
-        $(".note-image-dialog").find(".row-fluid").append(
-          "<div id='gallery_copy'>
-            <h5>Gallery</h5>
-            <div id='media_gallery'>" + 
-              $("#media_gallery").html() + 
-            "</div>
-          </div>")
-      return
-
-    # Remove Gallery when closing out Summernote insertPicture modal
-    $(".note-image-dialog").on 'hide.bs.modal', () ->
-      $("#gallery_copy").remove()
-      return
-
+  initChosen: () ->
+    $(".chosen-select").chosen
+      no_results_text: "No results were found... Press 'Enter' to create a new tag named "
+      placeholder_text_multiple: "Select or enter one or more Tags"
+      search_contains: true
+      width: '100%'
+      
   autosavePostForm: () ->
     self = @
     post_id = $("#main").data("post-id")
     dashboard_namespace = $("#main").data("dashboard-namespace")
 
     data = []
-    data.push {name: "post[draft_content]", value: $(".summernote").code()}
+    data.push {name: "post[draft_content]", value: $("#post_draft_content").val()}
 
     form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
     form.data "unsaved-changes", false

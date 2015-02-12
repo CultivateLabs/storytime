@@ -1,0 +1,12 @@
+<li class="list-group-item" id="snippet_<%= snippet.id %>">
+  <%= link_to [:edit, :dashboard, snippet], page_number: params[:page_number], class: "list-group-link storytime-modal-trigger", remote: true, id: "edit-snippet-#{snippet.id}" do %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-8"><%= snippet.name %></div>
+      </div>
+    </div>
+  <% end %>
+  <div class="list-group-actions">
+    <%= delete_resource_link snippet, dashboard_snippet_url(snippet) %>
+  </div>
+</li>

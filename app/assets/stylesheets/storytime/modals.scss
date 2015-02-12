@@ -1,0 +1,46 @@
+.modal-dialog {
+  @include transition(all 0.3s);
+}
+
+@media (min-width: $screen-lg-min) {
+  .modal-wide {
+    .modal-dialog {
+      width: 1000px;
+    }
+  }
+}
+
+.modal-full-height {
+  .modal-dialog {
+    margin: 0 auto;
+    height: 100%;
+
+    .modal-content {
+      height: 100%;
+      @include border-top-radius(0);
+      @include border-bottom-radius(0);
+      @include box-shadow(none);
+      border: none;
+    }
+  
+    .scroll-panel {
+      .scroll-panel-header {
+
+        .close {
+          float: right;
+          font-size: 37px;
+          font-weight: 100;
+          line-height: 28px;
+          color: #000;
+          @include opacity(0.5);
+        }
+        
+        .scroll-panel-title, .btn.pull-left ~ .scroll-panel-title {
+          float: none;
+          text-align: center;
+          margin: 0 100px;
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ require 'leather'
 require 'nokogiri'
 require 'pundit'
 require 'simple_form'
+require 'codemirror-rails'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
@@ -23,6 +24,10 @@ require 'storytime/importers/wordpress'
 module Storytime
   class Engine < ::Rails::Engine
     isolate_namespace Storytime
+
+    initializer "storytime.helpers" do
+      ActionView::Base.send :include, Storytime::StorytimeHelpers
+    end
 
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do

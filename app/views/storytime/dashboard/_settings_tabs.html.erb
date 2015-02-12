@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs">
+  <% if Pundit.policy(current_user, Storytime.user_class).index? %>
+    <li role="presentation" <%= active_nav_item_class("users") %>>
+      <%= link_to [:dashboard, Storytime.user_class], remote: true, class: "storytime-modal-trigger" do %>
+        <i class="icon-st-icons-users"></i>
+        <span class="hidden-xs">Users</span>
+      <% end %>
+    </li>
+  <% end %>
+  <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+    <li role="presentation" <%= active_nav_item_class("sites") %>>
+      <%= link_to [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger" do %>
+        <i class="icon-st-icons-settings"></i>
+        <span class="hidden-xs"><%= t('dashboard.sites.edit') %></span>
+      <% end %>
+    </li>
+    <li role="presentation" <%= active_nav_item_class("roles") %>>
+      <%= link_to edit_multiple_dashboard_roles_path, remote: true, class: "storytime-modal-trigger" do %>
+        <i class="icon-st-icons-permission"></i>
+        <span class="hidden-xs">Permissions</span>
+      <% end %>
+    </li>
+  <% end %>
+  <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
+    <li role="presentation" <%= active_nav_item_class("subscriptions") %>>
+      <%= link_to [:dashboard, Storytime::Subscription], remote: true, class: "storytime-modal-trigger" do %>
+        <i class="icon-st-icons-subscribe"></i>
+        <span class="hidden-xs">Subscriptions</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

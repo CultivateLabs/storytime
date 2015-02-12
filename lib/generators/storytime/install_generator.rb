@@ -13,7 +13,7 @@ module Storytime
         @dashboard_namespace_path = '/storytime'
         @home_page_path = '/'
         @post_types = ['CustomPostType']
-        @post_title_character_limit = 255
+        @post_title_character_limit = 100
         @post_excerpt_character_limit = 500
         @whitelisted_html_tags = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
         @disqus_forum_shortname = ''

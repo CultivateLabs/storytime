@@ -1,0 +1,21 @@
+  #versions {
+    #versions-toggle {
+      text-align: center;
+      padding: 8px 20px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background: #f1f1f1;
+      &:hover {
+        background: darken(#f1f1f1, 10%);
+      }
+    }
+    #versions-panel {
+      .list-group {
+        li:first-child {
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+          border-top: none;
+        }
+      }
+    }
+  }

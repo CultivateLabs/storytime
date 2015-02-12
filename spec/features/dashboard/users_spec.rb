@@ -4,44 +4,54 @@ describe "In the dashboard, Users" do
   context "as Admin" do
     before{ login_admin }
 
-    it "lists users" do
+    it "lists users", js: true do
       FactoryGirl.create_list(:user, 3)
-      visit dashboard_users_path
+      visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
+      click_link "users-link"
       
       Storytime.user_class.all.each do |u|
-        page.should have_content u.email
+        expect(page).to have_content u.storytime_name
       end
     end
 
-    it "edits a user" do
+    it "edits a user", js: true do
       u = FactoryGirl.create :user
-      visit edit_dashboard_user_path(u)
+      visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
+      click_link "profile-link"
       fill_in "user_email", with: "new_email@example.com"
-      click_button "Update"
-      page.should have_content "new_email@example.com"
+      click_button "Save"
+      wait_for_ajax
+      expect(current_user.reload.email).to eq "new_email@example.com"
     end
 
-    it "creates a user" do
-      visit new_dashboard_user_path
+    it "creates a user", js: true do
+      visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
+      click_link "users-link"
+      wait_for_ajax
+      click_link "new-user-link"
+      wait_for_ajax
       fill_in "user_email", with: "new_user@example.com"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
-      click_button "Create"
-      page.should have_content I18n.t("flash.users.create.success")
-      page.should have_content "new_user@example.com"
+      click_button "Save"
+      wait_for_ajax
+      expect(Storytime.user_class.last.email).to eq "new_user@example.com"
     end
 
     it "deletes a user", js: true do
-      FactoryGirl.create_list(:user, 3)
-      visit dashboard_users_path
-      p1 = Storytime.user_class.first
-      p2 = Storytime.user_class.last
-      click_link("delete_user_#{p2.id}")
+      user = FactoryGirl.create(:user)
+      visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
+      click_link "users-link"
 
-      page.should_not have_content(p2.email)
-      page.should have_content(p1.email)
-
-      expect{ p2.reload }.to raise_error
+      expect {
+        find("#user_#{user.id}").hover
+        click_link("delete_user_#{user.id}")
+        wait_for_ajax
+      }.to change(Storytime.user_class, :count).by(-1)
     end
   end
 end

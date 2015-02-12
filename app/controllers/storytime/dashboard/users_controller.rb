@@ -3,41 +3,51 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class UsersController < DashboardController
+      before_action :load_users, only: :index
       before_action :load_user, only: [:edit, :update, :destroy]
 
-      respond_to :json, only: :destroy
+      respond_to :json
 
       def index
-        @users = Storytime.user_class.page(params[:page]).per(20)
         authorize @users
+        respond_with @users
       end
 
       def new
         @user = Storytime.user_class.new
         authorize @user
+        respond_with @user
       end
 
       def create
         @user = Storytime.user_class.new(user_params)
         authorize @user
 
-        if @user.save
-          redirect_to dashboard_users_path, notice: I18n.t('flash.users.create.success')
-        else
-          render :new
+        respond_with @user do |format|
+          if @user.save
+            load_users
+            format.json { render :index }
+          else
+            format.json { render :new, status: :unprocessable_entity }
+          end
         end
       end
 
       def edit
         authorize @user
+        respond_with @user
       end
 
       def update
         authorize @user
-        if @user.update(user_params)
-          redirect_to dashboard_users_path, notice: I18n.t('flash.users.update.success')
-        else
-          render :edit
+
+        respond_with @user do |format|
+          if @user.update(user_params)
+            load_users
+            format.json { render :index }
+          else
+            format.json { render :edit, status: :unprocessable_entity }
+          end
         end
       end
 
@@ -50,6 +60,10 @@ module Storytime
     private
       def user_params
         params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
+      end
+
+      def load_users
+        @users = Storytime.user_class.page(params[:page]).per(20)
       end
 
       def load_user

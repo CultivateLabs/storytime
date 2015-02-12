@@ -1,0 +1,41 @@
+<%= form_tag update_multiple_dashboard_roles_path, method: :patch, remote: true, class: "storytime-modal-form" do %>
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= submit_tag t('dashboard.sites.save_button'), class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      <h3 class="scroll-panel-title">
+        Permissions
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+
+      <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <td></td>
+            <% @roles.each do |role| %>
+              <td class="text-center text-danger">
+                <%= role.label %>
+                <%= hidden_field_tag "roles[#{role.id}][allowed_action_ids][]", nil %>
+              </td>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @actions.each do |action| %>
+            <tr>
+              <td><%= action.name %></td>
+              <% @roles.each do |role| %>
+                <td class="text-center">
+                  <input <%= 'checked' if role.allowed_action_ids.include?(action.id) %> class="check_boxes optional" id="roles_<%= role.id %>_allowed_action_ids_<%= action.id %>" name="roles[<%= role.id %>][allowed_action_ids][]" type="checkbox" value="<%= action.id %>">
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

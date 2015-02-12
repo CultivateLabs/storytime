@@ -19,13 +19,20 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/position
 //= require jquery-ui/widget
+//= require jquery-ui/resizable
 //= require jquery.ui.timepicker
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
-//= require codemirror/codemirror
-//= require codemirror/xml
+//= require codemirror
+//= require codemirror/modes/xml
+//= require codemirror/modes/htmlmixed
+//= require codemirror/modes/overlay
+//= require codemirror/addons/fold/xml-fold
+//= require codemirror/addons/edit/closetag
+//= require codemirror/addons/edit/closebrackets
+//= require tidy
 //= require chosen.jquery
-//= require summernote
+//= require medium-editor.min
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})

@@ -1,0 +1,11 @@
+.storytime-snippet {
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+}

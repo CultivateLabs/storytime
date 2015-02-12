@@ -14,8 +14,9 @@
     resources :imports, only: [:new, :create]
     resources :subscriptions
     resources :users, path: Storytime.user_class_underscore.pluralize
-    resources :roles do 
+    resources :roles do
       collection do
+        get :edit_multiple
         patch :update_multiple
       end
     end

@@ -1,0 +1,73 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700,900|Open+Sans:400,300,600);
+@import "storytime/icons";
+
+$st-brand-primary: #4B71C3;
+$st-btn-primary-color:              #fff !default;
+$st-btn-primary-bg:                 $st-brand-primary !default;
+$st-btn-primary-border:             darken($st-btn-primary-bg, 5%) !default;
+
+$st-brand-danger: #B22E46;
+$st-btn-danger-color:               #fff !default;
+$st-btn-danger-bg:                  $st-brand-danger !default;
+$st-btn-danger-border:              darken($st-btn-danger-bg, 5%) !default;
+
+$scroll-panel-line-height: 30px;
+$scroll-panel-header-height: 65px;
+$scroll-panel-header-padding: (($scroll-panel-header-height - $scroll-panel-line-height) / 2);
+ 
+$st-pagination-active-color:              #333;
+$st-pagination-active-bg:                 #fff;
+$st-pagination-active-border:             #ddd;
+ 
+$st-nav-tabs-border-color:                     transparent;
+$st-nav-tabs-link-hover-border-color:          transparent;
+$st-nav-tabs-active-link-hover-border-color:   transparent;
+
+$st-dropdown-border: #333;
+$st-dropdown-fallback-border: #333;
+
+$st-font-family-sans-serif: 'Open Sans', sans-serif;
+$st-font-family-serif: 'Merriweather', serif;
+$st-headings-font-family: $st-font-family-serif;
+$st-headings-font-weight: 700;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "leather";
+@import "jquery-ui/core";
+@import "jquery-ui/datepicker";
+@import "jquery-ui/theme";
+
+@import "chosen.css.scss";
+@import "codemirror";
+@import "codemirror/themes/solarized";
+@import "jquery.ui.timepicker";
+@import "medium-editor.min";
+@import "medium-editor-default.min";
+
+.storytime {
+  font-family: $st-font-family-sans-serif;
+  
+  @import "storytime/buttons";
+  @import "storytime/dropdowns";
+  @import "storytime/forms";
+  @import "storytime/list-group";
+  @import "storytime/pagination";
+  @import "storytime/tabs";
+  @import "storytime/type";
+  @import "storytime/wells";
+
+  @import "storytime/admin";
+  @import "storytime/media";
+  @import "storytime/modals";
+  @import "storytime/posts";
+  @import "storytime/versions";
+  @import "storytime/navigation";
+  @import "storytime/scroll-panels";
+}
+
+@import "storytime/snippets";
+@import "storytime/layout";
+@import "storytime/comments";

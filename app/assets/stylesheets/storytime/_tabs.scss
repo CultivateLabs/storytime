@@ -1,0 +1,37 @@
+.nav-tabs {
+  border-bottom: 1px solid $st-nav-tabs-border-color;
+  > li {
+
+    // Actual tabs (as links)
+    > a {
+      color: $text-color;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      border-radius: 0;
+
+      &:hover {
+        border-color: $st-nav-tabs-link-hover-border-color $st-nav-tabs-link-hover-border-color $st-nav-tabs-border-color;
+      }
+
+      i {
+        color: $st-brand-primary;
+        font-size: 1.3em;
+      }
+
+      .hidden-xs {
+        margin-left: 5px;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        border: 1px solid $st-nav-tabs-active-link-hover-border-color;
+        border-bottom-color: $st-brand-primary;
+        color: $st-brand-primary;
+      }
+    }
+  }
+}

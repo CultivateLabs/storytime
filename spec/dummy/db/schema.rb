@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129215308) do
+ActiveRecord::Schema.define(version: 20150206203824) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150129215308) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "secondary_media_id"
+    t.string   "video_url"
   end
 
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"

@@ -1,6 +1,16 @@
-<div class="container">
-  <h2><%= t('dashboard.media.media_header') %></h2>
-  
-  <%= render "form" %>
-  <%= render "gallery" %>
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+
+      <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
+        <i class="icon-st-icons-st-logo"></i>
+      <% end %>
+      
+      <h3 class="scroll-panel-title"><%= t('dashboard.media.media_header') %></h3>
+    </div>
+    <div class="scroll-panel-body">
+      <%= render "form" %>
+      <%= render "gallery" %>
+    </div>
+  </div>
 </div>

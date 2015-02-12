@@ -1,0 +1,19 @@
+<%= simple_form_for @user, :url => dashboard_user_path, remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to icon("angle-left"), [:dashboard, Storytime.user_class], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
+      <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      <h3 class="scroll-panel-title">
+        <%= t('dashboard.users.edit_user_header') %>
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+
+      <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+      
+      <%= f.input :storytime_name %>
+      <%= f.input :email %>
+      <%= f.association :storytime_role, include_blank: true, label_method: :label %>
+    </div>
+  </div>
+<% end %>

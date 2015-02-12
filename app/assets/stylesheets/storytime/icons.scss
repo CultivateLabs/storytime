@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/* storytime-icons */
+@font-face {
+  font-family: "storytime-icons";
+  src:url("https://fontastic.s3.amazonaws.com/ous3EcA2XoT3aZKL2pCQWB/fonts/1423165812.eot");
+  src:url("https://fontastic.s3.amazonaws.com/ous3EcA2XoT3aZKL2pCQWB/fonts/1423165812.eot?#iefix") format("embedded-opentype"),
+    url("https://fontastic.s3.amazonaws.com/ous3EcA2XoT3aZKL2pCQWB/fonts/1423165812.woff") format("woff"),
+    url("https://fontastic.s3.amazonaws.com/ous3EcA2XoT3aZKL2pCQWB/fonts/1423165812.ttf") format("truetype"),
+    url("https://fontastic.s3.amazonaws.com/ous3EcA2XoT3aZKL2pCQWB/fonts/1423165812.svg#1423165812") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "storytime-icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-st-icons"]:before,
+[class*=" icon-st-icons"]:before {
+  font-family: "storytime-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-st-icons-st-logo:before {
+  content: "m";
+}
+.icon-st-icons-delete:before {
+  content: "a";
+}
+.icon-st-icons-edit:before {
+  content: "b";
+}
+.icon-st-icons-images:before {
+  content: "c";
+}
+.icon-st-icons-logout:before {
+  content: "d";
+}
+.icon-st-icons-permission:before {
+  content: "e";
+}
+.icon-st-icons-profile:before {
+  content: "f";
+}
+.icon-st-icons-settings:before {
+  content: "g";
+}
+.icon-st-icons-subscribe:before {
+  content: "h";
+}
+.icon-st-icons-trash:before {
+  content: "i";
+}
+.icon-st-icons-users:before {
+  content: "j";
+}
+.icon-st-icons-utilitymenu:before {
+  content: "k";
+}
+.icon-st-icons-versions:before {
+  content: "l";
+}

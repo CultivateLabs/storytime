@@ -1,4 +1,16 @@
+<% unless dashboard_controller %>
+  <div class="storytime">
+<% end %>
+
 <% if user_signed_in? && !devise_controller? && current_user.storytime_user? %>
   <%= render 'storytime/dashboard/navigation' %>
-  <%= link_to "Storytime", "#", class: "btn btn-primary btn-sm pull-left", data: { toggle: "off-canvas",  target: "#dashboard-nav" }, style: "position: fixed; top: 10px; left: 15px; z-index: 1030;" unless dashboard_controller %>
+  <% unless dashboard_controller %>
+    <%= link_to "#", id: "storytime-app-menu-toggle", class: storytime_button_classes, data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
+      <i class="icon-st-icons-st-logo"></i>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% unless dashboard_controller %>
+  </div>
 <% end %>
