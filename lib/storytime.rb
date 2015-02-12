@@ -2,14 +2,11 @@ require 'rails'
 require 'storytime/engine'
 
 module Storytime
-<<<<<<< HEAD
   autoload :MysqlSearchAdapter,         'storytime/mysql_search_adapter'
   autoload :MysqlFulltextSearchAdapter, 'storytime/mysql_fulltext_search_adapter'
   autoload :PostgresSearchAdapter,      'storytime/postgres_search_adapter'
   autoload :Sqlite3SearchAdapter,       'storytime/sqlite3_search_adapter'
-=======
   autoload :StorytimeHelpers, "storytime/storytime_helpers"
->>>>>>> medium-editor
 
   # Model to use for Storytime users.
   mattr_accessor :user_class
