@@ -5,7 +5,6 @@ require "storytime/postgres_search_adapter"
 require "storytime/sqlite3_search_adapter"
 
 module Storytime
-
   autoload :StorytimeHelpers, "storytime/storytime_helpers"
 
   # Model to use for Storytime users.
@@ -85,6 +84,7 @@ module Storytime
     end
 
     def snippet(name)
+      ## TODO: figure out how to keep this method working. should call storytime_snippet(name) from storytime_helpers
       snippet = Storytime::Snippet.find_by(name: name)
       if snippet.nil?
         ""
