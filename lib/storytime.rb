@@ -6,11 +6,7 @@ module Storytime
   autoload :MysqlFulltextSearchAdapter, 'storytime/mysql_fulltext_search_adapter'
   autoload :PostgresSearchAdapter,      'storytime/postgres_search_adapter'
   autoload :Sqlite3SearchAdapter,       'storytime/sqlite3_search_adapter'
-<<<<<<< HEAD
-  autoload :StorytimeHelpers, "storytime/storytime_helpers"
-=======
   autoload :StorytimeHelpers,           'storytime/storytime_helpers'
->>>>>>> 9a2e9c39ccef66f28f6327f74c710d9a8f922880
 
   # Model to use for Storytime users.
   mattr_accessor :user_class
