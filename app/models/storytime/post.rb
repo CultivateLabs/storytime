@@ -17,7 +17,7 @@ module Storytime
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
-    attr_accessor :preview, :published_at_date, :published_at_time
+    attr_accessor :preview
 
     validates_presence_of :title, :draft_content
     validates :title, length: { in: 1..Storytime.post_title_character_limit }
@@ -27,7 +27,6 @@ module Storytime
 
     before_validation :populate_excerpt_from_content
     before_save :sanitize_content
-    before_save :set_published_at
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
     scope :notification_delivery_pending, -> { where(notifications_enabled: true, notifications_sent_at: nil) }
@@ -134,16 +133,5 @@ module Storytime
       self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_post_html_tags) unless Storytime.whitelisted_post_html_tags.blank?
     end
 
-    def set_published_at
-      if self.published_at_date || self.published_at_time
-        self.published_at = if self.published_at_time.nil?
-          DateTime.parse "#{self.published_at_date}"
-        elsif self.published_at_date.nil?
-          DateTime.parse "#{Date.today} #{self.published_at_time}"
-        else
-          DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
-        end
-      end
-    end
   end
 end
