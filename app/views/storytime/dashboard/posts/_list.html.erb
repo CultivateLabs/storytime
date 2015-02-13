@@ -8,8 +8,10 @@
       </div>
      
       <p class="text-muted">
-        <% if post.published? %>
+        <% if post.published? && post.published_at <= Time.now %>
           Published <%= time_ago_in_words post.published_at %> ago
+        <% elsif post.published? %>
+          Scheduled to publish on <%= post.published_at.strftime("%B %e at %l:%M %p") %>
         <% else %>
           Last edited <%= time_ago_in_words post.updated_at %> ago
         <% end %>

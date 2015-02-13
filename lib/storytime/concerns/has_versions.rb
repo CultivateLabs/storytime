@@ -79,7 +79,7 @@ module Storytime
         self.draft_content_column = :content
 
         scope :published, -> { where("published_at IS NOT NULL").where("published_at <= ?", Time.now) }
-        scope :draft, -> { where("published_at IS NULL") }
+        scope :draft, -> { where("published_at IS NULL OR published_at > ?", Time.now) }
       end
 
       module ClassMethods
