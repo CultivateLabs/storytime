@@ -12,6 +12,6 @@
       <%= render partial: 'snippet.html.erb', collection: @snippets %>
     </ul>
 
-    <%= paginate @snippets, param_name: "page_number" %>
+    <%= paginate @snippets, param_name: "page_number", remote: true %>
   </div>
 </div>

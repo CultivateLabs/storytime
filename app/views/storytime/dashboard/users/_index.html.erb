@@ -14,6 +14,6 @@
       <%= render partial: 'user.html.erb', collection: @users %>
     </ul>
 
-    <%= paginate @users %>
+    <%= paginate @users, remote: true %>
   </div>
 </div>

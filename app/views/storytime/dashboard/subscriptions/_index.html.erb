@@ -14,6 +14,6 @@
       <%= render partial: 'subscription.html.erb', collection: @subscriptions %>
     </ul>
 
-    <%= paginate @subscriptions %>
+    <%= paginate @subscriptions, param_name: "page_number", remote: true %>
   </div>
 </div>

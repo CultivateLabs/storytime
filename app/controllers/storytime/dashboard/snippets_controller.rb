@@ -74,7 +74,7 @@ module Storytime
       end
 
       def load_snippets
-        @snippets = Storytime::Snippet.order(created_at: :desc).page(params[:page_number]).per(10)
+        @snippets = Storytime::Snippet.order(created_at: :desc).page(params[:page_number]).per(20)
       end
 
     end
