@@ -41,14 +41,12 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-<%= @post.published? ? '6' : '12' %>">
+                <div class="col-sm-6">
                   <%= f.input :slug, input_html: { value: (@post.persisted? ? @post.slug : nil) } %>
                 </div>
-                <% if @post.published? %>
-                  <div class="col-sm-6">
-                    <%= f.input :published_at, as: :date_time_picker, label: "Published", input_html: { style: "display: inline;" } %>
-                  </div>
-                <% end %>
+                <div class="col-sm-6">
+                  <%= f.input :published_at, as: :date_time_picker, label: "Published", input_html: { style: "display: inline;" } %>
+                </div>
               </div>
       
               <hr>
