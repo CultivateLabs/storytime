@@ -76,7 +76,8 @@ module Storytime
       def model_name
         ActiveModel::Name.new(self, nil, "Post")
       end
-    end
+    end 
+    #### END class << self
 
     def human_name
       self.class.human_name

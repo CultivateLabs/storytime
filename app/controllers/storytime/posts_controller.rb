@@ -51,7 +51,6 @@ module Storytime
     end
 
     private
-
       def get_search_type
         if params[:type]
           legal_search_types(params[:type])

@@ -119,10 +119,12 @@ The following example shows two snippets named "first-column-text" and "second-c
 
 ## Custom Post Types
 
-Storytime supports custom post types and takes the opinion that these are a concern of the host app. To add a custom post type, define a new model in your host app that inherits from Storytime's post class.
+Storytime supports custom post types and takes the opinion that these are a concern of the host app. To add a custom post type, define a new model in your host app that inherits from Storytime's post class. Add the `include Storytime::BlogPostPartialInheritance` line if your custom post type is included in the primary feed (shown on the main blog posts page) and you want to use the `_blog_post.html.erb` partial by default.
 
 ```ruby
 class VideoPost < Storytime::Post
+  include Storytime::BlogPostPartialInheritance
+
   def show_comments?
     true
   end

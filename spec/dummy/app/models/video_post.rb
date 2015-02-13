@@ -1,4 +1,6 @@
 class VideoPost < Storytime::Post
+  include Storytime::BlogPostPartialInheritance
+  
   def show_comments?
     true
   end
