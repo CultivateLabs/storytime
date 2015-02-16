@@ -31,6 +31,10 @@ class Storytime.Dashboard.Editor
       return
     )
 
+    $("#medium-editor-post").keyup ->
+      form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+      form.data "unsaved-changes", true
+
     if $(".edit_post").length
       form = $(".edit_post").last()
 
@@ -38,6 +42,9 @@ class Storytime.Dashboard.Editor
         self.autosavePostForm()
         return
       )
+
+      $("#medium-editor-post").focus ->
+        self.updateLater(10000)
 
       if $("#main").data("preview")
         window.open $("#preview_post").attr("href")
