@@ -2,8 +2,6 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   class PagesController < ApplicationController
-    # before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
-
     def show
       @page = if request.path == "/"
         Page.published.find @site.root_post_id 

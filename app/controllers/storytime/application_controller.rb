@@ -51,10 +51,6 @@ private
     false
   end
 
-  # def ensure_site
-  #   redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.find_by(subdomain: request.subdomain)
-  # end
-
   def current_site
     @site = Storytime::Site.find_by!(subdomain: request.subdomain)
   end
@@ -62,7 +58,6 @@ private
 
   def scope_current_site
     Storytime::Site.current_id = current_site.id
-    Rails.application.reload_routes!
     yield
   ensure
     Storytime::Site.current_id = nil

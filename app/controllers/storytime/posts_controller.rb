@@ -2,8 +2,6 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   class PostsController < ApplicationController
-    # before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
-
     def index
       @posts = if params[:post_type]
         klass = Storytime.post_types.find{|post_type| post_type.constantize.type_name == params[:post_type].singularize }

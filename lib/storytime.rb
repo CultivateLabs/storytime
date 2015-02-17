@@ -108,6 +108,7 @@ module Storytime
     end
 
     def home_page_route_options
+      ## TODO: can't use Site.first here
       site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
 
       if site
@@ -122,6 +123,7 @@ module Storytime
     end
 
     def post_index_path_options
+      ## TODO: can't use Site.first here
       site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
 
       if site && site.root_page_content == 'posts'

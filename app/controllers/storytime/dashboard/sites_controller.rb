@@ -4,7 +4,6 @@ module Storytime
   module Dashboard
     class SitesController < DashboardController
       before_action :set_site, only: [:edit, :update]
-      # before_action :redirect_if_site_exists, only: :new
       respond_to :json, only: [:edit, :update]
 
       def new
@@ -46,10 +45,6 @@ module Storytime
       # Only allow a trusted parameter "white list" through.
       def site_params
         params.require(:site).permit(:title, :post_slug_style, :ga_tracking_id, :root_page_content, :root_post_id, :subdomain)
-      end
-
-      def redirect_if_site_exists
-        redirect_to storytime.dashboard_url if Site.first
       end
 
     end

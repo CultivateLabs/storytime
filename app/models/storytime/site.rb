@@ -14,7 +14,7 @@ module Storytime
     validates :root_post_id, presence: true, if: ->(site){ site.root_page_content == "page" }
     validates :title, presence: true, length: { in: 1..200 }
 
-    before_create :parameterize_subdomain
+    before_save :parameterize_subdomain
     after_create :ensure_routes_updated
     after_update :ensure_routes_updated
 

@@ -4,7 +4,6 @@ module Storytime
   class DashboardController < ApplicationController
     before_action :authenticate_user!
     before_action :verify_storytime_user, unless: ->{ Storytime::Site.count == 0 }
-    # before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     layout "storytime/dashboard"
     
     after_action :verify_authorized
