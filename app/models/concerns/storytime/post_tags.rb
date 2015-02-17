@@ -2,8 +2,8 @@ module Storytime::PostTags
   extend ActiveSupport::Concern
 
   included do
-    has_many :taggings, dependent: :destroy, foreign_key: "post_id"
-    has_many :tags, through: :taggings
+    has_many :taggings, dependent: :destroy, foreign_key: "post_id", class_name: "Storytime::Tagging"
+    has_many :tags, through: :taggings, class_name: "Storytime::Tag"
 
     def tag_list
       tags.map(&:name).join(", ")
