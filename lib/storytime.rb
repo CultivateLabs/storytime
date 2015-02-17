@@ -108,9 +108,6 @@ module Storytime
     end
 
     def home_page_route_options
-      ## TODO: can't use Site.first here
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
       if site
         if site.root_page_content == 'page'
           { to: 'pages#show', as: :storytime_root_post }
@@ -123,14 +120,19 @@ module Storytime
     end
 
     def post_index_path_options
-      ## TODO: can't use Site.first here
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
       if site && site.root_page_content == 'posts'
         { path: Storytime.home_page_path }
       else
         {}
       end
+    end
+
+    def site
+      ##################################################################################################
+      # TODO: Can't use Site.first here
+      ##################################################################################################
+      Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
+      ##################################################################################################
     end
   end
 end

@@ -32,8 +32,12 @@
 
   get 'tags/:tag', to: 'posts#index', as: :tag
 
+  ##################################################################################################
+  # TODO: These 2 routes need to use constraints so we can figre it out based on current_site
+  ##################################################################################################
   get Storytime.home_page_path, Storytime.home_page_route_options
   resources :posts, { only: :index }.merge(Storytime.post_index_path_options)
+  ##################################################################################################
 
   # index page for post types that are excluded from primary feed
   constraints ->(request){ Storytime.post_types.any?{|type| type.constantize.type_name.pluralize == request.path.gsub("/", "") } } do

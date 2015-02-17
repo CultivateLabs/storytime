@@ -6,7 +6,6 @@ module Storytime
 
     def create
       @subscription = Storytime::Subscription.find_by(permitted_attributes) || Storytime::Subscription.new(permitted_attributes)
-      # @subscription.site = Storytime::Site.first if @subscription.site.nil? # if we ever go multi-site, this would likely become current_site
       @subscription.subscribed = true unless @subscription.subscribed
 
       if @subscription.save

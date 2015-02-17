@@ -3,11 +3,11 @@ module ActionDispatch
     class RouteSet
 
       def handle_storytime_urls(options)
+        site = Storytime::Site.find(Storytime::Site.current_id)
+        
         if options[:controller] == "storytime/posts" && options[:action] == "index"
-          # TODO: Can't use Site.first here
-          options[:use_route] = "root_post_index" if Storytime::Site.first.root_page_content == "posts"
+          options[:use_route] = "root_post_index" if site.root_page_content == "posts"
         elsif options[:controller] == "storytime/posts" && options[:action] == "show"
-          site = Storytime::Site.first
           key = [:id, :component_1, :component_2, :component_3].detect{|key| options[key].is_a?(Storytime::Post) }
           post = options[key]
 
