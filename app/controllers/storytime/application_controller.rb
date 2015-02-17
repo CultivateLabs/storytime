@@ -1,6 +1,8 @@
 class Storytime::ApplicationController < ApplicationController
   layout Storytime.layout || "storytime/application"
 
+  around_filter :scope_current_site
+
   include Storytime::Concerns::ControllerContentFor
   
   include Pundit
@@ -49,8 +51,21 @@ private
     false
   end
 
-  def ensure_site
-    redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.first
+  # def ensure_site
+  #   redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.find_by(subdomain: request.subdomain)
+  # end
+
+  def current_site
+    @site = Storytime::Site.find_by!(subdomain: request.subdomain)
+  end
+  helper_method :current_site
+
+  def scope_current_site
+    Storytime::Site.current_id = current_site.id
+    Rails.application.reload_routes!
+    yield
+  ensure
+    Storytime::Site.current_id = nil
   end
   
   def user_not_authorized

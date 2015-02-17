@@ -2,6 +2,7 @@ module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
     include ActionView::Helpers::SanitizeHelper
+    include Storytime::ScopedToSite
 
     extend FriendlyId
     friendly_id :slug_candidates, use: [:history]

@@ -1,5 +1,6 @@
 module Storytime
   class Subscription < ActiveRecord::Base
+    include Storytime::ScopedToSite
     belongs_to :site
 
     scope :active, -> { where(subscribed: true) }

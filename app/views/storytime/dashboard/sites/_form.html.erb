@@ -16,6 +16,7 @@
 
       <%= f.error_notification %>
       <%= f.input :title %>
+      <%= f.input :subdomain %>
       <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
 
       <% unless params[:action] == "new" %>

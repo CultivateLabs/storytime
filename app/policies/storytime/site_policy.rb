@@ -13,7 +13,7 @@ module Storytime
     end
 
     def create?
-      !Site.any?
+      true # !Site.any?
     end
 
     def new?
