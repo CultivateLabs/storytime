@@ -52,13 +52,9 @@ module Storytime
         true
       end
 
-      def show_comments?
-        false
-      end
-
-      def model_name
-        ActiveModel::Name.new(self, nil, "Post")
-      end
+      # def model_name
+      #   ActiveModel::Name.new(self, nil, "Post")
+      # end
     end 
     #### END class << self
 

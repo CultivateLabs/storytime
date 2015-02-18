@@ -3,6 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class PostsController < DashboardController
+      before_action :hide_nav, only: [:new, :create, :edit, :update]
       before_action :set_post, only: [:edit, :update, :destroy]
       before_action :load_posts
       before_action :load_media, only: [:new, :edit]
@@ -79,6 +80,10 @@ module Storytime
       end
 
     private
+
+      def hide_nav
+        @hide_nav = true
+      end
 
       def set_post
         @post = Storytime::Post.friendly.find(params[:id])

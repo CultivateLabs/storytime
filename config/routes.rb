@@ -3,12 +3,21 @@
   resources :subscriptions, only: [:create]
   get "subscriptions/unsubscribe", to: "subscriptions#destroy", as: "unsubscribe_mailing_list"
 
+  concern :autosavable do
+    resources :autosaves, only: :create
+  end
+
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
-    resources :posts, except: [:show] do
-      resources :autosaves, only: [:create]
+
+    resources :posts, except: [:show], concerns: :autosavable
+    resources :pages, except: :show, concerns: :autosavable
+    resources :blog_posts, except: :show, concerns: :autosavable
+    Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page].include?(type) }.each do |post_type|
+      resources post_type.tableize.to_sym, controller: "blog_posts", except: :show, concerns: :autosavable
     end
+
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]

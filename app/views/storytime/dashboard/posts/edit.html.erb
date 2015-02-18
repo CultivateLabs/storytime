@@ -15,7 +15,7 @@
           <i class="fa fa-code" style="top: -1px;"></i>
         <% end %>
         
-        <% if Storytime.enable_file_upload %>
+        <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page)  %>
           <%= link_to '#', class: "btn btn-default btn-icon margin-right", data: { toggle: "collapse", target: '#featured-images-panel' } do %>
             <i class="icon-st-icons-images"></i>
           <% end %>

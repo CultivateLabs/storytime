@@ -1,1 +1,1 @@
-<%= link_to "New", storytime.new_dashboard_post_path(type: post_type.type_name), class: "btn btn-sm btn-primary btn-outline pull-right" %>
+<%= link_to "New", [:new, :dashboard, current_post_type.type_name.to_sym], class: "btn btn-sm btn-primary btn-outline pull-right" %>

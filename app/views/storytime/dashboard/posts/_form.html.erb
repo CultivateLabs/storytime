@@ -29,16 +29,18 @@
                 <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
               <% end %>
               
-              <div class="post_field post_excerpt">
-                <small>
-                  <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
-                </small>
-                <%= f.input :excerpt, required: false %>
-              </div>
+              <% unless @post.is_a? Storytime::Page %>
+                <div class="post_field post_excerpt">
+                  <small>
+                    <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
+                  </small>
+                  <%= f.input :excerpt, required: false %>
+                </div>
 
-              <div class="post_field post_tags">
-                <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
-              </div>
+                <div class="post_field post_tags">
+                  <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
+                </div>
+              <% end %>
 
               <div class="row">
                 <div class="col-sm-6">
@@ -59,10 +61,12 @@
                   <%= f.submit "Publish", class: "btn btn-primary btn-outline publish", publish: true unless @post.published? %>
                   <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
                 </div>
-
-                <div class="notify_subscribers_checkbox pull-right">
-                  <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
-                </div>
+                
+                <% unless @post.is_a? Storytime::Page %>
+                  <div class="notify_subscribers_checkbox pull-right">
+                    <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+                  </div>
+                <% end %>
 
               </div>
             </div>
@@ -71,7 +75,7 @@
       </div>
     </div>
     
-    <% if Storytime.enable_file_upload %>
+    <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) %>
       <div class="collapse post-action-panel" id="featured-images-panel">
         <div style="padding: 20px;">
           <div class="container-fluid">

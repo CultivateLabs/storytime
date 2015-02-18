@@ -7,29 +7,31 @@ class Storytime.Dashboard.Editor
     mediaInstance = @initMedia()
     (new Storytime.Dashboard.Wysiwyg()).init()
 
-    # Title character limit
-    title_character_limit = $("#title_character_limit").data("limit")
-    $("#title_character_limit").html title_character_limit - $("#post_title").val().length
-
-    $("[data-input='#post_title']").keypress((e) ->
-      e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
-      return
-    ).keyup(->
+    if $("#title_character_limit").length > 0
+      # Title character limit
+      title_character_limit = $("#title_character_limit").data("limit")
       $("#title_character_limit").html title_character_limit - $("#post_title").val().length
-      return
-    )
 
-    # Excerpt character limit
-    excerpt_character_limit = $("#excerpt_character_limit").data("limit")
-    $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
+      $("[data-input='#post_title']").keypress((e) ->
+        e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
+        return
+      ).keyup(->
+        $("#title_character_limit").html title_character_limit - $("#post_title").val().length
+        return
+      )
 
-    $("#post_excerpt").keypress((e) ->
-      e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_excerpt").val().length > excerpt_character_limit - 1)
-      return
-    ).keyup(->
+    if $("#excerpt_character_limit").length > 0
+      # Excerpt character limit
+      excerpt_character_limit = $("#excerpt_character_limit").data("limit")
       $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
-      return
-    )
+
+      $("#post_excerpt").keypress((e) ->
+        e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_excerpt").val().length > excerpt_character_limit - 1)
+        return
+      ).keyup(->
+        $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
+        return
+      )
 
     $("#medium-editor-post").keyup ->
       form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()

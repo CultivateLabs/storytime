@@ -12,10 +12,10 @@
     <div class="scroll-panel-body">
       <ul class="nav nav-tabs">
         <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
-          <%= link_to "Drafts", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: nil] %>
+          <%= link_to "Drafts", [:dashboard, current_post_type, published: nil] %>
         </li>
         <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">
-          <%= link_to "Published", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: 'true'] %>
+          <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
         </li>
       </ul>
       <%= render 'list' %>

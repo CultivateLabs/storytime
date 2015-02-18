@@ -3,10 +3,8 @@ module ActionDispatch
     class RouteSet
 
       def handle_storytime_urls(options)
-        site = Storytime::Site.find(Storytime::Site.current_id)
-        
         if options[:controller] == "storytime/posts" && options[:action] == "index"
-          options[:use_route] = "root_post_index" if site.root_page_content == "posts"
+          options[:use_route] = "root_post_index" if site(options).root_page_content == "posts"
         elsif options[:controller] == "storytime/posts" && options[:action] == "show"
           key = [:id, :component_1, :component_2, :component_3].detect{|key| options[key].is_a?(Storytime::Post) }
           post = options[key]
@@ -15,7 +13,7 @@ module ActionDispatch
             options[:component_1] = nil
             options[:id] = post
           else
-            case site.post_slug_style
+            case site(options).post_slug_style
             when "default"
               options[:component_1] = "posts"
               options[:id] = post
@@ -35,6 +33,15 @@ module ActionDispatch
               options[:id] = post.id
             end
           end
+        end
+      end
+
+      def site(options)
+        if Storytime::Site.current_id.present? 
+          Storytime::Site.find(Storytime::Site.current_id)
+        elsif options[:host]
+          subdomain = options[:host].split(".")[0]
+          Storytime::Site.find_by!(subdomain: subdomain)
         end
       end
       
