@@ -16,7 +16,7 @@
         <%= link_to "#", class: "btn btn-default btn-icon margin-right", data: { toggle: "codemirror" } do %>
           <i class="fa fa-code" style="top: -1px;"></i>
         <% end %>
-        <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) %>
+        <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) && !@post.is_a?(Storytime::BlogPage) %>
           <%= link_to '#', class: "btn btn-default btn-icon margin-right", data: { toggle: "collapse", target: '#featured-images-panel' } do %>
             <i class="icon-st-icons-images"></i>
           <% end %>

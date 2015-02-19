@@ -56,7 +56,6 @@ en:
     labels:
       site:
         post_slug_style: "Post URL Style"
-        root_page_content: "Home Page Content"
         ga_tracking_id: "Google Analytics Tracking ID"
       comment:
         content: "Comment Content"
@@ -71,7 +70,6 @@ en:
       unconfigured_model: "You are attempting to access an admin page for a model that has not been configured in Storytime."
     sites:
       new: "Set Up Your Site"
-      root_page_content_hint: "Select whether to show users an index of blog posts or a static page when they land on the Storytime route."
       root_post_id_label: "Home Page"
       root_post_id_hint: "Select a page to direct users to when they land on the Storytime route."
       edit: "Site Settings"

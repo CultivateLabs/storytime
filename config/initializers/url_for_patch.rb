@@ -4,6 +4,7 @@ module ActionDispatch
 
       def handle_storytime_urls(options)
         if options[:controller] == "storytime/posts" && options[:action] == "index"
+          # TODO - need to make sure this still works because root_page_content is no longer an attribute of site
           options[:use_route] = "root_post_index" if site(options).root_page_content == "posts"
         elsif options[:controller] == "storytime/posts" && options[:action] == "show"
           key = [:id, :component_1, :component_2, :component_3].detect{|key| options[key].is_a?(Storytime::Post) }

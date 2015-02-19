@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216225045) do
+ActiveRecord::Schema.define(version: 20150219210528) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -104,9 +104,8 @@ ActiveRecord::Schema.define(version: 20150216225045) do
 
   create_table "storytime_sites", force: true do |t|
     t.string   "title"
-    t.integer  "post_slug_style",   default: 0
+    t.integer  "post_slug_style", default: 0
     t.string   "ga_tracking_id"
-    t.integer  "root_page_content", default: 0
     t.integer  "root_post_id"
     t.datetime "created_at"
     t.datetime "updated_at"

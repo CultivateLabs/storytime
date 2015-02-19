@@ -107,26 +107,6 @@ module Storytime
       @@user_class.underscore.to_sym
     end
 
-    def home_page_route_options
-      if site
-        if site.root_page_content == 'page'
-          { to: 'pages#show', as: :storytime_root_post }
-        else
-          { to: 'posts#index', as: :storytime_root_post }
-        end
-      else
-        { to: 'application#setup', as: :storytime_root }
-      end
-    end
-
-    def post_index_path_options
-      if site && site.root_page_content == 'posts'
-        { path: Storytime.home_page_path }
-      else
-        {}
-      end
-    end
-
     def site
       ##################################################################################################
       # TODO: Can't use Site.first here

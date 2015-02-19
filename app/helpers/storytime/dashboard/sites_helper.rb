@@ -9,13 +9,6 @@ module Storytime
           ["Post ID - e.g. /posts/123", :post_id], 
         ]
       end
-
-      def root_page_content_options
-        [
-          ["Blog Posts", :posts], 
-          ["Page", :page]
-        ]
-      end
     end
   end
 end

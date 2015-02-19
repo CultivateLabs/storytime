@@ -20,9 +20,7 @@
       <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
 
       <% unless params[:action] == "new" %>
-        <%= f.input :root_page_content, collection: root_page_content_options, include_blank: false, hint: t('dashboard.sites.root_page_content_hint') %>
-        
-        <%= f.input :root_post_id, collection: @site.root_post_options, include_blank: false, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") }, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
+        <%= f.input :root_post_id, collection: @site.root_post_options, include_blank: false, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
       
         <%= f.input :ga_tracking_id %>
       <% end %>

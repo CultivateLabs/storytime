@@ -44,7 +44,7 @@ module Storytime
 
       # Only allow a trusted parameter "white list" through.
       def site_params
-        params.require(:site).permit(:title, :post_slug_style, :ga_tracking_id, :root_page_content, :root_post_id, :subdomain)
+        params.require(:site).permit(:title, :post_slug_style, :ga_tracking_id, :root_post_id, :subdomain)
       end
 
     end
