@@ -89,7 +89,6 @@ class Storytime.Dashboard.Editor
     autosaveUrl = $(".post-form").data("autosave-url")
 
     data = []
-    # TODO: Don't hard-code 'post' here
     data.push {name: "#{postType}[draft_content]", value: $(".draft-content-input").val()}
 
     form = $(".post-form")
