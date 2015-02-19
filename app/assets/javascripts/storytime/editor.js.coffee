@@ -3,35 +3,12 @@ class Storytime.Dashboard.Editor
     self = @
 
     (new Storytime.Dashboard.Contenteditable()).init()
+    (new Storytime.Dashboard.CharacterCounter()).init()
+    @initChosen()
+    (new Storytime.Dashboard.Tags()).init()
 
     mediaInstance = @initMedia()
     (new Storytime.Dashboard.Wysiwyg()).init()
-
-    if $("#title_character_limit").length > 0
-      # Title character limit
-      title_character_limit = $("#title_character_limit").data("limit")
-      $("#title_character_limit").html title_character_limit - $("#post_title").val().length
-
-      $("[data-input='#post_title']").keypress((e) ->
-        e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_title").val().length > title_character_limit - 1)
-        return
-      ).keyup(->
-        $("#title_character_limit").html title_character_limit - $("#post_title").val().length
-        return
-      )
-
-    if $("#excerpt_character_limit").length > 0
-      # Excerpt character limit
-      excerpt_character_limit = $("#excerpt_character_limit").data("limit")
-      $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
-
-      $("#post_excerpt").keypress((e) ->
-        e.preventDefault() if (e.which is 32 or e.which > 0x20) and ($("#post_excerpt").val().length > excerpt_character_limit - 1)
-        return
-      ).keyup(->
-        $("#excerpt_character_limit").html excerpt_character_limit - $("#post_excerpt").val().length
-        return
-      )
 
     $("#medium-editor-post").keyup ->
       form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
@@ -61,9 +38,6 @@ class Storytime.Dashboard.Editor
         return
       )
 
-    # Setup Chosen select field
-    @initChosen()
-
     # Setup datepicker
     $(".datepicker").datepicker
       dateFormat: "MM d, yy"
@@ -75,19 +49,6 @@ class Storytime.Dashboard.Editor
     # On modal show initialize media upload
     $(document).on 'shown.bs.modal', () ->
       mediaInstance.initUpload()
-      return
-
-    # Add new tags
-    $("#post_tag_ids").next("div").find(".search-field").children("input").on 'keyup', (e) ->
-      if e.which is 13 and $("#post_tag_ids").next("div").find(".search-field").children("input").val().length > 0
-        searched_tag = $("#post_tag_ids").next("div").find(".search-field").children("input").val()
-        $("#post_tag_ids").append('<option value="nv__' + searched_tag + '">' + searched_tag + '</option>')
-
-        selected_tags = $("#post_tag_ids").val() || []
-        selected_tags.push "nv__#{searched_tag}"
-
-        $("#post_tag_ids").val selected_tags
-        $("#post_tag_ids").trigger 'chosen:updated'
       return
 
     # Set published field on Publish button click

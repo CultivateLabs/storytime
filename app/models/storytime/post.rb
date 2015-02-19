@@ -51,10 +51,6 @@ module Storytime
       def included_in_primary_feed?
         true
       end
-
-      # def model_name
-      #   ActiveModel::Name.new(self, nil, "Post")
-      # end
     end 
     #### END class << self
 

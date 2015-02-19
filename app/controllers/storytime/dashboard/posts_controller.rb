@@ -29,7 +29,7 @@ module Storytime
           if @post.autosave
             @post.draft_content = @post.autosave.content
           else
-            redirect_to url_for([:edit, :dashboard, @post])
+            redirect_to [:edit, :dashboard, @post]
           end
         end
       end
@@ -75,12 +75,11 @@ module Storytime
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
         
         respond_with [:dashboard, @post] do |format|
-          format.html{ redirect_to [:dashboard, Storytime::Post], type: @post.type_name }
+          format.html{ redirect_to [:dashboard, current_post_type], type: @post.type_name }
         end
       end
 
     private
-
       def hide_nav
         @hide_nav = true
       end
@@ -105,7 +104,7 @@ module Storytime
         post = @post || current_post_type.new(user: current_user)
         permitted_attrs = policy(post).permitted_attributes
         permitted_attrs = permitted_attrs.append(storytime_post_param_additions) if respond_to?(:storytime_post_param_additions)
-        params.require(:post).permit(*permitted_attrs)
+        params.require(current_post_type.type_name.tableize.singularize.to_sym).permit(*permitted_attrs)
       end
 
       def send_subscriber_notifications
@@ -115,33 +114,6 @@ module Storytime
           Storytime.on_publish_with_notifications.call(@post)
         end
       end
-
-      def current_post_type
-        @current_post_type ||= begin
-          type_param = params[:type] || (params[:post] && params[:post].delete(:type))
-          matching_type = Storytime.post_types.find{|post_type| post_type.constantize.type_name == type_param }
-          matching_type.nil? ? Storytime::BlogPost : matching_type.constantize
-        end
-      end
-      helper_method :current_post_type
-
-      def load_posts
-        @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)
-        
-        @posts = if current_post_type.included_in_primary_feed?
-          @posts.primary_feed
-        else
-          @posts.where(type: current_post_type)
-        end
-
-        @posts = if params[:published].present? && params[:published] == 'true'
-          @posts.published.order(published_at: :desc)
-        else
-          @posts.draft.order(updated_at: :desc)
-        end
-      end
-
-      
     end
   end
 end

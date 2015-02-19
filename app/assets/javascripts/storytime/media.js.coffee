@@ -68,11 +68,11 @@ class Storytime.Dashboard.Media
         return
       else
         image_tag = "<img src='#{$(@).data("image-url")}' class='img-responsive' />"
-        if self.elementContainsSelection($("[data-input='#post_draft_content']")[0])
+        if self.elementContainsSelection($("#media-insertable")[0])
           self.pasteHtmlAtCaret(image_tag, false)
         
-        input = $("#post_draft_content")
-        html = $("[data-input='#post_draft_content']").html()
+        input = $($("#media-insertable").data("input"))
+        html = $("#media-insertable").html()
         input.val(html)
         codemirror = input.siblings(".CodeMirror")[0].CodeMirror
         codemirror.setValue(html)

@@ -30,15 +30,15 @@
               <% end %>
               
               <% unless @post.is_a? Storytime::Page %>
-                <div class="post_field post_excerpt">
+                <div class="post_field post_excerpt character-limit">
                   <small>
-                    <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
+                    <div class="pull-right character-limit-display" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
                   </small>
-                  <%= f.input :excerpt, required: false %>
+                  <%= f.input :excerpt, required: false, input_html: { class: "character-limit-input" } %>
                 </div>
 
                 <div class="post_field post_tags">
-                  <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
+                  <%= f.association :tags, input_html: { name: "#{@post.class.name.split('::').last.tableize.singularize}[tag_list][]", class: 'chosen-select tags-input', multiple: true } %>
                 </div>
               <% end %>
 
@@ -124,8 +124,6 @@
         </div>
       </div>
     <% end %>
-
-
     
     <div class="container-fluid editor">
       <div class="row">
@@ -134,20 +132,20 @@
           <%= autosave_info @post if @post.persisted? %>
 
           <%= f.error_notification if false %>
-
-          <span id="title_character_limit" class="text-muted" data-limit="<%= Storytime.post_title_character_limit %>"></span>
-          <h2 contenteditable="true" id="post-title-input" style="outline: none; margin-top: 0;" class="contenteditable" data-input="#post_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
           
+          <div class="character-limit">
+            <span id="title_character_limit" class="text-muted character-limit-display" data-limit="<%= Storytime.post_title_character_limit %>"></span>
+            <h2 contenteditable="true" id="post-title-input" style="outline: none; margin-top: 0;" class="contenteditable character-limit-contenteditable" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
+            <%= f.input :title, as: :hidden, input_html: { class: "character-limit-input" } %>
+          </div>
           <% if @post.errors[:title].present? %>
             <span class="has-error">
               <span class="help-block"><%= @post.errors[:title][0] %></span>
             </span>
           <% end %>
 
-          <%= f.input :title, as: :hidden %>
-          
           <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
-          <div class="medium-editor" data-input="#post_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
+          <div class="medium-editor" id="media-insertable" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
 
         </div>
       </div>
