@@ -10,7 +10,7 @@ module Storytime
       respond_to :json
 
       def create
-        if @post.autosave.nil? || (@post.autosave.content != params[:post][:draft_content])
+        if @post.autosave.nil? || (@post.autosave.content != params[post_type_name.to_sym][:draft_content])
           @post.create_autosave(autosave_params)
         end
 
@@ -20,13 +20,17 @@ module Storytime
       private
 
         def set_post
-          @post = Storytime::Post.friendly.find(params[:post_id])
+          @post = Storytime::Post.friendly.find(params["#{post_type_name}_id".to_sym])
+        end
+
+        def post_type_name
+          @post_type_name = request.path.split("/")[2].singularize
         end
 
         def autosave_params
           post = @post || current_post_type.new(user: current_user)
           permitted_attrs = policy(post).permitted_attributes
-          params.require(:post).permit(*permitted_attrs)
+          params.require(post_type_name.to_sym).permit(*permitted_attrs)
         end
     end
   end

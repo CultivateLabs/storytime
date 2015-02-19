@@ -9,14 +9,13 @@ class Storytime.Dashboard.Editor
 
     mediaInstance = @initMedia()
     (new Storytime.Dashboard.Wysiwyg()).init()
-
-    $("#medium-editor-post").keyup ->
-      form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    
+    form = $(".post-form")
+    
+    $("#medium-editor-post").keyup ->  
       form.data "unsaved-changes", true
 
-    if $(".edit_post").length
-      form = $(".edit_post").last()
-
+    if $(".edit-post-form").length
       $("#preview_post").click(->
         self.autosavePostForm()
         return
@@ -28,13 +27,11 @@ class Storytime.Dashboard.Editor
       if $("#main").data("preview")
         window.open $("#preview_post").attr("href")
     else
-      form = $(".new_post").last()
-
       $("#preview_post").click(->
         form.data "unsaved-changes", false
         
-        $("<input name='preview' type='hidden' value='true'>").insertAfter($(".new_post").children().first())
-        $(".new_post").submit()
+        $("<input name='preview' type='hidden' value='true'>").insertAfter(form.children().first())
+        form.submit()
         return
       )
 
@@ -52,6 +49,7 @@ class Storytime.Dashboard.Editor
       return
 
     # Set published field on Publish button click
+    # TODO: This should not rely on javascript. Should make publish button a submit button and look for the button name in the controller to set published = true
     $(".publish").on 'click', () ->
       $("#post_published").val(1)
       form.data "unsaved-changes", false
@@ -83,27 +81,31 @@ class Storytime.Dashboard.Editor
       width: '100%'
       
   autosavePostForm: () ->
+    console.log "AUTOSAVING"
     self = @
     post_id = $("#main").data("post-id")
-    dashboard_namespace = $("#main").data("dashboard-namespace")
+    postType = $(".post-form").data("post-type")
+    console.log postType
+    autosaveUrl = $(".post-form").data("autosave-url")
 
     data = []
-    data.push {name: "post[draft_content]", value: $("#post_draft_content").val()}
+    # TODO: Don't hard-code 'post' here
+    data.push {name: "#{postType}[draft_content]", value: $(".draft-content-input").val()}
 
-    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    form = $(".post-form")
     form.data "unsaved-changes", false
  
     $.ajax(
       type: "POST"
-      url: "#{dashboard_namespace}/posts/#{post_id}/autosaves"
+      url: autosaveUrl
       data: data
     )
 
   updateLater: (timer) ->
     self = @
-    timer = 120000  unless timer?
+    timer = 120000 unless timer?
 
-    form = if $(".edit_post").length then $(".edit_post").last() else $(".new_post").last()
+    form = $(".post-form")
 
     timeoutId = window.setTimeout((->
       if form.data("unsaved-changes") is true

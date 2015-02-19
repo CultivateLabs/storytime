@@ -14,10 +14,12 @@
     </div>
   </div>
 
-  <%= simple_form_for [:dashboard, @post] do |f| %>
+  <%= simple_form_for [:dashboard, @post], html: { class: "post-form #{@post.new_record? ? 'new-post-form' : 'edit-post-form'}", data: { :"autosave-url" => url_for([:dashboard, @post, :autosaves]), :"post-type" => current_post_type.type_name.tableize.singularize } } do |f| %>
 
     <%= hidden_field_tag :type, @post.type_name %>
-    <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
+    <% if Pundit.policy(current_user, @post).publish? %>
+      <%= f.input :published, as: :hidden, input_html: { id: "post_published" } %>
+    <% end %>
 
     <div id="post-advanced-settings" class="collapse post-action-panel">
       <div style="padding: 20px;">
@@ -151,7 +153,7 @@
       </div>
     </div>
 
-    <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror" } %>
+    <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror draft-content-input" } %>
 
   <% end %>
 </div>

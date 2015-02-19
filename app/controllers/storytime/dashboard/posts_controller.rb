@@ -46,7 +46,7 @@ module Storytime
 
           opts = params[:preview] == "true" ? { preview: true } : {}
 
-          redirect_to edit_dashboard_post_path(@post, opts), notice: I18n.t('flash.posts.create.success')
+          redirect_to [:edit, :dashboard, @post, opts], notice: I18n.t('flash.posts.create.success')
         else
           load_media
           render :new

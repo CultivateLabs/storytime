@@ -28,7 +28,6 @@ class Storytime.Dashboard.Wysiwyg
     "drop-font-tags": true,
     "tidy-mark": false
 
-
   init: () ->
     self = @
     self.bindTogglesToPanels()
