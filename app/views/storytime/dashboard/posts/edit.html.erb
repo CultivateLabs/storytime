@@ -5,7 +5,7 @@
         <%= link_to "#", class: "btn btn-default btn-icon", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
           <i class="icon-st-icons-st-logo"></i>
         <% end %>
-        <%= link_to [:dashboard, Storytime::Post, type: @post.type_name], class: "btn btn-default btn-scroll-panel-header" do %>
+        <%= link_to [:dashboard, current_post_type], class: "btn btn-default btn-scroll-panel-header" do %>
           <%= icon('angle-left') %>
           <span class="hidden-xs"><%= @post.human_name.pluralize %></span>
         <% end %>

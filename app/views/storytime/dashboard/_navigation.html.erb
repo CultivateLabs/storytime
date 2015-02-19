@@ -75,10 +75,14 @@
 
   <h4 class="nav-menu-divider">Posts</h4>
   <ul class="nav nav-menu-nav">
-    <li <%= active_nav_item_class("posts") %>><%= link_to "Blog Posts", storytime.dashboard_posts_path(type: "blog_post") %></li>
+    <li <%= active_nav_item_class("blog_posts") %>>
+      <%= link_to "Blog Posts", [:dashboard, Storytime::BlogPost] %>
+    </li>
     <% Storytime.post_types.reject{|post_type| post_type == "Storytime::Page" }.map{|post_type| post_type.constantize }.each do |post_type| %>
       <% unless post_type.included_in_primary_feed? %>
-        <li <%= active_nav_item_class("posts", post_type.type_name) %>><%= link_to post_type.human_name.pluralize, storytime.dashboard_posts_path(type: post_type.type_name) %></li>
+        <li class="<%= 'active' if params[:controller] == "storytime/dashboard/custom_posts" && current_post_type == post_type %>">
+          <%= link_to post_type.human_name.pluralize, [:dashboard, post_type] %>
+        </li>
       <% end %>
     <% end %>
   </ul>

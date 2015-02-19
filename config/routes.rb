@@ -11,11 +11,12 @@
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
 
-    resources :posts, except: [:show], concerns: :autosavable
+    resources :posts, except: :show, concerns: :autosavable
     resources :pages, except: :show, concerns: :autosavable
+    resources :blog_pages, except: :show, concerns: :autosavable
     resources :blog_posts, except: :show, concerns: :autosavable
     Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page].include?(type) }.each do |post_type|
-      resources post_type.tableize.to_sym, controller: "blog_posts", except: :show, concerns: :autosavable
+      resources post_type.tableize.to_sym, controller: "custom_posts", except: :show, concerns: :autosavable
     end
 
     resources :snippets, except: [:show]
