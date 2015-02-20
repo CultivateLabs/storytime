@@ -50,7 +50,6 @@ $st-headings-font-weight: 700;
 .storytime {
   font-family: $st-font-family-sans-serif;
   
-  @import "storytime/mixins";
   @import "storytime/buttons";
   @import "storytime/dropdowns";
   @import "storytime/forms";
