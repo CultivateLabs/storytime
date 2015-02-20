@@ -1,4 +1,4 @@
-class Storytime.Dashboard.BlogPages
+class Storytime.Dashboard.Blogs
   initNew: ()->
     @editor = new Storytime.Dashboard.Posts()
     @editor.initNew()

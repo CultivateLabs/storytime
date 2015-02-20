@@ -15,9 +15,6 @@
           <% Storytime::Page.published.each do |page| %>
             <li><%= link_to page.title, storytime.page_path(page) %></li>
           <% end %>
-          <% Storytime::BlogPage.published.each do |blog_page| %>
-            <li><%= link_to blog_page.title, storytime.page_path(blog_page) %></li>
-          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>

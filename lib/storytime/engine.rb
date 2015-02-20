@@ -60,7 +60,7 @@ module Storytime
 
     initializer "storytime.register_default_post_types" do
       Storytime.configure do |config|
-        config.post_types += ["Storytime::BlogPost", "Storytime::Page", "Storytime::BlogPage"]
+        config.post_types += ["Storytime::BlogPost", "Storytime::Page", "Storytime::Blog"]
       end
     end
   end

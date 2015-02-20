@@ -13,9 +13,9 @@
 
     resources :posts, except: :show, concerns: :autosavable
     resources :pages, except: :show, concerns: :autosavable
-    resources :blog_pages, except: :show, concerns: :autosavable
+    resources :blogs, except: :show, concerns: :autosavable
     resources :blog_posts, except: :show, concerns: :autosavable
-    Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page Storytime::BlogPage].include?(type) }.each do |post_type|
+    Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page Storytime::Blog].include?(type) }.each do |post_type|
       resources post_type.tableize.to_sym, controller: "custom_posts", except: :show, concerns: :autosavable
     end
 
@@ -45,12 +45,13 @@
   get Storytime.home_page_path, to: "homepage#show", as: :storytime_homepage
 
   # index page for post types that are excluded from primary feed
+  # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
   constraints ->(request){ Storytime.post_types.any?{|type| type.constantize.type_name.pluralize == request.path.gsub("/", "") } } do
     get ":post_type", to: "posts#index"
   end
 
   # pages at routes like /about
-  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && (Storytime::Page.friendly.exists?(request.params[:id]) || Storytime::BlogPage.friendly.exists?(request.params[:id])) } do
+  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && (Storytime::Page.friendly.exists?(request.params[:id]) || Storytime::Blog.friendly.exists?(request.params[:id])) } do
     resources :pages, only: :show, path: "/"
   end
 

@@ -31,7 +31,7 @@
                 <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
               <% end %>
               
-              <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::BlogPage) %>
+              <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::Blog) %>
                 <div class="post_field post_excerpt character-limit">
                   <small>
                     <div class="pull-right character-limit-display" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
@@ -64,7 +64,7 @@
                   <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
                 </div>
                 
-                <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::BlogPage) %>
+                <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::Blog) %>
                   <div class="notify_subscribers_checkbox pull-right">
                     <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
                   </div>
@@ -77,7 +77,7 @@
       </div>
     </div>
     
-    <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) && !@post.is_a?(Storytime::BlogPage) %>
+    <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) && !@post.is_a?(Storytime::Blog) %>
       <div class="collapse post-action-panel" id="featured-images-panel">
         <div style="padding: 20px;">
           <div class="container-fluid">

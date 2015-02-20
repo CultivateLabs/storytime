@@ -45,7 +45,7 @@ module Storytime
     end
 
     def root_post_options
-      Storytime::Post.published.where(type: ["Storytime::Page", "Storytime::BlogPage"])
+      Storytime::Post.published.where(type: ["Storytime::Page", "Storytime::Blog"])
     end
 
     def active_email_subscriptions

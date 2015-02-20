@@ -106,13 +106,5 @@ module Storytime
     def user_class_symbol
       @@user_class.underscore.to_sym
     end
-
-    def site
-      ##################################################################################################
-      # TODO: Can't use Site.first here
-      ##################################################################################################
-      Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-      ##################################################################################################
-    end
   end
 end

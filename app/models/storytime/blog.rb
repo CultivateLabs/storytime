@@ -1,5 +1,5 @@
 module Storytime
-  class BlogPage < Post
+  class Blog < Page
     def show_comments?
       false
     end

@@ -11,6 +11,14 @@ module Storytime
 
       #allow overriding in the host app
       render @page.slug if lookup_context.template_exists?("storytime/pages/#{@page.slug}")
+
+      if @page.is_a?(Storytime::Blog)
+        @posts = Storytime::BlogPost.primary_feed #TODO: type based on blog settings
+        @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
+        @posts = @posts.tagged_with(params[:tag]) if params[:tag]
+        @posts = @posts.published.order(published_at: :desc).page(params[:page])
+        render "storytime/blogs/show"
+      end
     end
 
   private
