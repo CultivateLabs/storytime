@@ -23,6 +23,7 @@ module Storytime
       else
         Post.published.friendly.find(params[:id])
       end
+      redirect_to Storytime.home_page_path if @page == current_site(request).homepage
     end
   end
 end

@@ -4,6 +4,8 @@ class Storytime::ApplicationController < ApplicationController
   around_filter :scope_current_site
 
   include Storytime::Concerns::ControllerContentFor
+  include Storytime::Concerns::CurrentSite
+  helper_method :current_site
   
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -51,13 +53,8 @@ private
     false
   end
 
-  def current_site
-    @site = Storytime::Site.find_by!(subdomain: request.subdomain)
-  end
-  helper_method :current_site
-
   def scope_current_site
-    Storytime::Site.current_id = current_site.id
+    Storytime::Site.current_id = current_site(request).id
     yield
   ensure
     Storytime::Site.current_id = nil

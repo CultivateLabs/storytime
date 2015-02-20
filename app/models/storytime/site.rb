@@ -8,6 +8,7 @@ module Storytime
     has_many :posts, dependent: :destroy
     has_many :blog_posts, dependent: :destroy
     has_many :pages, dependent: :destroy
+    has_many :blogs, dependent: :destroy
     belongs_to :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id"
 
     validates :subdomain, presence: true, uniqueness: true

@@ -1,4 +1,4 @@
- Storytime::Engine.routes.draw do
+Storytime::Engine.routes.draw do
   resources :comments
   resources :subscriptions, only: [:create]
   get "subscriptions/unsubscribe", to: "subscriptions#destroy", as: "unsubscribe_mailing_list"
@@ -40,24 +40,13 @@
     delete ":resource_name/:id", to: "admin#destroy", as: :admin_destroy
   end
 
+  # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
   get 'tags/:tag', to: 'posts#index', as: :tag
 
-  get Storytime.home_page_path, to: "homepage#show", as: :storytime_homepage
-
-  # index page for post types that are excluded from primary feed
-  # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
-  constraints ->(request){ Storytime.post_types.any?{|type| type.constantize.type_name.pluralize == request.path.gsub("/", "") } } do
-    get ":post_type", to: "posts#index"
-  end
-
-  # blogs at routes like /about
-  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && Storytime::Blog.friendly.exists?(request.params[:id]) } do
-    resources :blogs, only: :show, path: "/"
-  end
-  # same thing for pages
-  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && Storytime::Page.friendly.exists?(request.params[:id]) } do
-    resources :pages, only: :show, path: "/"
-  end
+  get Storytime.home_page_path, to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
+  get Storytime.home_page_path, to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
+  resources :blogs, only: :show, path: "/", constraints: Storytime::Constraints::BlogConstraint.new
+  resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
 
   resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, constraints: ->(request){ request.params[:component_1] != "assets" }
   resources :posts, only: nil do
