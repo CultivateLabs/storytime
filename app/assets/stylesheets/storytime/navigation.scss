@@ -57,6 +57,7 @@
       font-size: 0.8em;
       font-weight: 300;
       letter-spacing: 1.5px;
+      @include transition(0.3s);
 
       &:hover {
         background-color: #f5f5f5;
@@ -119,6 +120,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 0.7em;
+    @include transition(0.3s);
 
     i {
       color: $brand-primary;
@@ -127,6 +129,5 @@
       text-align: center;
       position: relative;
       top: 5px;
-
     }
   }
