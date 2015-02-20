@@ -50,8 +50,12 @@
     get ":post_type", to: "posts#index"
   end
 
-  # pages at routes like /about
-  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && (Storytime::Page.friendly.exists?(request.params[:id]) || Storytime::Blog.friendly.exists?(request.params[:id])) } do
+  # blogs at routes like /about
+  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && Storytime::Blog.friendly.exists?(request.params[:id]) } do
+    resources :blogs, only: :show, path: "/"
+  end
+  # same thing for pages
+  constraints ->(request){ (request.params[:id] != Storytime.home_page_path) && Storytime::Page.friendly.exists?(request.params[:id]) } do
     resources :pages, only: :show, path: "/"
   end
 
