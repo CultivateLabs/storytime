@@ -17,7 +17,9 @@ Storytime::Engine.routes.draw do
 
     resources :posts, except: :show, concerns: :autosavable
     resources :pages, except: :show, concerns: :autosavable
-    resources :blogs, except: :show, concerns: :autosavable
+    resources :blogs, except: :show, concerns: :autosavable do
+      resources :posts
+    end
     resources :blog_posts, except: :show, concerns: :autosavable
     Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page Storytime::Blog].include?(type) }.each do |post_type|
       resources post_type.tableize.to_sym, controller: "custom_posts", except: :show, concerns: :autosavable

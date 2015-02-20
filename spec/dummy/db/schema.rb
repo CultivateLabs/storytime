@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219210528) do
+ActiveRecord::Schema.define(version: 20150220184902) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -92,8 +92,10 @@ ActiveRecord::Schema.define(version: 20150219210528) do
     t.integer  "site_id"
     t.boolean  "notifications_enabled", default: false
     t.datetime "notifications_sent_at"
+    t.integer  "blog_id"
   end
 
+  add_index "storytime_posts", ["blog_id"], name: "index_storytime_posts_on_blog_id"
   add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id"
 
   create_table "storytime_roles", force: true do |t|

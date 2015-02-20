@@ -9,7 +9,7 @@ module Storytime
         return redirect_to @page, :status => :moved_permanently
       end
       
-      @posts = Storytime::BlogPost.primary_feed #TODO: type based on blog settings
+      @posts = @page.posts #TODO: type based on blog settings
       @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
       @posts = @posts.published.order(published_at: :desc).page(params[:page])

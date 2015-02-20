@@ -3,6 +3,7 @@ module Storytime
     extend Storytime::Enum if Rails::VERSION::MINOR < 1
 
     enum post_slug_style: [:default, :day_and_name, :month_and_name, :post_id]
+    enum root_page_content: [:posts, :page]
 
     has_many :subscriptions, dependent: :destroy
     has_many :posts, dependent: :destroy
@@ -16,8 +17,6 @@ module Storytime
     validates :title, presence: true, length: { in: 1..200 }
 
     before_save :parameterize_subdomain
-    after_create :ensure_routes_updated
-    after_update :ensure_routes_updated
 
     def self.current_id=(id)
       Thread.current[:site_id] = id
@@ -27,22 +26,18 @@ module Storytime
       Thread.current[:site_id]
     end
 
-    def ensure_routes_updated
-      if id_changed? || root_post_id_changed? || post_slug_style_changed?
-        Rails.application.reload_routes!
-      end
-    end
-
     def save_with_seeds(user)
-      self.class.setup_seeds
+      self.class.setup_seeds(self, user)
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
+      self.homepage = self.blogs.first
       save
     end
 
-    def self.setup_seeds
+    def self.setup_seeds(site, user)
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed
+      Storytime::Blog.seed(site, user)
     end
 
     def root_post_options
