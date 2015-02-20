@@ -7,6 +7,10 @@ Storytime::Engine.routes.draw do
     resources :autosaves, only: :create
   end
 
+  concern :commentable do
+    resources :comments, only: [:create, :destroy]
+  end
+
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "posts#index"
     resources :sites, only: [:new, :edit, :update, :create]
@@ -49,7 +53,9 @@ Storytime::Engine.routes.draw do
   resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
 
   resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, constraints: ->(request){ request.params[:component_1] != "assets" }
-  resources :posts, only: nil do
-    resources :comments, only: [:create, :destroy]
+  Storytime.post_types.each do |post_type|
+    if post_type.constantize.respond_to?(:show_comments?) && post_type.constantize.show_comments?
+      resources post_type.split("::").last().tableize.to_sym, only: nil, concerns: :commentable
+    end
   end
 end

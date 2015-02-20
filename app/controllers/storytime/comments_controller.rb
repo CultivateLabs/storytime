@@ -29,7 +29,11 @@ module Storytime
   private
 
     def set_post
-      @post = Post.friendly.find(params[:post_id])
+      @post = Post.friendly.find(params["#{post_type_name}_id".to_sym])
+    end
+
+    def post_type_name
+      @post_type_name = request.path.split("/")[1].singularize
     end
 
     def comment_params
