@@ -12,17 +12,23 @@ Storytime::Engine.routes.draw do
   end
 
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
-    get "/", to: "posts#index"
+    get "/", to: "pages#index"
     resources :sites, only: [:new, :edit, :update, :create]
 
-    resources :posts, except: :show, concerns: :autosavable
     resources :pages, except: :show, concerns: :autosavable
-    resources :blogs, except: :show, concerns: :autosavable do
-      resources :posts
+    resources :blogs, except: [:index, :show], concerns: :autosavable do
+      # override route names so they don't conflict with resources :blog_posts
+      resources :posts, as: :blog_page_post, only: [:index]
+
+      resources :blog_posts, shallow: true, except: :show, concerns: :autosavable
+      Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog Storytime::BlogPost].include?(type) }.each do |post_type|
+        resources post_type.tableize.to_sym, controller: "custom_posts", only: [:new, :create]
+      end
     end
-    resources :blog_posts, except: :show, concerns: :autosavable
-    Storytime.post_types.reject{|type| %w[Storytime::BlogPost Storytime::Page Storytime::Blog].include?(type) }.each do |post_type|
-      resources post_type.tableize.to_sym, controller: "custom_posts", except: :show, concerns: :autosavable
+    
+    # Create / Update / Delete pages, blog_posts, custom_post_types
+    Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog Storytime::BlogPost].include?(type) }.each do |post_type|
+      resources post_type.tableize.to_sym, controller: "custom_posts", only: [:edit, :update, :destroy], concerns: :autosavable
     end
 
     resources :snippets, except: [:show]

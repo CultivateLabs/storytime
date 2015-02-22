@@ -6,16 +6,25 @@
         <i class="icon-st-icons-st-logo"></i>
       <% end %>
       
-      <%= new_post_button(current_post_type) %>
-      <h3 class="scroll-panel-title"><%= post_list_title(current_post_type) %></h3>
+      <%= link_to "New Post", "", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      <h3 class="scroll-panel-title">Posts</h3>
     </div>
     <div class="scroll-panel-body">
       <ul class="nav nav-tabs">
         <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
-          <%= link_to "Drafts", [:dashboard, current_post_type, published: nil] %>
+          <% if @blog %>
+            <%= link_to "Drafts", [:dashboard, @blog, :blog_page_post_index, published: nil] %>
+          <% else %>
+            <%= link_to "Drafts", [:dashboard, current_post_type] %>
+          <% end %>
         </li>
         <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">
-          <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
+          <% if @blog %>
+            <%= link_to "Published", [:dashboard, @blog, :blog_page_post_index, published: 'true'] %>
+          <% else %>
+            <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
+          <% end %>
+          
         </li>
       </ul>
       <%= render 'list' %>

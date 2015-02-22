@@ -5,7 +5,7 @@ module Storytime
     class PostsController < DashboardController
       before_action :hide_nav, only: [:new, :create, :edit, :update]
       before_action :set_post, only: [:edit, :update, :destroy]
-      before_action :load_posts
+      before_action :load_posts, only: :index
       before_action :load_media, only: [:new, :edit]
       
       respond_to :json, only: :destroy
@@ -82,6 +82,16 @@ module Storytime
     private
       def hide_nav
         @hide_nav = true
+      end
+
+      def load_posts
+        @blog = Blog.friendly.find(params[:blog_id])
+        @posts = @blog.posts.page(params[:page_number]).per(10)
+        if params[:published].present? && params[:published] == "true"
+          @posts = @posts.published.order(created_at: :desc)
+        else
+          @posts = @posts.draft.order(updated_at: :desc)
+        end
       end
 
       def set_post

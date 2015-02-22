@@ -73,12 +73,15 @@
     </li>
   </ul>
 
-  <h4 class="nav-menu-divider">Blogs</h4>
+  <h4 class="nav-menu-divider">
+    Blogs
+    <%= link_to icon("plus"), [:new, :dashboard, :blog], class: "btn btn-xs btn-default pull-right" %>
+  </h4>
   <ul class="nav nav-menu-nav">
     <% Storytime::Blog.all.each do |blog| %>
       <li>
         <!-- TODO: This should link to nested posts index with an icon link to edit the actual blog -->
-        <%= link_to blog.title, [:edit, :dashboard, blog] %>
+        <%= link_to blog.title, [:dashboard, blog, :blog_page_post_index] %>
       </li>
     <% end %>
   </ul>

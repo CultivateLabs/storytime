@@ -1,6 +1,6 @@
 <div class="list-group">
   <% @posts.each do |post| %>
-    <%= link_to url_for([:edit, :dashboard, post, page_number: params[:page_number]]), id: "#{post.class.to_s.downcase.split("::").last}_#{post.id}", class: "list-group-item" do %>
+    <%= link_to [:edit, :dashboard, post], id: "#{post.class.to_s.downcase.split("::").last}_#{post.id}", class: "list-group-item" do %>
       <div class="row">
         <div class="col-md-8">
            <h4><%= post.title %></h4>
