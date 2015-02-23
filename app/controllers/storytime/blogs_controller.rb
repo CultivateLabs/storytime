@@ -15,7 +15,7 @@ module Storytime
       @posts = @posts.published.order(published_at: :desc).page(params[:page])
 
       #allow overriding in the host app
-      render @page.slug if lookup_context.template_exists?("storytime/pages/#{@page.slug}")
+      render "storytime/#{@site.subdomain}/blogs/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@site.subdomain}/blogs/#{@page.slug}")
     end
 
   private

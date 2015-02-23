@@ -10,7 +10,7 @@ module Storytime
       end
 
       #allow overriding in the host app
-      render @page.slug if lookup_context.template_exists?("storytime/pages/#{@page.slug}")
+      render "storytime/#{@site.subdomain}/pages/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@site.subdomain}/pages/#{@page.slug}")
     end
 
   private
