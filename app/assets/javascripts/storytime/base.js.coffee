@@ -38,7 +38,8 @@ $ ()->
       if $(this).data("redirect") == "index"
         $("#storytime-modal").removeClass("modal-wide")
         $("#storytime-modal .modal-content").html(data.html)
-        initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
+        if $("#storytime-modal-controller").length && $("#storytime-modal-action").length
+          initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
       $('body').append("<div class='flash'><div class='flash-success'>Your changes were saved successfully</div></div>")
       $(".flash").show().delay(3000).fadeOut()
   ).on("ajax:error", ".storytime-modal-form", (e, xhr, status, error)->

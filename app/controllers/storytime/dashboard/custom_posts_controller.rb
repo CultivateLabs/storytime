@@ -1,11 +1,39 @@
 module Storytime
   module Dashboard
     class CustomPostsController < BlogPostsController
+
+    def new
+      @post = current_post_type.new
+      @post.blog = Storytime::Blog.friendly.find(params[:blog_id])
+      @post.user = current_user
+      authorize @post
+    end
+
+    def create
+      @post = current_post_type.new(post_params)
+      @post.blog = Storytime::Blog.friendly.find(params[:blog_id])
+      @post.user = current_user
+      @post.draft_user_id = current_user.id
+
+      authorize @post
+
+      if @post.save
+        @post.create_autosave(post_params.slice(:draft_content)) if params[:preview] == "true"
+
+        send_subscriber_notifications if @post.published? && post_params[:notifications_enabled] == "1"
+
+        opts = params[:preview] == "true" ? { preview: true } : {}
+
+        redirect_to [:edit, :dashboard, @post, opts], notice: I18n.t('flash.posts.create.success')
+      else
+        load_media
+        render :new
+      end
+    end
       
     private
       def current_post_type
-        type = request.path.split("/")[2].classify
-        @current_post_type ||= type.constantize if Storytime.post_types.include?(type)
+        @current_post_type ||= request.path.split("/")[4].classify.constantize
       end
       helper_method :current_post_type
 
