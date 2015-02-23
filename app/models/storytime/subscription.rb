@@ -7,7 +7,7 @@ module Storytime
 
     validates_presence_of :email
     validates_format_of :email, with: Storytime.email_regexp
-    validates :email, uniqueness: true
+    validates_uniqueness_of :email, scope: :site_id
 
     before_create :generate_token
 

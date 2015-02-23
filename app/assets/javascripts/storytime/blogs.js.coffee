@@ -7,6 +7,11 @@ class Storytime.Dashboard.Blogs
     )
 
   initEdit: ()->
+    $(document).on('ajax:success', '.edit-blog-form', (e, data, status, xhr) ->
+      unless $(e.target).hasClass("storytime-modal-trigger")
+        $("#blogs").html(data.html)
+        $("#storytime-modal").modal("hide")
+    )
 
   initCreate: ()->
 

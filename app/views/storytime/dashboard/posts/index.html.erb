@@ -6,7 +6,34 @@
         <i class="icon-st-icons-st-logo"></i>
       <% end %>
       
-      <%= render "new_button" %>
+      <% if @blog %>
+        <div class="pull-right">
+
+          <div class="btn-group margin-right" style="margin-right: 10px;">
+            <button type="button" class="btn btn-default btn-icon dropdown-toggle" id="post-utilities" data-toggle="dropdown" aria-expanded="false">
+              <i class="icon-st-icons-utilitymenu"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu" style="top: 125%;">
+              <li>
+                <%= link_to [:edit, :dashboard, @blog], remote: true, class: "storytime-modal-trigger" do %>
+                  <i class="icon-st-icons-settings"></i>
+                  Blog Settings
+                <% end %>
+              </li>
+              <li>
+                <%= link_to url_for([:dashboard, @blog]),  method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: @blog.human_name) } do %>
+                  <i class="icon-st-icons-delete"></i>
+                  Delete
+                <% end %>
+              </li>
+            </ul>
+          </div>
+
+          <%= render "new_button" %>
+        </div>
+      <% else %>
+        <%= render "new_button" %>
+      <% end %>
       <h3 class="scroll-panel-title">
         <%= render "index_title" %>
       </h3>

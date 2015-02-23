@@ -8,6 +8,9 @@ en:
         success: "%{resource_name} successfully created."
       update:
         success: "%{resource_name} successfully updated."
+    blogs:
+      destroy:
+        success: "Blog successfully deleted."
     comments:
       create:
         success: "Comment successfully created."

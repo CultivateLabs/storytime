@@ -10,6 +10,25 @@ module Storytime
         respond_with @blog
       end
 
+      def edit
+        authorize @post
+        @blog = @post
+        respond_with @blog
+      end
+
+      def update
+        authorize @post
+        @blog = @post
+
+        respond_with @blog do |format|
+          if @blog.update_attributes(post_params)
+            format.json { render :index }
+          else
+            format.json { render :edit, status: :unprocessable_entity }
+          end
+        end
+      end
+
       def create
         @blog = current_post_type.new(post_params)
         @blog.user = current_user
@@ -24,6 +43,16 @@ module Storytime
           else
             format.json { render :new, status: :unprocessable_entity }
           end
+        end
+      end
+
+      def destroy
+        authorize @post
+        @post.destroy
+        flash[:notice] = I18n.t('flash.blogs.destroy.success') unless request.xhr?
+        
+        respond_with [:dashboard, @post] do |format|
+          format.html{ redirect_to [:dashboard, Storytime::Page] }
         end
       end
       
