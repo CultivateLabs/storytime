@@ -26,7 +26,9 @@
         <li <%= active_nav_item_class("media") %>><%= link_to "Media", storytime.dashboard_media_index_path %></li>
       <% end %>
 
-      <li <%= active_nav_item_class("Subscriptions") %>><%= link_to "Subscriptions", dashboard_subscriptions_path %></li>
+      <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
+        <li <%= active_nav_item_class("Subscriptions") %>><%= link_to "Subscriptions", dashboard_subscriptions_path %></li>
+      <% end %>
 
       <% if Pundit.policy(current_user, Storytime.user_class).index? %>
         <li <%= active_nav_item_class("users") %>><%= link_to "Users", storytime.dashboard_users_path %></li>
