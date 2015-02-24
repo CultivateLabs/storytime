@@ -12,6 +12,7 @@
             <%= f.error_notification %>
             <%= f.input :title %>
             <%= f.input :subdomain %>
+            <%= f.input :subscription_email_from, label: t('dashboard.sites.subscription_email_from_label') %>
             <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
             <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
           <% end %>

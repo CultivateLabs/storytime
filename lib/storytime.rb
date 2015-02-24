@@ -18,11 +18,6 @@ module Storytime
   mattr_accessor :dashboard_namespace_path
   @@dashboard_namespace_path = '/storytime'
 
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  mattr_accessor :home_page_path
-  @@home_page_path = '/'
-
   # Path used to sign users in. 
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'

@@ -17,11 +17,14 @@
       <%= f.error_notification %>
       <%= f.input :title %>
       <%= f.input :subdomain %>
+      <%= f.input :subscription_email_from, label: t('dashboard.sites.subscription_email_from_label') %>
       <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
 
       <% unless params[:action] == "new" %>
-        <%= f.input :root_post_id, collection: @site.root_post_options, include_blank: false, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
-      
+        <%= f.input :root_post_id, collection: @site.root_post_options, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
+        <%= f.input :layout, as: :select, collection: application_layouts %>
+        <%= f.input :disqus_forum_shortname %>
+
         <%= f.input :ga_tracking_id %>
       <% end %>
 

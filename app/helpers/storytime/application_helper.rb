@@ -58,7 +58,7 @@ module Storytime
     end
 
     def render_comments
-      if Storytime.disqus_forum_shortname.blank?
+      if @site.disqus_forum_shortname.blank?
         render "storytime/comments/comments"
       else
         render "storytime/comments/disqus"

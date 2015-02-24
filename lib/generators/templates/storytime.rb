@@ -1,19 +1,10 @@
 Storytime.configure do |config|
-  # Name of the layout to be used. e.g. the 'application'
-  # layout uses /app/views/layout/application, in your
-  # host app, as the layout.
-  <%= @enable_layout ? nil : '# ' %>config.layout = '<%= @layout %>'
-
   # Name of the model you're using for Storytime users.
   <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'
-
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  <%= @enable_home_page_path ? nil : '# ' %>config.home_page_path = '<%= @home_page_path %>'
 
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
@@ -40,15 +31,8 @@ Storytime.configure do |config|
   # An empty array, '', or nil setting will permit all tags.
   <%= @enable_whitelisted_html_tags ? nil : '# ' %>config.whitelisted_html_tags = <%= @whitelisted_html_tags %>
 
-  # Enable Disqus comments using your forum's shortname,
-  # the unique identifier for your website as registered on Disqus.
-  <%= @enable_disqus_forum_shortname ? nil : '# ' %>config.disqus_forum_shortname = '<%= @disqus_forum_shortname %>'
-
   # Email regex used to validate email format validity for subscriptions.
   <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>
-
-  # Email address of the sender of subscription emails.
-  # config.subscription_email_from = 'no-reply@example.com'
 
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:

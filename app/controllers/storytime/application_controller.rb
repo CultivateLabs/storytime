@@ -1,5 +1,5 @@
 class Storytime::ApplicationController < ApplicationController
-  layout Storytime.layout || "storytime/application"
+  layout :set_layout
 
   around_filter :scope_current_site
 
@@ -49,6 +49,10 @@ class Storytime::ApplicationController < ApplicationController
   end
 
 private
+  def set_layout
+    @site.layout.present? ? @site.layout : "storytime/application"
+  end
+
   def dashboard_controller
     false
   end

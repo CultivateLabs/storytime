@@ -139,7 +139,6 @@ You then need to register the post type in your Storytime initializer:
 
 ```ruby
 Storytime.configure do |config|
-  config.layout = "application"
   config.user_class = 'User'
   config.post_types += ["VideoPost"]
 end

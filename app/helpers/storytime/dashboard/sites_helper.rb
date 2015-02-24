@@ -9,6 +9,10 @@ module Storytime
           ["Post ID - e.g. /posts/123", :post_id], 
         ]
       end
+
+      def application_layouts
+        Dir.glob(Rails.root.join("app", "views", "layouts", "**/*")).map{|layout| layout.split("/").last.split(".")[0]}
+      end
     end
   end
 end

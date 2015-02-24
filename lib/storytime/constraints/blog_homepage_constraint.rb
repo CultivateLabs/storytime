@@ -4,7 +4,7 @@ module Storytime
       include Storytime::Concerns::CurrentSite
       
       def matches?(request)
-        current_site(request).homepage.is_a?(Storytime::Blog)
+        current_site(request).homepage.present? && current_site(request).homepage.is_a?(Storytime::Blog)
       end
     end
   end

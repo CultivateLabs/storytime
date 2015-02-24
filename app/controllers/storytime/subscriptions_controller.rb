@@ -24,7 +24,7 @@ module Storytime
         flash[:error] = I18n.t('flash.subscriptions.destroy.fail')
       end
 
-      redirect_to Storytime.home_page_path
+      redirect_to "/"
     end
 
     private

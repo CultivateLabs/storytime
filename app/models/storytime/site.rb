@@ -12,8 +12,8 @@ module Storytime
     has_many :blogs, dependent: :destroy
     belongs_to :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id"
 
+    validates :subscription_email_from, presence: true
     validates :subdomain, presence: true, uniqueness: true
-    validates :root_post_id, presence: true
     validates :title, presence: true, length: { in: 1..200 }
 
     before_save :parameterize_subdomain
@@ -27,17 +27,21 @@ module Storytime
     end
 
     def save_with_seeds(user)
-      self.class.setup_seeds(self, user)
+      self.class.setup_seeds
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
-      self.homepage = self.blogs.first
-      save
+      if save
+        Storytime::Blog.seed(self, user)
+        self.homepage = self.blogs.first
+        self.save
+      else
+        false
+      end
     end
 
-    def self.setup_seeds(site, user)
+    def self.setup_seeds
       Storytime::Role.seed
       Storytime::Action.seed
       Storytime::Permission.seed
-      Storytime::Blog.seed(site, user)
     end
 
     def root_post_options

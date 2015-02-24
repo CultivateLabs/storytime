@@ -55,8 +55,9 @@ Storytime::Engine.routes.draw do
   # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
   get 'tags/:tag', to: 'posts#index', as: :tag
 
-  get Storytime.home_page_path, to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
-  get Storytime.home_page_path, to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
+  get "/", to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
+  get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
+
   resources :blogs, only: :show, path: "/", constraints: Storytime::Constraints::BlogConstraint.new
   resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
 
