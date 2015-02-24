@@ -21,8 +21,8 @@ module Storytime
       
       content_for :title, "#{@site.title} | #{@post.title}"
       
-      if params[:preview].nil? && ((@site.post_slug_style != "post_id") && (params[:id] != @post.slug))
-        return redirect_to @post, :status => :moved_permanently
+      if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
+        redirect_to storytime.post_path(@post), :status => :moved_permanently
       end
 
       @comments = @post.comments.order("created_at DESC")
