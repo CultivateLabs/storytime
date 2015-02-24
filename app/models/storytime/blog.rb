@@ -10,6 +10,7 @@ module Storytime
       blog.published_at = Time.now
       blog.user = user
       blog.save
+      blog
     end
 
     def show_comments?

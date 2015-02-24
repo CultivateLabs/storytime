@@ -30,9 +30,8 @@ module Storytime
       self.class.setup_seeds
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
       if save
-        Storytime::Blog.seed(self, user)
-        self.homepage = self.blogs.first
-        self.save
+        blog = Storytime::Blog.seed(self, user)
+        self.update_column("root_post_id", blog.id)
       else
         false
       end
