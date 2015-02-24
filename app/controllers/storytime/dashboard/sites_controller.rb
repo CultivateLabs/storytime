@@ -21,7 +21,7 @@ module Storytime
         authorize @site
 
         if @site.save_with_seeds(current_user)
-          redirect_to storytime.dashboard_url, notice: I18n.t('flash.sites.create.success')
+          redirect_to storytime.dashboard_url(subdomain: @site.subdomain), notice: I18n.t('flash.sites.create.success')
         else
           render :new
         end
