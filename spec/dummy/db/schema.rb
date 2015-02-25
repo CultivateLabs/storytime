@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225145316) do
+ActiveRecord::Schema.define(version: 20150225164232) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -74,10 +74,12 @@ ActiveRecord::Schema.define(version: 20150225145316) do
     t.integer  "action_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   add_index "storytime_permissions", ["action_id"], name: "index_storytime_permissions_on_action_id"
   add_index "storytime_permissions", ["role_id"], name: "index_storytime_permissions_on_role_id"
+  add_index "storytime_permissions", ["site_id"], name: "index_storytime_permissions_on_site_id"
 
   create_table "storytime_posts", force: true do |t|
     t.integer  "user_id"

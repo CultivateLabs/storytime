@@ -27,9 +27,9 @@ module Storytime
     end
 
     def save_with_seeds(user)
-      self.class.setup_seeds
       user.update_attributes(storytime_role: Storytime::Role.find_by(name: "admin"))
       if save
+        self.class.setup_seeds
         blog = Storytime::Blog.seed(self, user)
         self.update_column("root_post_id", blog.id)
       else

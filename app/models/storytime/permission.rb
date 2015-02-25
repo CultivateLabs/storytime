@@ -1,5 +1,6 @@
 module Storytime
   class Permission < ActiveRecord::Base
+    include Storytime::ScopedToSite
     belongs_to :role
     belongs_to :action
 
@@ -16,22 +17,24 @@ module Storytime
       manage_admin_models  = Action.find_by(guid: "3fj09k")
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
-      find_or_create_by(role: writer, action: publish_own)
-      find_or_create_by(role: editor, action: publish_own)
-      find_or_create_by(role: admin, action: publish_own)
+      Storytime::Site.find_each do |site|
+        find_or_create_by(role: writer, action: publish_own, site_id: site.id)
+        find_or_create_by(role: editor, action: publish_own, site_id: site.id)
+        find_or_create_by(role: admin, action: publish_own, site_id: site.id)
 
-      find_or_create_by(role: editor, action: manage_others)
-      find_or_create_by(role: admin, action: manage_others)
+        find_or_create_by(role: editor, action: manage_others, site_id: site.id)
+        find_or_create_by(role: admin, action: manage_others, site_id: site.id)
 
-      find_or_create_by(role: admin, action: manage_site)
-      find_or_create_by(role: admin, action: manage_users)
+        find_or_create_by(role: admin, action: manage_site, site_id: site.id)
+        find_or_create_by(role: admin, action: manage_users, site_id: site.id)
 
-      find_or_create_by(role: editor, action: manage_snippets)
-      find_or_create_by(role: admin, action: manage_snippets)
+        find_or_create_by(role: editor, action: manage_snippets, site_id: site.id)
+        find_or_create_by(role: admin, action: manage_snippets, site_id: site.id)
 
-      find_or_create_by(role: admin, action: manage_subscriptions)
-      
-      find_or_create_by(role: admin, action: manage_admin_models)
+        find_or_create_by(role: admin, action: manage_subscriptions, site_id: site.id)
+        
+        find_or_create_by(role: admin, action: manage_admin_models, site_id: site.id)
+      end
     end
   end
 end
