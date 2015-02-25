@@ -63,7 +63,7 @@ module Storytime
       end
 
       def load_users
-        @users = Storytime.user_class.page(params[:page]).per(20)
+        @users = @site.users.page(params[:page]).per(20)
       end
 
       def load_user
