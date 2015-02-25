@@ -1,7 +1,7 @@
 class Storytime::ApplicationController < ApplicationController
   layout :set_layout
 
-  around_filter :scope_current_site
+  around_action :scope_current_site
 
   include Storytime::Concerns::ControllerContentFor
   include Storytime::Concerns::CurrentSite
