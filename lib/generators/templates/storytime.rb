@@ -47,6 +47,7 @@ Storytime.configure do |config|
   # Enable Discourse comments using your discourse server,
   # Your discourse server must be configured for embedded comments.
   # e.g. config.discourse_name = "http://forum.example.com"
+  # NOTE:  include the '/' suffix at the end of the url
   # config.discourse_name = ""
 
   # Email regex used to validate email format validity for subscriptions.

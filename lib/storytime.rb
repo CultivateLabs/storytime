@@ -63,6 +63,7 @@ module Storytime
 
   # Enable Discourse comments using your discourse server,
   # Your discourse server must be configured for embedded comments.
+  # NOTE:  include the '/' suffix at the end of the url
   # e.g. config.discourse_name = "http://forum.example.com"
   mattr_accessor :discourse_name
   @@discourse_name = ""
