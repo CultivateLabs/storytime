@@ -1,7 +1,9 @@
 module Storytime
   class Comment < ActiveRecord::Base
+    include Storytime::ScopedToSite
+
     belongs_to :user, class_name: Storytime.user_class
-    belongs_to :blog
+    belongs_to :post
 
     validates :user, presence: true
     validates :post_id, presence: true

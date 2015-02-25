@@ -28,6 +28,8 @@ en:
         success: "Site successfully created."
       update:
         success: "Site successfully updated."
+      destroy:
+        success: "Site successfully deleted."
     snippets:
       create:
         success: "Text snippet successfully created."

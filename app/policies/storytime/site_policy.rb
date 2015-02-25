@@ -27,5 +27,9 @@ module Storytime
     def edit?
       update?
     end
+
+    def destroy?
+      manage?
+    end
   end
 end

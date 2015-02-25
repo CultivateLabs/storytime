@@ -54,43 +54,61 @@
     </div>
   </div>
 
-  <ul class="nav nav-menu-nav">
-    <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
-      <li <%= active_nav_item_class("snippets") %>>
-        <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]), class: "storytime-modal-trigger", remote: true, id: "snippets-link" %>
-      </li>
-    <% end %>
-    <% if Pundit.policy(current_user, Storytime::Media).index? %>
-      <li <%= active_nav_item_class("media") %>>
-        <%= link_to "Media", [:dashboard, Storytime::Media] %>
-      </li>
-    <% end %>
-
-    <li>
-      <li <%= active_nav_item_class("pages", Storytime::Page.type_name) %>>
-        <%= link_to Storytime::Page.human_name.pluralize, [:dashboard, Storytime::Page] %>
-      </li>
-    </li>
-  </ul>
-
-  <h4 class="nav-menu-divider">
-    Blogs
-    <%= link_to icon("plus"), [:new, :dashboard, :blog], class: "btn btn-xs btn-default pull-right storytime-modal-trigger", remote: true %>
-  </h4>
-  <ul class="nav nav-menu-nav" id="blogs">
-    <%= render partial: "storytime/dashboard/blogs/blog", collection: Storytime::Blog.all %>
-  </ul>
-
-  <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
-    <h4 class="nav-menu-divider">Admin</h4>
+  <div id="storytime-sites-menu" style="display: none;">
     <ul class="nav nav-menu-nav">
-      <% Storytime.admin_models.each do |model| %>
-        <li class="<%= active_admin_model_class('widget') %>">
-          <%= link_to model.pluralize.titleize, storytime.dashboard_admin_index_url(resource_name: model.tableize) %>
+      <% Storytime::Site.all.each do |site| %>
+        <% if site == current_site(request) %>
+          <li class="active"><%= link_to icon("check", site.title), "", class: "storytime-menu-toggle" %></li>
+        <% else %>
+          <li><%= link_to site.title, storytime_url(subdomain: site.subdomain) %></li>
+        <% end %>
+      <% end %>
+      <li><%= link_to icon("plus", "New Site"), storytime.new_dashboard_site_path %></li>
+    </ul>
+  </div>
+  
+  <div id="storytime-main-menu">
+    <ul class="nav nav-menu-nav">
+
+      <li><%= link_to icon('long-arrow-left', current_site(request).title), "", class: "storytime-menu-toggle" %></li>
+
+      <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
+        <li <%= active_nav_item_class("snippets") %>>
+          <%= link_to "Text Snippets", storytime.url_for([:dashboard, Storytime::Snippet]), class: "storytime-modal-trigger", remote: true, id: "snippets-link" %>
         </li>
       <% end %>
+      <% if Pundit.policy(current_user, Storytime::Media).index? %>
+        <li <%= active_nav_item_class("media") %>>
+          <%= link_to "Media", [:dashboard, Storytime::Media] %>
+        </li>
+      <% end %>
+
+      <li>
+        <li <%= active_nav_item_class("pages", Storytime::Page.type_name) %>>
+          <%= link_to Storytime::Page.human_name.pluralize, [:dashboard, Storytime::Page] %>
+        </li>
+      </li>
     </ul>
-  <% end %>
+
+    <h4 class="nav-menu-divider">
+      Blogs
+      <%= link_to icon("plus"), [:new, :dashboard, :blog], class: "btn btn-xs btn-default pull-right storytime-modal-trigger", remote: true %>
+    </h4>
+    <ul class="nav nav-menu-nav" id="blogs">
+      <%= render partial: "storytime/dashboard/blogs/blog", collection: Storytime::Blog.all %>
+    </ul>
+
+    <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
+      <h4 class="nav-menu-divider">Admin</h4>
+      <ul class="nav nav-menu-nav">
+        <% Storytime.admin_models.each do |model| %>
+          <li class="<%= active_admin_model_class('widget') %>">
+            <%= link_to model.pluralize.titleize, storytime.dashboard_admin_index_url(resource_name: model.tableize) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 </nav>
 <div id='off-canvas-overlay'></div>
 

@@ -13,7 +13,7 @@ Storytime::Engine.routes.draw do
 
   namespace :dashboard, :path => Storytime.dashboard_namespace_path do
     get "/", to: "pages#index"
-    resources :sites, only: [:new, :edit, :update, :create]
+    resources :sites, only: [:new, :edit, :update, :create, :destroy]
 
     resources :pages, except: :show, concerns: :autosavable
     resources :blogs, except: [:index, :show], concerns: :autosavable do

@@ -26,6 +26,10 @@
         <%= f.input :disqus_forum_shortname %>
 
         <%= f.input :ga_tracking_id %>
+        
+        <div class="well">
+          <%= link_to "Delete Site", [:dashboard, @site], method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: "site") }, class: "btn btn-danger btn-outline text-danger btn-sm" %>
+        </div>
       <% end %>
 
     </div>

@@ -26,6 +26,11 @@ $ ()->
     url = $(this).data('url')
     document.location.href = url
 
+  $(document).on "click", ".storytime-menu-toggle", (e) ->
+    e.preventDefault()
+    $("#storytime-main-menu").toggle()
+    $("#storytime-sites-menu").toggle()
+
   $(document).on('ajax:success', '.storytime-modal-trigger, #storytime-modal .pagination a', (e, data, status, xhr)->
     $("#storytime-modal .modal-content").html(data.html)
     $("#storytime-modal").removeClass("modal-wide")

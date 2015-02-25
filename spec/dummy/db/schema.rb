@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224212453) do
+ActiveRecord::Schema.define(version: 20150225145316) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 20150224212453) do
     t.string   "autosavable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   add_index "storytime_autosaves", ["autosavable_type", "autosavable_id"], name: "autosavable_index"
+  add_index "storytime_autosaves", ["site_id"], name: "index_storytime_autosaves_on_site_id"
 
   create_table "storytime_comments", force: true do |t|
     t.text     "content"
@@ -49,9 +51,11 @@ ActiveRecord::Schema.define(version: 20150224212453) do
     t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   add_index "storytime_comments", ["post_id"], name: "index_storytime_comments_on_post_id"
+  add_index "storytime_comments", ["site_id"], name: "index_storytime_comments_on_site_id"
   add_index "storytime_comments", ["user_id"], name: "index_storytime_comments_on_user_id"
 
   create_table "storytime_media", force: true do |t|
@@ -141,9 +145,11 @@ ActiveRecord::Schema.define(version: 20150224212453) do
     t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
   add_index "storytime_taggings", ["post_id"], name: "index_storytime_taggings_on_post_id"
+  add_index "storytime_taggings", ["site_id"], name: "index_storytime_taggings_on_site_id"
   add_index "storytime_taggings", ["tag_id"], name: "index_storytime_taggings_on_tag_id"
 
   create_table "storytime_tags", force: true do |t|
@@ -160,8 +166,10 @@ ActiveRecord::Schema.define(version: 20150224212453) do
     t.string   "versionable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id"
   end
 
+  add_index "storytime_versions", ["site_id"], name: "index_storytime_versions_on_site_id"
   add_index "storytime_versions", ["user_id"], name: "index_storytime_versions_on_user_id"
   add_index "storytime_versions", ["versionable_type", "versionable_id"], name: "versionable_index"
 

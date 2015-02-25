@@ -3,7 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class SitesController < DashboardController
-      before_action :set_site, only: [:edit, :update]
+      before_action :set_site, only: [:edit, :update, :destroy]
       respond_to :json, only: [:edit, :update]
 
       def new
@@ -34,6 +34,12 @@ module Storytime
         else
           render :site, status: 422
         end
+      end
+
+      def destroy
+        authorize @site
+        @site.destroy
+        redirect_to storytime.dashboard_url(subdomain: Storytime::Site.first.subdomain), notice: t('flash.sites.destroy.success')
       end
 
     private
