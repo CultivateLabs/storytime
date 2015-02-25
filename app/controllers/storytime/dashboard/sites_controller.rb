@@ -3,6 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class SitesController < DashboardController
+      skip_around_action :scope_current_site, only: :new, if: :no_sites
       before_action :set_site, only: [:edit, :update, :destroy]
       respond_to :json, only: [:edit, :update]
 
@@ -43,6 +44,10 @@ module Storytime
       end
 
     private
+      def no_sites
+        Storytime::Site.count == 0
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_site
         @site = Site.find(params[:id])

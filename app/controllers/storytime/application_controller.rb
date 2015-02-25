@@ -58,8 +58,12 @@ private
   end
 
   def scope_current_site
-    Storytime::Site.current_id = current_site(request).id
-    yield
+    begin
+      Storytime::Site.current_id = current_site(request).id
+      yield
+    rescue
+      redirect_to storytime.new_dashboard_site_path
+    end
   ensure
     Storytime::Site.current_id = nil
   end
