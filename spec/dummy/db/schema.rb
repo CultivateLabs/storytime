@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225164232) do
+ActiveRecord::Schema.define(version: 20150225213535) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -69,6 +69,18 @@ ActiveRecord::Schema.define(version: 20150225164232) do
   add_index "storytime_media", ["site_id"], name: "index_storytime_media_on_site_id"
   add_index "storytime_media", ["user_id"], name: "index_storytime_media_on_user_id"
 
+  create_table "storytime_memberships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "storytime_role_id"
+    t.integer  "site_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "storytime_memberships", ["site_id"], name: "index_storytime_memberships_on_site_id"
+  add_index "storytime_memberships", ["storytime_role_id"], name: "index_storytime_memberships_on_storytime_role_id"
+  add_index "storytime_memberships", ["user_id"], name: "index_storytime_memberships_on_user_id"
+
   create_table "storytime_permissions", force: true do |t|
     t.integer  "role_id"
     t.integer  "action_id"
@@ -94,8 +106,8 @@ ActiveRecord::Schema.define(version: 20150225164232) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "secondary_media_id"
-    t.string   "video_url"
     t.integer  "site_id"
+    t.string   "video_url"
     t.boolean  "notifications_enabled", default: false
     t.datetime "notifications_sent_at"
     t.integer  "blog_id"

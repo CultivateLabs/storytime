@@ -6,6 +6,9 @@ module Storytime
       module ClassMethods
         def storytime_user
           belongs_to :storytime_role, class_name: "Storytime::Role"
+
+          has_many :memberships, class_name: "Storytime::Membership"
+          has_many :storytime_roles, through: :memberships
           
           has_many :storytime_posts, class_name: "Storytime::Post"
           has_many :storytime_pages, class_name: "Storytime::Page"
