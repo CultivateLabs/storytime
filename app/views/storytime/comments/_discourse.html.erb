@@ -4,7 +4,7 @@
       <div id="disqus_thread"></div>
       <script type="text/javascript">
           var discourseUrl = "<%= Storytime.discourse_name %>",
-                  discourseEmbedUrl = '<%= url_for( request.original_url) %>';
+                  discourseEmbedUrl = '<%= path_for( request.original_url) %>';
 
           (function() {
               var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
