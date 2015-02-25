@@ -4,7 +4,7 @@ module Storytime
 
     def initialize(user, record)
       @user = user
-      @post = record
+      @snippet = record
     end
 
     def index?

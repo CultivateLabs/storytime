@@ -22,14 +22,30 @@ module Storytime
             end
 
             def storytime_user?
-              !storytime_role.nil?
+              storytime_role.present?
+            end
+
+            def storytime_user?(site)
+              Storytime::Membership.find_by(site: site, user: self).present?
+            end
+
+            def storytime_role
+              if current_membership
+                current_membership.storytime_role
+              else
+                super
+              end
+            end
+
+            def current_membership
+              Storytime::Membership.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
             end
           EOS
 
           %w{admin editor writer}.each do |role_name|
             class_eval <<-EOS
-              def storytime_#{role_name}?
-                storytime_role && storytime_role.name == "#{role_name}"
+              def storytime_#{role_name}?(site)
+                current_membership && current_membership.storytime_role.name == "#{role_name}"
               end
             EOS
           end  

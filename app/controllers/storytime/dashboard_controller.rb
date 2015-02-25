@@ -11,7 +11,7 @@ module Storytime
   private
 
     def verify_storytime_user
-      raise Pundit::NotAuthorizedError if current_user.storytime_role.nil?
+      raise Pundit::NotAuthorizedError if current_user.memberships.count == 0
     end
   
     def load_media

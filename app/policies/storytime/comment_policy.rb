@@ -16,7 +16,7 @@ module Storytime
     end
 
     def destroy?
-      is_owner? || (@user && (@user.storytime_admin? || @user.storytime_editor?))
+      is_owner? || (@user && (@user.storytime_admin?(@comment.site) || @user.storytime_editor?(@comment.site)))
     end
 
     def permitted_attributes

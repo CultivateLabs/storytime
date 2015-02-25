@@ -61,8 +61,8 @@ private
     begin
       Storytime::Site.current_id = current_site(request).id
       yield
-    rescue
-      redirect_to storytime.new_dashboard_site_path
+    rescue ActiveRecord::RecordNotFound
+      setup
     end
   ensure
     Storytime::Site.current_id = nil
@@ -70,6 +70,6 @@ private
   
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || storytime_root_path)
+    redirect_to storytime.dashboard_path
   end
 end
