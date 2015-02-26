@@ -44,6 +44,12 @@ Storytime.configure do |config|
   # the unique identifier for your website as registered on Disqus.
   # config.disqus_forum_shortname = ""
 
+  # Enable Discourse comments using your discourse server,
+  # Your discourse server must be configured for embedded comments.
+  # e.g. config.discourse_name = "http://forum.example.com"
+  # NOTE:  include the '/' suffix at the end of the url
+  # config.discourse_name = ""
+
   # Email regex used to validate email format validity for subscriptions.
   # config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 

@@ -60,6 +60,14 @@ module Storytime
   mattr_accessor :disqus_forum_shortname
   @@disqus_forum_shortname = ""
 
+
+  # Enable Discourse comments using your discourse server,
+  # Your discourse server must be configured for embedded comments.
+  # NOTE:  include the '/' suffix at the end of the url
+  # e.g. config.discourse_name = "http://forum.example.com"
+  mattr_accessor :discourse_name
+  @@discourse_name = ""
+
   # Email regex used to validate email format validity for subscriptions.
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
