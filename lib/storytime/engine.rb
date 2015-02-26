@@ -25,6 +25,7 @@ require 'storytime/constraints/page_constraint'
 require 'storytime/controller_helpers'
 require 'storytime/importers/importer'
 require 'storytime/importers/wordpress'
+require 'storytime/migrators/v1'
 
 module Storytime
   class Engine < ::Rails::Engine
