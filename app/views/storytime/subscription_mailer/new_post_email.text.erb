@@ -1,7 +1,7 @@
 A new post was published on <%= @site.title %>
 
-We published a new post, "<%= link_to @post.title, post_url(@post) %>", on our blog.
+We published a new post, "<%= link_to @post.title, post_url(@post, host: @site.custom_domain) %>", on our blog.
 
 ----------
 
-If you no longer want to receive these emails, go to <%= unsubscribe_mailing_list_url(email: @subscription.email, t: @subscription.token) %>.
+If you no longer want to receive these emails, go to <%= unsubscribe_mailing_list_url(email: @subscription.email, t: @subscription.token, host: @site.custom_domain) %>.

@@ -24,7 +24,7 @@ module Storytime
         authorize @site
 
         if @site.save_with_seeds(current_user)
-          redirect_to storytime.dashboard_url(subdomain: @site.subdomain), notice: I18n.t('flash.sites.create.success')
+          redirect_to storytime.dashboard_url(host: @site.custom_domain), notice: I18n.t('flash.sites.create.success')
         else
           render :new
         end
@@ -42,7 +42,7 @@ module Storytime
       def destroy
         authorize @site
         @site.destroy
-        redirect_to storytime.dashboard_url(subdomain: Storytime::Site.first.subdomain), notice: t('flash.sites.destroy.success')
+        redirect_to storytime.dashboard_url(host: Storytime::Site.first.custom_domain), notice: t('flash.sites.destroy.success')
       end
 
     private
@@ -57,7 +57,7 @@ module Storytime
 
       # Only allow a trusted parameter "white list" through.
       def site_params
-        params.require(:site).permit(:title, :post_slug_style, :ga_tracking_id, :root_post_id, :subdomain, :subscription_email_from, :layout, :disqus_forum_shortname)
+        params.require(:site).permit(:title, :post_slug_style, :ga_tracking_id, :root_post_id, :custom_domain, :subscription_email_from, :layout, :disqus_forum_shortname)
       end
 
     end

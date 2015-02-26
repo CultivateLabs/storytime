@@ -41,8 +41,7 @@ module ActionDispatch
         if Storytime::Site.current_id.present? 
           Storytime::Site.find(Storytime::Site.current_id)
         elsif options[:host]
-          subdomain = options[:host].split(".")[0]
-          Storytime::Site.find_by!(subdomain: subdomain)
+          Storytime::Site.find_by!(custom_domain: options[:host])
         end
       end
       

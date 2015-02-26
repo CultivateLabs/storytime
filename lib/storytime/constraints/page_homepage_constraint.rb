@@ -1,8 +1,9 @@
 module Storytime
   module Constraints
     class PageHomepageConstraint
+      include Storytime::Concerns::CurrentSite
       def matches?(request)
-        site = Storytime::Site.find_by(subdomain: request.subdomain)
+        site = current_site(request)
         site.present? && site.homepage.present? && site.homepage.is_a?(Storytime::Page)
       end
     end

@@ -84,6 +84,7 @@ en:
       save_permissions: "Save"
       save_button: "Save"
       layout_hint: "Leave blank to use the default Storytime site layout"
+      domain_hint: "Enter the full domain of your site (e.g. www.example.com)"
     users:
       users_header: "Users"
       create_new_user: "New"

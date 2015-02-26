@@ -1,5 +1,6 @@
 module Storytime
   class Site < ActiveRecord::Base
+    require 'uri'
     extend Storytime::Enum if Rails::VERSION::MINOR < 1
 
     enum post_slug_style: [:default, :day_and_name, :month_and_name, :post_id]
@@ -16,10 +17,10 @@ module Storytime
     belongs_to :creator, class_name: Storytime.user_class, foreign_key: "user_id"
 
     validates :subscription_email_from, presence: true
-    validates :subdomain, presence: true, uniqueness: true
+    validates :custom_domain, presence: true, uniqueness: true
     validates :title, presence: true, length: { in: 1..200 }
 
-    before_save :parameterize_subdomain
+    before_save :remove_http_from_custom_domain
 
     def self.current_id=(id)
       Thread.current[:site_id] = id
@@ -56,8 +57,8 @@ module Storytime
     end
 
   private
-    def parameterize_subdomain
-      self.subdomain = self.subdomain.parameterize
+    def remove_http_from_custom_domain
+      self.custom_domain = self.custom_domain.gsub(/http:\/\/|https:\/\//, "")
     end
   end
 end

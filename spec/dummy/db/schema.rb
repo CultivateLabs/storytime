@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226151539) do
+ActiveRecord::Schema.define(version: 20150226215420) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150226151539) do
     t.string   "layout"
     t.string   "disqus_forum_shortname"
     t.integer  "user_id"
+    t.string   "custom_domain"
   end
 
   add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id"

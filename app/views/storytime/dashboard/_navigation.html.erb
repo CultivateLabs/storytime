@@ -60,7 +60,7 @@
         <% if site == current_site(request) %>
           <li class="active"><%= link_to icon("check", site.title), "", class: "storytime-menu-toggle" %></li>
         <% else %>
-          <li><%= link_to site.title, storytime_url(subdomain: site.subdomain) %></li>
+          <li><%= link_to site.title, storytime_url(host: site.custom_domain) %></li>
         <% end %>
       <% end %>
       <li><%= link_to icon("plus", "New Site"), storytime.new_dashboard_site_path %></li>
