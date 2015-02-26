@@ -56,7 +56,7 @@
 
   <div id="storytime-sites-menu" style="display: none;">
     <ul class="nav nav-menu-nav">
-      <% Storytime::Site.all.each do |site| %>
+      <% current_user.sites.all.each do |site| %>
         <% if site == current_site(request) %>
           <li class="active"><%= link_to icon("check", site.title), "", class: "storytime-menu-toggle" %></li>
         <% else %>

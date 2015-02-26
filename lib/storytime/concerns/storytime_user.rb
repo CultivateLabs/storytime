@@ -7,6 +7,7 @@ module Storytime
         def storytime_user
           has_many :memberships, class_name: "Storytime::Membership"
           has_many :storytime_roles, through: :memberships
+          has_many :sites, through: :memberships, class_name: "Storytime::Site"
           
           has_many :storytime_posts, class_name: "Storytime::Post"
           has_many :storytime_pages, class_name: "Storytime::Page"
