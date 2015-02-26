@@ -6,5 +6,6 @@ module Storytime
     belongs_to :site, class_name: "Storytime::Site"
 
     validates :storytime_role, :user, presence: true
+    validates_uniqueness_of :user_id, scope: :site_id
   end
 end

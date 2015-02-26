@@ -60,7 +60,7 @@ module Storytime
 
     private
       def user_params
-        params.require(Storytime.user_class_symbol).permit(:email, :storytime_name, :password, :password_confirmation, memberships_attributes: [:id, :storytime_role_id])
+        params.require(Storytime.user_class_symbol).permit(:email, :storytime_name, :password, :password_confirmation, memberships_attributes: [:id, :storytime_role_id, :_destroy])
       end
 
       def load_users

@@ -31,7 +31,7 @@
     <% end %>
     
     <ul class="list-group list-group-button-links">
-      <%= render partial: 'user.html.erb', collection: @users %>
+      <%= render partial: 'storytime/dashboard/users/user.html.erb', collection: @users %>
     </ul>
 
     <%= paginate @users, remote: true %>

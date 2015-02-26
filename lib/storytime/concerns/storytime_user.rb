@@ -15,7 +15,7 @@ module Storytime
           has_many :storytime_versions, class_name: "Storytime::Version"
           has_many :storytime_comments, class_name: "Storytime::Comment"
 
-          accepts_nested_attributes_for :memberships
+          accepts_nested_attributes_for :memberships, allow_destroy: true
 
           scope :non_members, ->(site) { all.reject{|user| user.storytime_user?(site)} }
 
