@@ -46,6 +46,8 @@ $ ()->
         if $("#storytime-modal-controller").length && $("#storytime-modal-action").length
           initJS($("#storytime-modal-controller").val(), $("#storytime-modal-action").val())
       $('body').append("<div class='flash js-flash'><div class='flash-success'>Your changes were saved successfully</div></div>")
+      $('.chosen').chosen
+        width: '100%'
       $(".js-flash").show().delay(3000).fadeOut '300', ->
         $(this).remove()
   ).on("ajax:error", ".storytime-modal-form", (e, xhr, status, error)->

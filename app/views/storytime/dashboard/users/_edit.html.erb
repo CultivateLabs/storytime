@@ -11,6 +11,9 @@
 
       <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
       
+      <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+      <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+      
       <%= f.input :storytime_name %>
       <%= f.input :email %>
 
