@@ -5,7 +5,7 @@ module Storytime
 
       module ClassMethods
         def storytime_user
-          belongs_to :storytime_role, class_name: "Storytime::Role"
+          # belongs_to :storytime_role, class_name: "Storytime::Role"
 
           has_many :memberships, class_name: "Storytime::Membership"
           has_many :storytime_roles, through: :memberships
@@ -30,11 +30,7 @@ module Storytime
             end
 
             def storytime_role
-              if current_membership
-                current_membership.storytime_role
-              else
-                super
-              end
+              current_membership.storytime_role if current_membership
             end
 
             def current_membership
