@@ -7,7 +7,7 @@ module Storytime
         def storytime_user
           has_many :memberships, class_name: "Storytime::Membership"
           has_many :storytime_roles, through: :memberships
-          has_many :sites, through: :memberships, class_name: "Storytime::Site"
+          # has_many :sites, through: :memberships, class_name: "Storytime::Site"
           
           has_many :storytime_posts, class_name: "Storytime::Post"
           has_many :storytime_pages, class_name: "Storytime::Page"
@@ -16,6 +16,8 @@ module Storytime
           has_many :storytime_comments, class_name: "Storytime::Comment"
 
           accepts_nested_attributes_for :memberships
+
+          scope :non_members, ->(site) { all.reject{|user| user.storytime_user?(site)} }
 
           class_eval <<-EOS
             def self.policy_class
@@ -27,7 +29,7 @@ module Storytime
             end
 
             def storytime_user?(site)
-              Storytime::Membership.find_by(site: site, user: self).present?
+              Storytime::Membership.unscoped.find_by(site: site, user: self).present?
             end
 
             def storytime_role
@@ -35,7 +37,11 @@ module Storytime
             end
 
             def current_membership
-              Storytime::Membership.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
+              Storytime::Membership.unscoped.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
+            end
+
+            def sites
+              Storytime::Site.where(id: Storytime::Membership.unscoped.where(user: self).map(&:site_id))
             end
           EOS
 

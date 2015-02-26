@@ -41,6 +41,7 @@ $st-headings-font-weight: 700;
 @import "jquery-ui/theme";
 
 @import "chosen.css.scss";
+@import "chosen-bootstrap-3";
 @import "codemirror";
 @import "codemirror/themes/solarized";
 @import "jquery.ui.timepicker";
@@ -55,6 +56,7 @@ $st-headings-font-weight: 700;
   @import "storytime/forms";
   @import "storytime/list-group";
   @import "storytime/pagination";
+  @import "storytime/panels";
   @import "storytime/tabs";
   @import "storytime/type";
   @import "storytime/wells";

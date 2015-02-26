@@ -36,6 +36,7 @@ Storytime::Engine.routes.draw do
     resources :imports, only: [:new, :create]
     resources :subscriptions
     resources :users, path: Storytime.user_class_underscore.pluralize
+    resources :memberships, only: :create
     resources :roles do
       collection do
         get :edit_multiple
