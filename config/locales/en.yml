@@ -76,13 +76,14 @@ en:
     sites:
       new: "Set Up Your Site"
       root_post_id_label: "Homepage"
-      root_post_id_hint: "Select a page or blog to display at Storytime's mounting path. Leave blank to use a view from the host app."
+      root_post_id_hint: "Select a page or blog to display at the path where Storytime is mounted. Leave blank to use a view from the host app."
       subscription_email_from_label: "Email address to send subscription emails from"
       edit: "Site Settings"
       basic_info: "Basic Info"
       permissions: "Permissions"
       save_permissions: "Save"
       save_button: "Save"
+      layout_hint: "Leave blank to use the default Storytime site layout"
     users:
       users_header: "Users"
       create_new_user: "New"

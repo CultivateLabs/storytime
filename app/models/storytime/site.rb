@@ -13,6 +13,7 @@ module Storytime
     has_many :pages, dependent: :destroy
     has_many :blogs, dependent: :destroy
     belongs_to :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id"
+    belongs_to :creator, class_name: Storytime.user_class, foreign_key: "user_id"
 
     validates :subscription_email_from, presence: true
     validates :subdomain, presence: true, uniqueness: true
@@ -29,6 +30,7 @@ module Storytime
     end
 
     def save_with_seeds(user)
+      self.creator = user
       if save
         self.class.setup_seeds
         Storytime::Membership.create(user: user, site: self, storytime_role: Storytime::Role.find_by(name: "admin"))

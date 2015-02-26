@@ -13,7 +13,11 @@
       
       <%= f.input :storytime_name %>
       <%= f.input :email %>
-      <%= f.association :storytime_role, include_blank: false, label_method: :label %>
+
+      <%= f.simple_fields_for :memberships do |mf| %>
+        <%= mf.association :storytime_role, include_blank: false, label_method: :label %>
+      <% end %>
+      
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
     </div>

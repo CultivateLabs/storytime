@@ -5,8 +5,6 @@ module Storytime
 
       module ClassMethods
         def storytime_user
-          # belongs_to :storytime_role, class_name: "Storytime::Role"
-
           has_many :memberships, class_name: "Storytime::Membership"
           has_many :storytime_roles, through: :memberships
           
@@ -15,6 +13,8 @@ module Storytime
           has_many :storytime_media, class_name: "Storytime::Media"
           has_many :storytime_versions, class_name: "Storytime::Version"
           has_many :storytime_comments, class_name: "Storytime::Comment"
+
+          accepts_nested_attributes_for :memberships
 
           class_eval <<-EOS
             def self.policy_class

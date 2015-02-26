@@ -22,7 +22,7 @@
 
       <% unless params[:action] == "new" %>
         <%= f.input :root_post_id, collection: @site.root_post_options, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
-        <%= f.input :layout, as: :select, collection: application_layouts %>
+        <%= f.input :layout, as: :select, collection: application_layouts, hint: t('dashboard.sites.layout_hint') %>
         <%= f.input :disqus_forum_shortname %>
 
         <%= f.input :ga_tracking_id %>

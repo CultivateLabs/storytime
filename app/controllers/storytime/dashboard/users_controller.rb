@@ -15,6 +15,7 @@ module Storytime
 
       def new
         @user = Storytime.user_class.new
+        @membership = @user.memberships.new
         authorize @user
         respond_with @user
       end
@@ -59,7 +60,7 @@ module Storytime
 
     private
       def user_params
-        params.require(Storytime.user_class_symbol).permit(:email, :storytime_role_id, :storytime_name, :password, :password_confirmation)
+        params.require(Storytime.user_class_symbol).permit(:email, :storytime_name, :password, :password_confirmation, memberships_attributes: [:id, :storytime_role_id])
       end
 
       def load_users

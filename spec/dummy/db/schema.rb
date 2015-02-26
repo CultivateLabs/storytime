@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225213535) do
+ActiveRecord::Schema.define(version: 20150226151539) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -133,9 +133,11 @@ ActiveRecord::Schema.define(version: 20150225213535) do
     t.string   "subscription_email_from"
     t.string   "layout"
     t.string   "disqus_forum_shortname"
+    t.integer  "user_id"
   end
 
   add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id"
+  add_index "storytime_sites", ["user_id"], name: "index_storytime_sites_on_user_id"
 
   create_table "storytime_snippets", force: true do |t|
     t.string   "name"
@@ -200,13 +202,11 @@ ActiveRecord::Schema.define(version: 20150225213535) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "storytime_role_id"
     t.string   "storytime_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["storytime_role_id"], name: "index_users_on_storytime_role_id"
 
   create_table "widgets", force: true do |t|
     t.string   "name"
