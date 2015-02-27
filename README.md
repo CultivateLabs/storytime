@@ -2,12 +2,23 @@
 
 Storytime is Rails 4+ CMS and bloging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
 
-With Storytime, we have a few guiding principles:
-* Content, copy, and very basic formatting belongs in the CMS
-* Complex page structure (html), styling (css), and interactions (javascript) belong in the host app
-* Customization & extension should be supported by Storytime, but the app specific details belong in the host app, not the CMS/database
+With Storytime, we try to have a clear separation of responsibilities between the host app and Storytime:
 
-Based on these principles, it can be useful to think of the host app as the "theme" for the CMS/blog instance. Storytime provides the CMS/blog plumbing, but the host app handles presentation details that are specific to the particular site/app.
+Storytime is responsible for:
+* **Editing content**, copy, and very basic formatting (basic formatting roughly = things you could do in markdown)
+* Enabling of customization, extension, and theming
+* Enabling administration/editing of other Rails models
+
+Host app is responsible for:
+* Complex page structure (html), styling (css), and interactions (javascript)
+* Any app-specific details or customizations (e.g. Storytime tells the host app to send email, host app decides how to send the email, whether it should be in a background job, etc.) 
+* Presentation details -- we like to think of the host app as providing the "theme" for the Storytime site.
+
+This separation is intended to provide several benefits and/or solve several problems:
+* Building complex page structure and styling inside the CMS prevents the code from going into version control
+* If complex page structure is in the host app and CMS users just edit content snippets, it's much harder to break pages on a production site.
+* Combining admin and CMS/blog features in one place gives site administrators a single place to go to edit content (rather than requiring both a CMS/blog and something like ActiveAdmin or RailsAdmin).
+
 
 ## Sample App
 
