@@ -5,9 +5,9 @@ Storytime is Rails 4+ CMS and bloging engine, with a core focus on content. It i
 With Storytime, we try to have a clear separation of responsibilities between the host app and Storytime:
 
 Storytime is responsible for:
-* **Editing content**, copy, and very basic formatting (basic formatting roughly = things you could do in markdown)
+* Editing **content**, **copy**, and very **basic formatting** (basic formatting roughly = things you could do in markdown)
 * Enabling of customization, extension, and theming
-* Enabling administration/editing of other Rails models
+* Enabling administration of other Rails models
 
 Host app is responsible for:
 * Complex page structure (html), styling (css), and interactions (javascript)
@@ -17,7 +17,7 @@ Host app is responsible for:
 This separation is intended to provide several benefits and/or solve several problems:
 * Building complex page structure and styling inside the CMS prevents the code from going into version control
 * If complex page structure is in the host app and CMS users just edit content snippets, it's much harder to break pages on a production site.
-* Combining admin and CMS/blog features in one place gives site administrators a single place to go to edit content (rather than requiring both a CMS/blog and something like ActiveAdmin or RailsAdmin).
+* Combining admin and CMS/blog features in one place gives site administrators **a single place to edit content** (rather than requiring both a CMS/blog and something like ActiveAdmin or RailsAdmin).
 
 
 ## Sample App
