@@ -1,16 +1,12 @@
-<% unless dashboard_controller %>
-  <div class="storytime">
-<% end %>
-
 <% if user_signed_in? && !devise_controller? && current_user.storytime_user?(@site) %>
+  <% unless dashboard_controller %>
+    <div class="storytime">
+  <% end %>
   <%= render 'storytime/dashboard/navigation' %>
   <% unless dashboard_controller %>
     <%= link_to "#", id: "storytime-app-menu-toggle", class: storytime_button_classes, data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
       <i class="icon-st-icons-st-logo"></i>
     <% end %>
+    </div>
   <% end %>
-<% end %>
-
-<% unless dashboard_controller %>
-  </div>
 <% end %>

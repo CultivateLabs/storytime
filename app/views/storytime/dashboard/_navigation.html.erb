@@ -45,7 +45,7 @@
         <% end %>
         <li class="divider"></li>
         <li>
-          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path") do %>
+          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), method: :delete do %>
             <i class="icon-st-icons-logout"></i>
             <span style="margin-left: 10px; margin-right: 6px;">Log Out</span>
           <% end %>
