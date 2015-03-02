@@ -11,6 +11,8 @@ module Storytime
 
       def create
         @post = current_post_type.new(post_params)
+        @post.blog = Storytime::Blog.friendly.find(params[:blog_id])
+        @post.user = current_user
         @post.draft_user_id = current_user.id
         authorize @post
 
