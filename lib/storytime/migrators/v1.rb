@@ -4,13 +4,28 @@ module Storytime
       def self.create_user_memberships
         Storytime.user_class.find_each do |user|
           Storytime::Site.find_each do |site|
-            if user.storytime_user?(site)
+            if user.storytime_role_id.present?
               Storytime::Membership.create(site_id: site.id, user_id: user.id, storytime_role_id: user.storytime_role_id)
               # set as site creator if site.user_id is blank and role is admin
               if site.user_id.blank? && user.storytime_role_id == Storytime::Role.find_by(name: "admin").id
                 site.update_column "user_id", user.id
               end
             end
+          end
+        end
+      end
+
+      def self.set_site_layout_and_subscription_email_from
+        Storytime::Site.find_each do |site|
+          site.update_column "layout", Storytime.layout
+          site.update_column "subscription_email_from", Storytime.subscription_email_from
+        end
+      end
+
+      def self.add_site_id_to_media
+        Storytime::Media.find_each do |media|
+          if media.site_id.blank?
+            media.update_column("site_id", Storytime::Site.first.id)
           end
         end
       end

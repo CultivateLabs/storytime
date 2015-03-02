@@ -28,7 +28,7 @@ class Storytime::ApplicationController < ApplicationController
     elsif Storytime::Site.count == 0
       new_dashboard_site_url
     else
-      url_for([:dashboard, Storytime::BlogPost])
+      url_for([:dashboard, Storytime::Page])
     end
 
     redirect_to url
