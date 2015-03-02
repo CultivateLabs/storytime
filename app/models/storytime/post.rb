@@ -48,7 +48,14 @@ module Storytime
       end
 
       def find_preview(id)
-        Post.friendly.find(id)
+        post = Post.friendly.find(id)
+        
+        if post.present?
+          post.content = post.preview_content
+          post.preview = true
+        end
+
+        post
       end
 
       def type_name
@@ -76,6 +83,10 @@ module Storytime
       def model_name
         ActiveModel::Name.new(self, nil, "Post")
       end
+    end
+
+    def preview_content
+      autosave.present? ? autosave.content : latest_version.content 
     end
 
     def human_name
