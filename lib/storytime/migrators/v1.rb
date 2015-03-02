@@ -3,8 +3,8 @@ module Storytime
     module V1
       def self.create_user_memberships
         Storytime.user_class.find_each do |user|
-          if user.storytime_user?
-            Storytime::Site.find_each do |site|
+          Storytime::Site.find_each do |site|
+            if user.storytime_user?(site)
               Storytime::Membership.create(site_id: site.id, user_id: user.id, storytime_role_id: user.storytime_role_id)
               # set as site creator if site.user_id is blank and role is admin
               if site.user_id.blank? && user.storytime_role_id == Storytime::Role.find_by(name: "admin").id
