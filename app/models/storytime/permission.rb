@@ -18,22 +18,22 @@ module Storytime
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
       Storytime::Site.find_each do |site|
-        find_or_create_by(role: writer, action: publish_own, site_id: site.id)
-        find_or_create_by(role: editor, action: publish_own, site_id: site.id)
-        find_or_create_by(role: admin, action: publish_own, site_id: site.id)
-
-        find_or_create_by(role: editor, action: manage_others, site_id: site.id)
-        find_or_create_by(role: admin, action: manage_others, site_id: site.id)
-
-        find_or_create_by(role: admin, action: manage_site, site_id: site.id)
-        find_or_create_by(role: admin, action: manage_users, site_id: site.id)
-
-        find_or_create_by(role: editor, action: manage_snippets, site_id: site.id)
-        find_or_create_by(role: admin, action: manage_snippets, site_id: site.id)
-
-        find_or_create_by(role: admin, action: manage_subscriptions, site_id: site.id)
-        
-        find_or_create_by(role: admin, action: manage_admin_models, site_id: site.id)
+        [
+          {role: writer, action: publish_own},
+          {role: editor, action: publish_own},
+          {role: admin, action: publish_own},
+          {role: editor, action: manage_others},
+          {role: admin, action: manage_others},
+          {role: admin, action: manage_site},
+          {role: admin, action: manage_users},
+          {role: editor, action: manage_snippets},
+          {role: admin, action: manage_snippets},
+          {role: admin, action: manage_subscriptions},
+          {role: admin, action: manage_admin_models}
+        ].each do |perm_attrs|
+          perm_attrs[:site_id] = site.id if ActiveRecord::Base.connection.column_exists?(:storytime_permissions, :site_id)
+          find_or_create_by(perm_attrs)
+        end
       end
     end
   end

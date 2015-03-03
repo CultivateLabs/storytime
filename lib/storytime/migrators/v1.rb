@@ -128,8 +128,7 @@ module Storytime
 
             # TRANSFER POSTS NOT IN PRIMARY FEED TO DEFAULT BLOG
             type.constantize.all.find_each do |post|
-              post.blog = blog
-              post.save
+              post.update_column "blog_id", blog.id
             end
           end
         end

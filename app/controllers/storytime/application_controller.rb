@@ -1,6 +1,7 @@
 class Storytime::ApplicationController < ApplicationController
   layout :set_layout
 
+  before_action :ensure_site_exists
   around_action :scope_current_site
 
   include Storytime::Concerns::ControllerContentFor
@@ -49,6 +50,10 @@ class Storytime::ApplicationController < ApplicationController
   end
 
 private
+  def ensure_site_exists
+    setup if Storytime::Site.count == 0
+  end
+
   def set_layout
     @site.layout.present? ? @site.layout : "storytime/application"
   end
@@ -58,12 +63,8 @@ private
   end
 
   def scope_current_site
-    begin
-      Storytime::Site.current_id = current_site(request).id
-      yield
-    rescue ActiveRecord::RecordNotFound
-      setup
-    end
+    Storytime::Site.current_id = current_site(request).id
+    yield
   ensure
     Storytime::Site.current_id = nil
   end

@@ -56,6 +56,10 @@ module Storytime
       subscriptions.active
     end
 
+    def custom_view_path
+      self.title.parameterize
+    end
+
   private
     def remove_http_from_custom_domain
       self.custom_domain = self.custom_domain.gsub(/http:\/\/|https:\/\//, "")

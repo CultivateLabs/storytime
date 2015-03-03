@@ -3,6 +3,7 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class SitesController < DashboardController
+      skip_before_action :ensure_site_exists, only: [:new, :create]
       skip_around_action :scope_current_site, only: [:new, :create]
       around_action :scope_current_site, unless: :skip_scope_current_site?
 

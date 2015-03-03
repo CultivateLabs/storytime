@@ -20,18 +20,16 @@ module Storytime
       authorize @post
       
       content_for :title, "#{@site.title} | #{@post.title}"
-      
-      if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
-        redirect_to storytime.post_path(@post), :status => :moved_permanently
-      end
 
       @comments = @post.comments.order("created_at DESC")
       #allow overriding in the host app
 
-      if lookup_context.template_exists?("storytime/#{@site.custom_domain}/#{@post.type_name.pluralize}/#{@post.slug}")
-        render "storytime/#{@site.custom_domain}/#{@post.type_name.pluralize}/#{@post.slug}"
-      elsif lookup_context.template_exists?("storytime/#{@site.custom_domain}/#{@post.type_name.pluralize}/show")
-        render "storytime/#{@site.custom_domain}/#{@post.type_name.pluralize}/show"
+      if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
+        redirect_to storytime.post_path(@post), :status => :moved_permanently
+      elsif lookup_context.template_exists?("storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}")
+        render "storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}"
+      elsif lookup_context.template_exists?("storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/show")
+        render "storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/show"
       end
     end
   end
