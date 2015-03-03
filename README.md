@@ -101,6 +101,25 @@ After doing so, fire up your Rails server and access the Storytime dashboard, by
 $ rails generate storytime:views
 ```
 
+## Storytime Nav Menu
+
+You can include a button on your site when Storytime users are logged in, giving them easy access to the CMS. To do so, add the following:
+
+in application.css
+```
+@import 'storytime/application';
+```
+
+in application.js
+```
+//= require storytime/application
+```
+
+in your layout file
+```
+<%= render 'storytime/application/storytime/navigation', storytime_button_classes: "dark rounded" %>
+```
+
 ## Text Snippets
 
 Storytime takes the position that complex page structure should not live in the database. If you need a complex page that requires heavy HTML/CSS, but still want to have the actual content be editable in the CMS, you should use a text snippet.
