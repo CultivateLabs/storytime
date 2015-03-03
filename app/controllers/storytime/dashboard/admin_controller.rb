@@ -9,7 +9,7 @@ module Storytime
       helper_method :model_name, :model_class, :attributes, :form_attributes
 
       def index
-        @collection = model_class.all
+        @collection = model_class.storytime_admin_scope(user: current_user, site: current_site).all
         authorize :admin, :read?
       end
 
