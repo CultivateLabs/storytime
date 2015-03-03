@@ -78,7 +78,7 @@ module Storytime
   @@admin_models = []
 
   class << self
-    attr_accessor :layout, :media_storage, :s3_bucket, :post_types
+    attr_accessor :media_storage, :s3_bucket, :post_types
     
     def configure
       self.post_types ||= []

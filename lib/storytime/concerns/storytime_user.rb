@@ -19,29 +19,11 @@ module Storytime
 
           scope :non_members, ->(site) { all.reject{|user| user.storytime_user?(site)} }
 
+          include Storytime::Concerns::StorytimeUser::LocalInstanceMethods
+
           class_eval <<-EOS
             def self.policy_class
               UserPolicy
-            end
-
-            def storytime_user?
-              storytime_role.present?
-            end
-
-            def storytime_user?(site)
-              Storytime::Membership.unscoped.find_by(site: site, user: self).present?
-            end
-
-            def storytime_role
-              current_membership.storytime_role if current_membership
-            end
-
-            def current_membership
-              Storytime::Membership.unscoped.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
-            end
-
-            def sites
-              Storytime::Site.where(id: Storytime::Membership.unscoped.where(user: self).map(&:site_id))
             end
           EOS
 
@@ -55,6 +37,23 @@ module Storytime
         end
       end
 
+      module LocalInstanceMethods
+        def storytime_user?(site)
+          Storytime::Membership.unscoped.find_by(site: site, user: self).present?
+        end
+
+        def storytime_role
+          current_membership.storytime_role if current_membership
+        end
+
+        def current_membership
+          Storytime::Membership.unscoped.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
+        end
+
+        def sites
+          Storytime::Site.where(id: Storytime::Membership.unscoped.where(user: self).map(&:site_id))
+        end
+      end
     end
   end
 end

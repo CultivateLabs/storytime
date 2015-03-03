@@ -5,12 +5,10 @@ module Storytime
 
       module ClassMethods
         def storytime_admin_model(opts = {})
-          Storytime.admin_models << "#{self}"
-
+          opts[:scope] ||= ->(opts) { all }
           scope :storytime_admin_scope, opts[:scope]
         end
       end
-
     end
   end
 end

@@ -16,6 +16,7 @@ require 'codemirror-rails'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
+require 'storytime/concerns/storytime_admin_model'
 require 'storytime/concerns/controller_content_for'
 require 'storytime/concerns/current_site'
 require 'storytime/constraints/blog_homepage_constraint'
