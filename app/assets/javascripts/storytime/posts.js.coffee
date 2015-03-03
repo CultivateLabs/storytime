@@ -29,8 +29,9 @@ class Storytime.Dashboard.Posts
       $(".scroll-panel-header").fadeOut
         duration: 'fast'
         easing: 'swing'
+      $(".scroll-panel-body").scrollTop(0)
       $(".scroll-panel-body").animate({top: "0"}, 'fast', 'swing')
-      
+
     $(".post-action-panel").on "shown.bs.collapse", ->
       $(".chosen-select").trigger("chosen:updated")
 
