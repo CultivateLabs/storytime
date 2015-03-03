@@ -119,17 +119,13 @@ The following example shows two snippets named "first-column-text" and "second-c
 
 ## Custom Post Types
 
-Storytime supports custom post types and takes the opinion that these are a concern of the host app. To add a custom post type, define a new model in your host app that inherits from Storytime's post class. Add the `include Storytime::BlogPostPartialInheritance` line if your custom post type is included in the primary feed (shown on the main blog posts page) and you want to use the `_blog_post.html.erb` partial by default.
+Storytime supports custom post types and takes the opinion that these are a concern of the host app. To add a custom post type, define a new model in your host app that inherits from Storytime's post class and add the `include Storytime::CustomPostType`.
 
 ```ruby
 class VideoPost < Storytime::Post
-  include Storytime::BlogPostPartialInheritance
+  include Storytime::CustomPostType
 
   def show_comments?
-    true
-  end
-
-  def self.included_in_primary_feed?
     true
   end
 end
@@ -148,8 +144,6 @@ end
 In your subclass, you can override some options for your post type:
 
 `show_comments?` determines whether comments will be shown on the post.
-
-`included_in_primary_feed?` defines whether the post type should show up in the primary post feed. If your definition of this method returns false, a new link will be shown in the Storytime dashboard header. If it returns true, Storytime will show it as an option in the new post button on the dashboard.
 
 ### Custom Fields
 
@@ -174,7 +168,7 @@ end
 
 ### Custom Show Views
 
-To create a custom #show view for your custom type, we could add one to `app/views/storytime/your_post_type/show.html.erb`, where `your_post_type` is the underscored version of your custom post type class (the example class above would be `video_post`).
+To create a custom #show view for your custom type, we could add one to `app/views/storytime/your-site-title/your_post_type/show.html.erb`, where `your_post_type` is the underscored version of your custom post type class (the example class above would be `video_post`).
 
 ## Using S3 for Image Uploads
 
