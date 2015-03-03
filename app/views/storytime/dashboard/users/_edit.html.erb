@@ -1,4 +1,4 @@
-<%= simple_form_for @user, :url => dashboard_user_path, remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
+<%= simple_form_for @user.becomes(Storytime.user_class), :url => dashboard_user_path, remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <%= link_to icon("angle-left"), [:dashboard, Storytime.user_class], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
