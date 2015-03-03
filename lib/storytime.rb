@@ -68,11 +68,11 @@ module Storytime
     end
 
     if Storytime.whitelisted_post_html_tags.blank?
-      white_list_sanitizer.sanitize(draft_content, attributes: %w(class style))
+      white_list_sanitizer.sanitize(draft_content, attributes: %w(id class href style))
     else
       white_list_sanitizer.sanitize(draft_content,
                                     tags: Storytime.whitelisted_post_html_tags,
-                                    attributes: %w(class style))
+                                    attributes: %w(id class href style))
     end
   end
 
