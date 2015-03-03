@@ -8,7 +8,11 @@ module Storytime
     before_save :update_autosave_content
 
     def update_autosave_content
-      self.content = @draft_content
+      self.content = if Storytime.post_sanitizer.blank?
+        @draft_content
+      else
+        Storytime.post_sanitizer.call(@draft_content)
+      end
     end
   end
 end
