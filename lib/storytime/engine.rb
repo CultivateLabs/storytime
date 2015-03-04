@@ -13,6 +13,7 @@ require 'nokogiri'
 require 'pundit'
 require 'simple_form'
 require 'codemirror-rails'
+require 'admin'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
