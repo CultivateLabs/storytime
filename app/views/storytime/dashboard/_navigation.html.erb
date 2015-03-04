@@ -45,7 +45,7 @@
         <% end %>
         <li class="divider"></li>
         <li>
-          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), method: :delete do %>
+          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path") do %>
             <i class="icon-st-icons-logout"></i>
             <span style="margin-left: 10px; margin-right: 6px;">Log Out</span>
           <% end %>
@@ -103,10 +103,8 @@
     <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
       <h4 class="nav-menu-divider">Admin</h4>
       <ul class="nav nav-menu-nav">
-        <% Storytime.admin_models.each do |model| %>
-          <li class="<%= active_admin_model_class('widget') %>">
-            <%= link_to model.pluralize.titleize, storytime.dashboard_admin_index_url(resource_name: model.tableize) %>
-          </li>
+        <% Admin.models.each do |model| %>
+          <%= nav_item model.pluralize.titleize, admin.url_for([model.constantize]) %>
         <% end %>
       </ul>
     <% end %>
