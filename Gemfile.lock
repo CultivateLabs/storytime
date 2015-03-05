@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/flyoverworks/storytime-admin.git
-  revision: 1f52e759d5845bc4265549bcac569736d26e31c3
+  revision: a104d3fe3718570b9f2450c6380edbf59392fa4b
   branch: master
   specs:
     storytime-admin (0.0.1)

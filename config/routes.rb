@@ -45,7 +45,7 @@ Storytime::Engine.routes.draw do
     end
   end
 
-  mount Admin::Engine => Storytime.dashboard_namespace_path
+  mount StorytimeAdmin::Engine => Storytime.dashboard_namespace_path
 
   # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
   get 'tags/:tag', to: 'posts#index', as: :tag
