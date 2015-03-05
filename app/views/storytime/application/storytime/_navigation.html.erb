@@ -2,7 +2,9 @@
   <% unless dashboard_controller %>
     <div class="storytime">
   <% end %>
+
   <%= render 'storytime/dashboard/navigation' %>
+  
   <% unless dashboard_controller %>
     <%= link_to "#", id: "storytime-app-menu-toggle", class: storytime_button_classes, data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
       <i class="icon-st-icons-st-logo"></i>

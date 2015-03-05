@@ -48,11 +48,39 @@ module Storytime
   mattr_accessor :whitelisted_post_html_tags
   @@whitelisted_post_html_tags = []
 
+  # Hook for handling post content sanitization.
+  # Accepts either a Lambda or Proc which can be used to
+  # handle how post content is sanitized (i.e. which tags,
+  # HTML attributes to allow/disallow.
+  mattr_accessor :post_sanitizer
+  @@post_sanitizer = Proc.new do |draft_content|
+    if Rails::VERSION::MINOR <= 1
+      white_list_sanitizer = HTML::WhiteListSanitizer.new
+    else
+      white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+    end
+
+    if Storytime.whitelisted_post_html_tags.blank?
+      white_list_sanitizer.sanitize(draft_content, attributes: %w(id class href style))
+    else
+      white_list_sanitizer.sanitize(draft_content,
+                                    tags: Storytime.whitelisted_post_html_tags,
+                                    attributes: %w(id class href style))
+    end
+  end
+
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
   mattr_accessor :disqus_forum_shortname
-  @@disqus_forum_shortname = ''
-  
+  @@disqus_forum_shortname = ""
+
+  # Enable Discourse comments using your discourse server,
+  # Your discourse server must be configured for embedded comments.
+  # NOTE:  include the '/' suffix at the end of the url
+  # e.g. config.discourse_name = "http://forum.example.com"
+  mattr_accessor :discourse_name
+  @@discourse_name = ""
+
   # Email regex used to validate email format validity for subscriptions.
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/

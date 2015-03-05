@@ -9,10 +9,7 @@ module Storytime
 
     def show
       @post = if params[:preview]
-        post = Post.find_preview(params[:id])
-        post.content = post.autosave.content
-        post.preview = true
-        post
+        Post.find_preview(params[:id])
       else
         Post.published.friendly.find(params[:id])
       end

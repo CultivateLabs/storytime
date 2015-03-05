@@ -41,7 +41,14 @@ module Storytime
       end
 
       def find_preview(id)
-        Post.friendly.find(id)
+        post = Post.friendly.find(id)
+        
+        if post.present?
+          post.content = post.preview_content
+          post.preview = true
+        end
+
+        post
       end
 
       def type_name
@@ -53,6 +60,10 @@ module Storytime
       end
     end 
     #### END class << self
+
+    def preview_content
+      autosave.present? ? autosave.content : latest_version.content 
+    end
 
     def human_name
       self.class.human_name
@@ -80,7 +91,7 @@ module Storytime
     end
 
     def sanitize_content
-      self.draft_content = sanitize(self.draft_content, tags: Storytime.whitelisted_post_html_tags) unless Storytime.whitelisted_post_html_tags.blank?
+      self.draft_content = Storytime.post_sanitizer.call(self.draft_content) unless Storytime.post_sanitizer.blank?
     end
 
   end

@@ -14,7 +14,6 @@ module Storytime
           hash[:post_types] = ['CustomPostType']
           hash[:post_title_character_limit] = 255
           hash[:post_excerpt_character_limit] = 500
-          hash[:whitelisted_html_tags] = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
           hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
           hash[:search_adapter] = "''"
           hash[:enable_file_upload] = true
@@ -151,16 +150,6 @@ module Storytime
           elsif !post_excerpt_character_limit.blank?
             say "Character limit amount is not a valid integer... using the default value (500) instead.", :red
           end
-          
-          # Whitelisted HTML Tags
-          # whitelisted_html_tags = ask "Enter a comma separated list of whitelisted tags to allow from the Summernote WYSIWYG Editor.", :yellow
-          # 
-          # unless post_types.blank?
-          #   whitelisted_html_tags = whitelisted_html_tags.gsub(",", " ")
-          # 
-          #   init_hash[:whitelisted_html_tags] = "%w(#{whitelisted_html_tags})"
-          #   init_hash[:enable_whitelisted_html_tags] = true
-          # end
           
           # Email REGEX
           # email_regexp = ask "Email regex used to validate emails for subscriptions (/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)", :yellow
