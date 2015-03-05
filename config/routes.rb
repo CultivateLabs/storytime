@@ -43,15 +43,9 @@ Storytime::Engine.routes.draw do
         patch :update_multiple
       end
     end
-
-    # Routes for generic admin controller
-    get "/:resource_name", to: "admin#index", as: :admin_index
-    get "/:resource_name/new", to: "admin#new", as: :admin_new
-    post "/:resource_name", to: "admin#create", as: :admin_create
-    get "/:resource_name/:id/edit", to: "admin#edit", as: :admin_edit
-    patch "/:resource_name/:id", to: "admin#update", as: :admin_update
-    delete ":resource_name/:id", to: "admin#destroy", as: :admin_destroy
   end
+
+  mount Admin::Engine => Storytime.dashboard_namespace_path
 
   # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
   get 'tags/:tag', to: 'posts#index', as: :tag

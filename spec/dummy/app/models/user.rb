@@ -7,6 +7,6 @@ class User < ActiveRecord::Base
   storytime_user
 
   def admin?
-    true
+    Pundit.policy(self, :admin).manage?
   end
 end

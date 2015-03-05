@@ -6,7 +6,7 @@ module Storytime
     before_action :verify_storytime_user, unless: ->{ Storytime::Site.count == 0 }
     layout "storytime/dashboard"
     
-    after_action :verify_authorized
+    after_action :verify_authorized, unless: :admin_controller?
 
   private
 
@@ -23,5 +23,8 @@ module Storytime
       true
     end
 
+    def admin_controller?
+      false
+    end
   end
 end
