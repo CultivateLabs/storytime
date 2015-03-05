@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/flyoverworks/storytime-admin.git
-  revision: a104d3fe3718570b9f2450c6380edbf59392fa4b
+  revision: 9150cb50c85309f8117f95437662e8fc7d45a5a5
   branch: master
   specs:
     storytime-admin (0.0.1)
@@ -37,6 +37,7 @@ PATH
       rails (>= 4.0)
       sass-rails (>= 4.0)
       simple_form (>= 3.0)
+      storytime-admin
       thor (~> 0.19.1)
 
 GEM
