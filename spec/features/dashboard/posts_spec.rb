@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe "In the dashboard, Posts" do
-  before do 
-    setup_site
+  before do
     login_admin
   end
 
