@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe "In the dashboard, Posts" do
-  before{ login_admin }
+  before do 
+    setup_site
+    login_admin
+  end
 
   it "lists draft posts" do
     3.times{ FactoryGirl.create(:post, published_at: nil) }

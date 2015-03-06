@@ -1,9 +1,9 @@
 module FeatureMacros
-  def login(user = nil, skip_site = false)
-    setup_site unless skip_site
-    user ||= FactoryGirl.create(:writer)
-    visit main_app.new_user_session_path
-    
+  def login(user = nil)
+    user ||= FactoryGirl.create(:user, :writer)
+    switch_to_domain(@current_site.custom_domain)
+    visit main_app.new_user_session_url
+
     fill_in "user_email", :with => user.email
     fill_in "user_password", :with => user.password
     
@@ -36,7 +36,7 @@ module FeatureMacros
     @current_site = FactoryGirl.create(:site)
   end
 
-  def base_url
-    "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}"
+  def switch_to_domain(domain)
+    default_url_options[:host] = Capybara.app_host = "http://#{domain}"
   end
 end
