@@ -2,7 +2,7 @@ RSpec.configure do |config|
   Capybara.always_include_port = true
 
   config.before(type: :feature) do
-    @current_site = FactoryGirl.create(:site)
+    @current_site = FactoryGirl.build(:site)
     set_domain @current_site.custom_domain
   end
 

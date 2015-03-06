@@ -1,6 +1,9 @@
 module FeatureMacros
   def login(user = nil)
     user ||= FactoryGirl.create(:user, :writer)
+    @current_site.save_with_seeds(user)
+    @current_site.homepage = @current_site.blogs.first
+    @current_site.save
     set_domain(@current_site.custom_domain)
     
     visit main_app.new_user_session_path
@@ -9,6 +12,7 @@ module FeatureMacros
     fill_in "user_password", :with => user.password
     
     click_on "Log in"
+
     page.should have_content("Signed in successfully.")
     @current_user = user
   end
