@@ -286,6 +286,9 @@ http://localhost:3000/posts?search=search_terms&type=blog_post
 ```
 
 ## Screen Shots
+Page List:
+![Page List](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/page-list.png "Page List")
+
 Post Editor:
 ![Post Editor](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/post-editor.png "Post Editor")
 
