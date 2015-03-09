@@ -37,6 +37,7 @@ module Storytime
       end
 
       def publish!
+        self.published = "1"
         attrs = {self.class.draft_content_column => self.latest_version.content}
         self.update_columns(attrs)
       end
@@ -52,8 +53,7 @@ module Storytime
               DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
             end
           else
-            self.published_at_date = Time.now.to_date
-            self.published_at_time = Time.now  
+            self.published_at = Time.now  
           end
         else
           self.published_at_date = nil
