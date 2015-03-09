@@ -3,5 +3,6 @@ FactoryGirl.define do
     user
     post
     sequence(:content) { |i| "Comment ##{i}" }
+    site
   end
 end

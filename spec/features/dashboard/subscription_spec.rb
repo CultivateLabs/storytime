@@ -6,7 +6,7 @@ describe "In the dashboard, Subscriptions" do
   end
 
   it "lists subscriptions", js: true do
-    3.times{ FactoryGirl.create(:subscription) }
+    3.times{ FactoryGirl.create(:subscription, site: @current_site) }
     visit storytime.dashboard_path
     click_link "utility-menu-toggle"
     click_link "subscriptions-link"
@@ -37,7 +37,7 @@ describe "In the dashboard, Subscriptions" do
   end
 
   it "updates a subscription", js: true do
-    subscription = FactoryGirl.create(:subscription)
+    subscription = FactoryGirl.create(:subscription, site: @current_site)
 
     expect(Storytime::Subscription.count).to eq(1)
     expect(subscription.subscribed?).to eq(true)
