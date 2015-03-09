@@ -4,15 +4,15 @@ describe "In the dashboard, Media" do
   include Storytime::Dashboard::MediaHelper
 
   # needed because our wysiwyg text area is hidden
-  def wait_until
-    require "timeout"
-    Timeout.timeout(Capybara.default_wait_time + 5) do
-      sleep(0.1) until value = yield
-      value
-    end
-  end
+  # def wait_until
+  #   require "timeout"
+  #   Timeout.timeout(Capybara.default_wait_time + 5) do
+  #     sleep(0.1) until value = yield
+  #     value
+  #   end
+  # end
 
-  before{ login }
+  before{ login_admin }
   
   it "creates media", js: true do
     visit dashboard_media_index_path
@@ -50,7 +50,7 @@ describe "In the dashboard, Media" do
   it "inserts media into post", js: true do
     media = FactoryGirl.create(:media)
 
-    visit url_for([:new, :dashboard, :post, type: Storytime::BlogPost.type_name, only_path: true])
+    visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 
     find(".insert-media-button").click
 

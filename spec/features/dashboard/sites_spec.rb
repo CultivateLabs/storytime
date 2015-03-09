@@ -29,14 +29,9 @@ describe "In the dashboard, Sites" do
       fill_in "site_title", with: "The Site's New Name"
       click_button "Save"
       
-      wait_for_ajax
-
-      expect(site.reload.title).to eq "The Site's New Name"
-    end
-
-    it "new redirects to the dashboard if a site already exists" do
-      visit new_dashboard_site_path
-      expect(current_url).to eq storytime.dashboard_url
+      find '#storytime-modal' 
+      site.reload
+      expect(site.title).to eq "The Site's New Name"
     end
   end
 end

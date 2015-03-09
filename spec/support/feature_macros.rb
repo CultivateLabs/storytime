@@ -1,8 +1,10 @@
 module FeatureMacros
-  def login(user = nil)
+  def login(user = nil, skip_site = false)
     user ||= FactoryGirl.create(:user)
-    setup_site(user)
-    set_domain(@current_site.custom_domain)
+    unless skip_site
+      setup_site(user)
+      set_domain(@current_site.custom_domain)
+    end
     
     visit main_app.new_user_session_path
 

@@ -9,7 +9,7 @@ describe "In the dashboard, Pages" do
     post = FactoryGirl.create(:post)
     3.times{ FactoryGirl.create(:page) }
     3.times{ FactoryGirl.create(:page, published_at: nil) }
-    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name])
+    visit url_for([:dashboard, Storytime::Page, only_path: true])
     
     Storytime::Page.all.each do |p|
       expect(page).to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.nil?

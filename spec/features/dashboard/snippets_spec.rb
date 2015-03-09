@@ -64,5 +64,4 @@ describe "In the dashboard, Snippets" do
       expect(page).to_not have_content snippet.name
     end
   end
-  
 end

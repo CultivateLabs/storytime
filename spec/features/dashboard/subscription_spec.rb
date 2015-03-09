@@ -53,11 +53,8 @@ describe "In the dashboard, Subscriptions" do
       click_button "Save"
     end
 
-    find "#storytime-modal"
-
-    subscription.reload
-
-    expect(subscription.email).to eq("johndoe@example.com")
-    expect(subscription.subscribed?).to eq(false)
+    within "#storytime-modal" do 
+      expect(page).to have_content "johndoe@example.com"
+    end
   end
 end
