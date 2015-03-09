@@ -37,8 +37,11 @@ module FeatureMacros
     @current_site
   end
 
-  def setup_site
+  def setup_site(user)
     @current_site = FactoryGirl.create(:site)
+    @current_site.save_with_seeds(user)
+    @current_site.homepage = @current_site.blogs.first
+    @current_site.save
   end
 
 end
