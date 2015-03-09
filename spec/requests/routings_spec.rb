@@ -2,19 +2,27 @@ require "spec_helper"
 
 describe "Root path" do
   it "routes to posts#index when site#root_page_content is posts" do
-    FactoryGirl.create(:site, root_page_content: :posts)
+    site = FactoryGirl.create(:site)
+    user = FactoryGirl.create(:admin)
+    site.save_with_seeds(user)
+    site.homepage = site.blogs.first
+
     get "/"
 
-    expect(request.params[:controller]).to eq("storytime/posts")
-    expect(request.params[:action]).to eq("index")
+    expect(request.params[:controller]).to eq("storytime/blog_homepage")
+    expect(request.params[:action]).to eq("show")
   end
 
   it "routes to pages#show when site#root_page_content is page" do
-    home_page = FactoryGirl.create(:page)
-    FactoryGirl.create(:site, root_page_content: :page, root_post_id: home_page.id)
+    site = FactoryGirl.create(:site)
+    user = FactoryGirl.create(:admin)
+    page = FactoryGirl.create(:page, site: site)
+    site.save_with_seeds(user)
+    site.homepage = page
+
     get "/"
     
-    expect(request.params[:controller]).to eq("storytime/pages")
+    expect(request.params[:controller]).to eq("storytime/homepage")
     expect(request.params[:action]).to eq("show")
     expect(response.body).to match(home_page.title)
   end
@@ -24,7 +32,7 @@ describe "Post path" do
   it "uses /posts/post-slug when site#post_slug_style is default" do
     FactoryGirl.create(:site, post_slug_style: :default)
     post = FactoryGirl.create(:post)
-    expect(url_for([post, only_path: true])).to  eq("/posts/#{post.slug}")
+    expect(storytime.post_path(post)).to  eq("/posts/#{post.slug}")
 
     get url_for([post, only_path: true])
     

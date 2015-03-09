@@ -1,9 +1,7 @@
 module FeatureMacros
   def login(user = nil)
     user ||= FactoryGirl.create(:user)
-    @current_site.save_with_seeds(user)
-    @current_site.homepage = @current_site.blogs.first
-    @current_site.save
+    setup_site(user)
     set_domain(@current_site.custom_domain)
     
     visit main_app.new_user_session_path
@@ -38,7 +36,7 @@ module FeatureMacros
   end
 
   def setup_site(user)
-    @current_site = FactoryGirl.create(:site)
+    @current_site ||= FactoryGirl.create(:site)
     @current_site.save_with_seeds(user)
     @current_site.homepage = @current_site.blogs.first
     @current_site.save
