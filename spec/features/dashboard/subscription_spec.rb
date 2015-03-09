@@ -25,15 +25,12 @@ describe "In the dashboard, Subscriptions" do
     click_link "new-subscription-link"
     wait_for_ajax
 
-    expect{
-      fill_in "subscription_email", with: "some_random_email@example.com"
-      click_button "Save"
-      wait_for_ajax
-    }.to change(Storytime::Subscription, :count).by(1)
-
-    subscription = Storytime::Subscription.last
-    expect(subscription.email).to eq("some_random_email@example.com")
-    expect(subscription.token).to_not eq(nil)
+    fill_in "subscription_email", with: "some_random_email@example.com"
+    click_button "Save"
+      
+    within "#storytime-modal" do
+      expect(page).to have_content "some_random_email@example.com"
+    end
   end
 
   it "updates a subscription", js: true do
@@ -45,13 +42,18 @@ describe "In the dashboard, Subscriptions" do
     visit storytime.dashboard_path
     click_link "utility-menu-toggle"
     click_link "subscriptions-link"
-    # wait_for_ajax
-    click_link "edit-subscription-#{subscription.id}"
-    fill_in "subscription_email", with: "johndoe@example.com"
-    uncheck "subscription_subscribed"
-    click_button "Save"
+    
+    within "#storytime-modal" do
+      click_link "edit-subscription-#{subscription.id}"
+    end
 
-    wait_for_ajax
+    within "#storytime-modal" do
+      fill_in "subscription_email", with: "johndoe@example.com"
+      uncheck "subscription_subscribed"
+      click_button "Save"
+    end
+
+    find "#storytime-modal"
 
     subscription.reload
 

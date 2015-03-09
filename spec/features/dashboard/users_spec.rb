@@ -27,8 +27,11 @@ describe "In the dashboard, Users" do
       click_link "profile-link"
       fill_in "user_email", with: "new_email@example.com"
       click_button "Save"
-      wait_for_ajax
-      expect(current_user.reload.email).to eq "new_email@example.com"
+
+      within "#storytime-modal" do
+        expect(page).to have_content u.storytime_name
+        expect(u.reload.email).to eq "new_email@example.com"
+      end
     end
 
     it "creates a user", js: true do
@@ -37,15 +40,16 @@ describe "In the dashboard, Users" do
       click_link "users-link"
       wait_for_ajax
       click_link "new-user-link"
-      wait_for_ajax
 
-      expect{
-        fill_in "user_email", with: "new_user@example.com"
-        fill_in "user_password", with: "password"
-        fill_in "user_password_confirmation", with: "password"
-        click_button "Save"
-        wait_for_ajax
-      }.to change(Storytime.user_class, :count).by(1)
+      fill_in "user_email", with: "new_user@example.com"
+      fill_in "user_password", with: "password"
+      fill_in "user_password_confirmation", with: "password"
+      click_button "Save"
+
+      wait_for_ajax
+      within "#storytime-modal" do
+        expect(page).to have_content "new_user@example.com"
+      end
     end
 
     it "deletes a user", js: true do
