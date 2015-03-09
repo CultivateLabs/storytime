@@ -45,18 +45,23 @@ Storytime.configure do |config|
   # handle how post content is sanitized (i.e. which tags,
   # HTML attributes to allow/disallow.
   # config.post_sanitizer = Proc.new do |draft_content|
-  #   if Rails::VERSION::MINOR <= 1
-  #     white_list_sanitizer = HTML::WhiteListSanitizer.new
+  #   white_list_sanitizer = if Rails::VERSION::MINOR <= 1
+  #     HTML::WhiteListSanitizer.new
   #   else
-  #     white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+  #     Rails::Html::WhiteListSanitizer.new
   #   end
-  #
+
+  #   attributes = %w(
+  #     id class href style src title width height alt value 
+  #     target rel align disabled
+  #   )
+
   #   if Storytime.whitelisted_post_html_tags.blank?
-  #     white_list_sanitizer.sanitize(draft_content, attributes: %w(id class href style))
+  #     white_list_sanitizer.sanitize(draft_content, attributes: attributes)
   #   else
   #     white_list_sanitizer.sanitize(draft_content,
   #                                   tags: Storytime.whitelisted_post_html_tags,
-  #                                   attributes: %w(id class href style))
+  #                                   attributes: attributes)
   #   end
   # end
 
