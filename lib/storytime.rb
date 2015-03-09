@@ -61,10 +61,10 @@ module Storytime
   # HTML attributes to allow/disallow.
   mattr_accessor :post_sanitizer
   @@post_sanitizer = Proc.new do |draft_content|
-    if Rails::VERSION::MINOR <= 1
-      white_list_sanitizer = HTML::WhiteListSanitizer.new
+    white_list_sanitizer = if Rails::VERSION::MINOR <= 1
+      HTML::WhiteListSanitizer.new
     else
-      white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+      Rails::Html::WhiteListSanitizer.new
     end
 
     attributes = %w(
