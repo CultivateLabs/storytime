@@ -5,8 +5,17 @@ require 'spec_helper'
 describe Storytime::PostPolicy do
   subject { Storytime::PostPolicy.new(user, post) }
 
+  let(:site) { FactoryGirl.create(:site) }
+  before do
+    site.save_with_seeds(user)
+  end
+
   context "for a writer" do
-    before{ Storytime.user_class.any_instance.stub(:assign_first_admin).and_return(true) }
+    before do 
+      Storytime.user_class.any_instance.stub(:assign_first_admin).and_return(true)
+      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "writer"))
+    end
+
     let(:user) { FactoryGirl.create(:writer) }
 
     context "creating a new post" do
@@ -33,7 +42,11 @@ describe Storytime::PostPolicy do
     end
   end
 
-  context "for an editor" do    
+  context "for an editor" do
+    before do
+      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "editor"))
+    end
+
     let(:user) { FactoryGirl.create(:editor) }
 
     context "creating a new post" do
@@ -60,7 +73,11 @@ describe Storytime::PostPolicy do
     end
   end
 
-  context "for an admin" do    
+  context "for an admin" do
+    before do
+      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "admin"))
+    end
+
     let(:user) { FactoryGirl.create(:admin) }
 
     context "creating a new post" do

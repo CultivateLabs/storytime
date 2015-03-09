@@ -1,6 +1,6 @@
 module FeatureMacros
   def login(user = nil)
-    user ||= FactoryGirl.create(:user, :writer)
+    user ||= FactoryGirl.create(:user)
     @current_site.save_with_seeds(user)
     @current_site.homepage = @current_site.blogs.first
     @current_site.save
