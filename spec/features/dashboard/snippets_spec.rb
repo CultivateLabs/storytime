@@ -6,64 +6,63 @@ describe "In the dashboard, Snippets" do
   end
 
   it "lists snippets", js: true do
-    3.times{ FactoryGirl.create(:snippet) }
+    3.times{ FactoryGirl.create(:snippet, site: @current_site) }
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
-    wait_for_ajax
     
-    Storytime::Snippet.all.each do |s|
-      expect(page).to have_link(s.name, href: url_for([:edit, :dashboard, s, only_path: true]))
-      expect(page).to_not have_content(s.content)
+    within "#storytime-modal" do
+      Storytime::Snippet.all.each do |s|
+        expect(page).to have_link(s.name, href: url_for([:edit, :dashboard, s, only_path: true]))
+        expect(page).to_not have_content(s.content)
+      end
     end
   end
   
   it "creates a snippet", js: true do
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
-    wait_for_ajax
     click_link "new-snippet-link"
-    # wait_for_ajax
 
-    expect{
+    within "#storytime-modal" do
       fill_in "snippet_name", with: "jumbotron-text"
       fill_in "snippet_content", with: "Hooray Writing!"
       click_button "Save"
-      wait_for_ajax
-    }.to change(Storytime::Snippet, :count).by(1)
+    end
+
+    within "#storytime-modal" do
+      expect(page).to have_content "jumbotron-text"
+    end
   end
 
   it "updates a snippet", js: true do
-    snippet = FactoryGirl.create(:snippet, content: "Test")
+    snippet = FactoryGirl.create(:snippet, site: @current_site, content: "Test")
 
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
-    wait_for_ajax
 
     click_link "edit-snippet-#{snippet.id}"
-    wait_for_ajax
 
     fill_in "snippet_name", with: "new-name"
     fill_in "snippet_content", with: "It was a dark and stormy night..."
     click_button "Save"
-    wait_for_ajax
 
-    snippet.reload
-    expect(snippet.name).to eq("new-name")
-    expect(snippet.content).to eq("It was a dark and stormy night...")
+    within "#storytime-modal" do
+      expect(page).to have_content "new-name"
+    end
   end
 
   it "deletes a snippet", js: true do
-    snippet = FactoryGirl.create :snippet
+    snippet = FactoryGirl.create :snippet, site: @current_site
 
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
-    wait_for_ajax
 
-    expect{
-      find("#snippet_#{snippet.id}").hover()
-      click_link "delete_snippet_#{snippet.id}"
-      wait_for_ajax
-    }.to change(Storytime::Snippet, :count).by(-1)
+    find("#snippet_#{snippet.id}").hover()
+    click_link "delete_snippet_#{snippet.id}"
+    
+    within "#storytime-modal" do
+      expect(page).to_not have_content snippet.name
+    end
   end
   
 end
