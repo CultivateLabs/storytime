@@ -67,12 +67,17 @@ module Storytime
       white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
     end
 
+    attributes = %w(
+      id class href style src title width height alt value 
+      target rel align disabled
+    )
+
     if Storytime.whitelisted_post_html_tags.blank?
-      white_list_sanitizer.sanitize(draft_content, attributes: %w(id class href style))
+      white_list_sanitizer.sanitize(draft_content, attributes: attributes)
     else
       white_list_sanitizer.sanitize(draft_content,
                                     tags: Storytime.whitelisted_post_html_tags,
-                                    attributes: %w(id class href style))
+                                    attributes: attributes)
     end
   end
 

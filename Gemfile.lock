@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    storytime (1.2.1)
+    storytime (1.2.2)
       bootstrap-sass (>= 3.1)
       carrierwave (>= 0.9)
       coffee-rails (>= 4.0)
@@ -51,7 +51,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    autoprefixer-rails (5.1.3)
+    autoprefixer-rails (5.1.7)
       execjs
       json
     bcrypt (3.1.7)
@@ -88,7 +88,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.0)
+    coffee-script-source (1.9.1)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     devise (3.2.4)
@@ -99,8 +99,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    excon (0.44.1)
-    execjs (2.2.2)
+    excon (0.44.4)
+    execjs (2.4.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -109,7 +109,7 @@ GEM
     ffi (1.9.3)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.27.0)
+    fog (1.28.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
@@ -118,6 +118,7 @@ GEM
       fog-json
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
+      fog-riakcs
       fog-sakuracloud (>= 0.0.4)
       fog-serverlove
       fog-softlayer
@@ -131,7 +132,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.0.8)
+    fog-aws (0.1.1)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -140,7 +141,7 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.28.0)
+    fog-core (1.29.0)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
@@ -160,19 +161,23 @@ GEM
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
+    fog-riakcs (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
     fog-sakuracloud (1.0.0)
       fog-core
       fog-json
     fog-serverlove (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.4.0)
+    fog-softlayer (0.4.1)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.0)
       fog-core
       fog-json
-    fog-terremark (0.0.3)
+    fog-terremark (0.0.4)
       fog-core
       fog-xml
     fog-vmfusion (0.0.1)
@@ -184,7 +189,7 @@ GEM
     fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-sass (4.3.0)
+    font-awesome-sass (4.3.1)
       sass (~> 3.2)
     formatador (0.2.4)
     friendly_id (5.1.0)
@@ -202,7 +207,7 @@ GEM
     i18n (0.6.9)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jbuilder (2.2.6)
+    jbuilder (2.2.9)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -211,7 +216,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
-    kaminari (0.16.2)
+    kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.2)
@@ -227,7 +232,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_magick (4.0.3)
+    mini_magick (4.1.0)
     mini_portile (0.6.0)
     minitest (5.3.3)
     multi_json (1.10.1)
@@ -293,7 +298,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sass (3.4.11)
+    sass (3.4.13)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
