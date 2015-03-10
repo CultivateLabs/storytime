@@ -9,7 +9,7 @@ initJS = (controller, action) ->
 $ ()->
   initJS($("body").data("controller"), $("body").data("action"))
 
-  $(".flash").delay(2000).fadeOut()
+  $(".flash").delay(4000).fadeOut()
 
   $(".chosen").chosen()
 

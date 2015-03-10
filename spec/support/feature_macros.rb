@@ -44,4 +44,8 @@ module FeatureMacros
     @current_site.save
   end
 
+  def have_link_to_post(post)
+    have_link(post.title, href: url_for([:edit, :dashboard, post, only_path: true]))
+  end
+
 end

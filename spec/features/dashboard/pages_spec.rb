@@ -5,96 +5,99 @@ describe "In the dashboard, Pages" do
     login_admin
   end
 
-  it "lists draft pages" do
-    post = FactoryGirl.create(:post)
-    3.times{ FactoryGirl.create(:page) }
-    3.times{ FactoryGirl.create(:page, published_at: nil) }
-    visit url_for([:dashboard, Storytime::Page, only_path: true])
-    
-    Storytime::Page.all.each do |p|
-      expect(page).to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.nil?
-      expect(page).not_to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.present?
-      page.should_not have_content(p.content)
+  describe "index" do
+    before do 
+      3.times{ FactoryGirl.create(:page, site: current_site) }
+      3.times{ FactoryGirl.create(:page, published_at: nil, site: current_site) }
     end
 
-    page.should_not have_link(post.title, href: url_for([:edit, :dashboard, post, only_path: true]))
-  end
+    let!(:other_site_page){ FactoryGirl.create(:page) }
 
-  it "lists published pages" do
-    post = FactoryGirl.create(:post)
-    3.times{ FactoryGirl.create(:page) }
-    3.times{ FactoryGirl.create(:page, published_at: nil) }
-    visit url_for([:dashboard, Storytime::Post, type: Storytime::Page.type_name, published: true])
-    
-    Storytime::Page.all.each do |p|
-      expect(page).to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.present?
-      expect(page).not_to have_link(p.title, href: url_for([:edit, :dashboard, p, only_path: true])) if p.published_at.nil?
-      page.should_not have_content(p.content)
+    it "lists draft pages" do
+      visit dashboard_pages_path
+      
+      current_site.pages.each do |p|
+        expect(page).to have_link_to_post(p) if p.published_at.nil?
+        expect(page).not_to have_link_to_post(p) if p.published_at.present?
+        expect(page).not_to have_content(p.content)
+      end
+
+      expect(page).not_to have_link_to_post(other_site_page)
     end
 
-    page.should_not have_link(post.title, href: url_for([:edit, :dashboard, post, only_path: true]))
+    it "lists published pages" do
+      visit dashboard_pages_path(published: true)
+      
+      # need the type designation so Blogs, which are Page subclasses, don't show up in the query
+      current_site.pages.where(type: "Storytime::Page").each do |p|
+        expect(page).not_to have_link_to_post(p) if p.published_at.nil?
+        expect(page).to have_link_to_post(p) if p.published_at.present?
+        expect(page).not_to have_content(p.content)
+      end
+
+      expect(page).not_to have_link_to_post(other_site_page)
+    end
   end
   
   it "creates a page", js: true do
-    Storytime::Page.count.should == 0
-    media = FactoryGirl.create(:media)
+    page_count = Storytime::Page.count
 
-    visit url_for([:new, :dashboard, :post, type: Storytime::Page.type_name, only_path: true])
+    visit new_dashboard_page_path
 
-    find('#post-title-input').set("The Story")
-    click_link "Publish"
-    fill_in "post_excerpt", with: "It was a dark and stormy night..."
-    fill_in "post_draft_content", with: "It was a dark and stormy night..."
+    find('#post-title-input').set("The Page")
+    find('#page_draft_content').set("The content of my page")
     
+    click_link "Save / Publish"
     click_button "Save Draft"
     
-    page.should have_content(I18n.t('flash.posts.create.success'))
-    Storytime::Page.count.should == 1
+    expect(page).to have_content(I18n.t('flash.posts.create.success'))
+    expect(Storytime::Page.count).to eq(page_count + 1)
 
     pg = Storytime::Page.last
-    pg.title.should == "The Story"
-    pg.draft_content.should == "It was a dark and stormy night..."
-    pg.user.should == current_user
-    pg.should_not be_published
-    pg.type.should == "Storytime::Page"
+    expect(pg.title).to eq("The Page")
+    expect(pg.draft_content).to eq("The content of my page")
+    expect(pg.user).to eq(current_user)
+    expect(pg.site).to eq(current_site)
+    expect(pg.type).to eq("Storytime::Page")
+    expect(pg.slug).to eq("The Page".parameterize)
+    expect(pg).to_not be_published
   end
 
   it "updates a page", js: true do
-    pg = FactoryGirl.create(:page, published_at: nil)
+    pg = FactoryGirl.create(:page, site: current_site, published_at: nil)
     original_creator = pg.user
-    Storytime::Page.count.should == 1
+    page_count = Storytime::Page.count
     
-    visit url_for([:edit, :dashboard, pg, only_path: true])
+    visit edit_dashboard_page_path(pg)
     find('#post-title-input').set("The Story")
-    fill_in "post_draft_content", with: "It was a dark and stormy night..."
+    find('#page_draft_content').set("It was a dark and stormy night...")
+    
     click_link "advanced-settings-panel-toggle"
     click_button "Save Draft"
     
-    # page.should have_content(I18n.t('flash.posts.update.success'))
-    Storytime::Page.count.should == 1
+    expect(page).to have_content(I18n.t('flash.posts.update.success'))
+    expect(Storytime::Page.count).to eq(page_count)
 
     pg = Storytime::Page.last
-    pg.title.should == "The Story"
-    pg.draft_content.should == "It was a dark and stormy night..."
-    pg.user.should == original_creator
-    pg.should_not be_published
-    pg.type.should == "Storytime::Page"
+    expect(pg.title).to eq("The Story")
+    expect(pg.draft_content).to eq("It was a dark and stormy night...")
+    expect(pg.user).to eq(original_creator)
+    expect(pg.type).to eq("Storytime::Page")
+    expect(pg).to_not be_published
   end
 
   it "deletes a page", js: true do
-    3.times{|i| FactoryGirl.create(:page) }
-    expect(Storytime::Page.count).to eq(3)
+    storytime_page = FactoryGirl.create(:page, site: current_site)
+    page_count = Storytime::Page.count
 
-    storytime_page = Storytime::Page.first
-    visit url_for([:edit, :dashboard, storytime_page, type: Storytime::Page.type_name, only_path: true])
+    visit edit_dashboard_page_path(storytime_page)
     
     click_button "post-utilities"
     click_link "Delete"
 
-    expect { storytime_page.reload }.to raise_error
-
     expect(page).to_not have_content(storytime_page.title)
-    expect(Storytime::Page.count).to eq(2)
+    expect { storytime_page.reload }.to raise_error
+    expect(Storytime::Page.count).to eq(page_count - 1)
   end
   
 end
