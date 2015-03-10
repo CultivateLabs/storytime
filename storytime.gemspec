@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency "storytime-admin"
   
   s.add_development_dependency "devise", "~> 3.2"
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"
   s.add_development_dependency "poltergeist", "~>1.5"

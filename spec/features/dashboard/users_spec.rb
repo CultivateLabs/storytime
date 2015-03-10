@@ -38,7 +38,7 @@ describe "In the dashboard, Users" do
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "users-link"
-      wait_for_ajax
+      # wait_for_ajax
       click_link "new-user-link"
 
       fill_in "user_email", with: "new_user@example.com"
@@ -46,7 +46,7 @@ describe "In the dashboard, Users" do
       fill_in "user_password_confirmation", with: "password"
       click_button "Save"
 
-      wait_for_ajax
+      # wait_for_ajax
       within "#storytime-modal" do
         expect(page).to have_content "new_user@example.com"
       end
@@ -63,7 +63,7 @@ describe "In the dashboard, Users" do
       expect {
         find("#user_#{user.id}").hover
         click_link("delete_user_#{user.id}")
-        wait_for_ajax
+        # wait_for_ajax
       }.to change(Storytime.user_class, :count).by(-1)
     end
   end

@@ -10,7 +10,7 @@ describe "In the dashboard, Subscriptions" do
     visit storytime.dashboard_path
     click_link "utility-menu-toggle"
     click_link "subscriptions-link"
-    wait_for_ajax
+    # wait_for_ajax
 
     Storytime::Subscription.all.each do |s|
       expect(page).to have_content s.email
@@ -21,9 +21,9 @@ describe "In the dashboard, Subscriptions" do
     visit storytime.dashboard_path
     click_link "utility-menu-toggle"
     click_link "subscriptions-link"
-    wait_for_ajax
+    # wait_for_ajax
     click_link "new-subscription-link"
-    wait_for_ajax
+    # wait_for_ajax
 
     fill_in "subscription_email", with: "some_random_email@example.com"
     click_button "Save"
