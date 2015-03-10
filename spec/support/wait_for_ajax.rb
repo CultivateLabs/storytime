@@ -6,6 +6,7 @@ module WaitForAjax
   # end
 
   def wait_for_ajax
+    return unless page.respond_to?(:execute_script)
     counter = 0
     while page.execute_script("return $.active").to_i > 0
       counter += 1
@@ -21,4 +22,8 @@ end
 
 RSpec.configure do |config|
   config.include WaitForAjax, type: :feature
+
+  config.after(:each, js: true) do
+    example.wait_for_ajax if example.respond_to?(:wait_for_ajax) # fixes issues with SQLLite being busy
+  end
 end

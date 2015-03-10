@@ -6,19 +6,19 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, :js => true) do
     DatabaseCleaner.strategy = :deletion
   end
+
+  # config.before(:each, :js => true) do
+  #   DatabaseCleaner.strategy = :deletion
+  # end
 
   config.before(:each) do
     DatabaseCleaner.start
   end
 
   config.after(:each) do
-    Capybara.reset_sessions!
+    # Capybara.reset_sessions!
     DatabaseCleaner.clean
   end
 end
