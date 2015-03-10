@@ -13,7 +13,7 @@ module FeatureMacros
     
     click_on "Log in"
 
-    page.should have_content("Signed in successfully.")
+    expect(page).to have_content("Signed in successfully.")
     @current_user = user
   end
 

@@ -62,4 +62,6 @@ Storytime::Engine.routes.draw do
       resources post_type.split("::").last().tableize.to_sym, only: nil, concerns: :commentable
     end
   end
+
+  root to: "application#setup"
 end
