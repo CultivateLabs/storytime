@@ -8,6 +8,8 @@ module Storytime
     end
 
     def show
+      params[:id] = params[:id].split("/").last
+
       @post = if params[:preview]
         Post.find_preview(params[:id])
       else
@@ -20,7 +22,6 @@ module Storytime
 
       @comments = @post.comments.order("created_at DESC")
       #allow overriding in the host app
-
       if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
         redirect_to storytime.post_path(@post), :status => :moved_permanently
       elsif lookup_context.template_exists?("storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}")

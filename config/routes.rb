@@ -55,13 +55,15 @@ Storytime::Engine.routes.draw do
 
   resources :blogs, only: :show, path: "/", constraints: Storytime::Constraints::BlogConstraint.new
   resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
-
-  resources :posts, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, constraints: ->(request){ request.params[:component_1] != "assets" }
+  
   Storytime.post_types.each do |post_type|
     if post_type.constantize.respond_to?(:show_comments?) && post_type.constantize.show_comments?
-      resources post_type.split("::").last().tableize.to_sym, only: nil, concerns: :commentable
+      resources post_type.split("::").last().tableize.to_sym, only: [], concerns: :commentable
+      get "/*id", to: "posts#show", as: post_type.split("::").last.underscore
     end
   end
+
+  get "/*id", to: "posts#show", as: "post"
 
   root to: "application#setup"
 end
