@@ -39,10 +39,10 @@ describe "Post path" do
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.slug)
+    expect(request.params[:id]).to eq(post.to_param)
   end
 
-  it "uses /year/month/day/post-slug when site#post_slug_style is day_and_name", focus: true do
+  it "uses /year/month/day/post-slug when site#post_slug_style is day_and_name" do
     site = FactoryGirl.create(:site, post_slug_style: :day_and_name, custom_domain: "www.example.com")
     post = FactoryGirl.create(:post, site: site)
     date = post.created_at.to_date
@@ -57,8 +57,8 @@ describe "Post path" do
   end
 
   it "uses /year/month/post-slug when site#post_slug_style is month_and_name" do
-    FactoryGirl.create(:site, post_slug_style: :month_and_name, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post)
+    site = FactoryGirl.create(:site, post_slug_style: :month_and_name, custom_domain: "www.example.com")
+    post = FactoryGirl.create(:post, site: site)
     date = post.created_at.to_date
     expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.strftime('%m')}/#{post.slug}")
 
@@ -70,14 +70,14 @@ describe "Post path" do
   end
 
   it "uses /post-id when site#post_slug_style is post_id" do
-    FactoryGirl.create(:site, post_slug_style: :post_id, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post)
+    site = FactoryGirl.create(:site, post_slug_style: :post_id, custom_domain: "www.example.com")
+    post = FactoryGirl.create(:post, site: site)
     expect(url_for([post, only_path: true])).to eq("/posts/#{post.id}")
 
     get url_for([post, only_path: true])
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.id.to_s)
+    expect(request.params[:id]).to eq(post.to_param)
   end
 end
