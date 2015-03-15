@@ -39,7 +39,7 @@ describe "Post path" do
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.to_param)
+    expect(request.params[:id]).to eq(post.slug)
   end
 
   it "uses /year/month/day/post-slug when site#post_slug_style is day_and_name" do
@@ -53,7 +53,7 @@ describe "Post path" do
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.to_param)
+    expect(request.params[:id]).to eq(post.slug)
   end
 
   it "uses /year/month/post-slug when site#post_slug_style is month_and_name" do
@@ -66,7 +66,7 @@ describe "Post path" do
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.to_param)
+    expect(request.params[:id]).to eq(post.slug)
   end
 
   it "uses /post-id when site#post_slug_style is post_id" do
@@ -78,6 +78,6 @@ describe "Post path" do
     
     expect(request.params[:controller]).to eq("storytime/posts")
     expect(request.params[:action]).to eq("show")
-    expect(request.params[:id]).to eq(post.to_param)
+    expect(request.params[:id]).to eq(post.id.to_s)
   end
 end
