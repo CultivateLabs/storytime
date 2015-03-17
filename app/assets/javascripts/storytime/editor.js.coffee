@@ -21,8 +21,7 @@ class Storytime.Dashboard.Editor
         return
       )
 
-      $("#medium-editor-post").focus ->
-        self.updateLater(10000)
+      self.setAutosaveInterval(10000)
 
       if $("#main").data("preview")
         window.open $("#preview_post").attr("href")
@@ -81,11 +80,10 @@ class Storytime.Dashboard.Editor
       width: '100%'
       
   autosavePostForm: () ->
-    console.log "AUTOSAVING"
     self = @
     post_id = $("#main").data("post-id")
     postType = $(".post-form").data("post-type")
-    console.log postType
+    
     autosaveUrl = $(".post-form").data("autosave-url")
 
     data = []
@@ -100,28 +98,27 @@ class Storytime.Dashboard.Editor
       data: data
     )
 
-  updateLater: (timer) ->
+  setAutosaveInterval: (timer) ->
     self = @
     timer = 120000 unless timer?
 
     form = $(".post-form")
-
-    timeoutId = window.setTimeout((->
+    
+    window.setTimeout((->
+      
       if form.data("unsaved-changes") is true
         self.autosavePostForm().done(->
-          self.updateLater timer
-
           time_now = new Date().toLocaleTimeString()
           $("#draft_last_saved_at").html "Draft saved at #{time_now}"
           return
-        ).fail(->
-          console.log "Something went wrong while trying to autosave..."
+        ).always(->
+          self.setAutosaveInterval timer
           return
         )
 
         return
       else
-        self.updateLater timer
+        self.setAutosaveInterval timer
         return
     ), timer)
     return

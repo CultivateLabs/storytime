@@ -101,7 +101,7 @@ en:
       select_media_from_file: "Select"
     posts:
       autosaves:
-        available: "There is an autosave of this %{resource} that is different than the version below."
+        available: "There is an autosave of this %{resource} that is newer than the version below."
         view_autosave: "View the autosave"
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"
