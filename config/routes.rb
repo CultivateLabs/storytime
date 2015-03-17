@@ -57,7 +57,6 @@ Storytime::Engine.routes.draw do
   resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
   
   Storytime.post_types.each do |post_type|
-    puts post_type
     if post_type.constantize.respond_to?(:show_comments?) && post_type.constantize.show_comments?
       resources post_type.split("::").last.tableize, only: [], concerns: :commentable
     end

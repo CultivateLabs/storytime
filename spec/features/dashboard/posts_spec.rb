@@ -25,52 +25,52 @@ describe "In the dashboard, Posts" do
   end
   
   it "creates a post", js: true do
-    Storytime::BlogPost.count.should == 0
+    post_count = Storytime::BlogPost.count
     media = FactoryGirl.create(:media)
 
     visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 
     find('#post-title-input').set("The Story")
-    find("[data-input='#blog_post_draft_content']").set("It was a dark and stormy night...")
+    find('#blog_post_draft_content').set("It was a dark and stormy night...")
     click_link "Save / Publish"
     fill_in "blog_post_excerpt", with: "It was a dark and stormy night..."
-    # find("#featured_media_id").set media.id
+    find("#featured_media_id", visible: false).set media.id
     click_button "Save Draft"
 
-    page.should have_content(I18n.t('flash.posts.create.success'))
-    Storytime::BlogPost.count.should == 1
+    expect(page).to have_content(I18n.t('flash.posts.create.success'))
+    expect(Storytime::BlogPost.count).to eq(post_count + 1)
 
     post = Storytime::BlogPost.last
-    post.title.should == "The Story"
-    post.draft_content.should == "It was a dark and stormy night..."
-    post.user.should == current_user
-    post.should_not be_published
-    post.type.should == "Storytime::BlogPost"
-    # post.featured_media.should == media
+    expect(post.title).to eq("The Story")
+    expect(post.draft_content).to eq("It was a dark and stormy night...")
+    expect(post.user).to eq(current_user)
+    expect(post.type).to eq("Storytime::BlogPost")
+    expect(post.featured_media).to eq(media)
+    expect(post).to_not be_published
   end
 
   it "saves a post when previewing a new post", js: true do
-    Storytime::BlogPost.count.should == 0
+    post_count = Storytime::BlogPost.count
 
     visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 
-    find('#post-title-input').set("The Story")
-    find("[data-input='#blog_post_draft_content']").set("It was a dark and stormy night...")
+    find('#post-title-input').set("Snow Crash")
+    find('#media-insertable').set("It was a dark and stormy night...")
     click_link "Save / Publish"
     fill_in "blog_post_excerpt", with: "It was a dark and stormy night..."
 
     click_link "Cancel"
     click_button "Preview"
     
-    # page.should have_content(I18n.t('flash.posts.create.success'))
-    Storytime::BlogPost.count.should == 1
+    expect(page).to have_content(I18n.t('flash.posts.create.success'))
+    expect(Storytime::BlogPost.count).to eq(post_count + 1)
 
     post = Storytime::BlogPost.last
-    post.title.should == "Snow Crash"
-    post.draft_content.should == "It was a dark and stormy night..."
-    post.user.should == current_user
-    post.should_not be_published
-    post.type.should == "Storytime::BlogPost"
+    expect(post.title).to eq("Snow Crash")
+    expect(post.draft_content).to eq("<p>It was a dark and stormy night...</p>")
+    expect(post.user).to eq(current_user)
+    expect(post.type).to eq("Storytime::BlogPost")
+    expect(post).to_not be_published
   end
 
   it "autosaves a post when editing", js: true do
@@ -98,22 +98,23 @@ describe "In the dashboard, Posts" do
     blog = @current_site.blogs.first
     post = FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
     original_creator = post.user
-    Storytime::BlogPost.count.should == 1
+    post_count = Storytime::BlogPost.count
 
     visit url_for([:edit, :dashboard, post, only_path: true])
     find('#post-title-input').set("The Story")
-    find("[data-input='#blog_post_draft_content']").set("It was a dark and stormy night...")
+    find('#blog_post_draft_content').set("It was a dark and stormy night...")
     click_link "advanced-settings-panel-toggle"
     click_button "Save Draft"
-    
-    # page.should have_content(I18n.t('flash.posts.update.success'))
-    Storytime::BlogPost.count.should == 1
+
+    expect(page).to have_content(I18n.t('flash.posts.update.success'))
+    expect(Storytime::BlogPost.count).to eq(post_count)
 
     post = post.reload
-    post.title.should == "The Story"
-    post.draft_content.should == "It was a dark and stormy night..."
-    post.user.should == original_creator
-    post.should_not be_published
+    post.draft_content = nil # clear the cached copy of draft_content so it reloads
+    expect(post.title).to eq("The Story")
+    expect(post.draft_content).to eq("It was a dark and stormy night...")
+    expect(post.user).to eq(original_creator)
+    expect(post).to_not be_published
   end
 
   it "deletes a post", js: true do

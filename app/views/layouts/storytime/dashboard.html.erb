@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Storytime</title>
-
+    <%= javascript_include_tag "phantom_js_bind_polyfill" if Rails.env.test? %>
     <%= stylesheet_link_tag    "storytime/application", media: "all" %>
     <%= javascript_include_tag "storytime/application" %>
     <%= csrf_meta_tags %>
