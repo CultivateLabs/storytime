@@ -23,11 +23,11 @@ module Storytime
     before_save :remove_http_from_custom_domain
 
     def self.current_id=(id)
-      Thread.current[:site_id] = id
+      Thread.current[:storytime_site_id] = id
     end
 
     def self.current_id
-      Thread.current[:site_id]
+      Thread.current[:storytime_site_id]
     end
 
     def save_with_seeds(user)
