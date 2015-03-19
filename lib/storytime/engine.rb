@@ -26,7 +26,7 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
-        
+
         helper Storytime::SubscriptionsHelper
       end
     end
@@ -48,7 +48,7 @@ module Storytime
         else
           config.storage = :file
         end
-        
+
         config.enable_processing = !Rails.env.test?
       end
     end

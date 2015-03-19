@@ -155,7 +155,7 @@ Storytime.configure do |config|
 end
 ```
 
-Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server.
+Then, you need to set `STORYTIME_AWS_ACCESS_KEY_ID` and `STORYTIME_AWS_SECRET_KEY` as environment variables on your server. If your bucket is set to a region that is not the default US Standard (us-east-1) then set `STORYTIME_AWS_REGION`.
 
 ## Email Subscriptions
 
