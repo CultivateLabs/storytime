@@ -45,7 +45,7 @@ describe "In the dashboard, Pages" do
     visit new_dashboard_page_path
 
     find('#post-title-input').set("The Page")
-    find('#page_draft_content').set("The content of my page")
+    find('#medium-editor-post').set("The content of my page")
     
     click_link "Save / Publish"
     click_button "Save Draft"
@@ -55,7 +55,7 @@ describe "In the dashboard, Pages" do
 
     pg = Storytime::Page.last
     expect(pg.title).to eq("The Page")
-    expect(pg.draft_content).to eq("The content of my page")
+    expect(pg.draft_content).to eq("<p>The content of my page</p>")
     expect(pg.user).to eq(current_user)
     expect(pg.site).to eq(current_site)
     expect(pg.type).to eq("Storytime::Page")
@@ -70,7 +70,7 @@ describe "In the dashboard, Pages" do
     
     visit edit_dashboard_page_path(pg)
     find('#post-title-input').set("The Story")
-    find('#page_draft_content').set("It was a dark and stormy night...")
+    find('#medium-editor-post').set("It was a dark and stormy night...")
     
     click_link "advanced-settings-panel-toggle"
     click_button "Save Draft"
@@ -80,7 +80,7 @@ describe "In the dashboard, Pages" do
 
     pg = Storytime::Page.last
     expect(pg.title).to eq("The Story")
-    expect(pg.draft_content).to eq("It was a dark and stormy night...")
+    expect(pg.draft_content).to eq("<p>It was a dark and stormy night...</p>")
     expect(pg.user).to eq(original_creator)
     expect(pg.type).to eq("Storytime::Page")
     expect(pg).to_not be_published

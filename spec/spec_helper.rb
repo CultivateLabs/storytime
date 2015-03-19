@@ -17,6 +17,8 @@ ActiveRecord::Migration.maintain_test_schema!
 
 poltergeist_options = {
   phantomjs_logger: Logger.new('/dev/null'),
+  # inspector: true,
+  # debug: true,
   phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=TLSv1'],
   js_errors: false
 }

@@ -6,9 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Storytime</title>
-    <%= javascript_include_tag "phantom_js_bind_polyfill" if Rails.env.test? %>
+
     <%= stylesheet_link_tag    "storytime/application", media: "all" %>
+    
+    <% if Rails.env.test? # needs to be before main js file %>
+      <%= javascript_include_tag "phantom_js_bind_polyfill"  %>
+      <%= stylesheet_link_tag "disable-transitions-for-test-env", media: "all" %>
+    <% end %>
+    
     <%= javascript_include_tag "storytime/application" %>
+
+    <% if Rails.env.test? # needs to be after main js file %>
+      <script type="text/javascript">
+        window.Storytime.test_env = true;
+        $.fx.off = true;
+      </script>
+    <% end %>
+
     <%= csrf_meta_tags %>
   </head>
 

@@ -21,7 +21,7 @@ class Storytime.Dashboard.Editor
         return
       )
 
-      self.setAutosaveInterval(10000)
+      self.setAutosaveInterval(10000) unless window.Storytime.test_env
 
       if $("#main").data("preview")
         window.open $("#preview_post").attr("href")
@@ -92,11 +92,18 @@ class Storytime.Dashboard.Editor
     form = $(".post-form")
     form.data "unsaved-changes", false
  
-    $.ajax(
+    deferred = $.ajax(
       type: "POST"
       url: autosaveUrl
       data: data
     )
+
+    deferred.done ()->
+      time_now = new Date().toLocaleTimeString()
+      $("#draft_last_saved_at").html "Draft saved at #{time_now}"
+      return
+
+    return deferred
 
   setAutosaveInterval: (timer) ->
     self = @
@@ -107,11 +114,7 @@ class Storytime.Dashboard.Editor
     window.setTimeout((->
       
       if form.data("unsaved-changes") is true
-        self.autosavePostForm().done(->
-          time_now = new Date().toLocaleTimeString()
-          $("#draft_last_saved_at").html "Draft saved at #{time_now}"
-          return
-        ).always(->
+        self.autosavePostForm().always(->
           self.setAutosaveInterval timer
           return
         )
@@ -135,4 +138,5 @@ class Storytime.Dashboard.Editor
     )
 
     $(window).on "beforeunload", ->
-      return "You haven't saved your changes." if form.data "unsaved-changes"
+      if form.data("unsaved-changes") && !window.Storytime.test_env
+        return "You haven't saved your changes." 

@@ -19,6 +19,18 @@ class Storytime::ApplicationController < ApplicationController
     helper_method :authenticate_user!
     helper_method :current_user
     helper_method :user_signed_in?
+
+    def authenticate_user!
+      send("authenticate_#{Storytime.user_class_underscore_all}!".to_sym)
+    end
+
+    def current_user
+      send("current_#{Storytime.user_class_underscore_all}".to_sym)
+    end
+
+    def user_signed_in?
+      send("#{Storytime.user_class_underscore_all}_signed_in?".to_sym)
+    end
   end
 
   def setup
@@ -33,20 +45,6 @@ class Storytime::ApplicationController < ApplicationController
     end
 
     redirect_to url
-  end
-
-  if Storytime.user_class_symbol != :user
-    def authenticate_user!
-      send("authenticate_#{Storytime.user_class_underscore_all}!".to_sym)
-    end
-
-    def current_user
-      send("current_#{Storytime.user_class_underscore_all}".to_sym)
-    end
-
-    def user_signed_in?
-      send("#{Storytime.user_class_underscore_all}_signed_in?".to_sym)
-    end
   end
 
 private

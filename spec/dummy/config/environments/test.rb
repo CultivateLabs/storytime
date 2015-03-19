@@ -19,7 +19,7 @@ Rails.application.configure do
   config.assets.debug = true
 
   config.assets.precompile << %r(storytime/bootstrap/glyphicons-halflings-regular\.(?:eot|svg|ttf|woff)$)
-  config.assets.precompile << %w(phantom_js_bind_polyfill.js)
+  config.assets.precompile << %w(phantom_js_bind_polyfill.js disable-transitions-for-test-env.css)
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true

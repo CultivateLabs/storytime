@@ -9,7 +9,7 @@ initJS = (controller, action) ->
 $ ()->
   initJS($("body").data("controller"), $("body").data("action"))
 
-  $(".flash").delay(4000).fadeOut()
+  $(".flash").delay(4000).fadeOut() unless window.Storytime.test_env
 
   $(".chosen").chosen()
 
