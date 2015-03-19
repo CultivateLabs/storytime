@@ -21,11 +21,13 @@ module Storytime
       end
 
       def create
+        membership_attrs = params[:user].delete(:memberships_attributes)["0"]
         @user = Storytime.user_class.new(user_params)
         authorize @user
 
-        respond_with @user do |format|
+        respond_to do |format|
           if @user.save
+            @user.memberships.create(storytime_role_id: membership_attrs[:storytime_role_id])
             load_users
             format.json { render :index }
           else
