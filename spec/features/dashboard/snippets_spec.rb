@@ -25,7 +25,7 @@ describe "In the dashboard, Snippets" do
 
     within "#storytime-modal" do
       fill_in "snippet_name", with: "jumbotron-text"
-      fill_in "snippet_content", with: "Hooray Writing!"
+      find("#medium-editor-snippet").set("Hooray Writing!")
       click_button "Save"
     end
 
@@ -43,7 +43,7 @@ describe "In the dashboard, Snippets" do
     click_link "edit-snippet-#{snippet.id}"
 
     fill_in "snippet_name", with: "new-name"
-    fill_in "snippet_content", with: "It was a dark and stormy night..."
+    find("#medium-editor-snippet").set("It was a dark and stormy night...")
     click_button "Save"
 
     within "#storytime-modal" do
