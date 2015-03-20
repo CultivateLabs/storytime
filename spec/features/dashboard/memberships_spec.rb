@@ -22,7 +22,7 @@ describe "In the dashboard, Users" do
 
     it "deletes a user from the site", js: true do
       user = FactoryGirl.create(:user)
-      user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
+      membership = user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
 
       user_count = Storytime.user_class.count
       membership_count = Storytime::Membership.count
@@ -33,8 +33,8 @@ describe "In the dashboard, Users" do
 
       expect(page).to have_content(user.storytime_name)
 
-      find("#user_#{user.id}").hover
-      click_link("delete_user_#{user.id}")
+      find("#membership_#{membership.id}").hover
+      click_link("delete_membership_#{membership.id}")
       
       expect(page).to_not have_content(user.storytime_name)
 
