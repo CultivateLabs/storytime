@@ -26,7 +26,7 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
-        
+
         helper Storytime::SubscriptionsHelper
       end
     end
@@ -38,6 +38,7 @@ module Storytime
           config.storage = :fog
           config.fog_credentials = {
             :provider               => 'AWS',
+            :region                 => ENV['STORYTIME_AWS_REGION'],
             :aws_access_key_id      => ENV['STORYTIME_AWS_ACCESS_KEY_ID'],
             :aws_secret_access_key  => ENV['STORYTIME_AWS_SECRET_KEY']
           }
@@ -47,7 +48,7 @@ module Storytime
         else
           config.storage = :file
         end
-        
+
         config.enable_processing = !Rails.env.test?
       end
     end
