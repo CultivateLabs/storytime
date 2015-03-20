@@ -3,15 +3,6 @@ require 'spec_helper'
 describe "In the dashboard, Media" do
   include Storytime::Dashboard::MediaHelper
 
-  # needed because our wysiwyg text area is hidden
-  # def wait_until
-  #   require "timeout"
-  #   Timeout.timeout(Capybara.default_wait_time + 5) do
-  #     sleep(0.1) until value = yield
-  #     value
-  #   end
-  # end
-
   before{ login_admin }
   
   it "creates media", js: true do
