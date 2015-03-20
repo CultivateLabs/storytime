@@ -30,7 +30,7 @@ describe Storytime::CommentPolicy do
 
   context "as an editor" do
     before do
-      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.memberships.first)
+      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.storytime_memberships.first)
     end
 
     let(:user){ FactoryGirl.create(:editor) }
@@ -52,7 +52,7 @@ describe Storytime::CommentPolicy do
 
   context "as an admin" do
     before do
-      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.memberships.first)
+      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.storytime_memberships.first)
     end
     let(:user){ FactoryGirl.create(:admin) }
 

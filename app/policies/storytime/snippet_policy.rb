@@ -33,7 +33,8 @@ module Storytime
 
     def manage?
       action = Storytime::Action.find_by(guid: "5qg25i")
-      user.storytime_role.allowed_actions.include?(action)
+      role = @user.storytime_role_in_site(Storytime::Site.current)
+      role.present? && role.allowed_actions.include?(action)
     end
 
     def permitted_attributes

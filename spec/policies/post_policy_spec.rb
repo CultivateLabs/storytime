@@ -8,12 +8,13 @@ describe Storytime::PostPolicy do
   let(:site) { FactoryGirl.create(:site) }
   before do
     site.save_with_seeds(user)
+    allow(Storytime::Site).to receive(:current).and_return(site)
   end
 
   context "for a writer" do
     before do 
-      Storytime.user_class.any_instance.stub(:assign_first_admin).and_return(true)
-      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "writer"))
+      allow_any_instance_of(Storytime.user_class).to receive(:assign_first_admin).and_return(true)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_role_in_site).and_return(Storytime::Role.find_by(name: "writer"))
     end
 
     let(:user) { FactoryGirl.create(:writer) }
@@ -44,7 +45,7 @@ describe Storytime::PostPolicy do
 
   context "for an editor" do
     before do
-      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "editor"))
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_role).and_return(Storytime::Role.find_by(name: "editor"))
     end
 
     let(:user) { FactoryGirl.create(:editor) }
@@ -75,7 +76,7 @@ describe Storytime::PostPolicy do
 
   context "for an admin" do
     before do
-      Storytime.user_class.any_instance.stub(:storytime_role).and_return(Storytime::Role.find_by(name: "admin"))
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_role).and_return(Storytime::Role.find_by(name: "admin"))
     end
 
     let(:user) { FactoryGirl.create(:admin) }

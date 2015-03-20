@@ -30,6 +30,10 @@ module Storytime
       Thread.current[:storytime_site_id]
     end
 
+    def self.current
+      find(current_id)
+    end
+
     def save_with_seeds(user)
       self.creator = user
       if save

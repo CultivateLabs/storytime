@@ -35,8 +35,8 @@ Storytime::Engine.routes.draw do
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]
     resources :subscriptions
-    resources :users, path: Storytime.user_class_underscore.pluralize
-    resources :memberships, only: :create
+    resources :users, path: Storytime.user_class_underscore.pluralize, only: [:new, :create, :edit, :update]
+    resources :memberships, only: [:index, :create, :destroy]
     resources :roles do
       collection do
         get :edit_multiple

@@ -7,5 +7,7 @@ module Storytime
 
     validates :storytime_role, :user, presence: true
     validates_uniqueness_of :user_id, scope: :site_id
+
+    delegate :storytime_name, to: :user, allow_nil: true
   end
 end

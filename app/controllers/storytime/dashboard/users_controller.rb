@@ -3,34 +3,29 @@ require_dependency "storytime/application_controller"
 module Storytime
   module Dashboard
     class UsersController < DashboardController
-      before_action :load_users, only: :index
-      before_action :load_user, only: [:edit, :update, :destroy]
+      before_action :load_user, only: [:edit, :update]
 
       respond_to :json
 
-      def index
-        authorize @users
-        respond_with @users
-      end
-
       def new
         @user = Storytime.user_class.new
-        @membership = @user.memberships.new
+        @membership = @user.storytime_memberships.new
         authorize @user
         respond_with @user
       end
 
       def create
-        membership_attrs = params[:user].delete(:memberships_attributes)["0"]
+        membership_attrs = params[:user].delete(:storytime_memberships_attributes)["0"]
         @user = Storytime.user_class.new(user_params)
         authorize @user
 
         respond_to do |format|
           if @user.save
-            @user.memberships.create(storytime_role_id: membership_attrs[:storytime_role_id])
-            load_users
-            format.json { render :index }
+            @user.storytime_memberships.create(storytime_role_id: membership_attrs[:storytime_role_id])
+            @memberships = current_site.memberships.includes(:user).page(params[:page]).per(20)
+            format.json { render "storytime/dashboard/memberships/index" }
           else
+            @membership = @user.storytime_memberships.new
             format.json { render :new, status: :unprocessable_entity }
           end
         end
@@ -54,19 +49,9 @@ module Storytime
         end
       end
 
-      def destroy
-        authorize @user
-        @user.destroy
-        respond_with @user
-      end
-
     private
       def user_params
         params.require(Storytime.user_class_symbol).permit(:email, :storytime_name, :password, :password_confirmation, memberships_attributes: [:id, :storytime_role_id, :_destroy])
-      end
-
-      def load_users
-        @users = @site.users.page(params[:page]).per(20)
       end
 
       def load_user

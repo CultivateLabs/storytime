@@ -5,9 +5,9 @@ module Storytime
 
       module ClassMethods
         def storytime_user
-          has_many :memberships, class_name: "Storytime::Membership"
-          has_many :storytime_roles, through: :memberships
-          # has_many :sites, through: :memberships, class_name: "Storytime::Site"
+          has_many :storytime_memberships, class_name: "::Storytime::Membership", dependent: :destroy
+          has_many :storytime_roles, through: :storytime_memberships
+          has_many :storytime_sites, through: :storytime_memberships, source: :site
           
           has_many :storytime_posts, class_name: "Storytime::Post"
           has_many :storytime_pages, class_name: "Storytime::Page"
@@ -15,7 +15,7 @@ module Storytime
           has_many :storytime_versions, class_name: "Storytime::Version"
           has_many :storytime_comments, class_name: "Storytime::Comment"
 
-          accepts_nested_attributes_for :memberships, allow_destroy: true
+          accepts_nested_attributes_for :storytime_memberships, allow_destroy: true
 
           scope :non_members, ->(site) { all.reject{|user| user.storytime_user?(site)} }
 
@@ -38,20 +38,22 @@ module Storytime
       end
 
       module LocalInstanceMethods
+        def storytime_name
+          self[:storytime_name] || email
+        end
+
         def storytime_user?(site)
-          Storytime::Membership.unscoped.find_by(site: site, user: self).present?
+          storytime_memberships.find_by(site: site).present?
         end
 
-        def storytime_role
-          current_membership.storytime_role if current_membership
+        def storytime_role_in_site(site)
+          if membership = storytime_membership_in_site(site)
+            membership.storytime_role
+          end
         end
 
-        def current_membership
-          Storytime::Membership.unscoped.find_by(site: Storytime::Site.find(Storytime::Site.current_id), user: self)
-        end
-
-        def sites
-          Storytime::Site.where(id: Storytime::Membership.unscoped.where(user: self).map(&:site_id))
+        def storytime_membership_in_site(site)
+          storytime_memberships.find_by(site: site)
         end
       end
     end

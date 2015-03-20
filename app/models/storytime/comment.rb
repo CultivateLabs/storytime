@@ -10,7 +10,7 @@ module Storytime
     validates :post_id, presence: true
 
     def commenter_name
-      user.nil? ? "" : (user.storytime_name || user.email)
+      user.nil? ? "" : user.storytime_name
     end
   end
 end

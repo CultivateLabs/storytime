@@ -8,7 +8,7 @@
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <% if Pundit.policy(current_user, Storytime.user_class).index? %>
           <li>
-            <%= link_to [storytime, :dashboard, :users], class: "storytime-modal-trigger", remote: true, id: "users-link" do %>
+            <%= link_to [storytime, :dashboard, :memberships], class: "storytime-modal-trigger", remote: true, id: "users-link" do %>
               <i class="icon-st-icons-users"></i>
               <span style="margin-left: 10px; margin-right: 6px;">Users</span>
             <% end %>
@@ -56,8 +56,8 @@
 
   <div id="storytime-sites-menu" style="display: none;">
     <ul class="nav nav-menu-nav">
-      <% current_user.sites.all.each do |site| %>
-        <% if site == current_site(request) %>
+      <% current_user.storytime_sites.all.each do |site| %>
+        <% if site == current_site %>
           <li class="active"><%= link_to icon("check", site.title), "", class: "storytime-menu-toggle" %></li>
         <% else %>
           <li><%= link_to site.title, "http://#{site.custom_domain}" %></li>
