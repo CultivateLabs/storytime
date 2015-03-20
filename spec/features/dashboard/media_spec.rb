@@ -10,8 +10,7 @@ describe "In the dashboard, Media" do
 
     attach_file('media_file', "./spec/support/images/success-kid.jpg")
     
-    media = Storytime::Media.last
-    page.should have_image(media.file_url(:thumb))
+    expect(find("#media_gallery").find("img")['src']).to have_content('success-kid.jpg')
   end
 
   it "shows a gallery of the user's images" do
@@ -33,8 +32,6 @@ describe "In the dashboard, Media" do
     click_link "delete_media_#{image.id}"
 
     page.should_not have_image(image)
-
-    expect{ image.reload }.to raise_error
   end
 
   it "inserts media into post", js: true do
