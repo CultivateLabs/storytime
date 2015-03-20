@@ -70,7 +70,9 @@ class Storytime.Dashboard.Media
         image_tag = "<img src='#{$(@).data("image-url")}' class='img-responsive' />"
         if self.elementContainsSelection($("#medium-editor-post")[0])
           self.pasteHtmlAtCaret(image_tag, false)
-        
+        else
+          $("#medium-editor-post").append(image_tag)
+          
         input = $($("#medium-editor-post").data("input"))
         html = $("#medium-editor-post").html()
         input.val(html)

@@ -9,15 +9,14 @@ describe "In the dashboard, Media" do
     visit dashboard_media_index_path
 
     attach_file('media_file', "./spec/support/images/success-kid.jpg")
-
     
     media = Storytime::Media.last
     page.should have_image(media.file_url(:thumb))
   end
 
   it "shows a gallery of the user's images" do
-    m1 = FactoryGirl.create(:media)
-    m2 = FactoryGirl.create(:media)
+    m1 = FactoryGirl.create(:media, site: @current_site)
+    m2 = FactoryGirl.create(:media, site: @current_site)
 
     visit dashboard_media_index_path
     
@@ -26,7 +25,7 @@ describe "In the dashboard, Media" do
   end
 
   it "deletes an image", js: true do
-    image = FactoryGirl.create(:media)
+    image = FactoryGirl.create(:media, site: @current_site)
     
     visit dashboard_media_index_path
     page.should have_image(image.file_url(:thumb))
@@ -39,12 +38,12 @@ describe "In the dashboard, Media" do
   end
 
   it "inserts media into post", js: true do
-    media = FactoryGirl.create(:media)
+    media = FactoryGirl.create(:media, site: @current_site)
 
     visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 
     find(".insert-media-button").click
-
+    
     within "#media_#{media.id}" do
       find(".insert-image-button").click
     end
