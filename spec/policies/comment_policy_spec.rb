@@ -7,7 +7,8 @@ describe Storytime::CommentPolicy do
 
   context "as a normal user" do
     before do
-      Storytime.user_class.any_instance.stub(:current_membership).and_return(nil)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_admin?).and_return(false)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_editor?).and_return(false)
     end
 
     let(:user) { FactoryGirl.create(:user) }
@@ -30,7 +31,8 @@ describe Storytime::CommentPolicy do
 
   context "as an editor" do
     before do
-      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.storytime_memberships.first)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_admin?).and_return(false)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_editor?).and_return(true)
     end
 
     let(:user){ FactoryGirl.create(:editor) }
@@ -52,7 +54,8 @@ describe Storytime::CommentPolicy do
 
   context "as an admin" do
     before do
-      Storytime.user_class.any_instance.stub(:current_membership).and_return(user.storytime_memberships.first)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_admin?).and_return(true)
+      allow_any_instance_of(Storytime.user_class).to receive(:storytime_editor?).and_return(false)
     end
     let(:user){ FactoryGirl.create(:admin) }
 

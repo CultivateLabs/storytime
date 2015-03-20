@@ -11,12 +11,16 @@ module Storytime
       @comment.user == @user
     end
 
+    def is_admin_or_editor?
+      (@user && (@user.storytime_admin?(@comment.site) || @user.storytime_editor?(@comment.site)))
+    end
+
     def create?
       is_owner?
     end
 
     def destroy?
-      is_owner? || (@user && (@user.storytime_admin?(@comment.site) || @user.storytime_editor?(@comment.site)))
+      is_owner? || is_admin_or_editor?
     end
 
     def permitted_attributes

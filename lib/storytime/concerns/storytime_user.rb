@@ -30,7 +30,8 @@ module Storytime
           %w{admin editor writer}.each do |role_name|
             class_eval <<-EOS
               def storytime_#{role_name}?(site)
-                current_membership && current_membership.storytime_role.name == "#{role_name}"
+                role = storytime_role_in_site(site)
+                role && role.name == "#{role_name}"
               end
             EOS
           end  
