@@ -41,7 +41,7 @@ module Storytime
 
         respond_with @user do |format|
           if @user.update(user_params)
-            load_users
+            load_user
             format.json { render :index }
           else
             format.json { render :edit, status: :unprocessable_entity }
