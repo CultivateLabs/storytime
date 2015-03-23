@@ -53,7 +53,7 @@ module Storytime
               DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
             end
           else
-            self.published_at = Time.now  
+            self.published_at = Time.now unless self.published_at
           end
         else
           self.published_at_date = nil
