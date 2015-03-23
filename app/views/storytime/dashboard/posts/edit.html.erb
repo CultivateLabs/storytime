@@ -1,13 +1,20 @@
-<div id="main" class="wysiwyg" data-post-id="<%= @post.slug || @post.id %>" data-dashboard-namespace="<%= Storytime.dashboard_namespace_path %>" data-preview="<%= params[:preview] %>">
+<div id="main" class="wysiwyg" data-post-id="<%= @post.slug || @post.id %>" data-preview="<%= params[:preview] %>">
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <div class="pull-left">
         <%= link_to "#", class: "btn btn-default btn-icon", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
           <i class="icon-st-icons-st-logo"></i>
         <% end %>
-        <%= link_to [:dashboard, Storytime::Post, type: @post.type_name], class: "btn btn-default btn-scroll-panel-header" do %>
-          <%= icon('angle-left') %>
-          <span class="hidden-xs"><%= @post.human_name.pluralize %></span>
+        <% if @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::Blog) %>
+          <%= link_to [:dashboard, current_post_type], class: "btn btn-default btn-scroll-panel-header" do %>
+            <%= icon('angle-left') %>
+            <span class="hidden-xs"><%= current_post_type.type_name.pluralize.titleize %></span>
+          <% end %>
+        <% else %>
+          <%= link_to [:dashboard, @post.blog, :blog_page_post_index], class: "btn btn-default btn-scroll-panel-header" do %>
+            <%= icon('angle-left') %>
+            <span class="hidden-xs"><%= @post.blog.title %></span>
+          <% end %>
         <% end %>
       </div>
       <div class="pull-right">
@@ -15,7 +22,7 @@
           <i class="fa fa-code" style="top: -1px;"></i>
         <% end %>
         
-        <% if Storytime.enable_file_upload %>
+        <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) && !@post.is_a?(Storytime::Blog)  %>
           <%= link_to '#', class: "btn btn-default btn-icon margin-right", data: { toggle: "collapse", target: '#featured-images-panel' } do %>
             <i class="icon-st-icons-images"></i>
           <% end %>

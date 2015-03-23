@@ -17,8 +17,10 @@ ActiveRecord::Migration.maintain_test_schema!
 
 poltergeist_options = {
   phantomjs_logger: Logger.new('/dev/null'),
-  phantomjs_options: ['--proxy-type=socks5', '--proxy=0.0.0.0:0', '--load-images=no', '--ignore-ssl-errors=yes'],
-  js_errors: false,
+  # inspector: true,
+  # debug: true,
+  phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=TLSv1'],
+  js_errors: false
 }
 
 Capybara.register_driver :poltergeist_st do |app|
@@ -78,6 +80,9 @@ RSpec.configure do |config|
   config.include FeatureMacros, type: :feature
   config.include Storytime::Engine.routes.url_helpers
   config.include Devise::TestHelpers, type: :controller
+
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 end
 
 def have_image(url)

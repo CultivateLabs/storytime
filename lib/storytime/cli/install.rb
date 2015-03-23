@@ -9,15 +9,11 @@ module Storytime
 
         def storytime_defaults
           hash = {}
-          hash[:layout] = 'application'
           hash[:user_class] = 'User'
           hash[:dashboard_namespace_path] = '/storytime'
-          hash[:home_page_path] = '/'
           hash[:post_types] = ['CustomPostType']
           hash[:post_title_character_limit] = 255
           hash[:post_excerpt_character_limit] = 500
-          hash[:whitelisted_html_tags] = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
-          hash[:disqus_forum_shortname] = ''
           hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
           hash[:search_adapter] = "''"
           hash[:enable_file_upload] = true
@@ -103,14 +99,6 @@ module Storytime
 
           say "Setting up Storytime initializer file...", :cyan
 
-          # Layout
-          if no? "Use Storytime's layout (versus the host app's layout)? [y/n] (y)", :yellow
-            layout = ask "Name of the layout to use? e.g the 'application' layout uses /app/views/layout/application, in your host app, as the layout. (application)", :yellow
-            
-            init_hash[:layout] = layout unless layout.blank?
-            init_hash[:enable_layout] = true
-          end
-
           # User Class
           user_class = ask "Name of the model that you want to use for Storytime users? (User)", :yellow
 
@@ -125,14 +113,6 @@ module Storytime
 
             init_hash[:dashboard_namespace_path] = dashboard_namespace_path unless dashboard_namespace_path.blank?
             init_hash[:enable_dashboard_namespace_path] = true
-          end
-          
-          # Home Page Path
-          if no? "Do you want to use '/' as the location of Storytime's home page? [y/n] (y)", :yellow
-            home_page_path = ask "Path of Storytime's home page, relative to Storytime's mount point, #{mount_point}, within the host app? (/)", :yellow
-
-            init_hash[:home_page_path] = home_page_path unless home_page_path.blank?
-            init_hash[:enable_home_page_path] = true
           end
           
           # Custom Post Types
@@ -169,26 +149,6 @@ module Storytime
             init_hash[:enable_post_excerpt_character_limit] = true
           elsif !post_excerpt_character_limit.blank?
             say "Character limit amount is not a valid integer... using the default value (500) instead.", :red
-          end
-          
-          # Whitelisted HTML Tags
-          # whitelisted_html_tags = ask "Enter a comma separated list of whitelisted tags to allow from the Summernote WYSIWYG Editor.", :yellow
-          # 
-          # unless post_types.blank?
-          #   whitelisted_html_tags = whitelisted_html_tags.gsub(",", " ")
-          # 
-          #   init_hash[:whitelisted_html_tags] = "%w(#{whitelisted_html_tags})"
-          #   init_hash[:enable_whitelisted_html_tags] = true
-          # end
-          
-          # Disqus Forum Shortname
-          if yes? "Do you want to use Disqus for commenting? [y/n] (n)", :yellow
-            disqus_forum_shortname = ask "What is the unique identifier for your website, as registered on Disqus?", :yellow
-
-            unless disqus_forum_shortname.blank?
-              init_hash[:disqus_forum_shortname] = disqus_forum_shortname
-              init_hash[:enable_disqus_forum_shortname] = true
-            end
           end
           
           # Email REGEX

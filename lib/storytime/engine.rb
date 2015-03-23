@@ -13,13 +13,21 @@ require 'nokogiri'
 require 'pundit'
 require 'simple_form'
 require 'codemirror-rails'
+require 'storytime_admin'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
 require 'storytime/concerns/controller_content_for'
+require 'storytime/concerns/current_site'
+require 'storytime/constraints/blog_homepage_constraint'
+require 'storytime/constraints/page_homepage_constraint'
+require 'storytime/constraints/blog_constraint'
+require 'storytime/constraints/page_constraint'
 require 'storytime/controller_helpers'
+require 'storytime/post_url_handler'
 require 'storytime/importers/importer'
 require 'storytime/importers/wordpress'
+require 'storytime/migrators/v1'
 
 module Storytime
   class Engine < ::Rails::Engine
@@ -60,7 +68,7 @@ module Storytime
 
     initializer "storytime.register_default_post_types" do
       Storytime.configure do |config|
-        config.post_types += ["Storytime::BlogPost", "Storytime::Page"]
+        config.post_types += ["Storytime::BlogPost", "Storytime::Page", "Storytime::Blog"]
       end
     end
   end

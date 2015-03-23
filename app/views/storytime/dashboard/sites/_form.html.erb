@@ -16,14 +16,20 @@
 
       <%= f.error_notification %>
       <%= f.input :title %>
+      <%= f.input :custom_domain, label: "Domain", hint: t("dashboard.sites.domain_hint") %>
+      <%= f.input :subscription_email_from, label: t('dashboard.sites.subscription_email_from_label') %>
       <%= f.input :post_slug_style, collection: post_slug_style_options, include_blank: false %>
 
       <% unless params[:action] == "new" %>
-        <%= f.input :root_page_content, collection: root_page_content_options, include_blank: false, hint: t('dashboard.sites.root_page_content_hint') %>
-        
-        <%= f.input :root_post_id, collection: @site.root_post_options, include_blank: false, wrapper_html: { class: (@site.root_page_content == "page" ?  "" : "hide") }, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
-      
+        <%= f.input :root_post_id, collection: @site.root_post_options, label: t('dashboard.sites.root_post_id_label'), hint: t('dashboard.sites.root_post_id_hint') %>
+        <%= f.input :layout, as: :select, collection: application_layouts, hint: t('dashboard.sites.layout_hint') %>
+        <%= f.input :disqus_forum_shortname %>
+
         <%= f.input :ga_tracking_id %>
+        
+        <div class="well">
+          <%= link_to "Delete Site", [:dashboard, @site], method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: "site") }, class: "btn btn-danger btn-outline text-danger btn-sm" %>
+        </div>
       <% end %>
 
     </div>

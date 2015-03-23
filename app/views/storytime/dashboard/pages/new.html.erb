@@ -1,0 +1,28 @@
+<div id="main" class="wysiwyg">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <div class="pull-left">
+
+        <%= link_to "#", class: "btn btn-default btn-icon", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
+          <i class="icon-st-icons-st-logo"></i>
+        <% end %>
+
+        <%= link_to [:dashboard, Storytime::Page], class: "btn btn-default btn-scroll-panel-header" do %>
+          <%= icon('angle-left') %>
+          <span class="hidden-xs">Pages</span>
+        <% end %>
+      </div>
+      <div class="pull-right">
+        <%= link_to "#", class: "btn btn-default btn-icon margin-right", data: { toggle: "codemirror" } do %>
+          <i class="fa fa-code" style="top: -1px;"></i>
+        <% end %>
+        <button id="preview_post" class="btn btn-primary btn-outline btn-sm margin-right">Preview</button>
+        <%= link_to "Save / Publish", "#", class: 'btn btn-primary btn-sm btn-outline', data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
+      </div>
+    </div>
+    <%= render 'image_toolbar' %>
+    <div class="scroll-panel-body" style="top: 130px;" data-top="130px">
+      <%= render "form" %>
+    </div>
+  </div>
+</div>

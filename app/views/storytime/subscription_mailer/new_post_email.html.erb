@@ -6,8 +6,8 @@
   <body>
     <h4>A new post was published on <%= @site.title %></h4>
     <p>
-      We published a new post, "<%= link_to @post.title, post_url(@post) %>", on our blog.
+      We published a new post, "<%= link_to @post.title, post_url(@post, host: @site.custom_domain) %>", on our blog.
     </p>
   </body>
-  <footer>If you no longer want to receive these emails, <%= link_to "click here", unsubscribe_mailing_list_url(email: @subscription.email, t: @subscription.token) %>.</footer>
+  <footer>If you no longer want to receive these emails, <%= link_to "click here", unsubscribe_mailing_list_url(email: @subscription.email, t: @subscription.token, host: @site.custom_domain) %>.</footer>
 </html>

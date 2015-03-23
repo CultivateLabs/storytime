@@ -1,19 +1,10 @@
 Storytime.configure do |config|
-  # Name of the layout to be used. e.g. the 'application'
-  # layout uses /app/views/layout/application, in your
-  # host app, as the layout.
-  <%= @enable_layout ? nil : '# ' %>config.layout = '<%= @layout %>'
-
   # Name of the model you're using for Storytime users.
   <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'
-
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  <%= @enable_home_page_path ? nil : '# ' %>config.home_page_path = '<%= @home_page_path %>'
 
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
@@ -34,11 +25,6 @@ Storytime.configure do |config|
 
   # Character limit for Storytime::Post.excerpt
   <%= @enable_post_excerpt_character_limit ? nil : '# ' %>config.post_excerpt_character_limit = <%= @post_excerpt_character_limit %>
-
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, '', or nil setting will permit all tags.
-  <%= @enable_whitelisted_html_tags ? nil : '# ' %>config.whitelisted_html_tags = <%= @whitelisted_html_tags %>
 
   # Hook for handling post content sanitization.
   # Accepts either a Lambda or Proc which can be used to
@@ -77,9 +63,6 @@ Storytime.configure do |config|
 
   # Email regex used to validate email format validity for subscriptions.
   <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>
-
-  # Email address of the sender of subscription emails.
-  # config.subscription_email_from = 'no-reply@example.com'
 
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:

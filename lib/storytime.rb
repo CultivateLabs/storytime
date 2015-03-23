@@ -18,11 +18,6 @@ module Storytime
   mattr_accessor :dashboard_namespace_path
   @@dashboard_namespace_path = '/storytime'
 
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  mattr_accessor :home_page_path
-  @@home_page_path = '/'
-
   # Path used to sign users in. 
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
@@ -138,30 +133,6 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
-    end
-
-    def home_page_route_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site
-        if site.root_page_content == 'page'
-          { to: 'pages#show', as: :storytime_root_post }
-        else
-          { to: 'posts#index', as: :storytime_root_post }
-        end
-      else
-        { to: 'application#setup', as: :storytime_root }
-      end
-    end
-
-    def post_index_path_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site && site.root_page_content == 'posts'
-        { path: Storytime.home_page_path }
-      else
-        {}
-      end
     end
   end
 end

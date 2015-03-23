@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   storytime_user
+
+  def admin?
+    Pundit.policy(self, :admin).manage?
+  end
 end

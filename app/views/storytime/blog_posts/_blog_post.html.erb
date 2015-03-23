@@ -1,8 +1,8 @@
 <div id="blog_post_<%= blog_post.id %>" class="blog-post">
-  <h2><%= link_to blog_post.title, blog_post %></h2>
+  <h2><%= link_to blog_post.title, storytime.post_path(blog_post) %></h2>
   <p class='muted'><%= blog_post.created_at.strftime("%b %d, %Y") %></p>
   <p><%= blog_post.excerpt %></p>
-  <p><%= link_to "Continue reading →", blog_post %></p>
+  <p><%= link_to "Continue reading →", storytime.post_path(blog_post) %></p>
   <p><%= render 'tags', post: blog_post %></p>
   <hr>
 </div>

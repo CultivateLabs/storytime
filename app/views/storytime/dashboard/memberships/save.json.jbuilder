@@ -1,0 +1,1 @@
+json.html(render partial: "storytime/dashboard/users/index.html.erb")

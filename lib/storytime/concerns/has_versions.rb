@@ -37,6 +37,7 @@ module Storytime
       end
 
       def publish!
+        self.published = "1"
         attrs = {self.class.draft_content_column => self.latest_version.content}
         self.update_columns(attrs)
       end
@@ -52,8 +53,7 @@ module Storytime
               DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
             end
           else
-            self.published_at_date = Time.now.to_date
-            self.published_at_time = Time.now  
+            self.published_at = Time.now unless self.published_at
           end
         else
           self.published_at_date = nil
@@ -77,6 +77,8 @@ module Storytime
         after_save :create_version, :activate_version
 
         self.draft_content_column = :content
+
+        validates_presence_of :draft_content
 
         scope :published, -> { where("published_at IS NOT NULL").where("published_at <= ?", Time.now) }
         scope :draft, -> { where("published_at IS NULL OR published_at > ?", Time.now) }

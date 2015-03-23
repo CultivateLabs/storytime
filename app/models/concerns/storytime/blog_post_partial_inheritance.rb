@@ -1,7 +1,7 @@
 module Storytime::BlogPostPartialInheritance
   extend ActiveSupport::Concern
 
-  included do 
+  included do
     def to_partial_path
       self.class._to_partial_path
     end

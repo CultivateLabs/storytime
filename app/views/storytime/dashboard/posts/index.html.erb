@@ -6,16 +6,54 @@
         <i class="icon-st-icons-st-logo"></i>
       <% end %>
       
-      <%= new_post_button(current_post_type) %>
-      <h3 class="scroll-panel-title"><%= post_list_title(current_post_type) %></h3>
+      <% if @blog %>
+        <div class="pull-right">
+
+          <div class="btn-group margin-right" style="margin-right: 10px;">
+            <button type="button" class="btn btn-default btn-icon dropdown-toggle" id="post-utilities" data-toggle="dropdown" aria-expanded="false">
+              <i class="icon-st-icons-utilitymenu"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu" style="top: 125%;">
+              <li>
+                <%= link_to [:edit, :dashboard, @blog], remote: true, class: "storytime-modal-trigger" do %>
+                  <i class="icon-st-icons-settings"></i>
+                  Blog Settings
+                <% end %>
+              </li>
+              <li>
+                <%= link_to url_for([:dashboard, @blog]),  method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: @blog.human_name) } do %>
+                  <i class="icon-st-icons-delete"></i>
+                  Delete
+                <% end %>
+              </li>
+            </ul>
+          </div>
+
+          <%= render "new_button" %>
+        </div>
+      <% else %>
+        <%= render "new_button" %>
+      <% end %>
+      <h3 class="scroll-panel-title">
+        <%= render "index_title" %>
+      </h3>
     </div>
     <div class="scroll-panel-body">
       <ul class="nav nav-tabs">
         <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
-          <%= link_to "Drafts", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: nil] %>
+          <% if @blog %>
+            <%= link_to "Drafts", [:dashboard, @blog, :blog_page_post_index, published: nil] %>
+          <% else %>
+            <%= link_to "Drafts", [:dashboard, current_post_type] %>
+          <% end %>
         </li>
         <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">
-          <%= link_to "Published", [:dashboard, Storytime::Post, type: current_post_type.type_name, published: 'true'] %>
+          <% if @blog %>
+            <%= link_to "Published", [:dashboard, @blog, :blog_page_post_index, published: 'true'] %>
+          <% else %>
+            <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
+          <% end %>
+          
         </li>
       </ul>
       <%= render 'list' %>

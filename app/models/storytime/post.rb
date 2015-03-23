@@ -2,30 +2,24 @@ module Storytime
   class Post < ActiveRecord::Base
     include Storytime::Concerns::HasVersions
     include ActionView::Helpers::SanitizeHelper
+    include Storytime::ScopedToSite
+    include Storytime::PostTags
 
     extend FriendlyId
-    friendly_id :slug_candidates, use: [:history]
+    friendly_id :slug_candidates, use: [:history, :scoped], scope: :site
 
     belongs_to :user, class_name: Storytime.user_class
-    belongs_to :featured_media, class_name: "Media"
-    belongs_to :secondary_media, class_name: "Media"
     belongs_to :site
-
-    has_many :taggings, dependent: :destroy
-    has_many :tags, through: :taggings
-    has_many :comments
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"
 
     attr_accessor :preview
 
-    validates_presence_of :title, :draft_content
+    validates_presence_of :title
     validates :title, length: { in: 1..Storytime.post_title_character_limit }
-    validates :excerpt, length: { in: 0..Storytime.post_excerpt_character_limit }
     validates :user, presence: true
     validates :type, inclusion: { in: Storytime.post_types }
 
-    before_validation :populate_excerpt_from_content
     before_save :sanitize_content
 
     scope :primary_feed, ->{ where(type: primary_feed_types) }
@@ -61,26 +55,8 @@ module Storytime
         to_s.split("::").last.underscore
       end
 
-      def tagged_with(name)
-        if t = Storytime::Tag.find_by(name: name)
-          joins(:taggings).where(storytime_taggings: { tag_id: t.id }) 
-        else
-          none
-        end
-      end
-
-      def tag_counts
-        Storytime::Tag.select("storytime_tags.*, count(storytime_taggings.tag_id) as count").joins(:taggings).group("storytime_tags.id")
-
-        #Tagging.group("storytime_taggings.tag_id").includes(:tag)
-      end
-
       def included_in_primary_feed?
         true
-      end
-
-      def model_name
-        ActiveModel::Name.new(self, nil, "Post")
       end
     end 
     #### END class << self
@@ -95,33 +71,6 @@ module Storytime
 
     def type_name
       self.class.type_name
-    end
-
-    def tag_list
-      tags.map(&:name).join(", ")
-    end
-
-    def tag_list=(names_or_ids)
-      self.tags = names_or_ids.map do |n|
-        if n.empty? || n == "nv__"
-          ""
-        elsif n.include?("nv__") || n.to_i == 0
-          Storytime::Tag.where(name: n.sub("nv__", "").strip).first_or_create do |tag|
-            tag.site_id = self.site_id
-          end
-        else
-          Storytime::Tag.find(n)
-        end
-      end.delete_if { |x| x == "" }
-    end
-
-    def populate_excerpt_from_content
-      self.excerpt = (content || draft_content).slice(0..Storytime.post_excerpt_character_limit) if excerpt.blank?
-      self.excerpt = strip_tags(self.excerpt)
-    end
-
-    def show_comments?
-      true
     end
 
     def included_in_primary_feed?

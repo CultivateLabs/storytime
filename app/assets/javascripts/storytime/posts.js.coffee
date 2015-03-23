@@ -31,12 +31,13 @@ class Storytime.Dashboard.Posts
         easing: 'swing'
       $(".scroll-panel-body").scrollTop(0)
       $(".scroll-panel-body").animate({top: "0"}, 'fast', 'swing')
-      
+
     $(".post-action-panel").on "shown.bs.collapse", ->
       $(".chosen-select").trigger("chosen:updated")
 
     $(".post-action-panel").on "hide.bs.collapse", ->
+      top = $(".scroll-panel-body").data("top")
       $(".scroll-panel-header").fadeIn
         duration: 'fast'
         easing: 'swing'
-      $(".scroll-panel-body").animate({top: "130px"}, 'fast', 'swing')
+      $(".scroll-panel-body").animate({top: top}, 'fast', 'swing')
