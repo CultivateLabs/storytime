@@ -13,6 +13,7 @@ module Storytime
 
       def set_local_assigns
         @user_class = settings[:user_class]
+        @admin_models = settings[:admin_models]
         @dashboard_namespace_path = settings[:dashboard_namespace_path]
         @post_types = settings[:post_types]
         @post_title_character_limit = settings[:post_title_character_limit]
@@ -26,6 +27,7 @@ module Storytime
         @dev_media_storage = settings[:dev_media_storage]
 
         @enable_user_class = settings[:enable_user_class]
+        @enable_admin_models = settings[:enable_admin_models]
         @enable_dashboard_namespace_path = settings[:enable_dashboard_namespace_path]
         @enable_post_types = settings[:enable_post_types]
         @enable_post_title_character_limit = settings[:enable_post_title_character_limit]

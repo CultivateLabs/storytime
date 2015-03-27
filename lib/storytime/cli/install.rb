@@ -115,9 +115,14 @@ module Storytime
             admin_models = ask "Enter a comma separated list of the models that you want to be CRUD accessible within the admin dashboard:", :yellow
 
             unless admin_models.blank?
-              admin_models = admin_models.gsub(",", " ")
+              admin_models = admin_models.gsub(" ", "").split(",")
 
-              init_hash[:admin_models] = "%w(#{admin_mdoels})"
+              admin_models.each do |model|
+                say "Creating a StorytimeAdmin controller for #{model}...", :cyan
+                `bin/rails g storytime_admin:resource #{model}`
+              end
+
+              init_hash[:admin_models] = admin_models
               init_hash[:enable_admin_models] = true
             end
           end
@@ -143,15 +148,17 @@ module Storytime
           end
           
           # Post Title Character Limit
-          post_title_character_limit = ask "What should the character limit be for post titles? (255)", :yellow
+          post_title_character_limit = ask "What should the character limit be for post titles? (100)", :yellow
 
           if post_title_character_limit.to_i > 0
             if post_title_character_limit.to_i > 255
               say "Character limit amount exceeds database maximum - setting limit to default/maximum amount (255).", :red
+              init_hash[:post_title_character_limit] = 255
             else
               init_hash[:post_title_character_limit] = post_title_character_limit.to_i
-              init_hash[:enable_post_title_character_limit] = true
             end
+            
+            init_hash[:enable_post_title_character_limit] = true
           elsif !post_title_character_limit.blank?
             say "Character limit amount is not a valid integer... using the default value (255)", :red
           end
