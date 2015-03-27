@@ -2,6 +2,10 @@ Storytime.configure do |config|
   # Name of the model you're using for Storytime users.
   <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
+  # Name of the model(s) that you want to be CRUD accessible
+  # within Storytime's admin dashboard.
+  <%= @enable_admin_models ? nil : '# ' %>config.admin_models = <%= @admin_models %>
+
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'
@@ -36,12 +40,12 @@ Storytime.configure do |config|
   #   else
   #     Rails::Html::WhiteListSanitizer.new
   #   end
-
+  #
   #   attributes = %w(
   #     id class href style src title width height alt value 
   #     target rel align disabled
   #   )
-
+  #
   #   if Storytime.whitelisted_post_html_tags.blank?
   #     white_list_sanitizer.sanitize(draft_content, attributes: attributes)
   #   else
@@ -59,7 +63,7 @@ Storytime.configure do |config|
   # Your discourse server must be configured for embedded comments.
   # e.g. config.discourse_name = "http://forum.example.com"
   # NOTE:  include the '/' suffix at the end of the url
-  # config.discourse_name = ""
+  <%= @enable_discourse_name ? nil : '# ' %>config.discourse_name = '<%= @discourse_name %>'
 
   # Email regex used to validate email format validity for subscriptions.
   <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>

@@ -10,9 +10,10 @@ module Storytime
         def storytime_defaults
           hash = {}
           hash[:user_class] = 'User'
+          hash[:admin_models] = ['Widget']
           hash[:dashboard_namespace_path] = '/storytime'
           hash[:post_types] = ['CustomPostType']
-          hash[:post_title_character_limit] = 255
+          hash[:post_title_character_limit] = 100
           hash[:post_excerpt_character_limit] = 500
           hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
           hash[:search_adapter] = "''"
@@ -24,6 +25,8 @@ module Storytime
         end
 
         def automated
+          `bin/spring stop`
+
           defaults = storytime_defaults
           self.destination_root = File.expand_path("./")
 
@@ -52,14 +55,14 @@ module Storytime
         end
 
         def interactive
+          `bin/spring stop`
+
           begin
             require File.expand_path('config/environment.rb')
           rescue LoadError
             say "This command must be run from the root directory of a Rails app... Change directories and try again.", :red
             return
           end
-
-          `spring stop`
 
           say "Starting install of Storytime...", :cyan
 
@@ -105,6 +108,18 @@ module Storytime
           unless user_class.blank?
             init_hash[:user_class] = user_class.camelize
             init_hash[:enable_user_class] = true
+          end
+
+          # Admin Models
+          if yes? "Do you want to enable certain models to be accessible to CRUD operations within the Storytime admin dashboard? [y/n] (n)", :yellow
+            admin_models = ask "Enter a comma separated list of the models that you want to be CRUD accessible within the admin dashboard:", :yellow
+
+            unless admin_models.blank?
+              admin_models = admin_models.gsub(",", " ")
+
+              init_hash[:admin_models] = "%w(#{admin_mdoels})"
+              init_hash[:enable_admin_models] = true
+            end
           end
 
           # Dashboard Namespace Path

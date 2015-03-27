@@ -42,12 +42,6 @@ module Storytime
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 500
 
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, '', or nil setting will permit all tags.
-  mattr_accessor :whitelisted_post_html_tags
-  @@whitelisted_post_html_tags = []
-
   # Hook for handling post content sanitization.
   # Accepts either a Lambda or Proc which can be used to
   # handle how post content is sanitized (i.e. which tags,
@@ -65,13 +59,7 @@ module Storytime
       target rel align disabled
     )
 
-    if Storytime.whitelisted_post_html_tags.blank?
-      white_list_sanitizer.sanitize(draft_content, attributes: attributes)
-    else
-      white_list_sanitizer.sanitize(draft_content,
-                                    tags: Storytime.whitelisted_post_html_tags,
-                                    attributes: attributes)
-    end
+    white_list_sanitizer.sanitize(draft_content, attributes: attributes)
   end
 
   # Enable Disqus comments using your forum's shortname,
@@ -90,10 +78,6 @@ module Storytime
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
-  # Email address of the sender of subscription emails.
-  mattr_accessor :subscription_email_from
-  @@subscription_email_from = 'no-reply@example.com'
-
   # Hook for handling notification delivery when publishing content.
   # Accepts either a Lambda or Proc which can be setup to schedule
   # a ActiveJob (Rails 4.2+).
@@ -107,6 +91,8 @@ module Storytime
   mattr_accessor :search_adapter
   @@search_adapter = nil
 
+  # Name of the model(s) that you want to be CRUD accessible within
+  # Storytime's admin.
   mattr_accessor :admin_models
   @@admin_models = []
 
