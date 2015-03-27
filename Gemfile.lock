@@ -23,7 +23,7 @@ PATH
       carrierwave (>= 0.9)
       codemirror-rails (~> 4.8)
       coffee-rails (>= 4.0)
-      devise (~> 3.2)
+      devise (>= 3.2)
       fog (>= 1.18)
       font-awesome-sass (>= 4.0.3)
       friendly_id (>= 5.0)
