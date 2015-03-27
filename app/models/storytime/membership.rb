@@ -9,5 +9,9 @@ module Storytime
     validates_uniqueness_of :user_id, scope: :site_id
 
     delegate :storytime_name, to: :user, allow_nil: true
+
+    def self.all_for_user(user)
+      unscoped.where(user: user).includes(:site).where.not(site_id: nil)
+    end
   end
 end

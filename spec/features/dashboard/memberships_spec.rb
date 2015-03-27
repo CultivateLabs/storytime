@@ -4,6 +4,18 @@ describe "In the dashboard, Users" do
   context "as Admin" do
     before{ login_admin }
 
+    it "provides links to all the sites where the user has a membership", js: true do
+      other_site = FactoryGirl.create(:site)
+      membership = FactoryGirl.create(:membership, user: @current_user, site: other_site)
+
+      visit storytime.dashboard_path
+
+      click_link @current_site.title
+      
+      expect(page).to have_link(@current_site.title, href: "")
+      expect(page).to have_link(other_site.title, href: storytime.dashboard_url(host: other_site.custom_domain, port: Capybara.current_session.server.port))
+    end
+
     it "lists users for a site", js: true do
       FactoryGirl.create_list(:user, 3)
 

@@ -56,11 +56,11 @@
 
   <div id="storytime-sites-menu" style="display: none;">
     <ul class="nav nav-menu-nav">
-      <% current_user.storytime_sites.all.each do |site| %>
-        <% if site == current_site %>
-          <li class="active"><%= link_to icon("check", site.title), "", class: "storytime-menu-toggle" %></li>
+      <% Storytime::Membership.all_for_user(current_user).each do |membership| %>
+        <% if membership.site == current_site %>
+          <li class="active"><%= link_to icon("check", membership.site.title), "", class: "storytime-menu-toggle" %></li>
         <% else %>
-          <li><%= link_to site.title, "http://#{site.custom_domain}" %></li>
+          <li><%= link_to membership.site.title, storytime.dashboard_url(host: membership.site.custom_domain) %></li>
         <% end %>
       <% end %>
       <li><%= link_to icon("plus", "New Site"), storytime.new_dashboard_site_path %></li>
