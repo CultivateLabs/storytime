@@ -10,9 +10,10 @@ module Storytime
         def storytime_defaults
           hash = {}
           hash[:user_class] = 'User'
+          hash[:admin_models] = ['Widget']
           hash[:dashboard_namespace_path] = '/storytime'
           hash[:post_types] = ['CustomPostType']
-          hash[:post_title_character_limit] = 255
+          hash[:post_title_character_limit] = 100
           hash[:post_excerpt_character_limit] = 500
           hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
           hash[:search_adapter] = "''"
@@ -24,6 +25,8 @@ module Storytime
         end
 
         def automated
+          `bin/spring stop`
+
           defaults = storytime_defaults
           self.destination_root = File.expand_path("./")
 
@@ -52,14 +55,14 @@ module Storytime
         end
 
         def interactive
+          `bin/spring stop`
+
           begin
             require File.expand_path('config/environment.rb')
           rescue LoadError
             say "This command must be run from the root directory of a Rails app... Change directories and try again.", :red
             return
           end
-
-          `spring stop`
 
           say "Starting install of Storytime...", :cyan
 
@@ -107,6 +110,23 @@ module Storytime
             init_hash[:enable_user_class] = true
           end
 
+          # Admin Models
+          if yes? "Do you want to enable certain models to be accessible to CRUD operations within the Storytime admin dashboard? [y/n] (n)", :yellow
+            admin_models = ask "Enter a comma separated list of the models that you want to be CRUD accessible within the admin dashboard:", :yellow
+
+            unless admin_models.blank?
+              admin_models = admin_models.gsub(" ", "").split(",")
+
+              admin_models.each do |model|
+                say "Creating a StorytimeAdmin controller for #{model}...", :cyan
+                `bin/rails g storytime_admin:resource #{model}`
+              end
+
+              init_hash[:admin_models] = admin_models
+              init_hash[:enable_admin_models] = true
+            end
+          end
+
           # Dashboard Namespace Path
           if no? "Do you want to use /storytime as the location of the dashboard? [y/n] (y)", :yellow
             dashboard_namespace_path = ask "Path of Storytime's dashboard, relative to Storytime's mount point, #{mount_point}, within the host app? (/storytime)", :yellow
@@ -128,15 +148,17 @@ module Storytime
           end
           
           # Post Title Character Limit
-          post_title_character_limit = ask "What should the character limit be for post titles? (255)", :yellow
+          post_title_character_limit = ask "What should the character limit be for post titles? (100)", :yellow
 
           if post_title_character_limit.to_i > 0
             if post_title_character_limit.to_i > 255
               say "Character limit amount exceeds database maximum - setting limit to default/maximum amount (255).", :red
+              init_hash[:post_title_character_limit] = 255
             else
               init_hash[:post_title_character_limit] = post_title_character_limit.to_i
-              init_hash[:enable_post_title_character_limit] = true
             end
+            
+            init_hash[:enable_post_title_character_limit] = true
           elsif !post_title_character_limit.blank?
             say "Character limit amount is not a valid integer... using the default value (255)", :red
           end
