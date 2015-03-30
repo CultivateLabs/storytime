@@ -14,13 +14,8 @@ class Storytime.Dashboard.Media
   initUpload: ()->
     unless @uploadInitialized
       $('#media_file').fileupload({
-        dataType: 'json',
         done: (e, data)->
-          lastRow = $("#media_gallery").children(".row").last()
-          if lastRow.length == 0 || lastRow.children(".col-sm-3").length == 5
-            $("#media_gallery").append("<div class='row'>#{data.result.html}</div>")
-          else
-            lastRow.append(data.result.html)
+          $("#media_gallery_container").html(data.result)
           $("#progress").hide()
           return
         
