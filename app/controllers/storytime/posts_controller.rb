@@ -2,6 +2,9 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   class PostsController < ApplicationController
+    include HighVoltage::StaticPage
+
+    layout :set_layout
 
     def index
       @posts = Post.where(type: Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog].include?(type) }).tagged_with(params[:tag]).page(params[:page_number]).per(10)
@@ -10,11 +13,17 @@ module Storytime
     def show
       params[:id] = params[:id].split("/").last
 
-      @post = if params[:preview]
-        Post.find_preview(params[:id])
-      else
-        Post.published.friendly.find(params[:id])
+      @post = begin
+        if params[:preview]
+          Post.find_preview(params[:id])
+        else
+          Post.published.friendly.find(params[:id])
+        end
+      rescue ActiveRecord::RecordNotFound
+        nil
       end
+      
+      return super if @post.nil?
 
       authorize @post
       
@@ -30,5 +39,15 @@ module Storytime
         render "storytime/#{@site.custom_view_path}/#{@post.type_name.pluralize}/show"
       end
     end
+
+    private 
+
+      def set_layout
+        if @post.nil?
+          HighVoltage.layout
+        else
+          super
+        end
+      end
   end
 end
