@@ -18,7 +18,7 @@ GIT
 PATH
   remote: .
   specs:
-    storytime (1.2.2)
+    storytime (2.0.0.rc1)
       bootstrap-sass (>= 3.1)
       carrierwave (>= 0.9)
       codemirror-rails (~> 4.8)
