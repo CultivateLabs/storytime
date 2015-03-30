@@ -52,9 +52,9 @@ module Storytime
           config.storage = :fog
           config.fog_credentials = {
             :provider               => 'AWS',
-            :region                 => ENV['STORYTIME_AWS_REGION'],
-            :aws_access_key_id      => ENV['STORYTIME_AWS_ACCESS_KEY_ID'],
-            :aws_secret_access_key  => ENV['STORYTIME_AWS_SECRET_KEY']
+            :region                 => Storytime.aws_region,
+            :aws_access_key_id      => Storytime.aws_access_key_id,
+            :aws_secret_access_key  => Storytime.aws_secret_key
           }
           config.fog_directory  = Storytime.s3_bucket
           config.fog_public     = true

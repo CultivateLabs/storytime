@@ -18,6 +18,9 @@ module Storytime
           hash[:email_regexp] = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
           hash[:search_adapter] = "''"
           hash[:enable_file_upload] = true
+          hash[:aws_region] = "ENV['STORYTIME_AWS_REGION']"
+          hash[:aws_access_key_id] = "ENV['STORYTIME_AWS_ACCESS_KEY_ID']"
+          hash[:aws_secret_key] = "ENV['STORYTIME_AWS_SECRET_KEY']"
           hash[:s3_bucket] = 'my-s3-bucket'
           hash[:prod_media_storage] = ':s3'
           hash[:dev_media_storage] = ':file'
@@ -172,14 +175,6 @@ module Storytime
           elsif !post_excerpt_character_limit.blank?
             say "Character limit amount is not a valid integer... using the default value (500) instead.", :red
           end
-          
-          # Email REGEX
-          # email_regexp = ask "Email regex used to validate emails for subscriptions (/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)", :yellow
-          # 
-          # unless email_regexp.blank?
-          #   init_hash[:email_regexp] = email_regexp
-          #   init_hash[:enable_email_regexp] = true
-          # end
 
           # Search Adapters
           app_database = ask "What database is being used to run this application?", :yellow, :limited_to => ["mysql", "postgres", "sqlite3", "other"]

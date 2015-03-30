@@ -17,6 +17,9 @@ module Storytime
         @email_regexp = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
         @search_adapter = "''"
         @enable_file_upload = true
+        @aws_region = "ENV['STORYTIME_AWS_REGION']"
+        @aws_access_key_id = "ENV['STORYTIME_AWS_ACCESS_KEY_ID']"
+        @aws_secret_key = "ENV['STORYTIME_AWS_SECRET_KEY']"
         @s3_bucket = 'my-s3-bucket'
         @prod_media_storage = ':s3'
         @dev_media_storage = ':file'
