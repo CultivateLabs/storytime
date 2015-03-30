@@ -96,6 +96,15 @@ Storytime.configure do |config|
   # File upload options.
   config.enable_file_upload = <%= @enable_file_upload %>
 
+  # AWS Region to use for file uploads.
+  # config.aws_region = <%= @aws_region %>
+
+  # AWS Access Key ID to use for file uploads.
+  # config.aws_access_key_id = <%= @aws_access_key_id %>
+
+  # AWS Secret Key to use for file uploads.
+  # config.aws_secret_key = <%= @aws_secret_key %>
+
   if Rails.env.production?
     config.media_storage = <%= @prod_media_storage %>
     <%= @enable_file_upload && @prod_media_storage == ':s3' ? nil : '# ' %>config.s3_bucket = '<%= @s3_bucket %>'
