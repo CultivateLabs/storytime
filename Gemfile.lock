@@ -31,14 +31,14 @@ PATH
       jquery-rails (>= 3.0)
       jquery-ui-rails (~> 5.0)
       kaminari (>= 0.15)
-      leather (= 3.3.3.2)
+      leather (~> 3.3.3.2)
       mini_magick (>= 3.7)
       nokogiri (>= 1.6)
       pundit (>= 0.2)
       rails (>= 4.0)
       sass-rails (>= 4.0)
       simple_form (>= 3.0)
-      storytime-admin
+      storytime-admin (~> 0.0.1)
       thor (~> 0.19.1)
 
 GEM
