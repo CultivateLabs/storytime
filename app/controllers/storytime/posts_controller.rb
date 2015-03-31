@@ -13,7 +13,7 @@ module Storytime
     def show
       params[:id] = params[:id].split("/").last
 
-      return super unless Post.published.friendly.exists? params[:id]
+      return super unless Post.friendly.exists? params[:id]
 
       @post = if params[:preview]
         Post.find_preview(params[:id])
@@ -39,7 +39,7 @@ module Storytime
     private 
 
       def set_layout
-        if Post.published.friendly.exists? params[:id]
+        if Post.friendly.exists? params[:id]
           super
         else
           HighVoltage.layout
