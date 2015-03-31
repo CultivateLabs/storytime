@@ -58,9 +58,9 @@ module Storytime
     end
 
     def render_comments
-      if Storytime.disqus_forum_shortname.present?
+      if @site.disqus_forum_shortname.present?
         render "storytime/comments/disqus"
-      elsif Storytime.discourse_name.present?
+      elsif @site.discourse_name.present?
         render "storytime/comments/discourse"
       else
         render "storytime/comments/comments"
