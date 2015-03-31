@@ -13,9 +13,6 @@ Storytime.configure do |config|
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
 
-  # Path used to log users out. 
-  # config.logout_path = '/users/sign_out'
-
   # Method used for Storytime user logout path.
   # config.logout_method = :delete
 

@@ -22,10 +22,6 @@ module Storytime
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
 
-  # Path used to log users out. 
-  mattr_accessor :logout_path
-  @@logout_path = '/users/sign_out'
-
   # Method used for Storytime user logout path.
   mattr_accessor :logout_method
   @@logout_method = :delete
