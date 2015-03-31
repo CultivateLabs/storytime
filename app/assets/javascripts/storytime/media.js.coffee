@@ -14,13 +14,8 @@ class Storytime.Dashboard.Media
   initUpload: ()->
     unless @uploadInitialized
       $('#media_file').fileupload({
-        dataType: 'json',
         done: (e, data)->
-          lastRow = $("#media_gallery").children(".row").last()
-          if lastRow.children(".col-sm-3").length == 5
-            $("#media_gallery").append("<div class='row'>#{data.result.html}</div>")
-          else
-            lastRow.append(data.result.html)
+          $("#media_gallery_container").html(data.result)
           $("#progress").hide()
           return
         
@@ -68,11 +63,13 @@ class Storytime.Dashboard.Media
         return
       else
         image_tag = "<img src='#{$(@).data("image-url")}' class='img-responsive' />"
-        if self.elementContainsSelection($("[data-input='#post_draft_content']")[0])
+        if self.elementContainsSelection($("#medium-editor-post")[0])
           self.pasteHtmlAtCaret(image_tag, false)
-        
-        input = $("#post_draft_content")
-        html = $("[data-input='#post_draft_content']").html()
+        else
+          $("#medium-editor-post").append(image_tag)
+          
+        input = $($("#medium-editor-post").data("input"))
+        html = $("#medium-editor-post").html()
         input.val(html)
         codemirror = input.siblings(".CodeMirror")[0].CodeMirror
         codemirror.setValue(html)

@@ -1,0 +1,88 @@
+<div>
+  <div id="versions-panel" class="collapse post-action-panel">
+    <div style="padding: 20px;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <ul class="list-group" style="margin: 0;">
+              <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: @post.versions.order(created_at: :desc), locals: { versionable: @post } %>
+            </ul>
+            <%= link_to "Done", '#', class: "btn btn-primary btn-outline pull-right", style: "margin-top: 10px; margin-right: 15px;", data: { toggle: 'collapse', target: '#versions-panel' } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= simple_form_for [:dashboard, @post], html: { class: "post-form #{@post.new_record? ? 'new-post-form' : 'edit-post-form'}", data: { :"autosave-url" => (url_for([:dashboard, @post, :autosaves]) unless @post.new_record?), :"post-type" => current_post_type.type_name.tableize.singularize } } do |f| %>
+
+    <%= hidden_field_tag :type, @post.type_name %>
+    <% if Pundit.policy(current_user, @post).publish? %>
+      <%= f.input :published, as: :hidden, input_html: { id: "post_published" } %>
+    <% end %>
+
+    <div id="post-advanced-settings" class="collapse post-action-panel">
+      <div style="padding: 20px;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.input :slug, input_html: { value: (@post.persisted? ? @post.slug : nil) } %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.input :published_at, as: :date_time_picker, label: "Publish Date/Time", input_html: { style: "display: inline;" } %>
+                </div>
+              </div>
+      
+              <hr>
+
+              <div class="post_actions">
+                <%= link_to "Cancel", '#', class: "btn btn-default", data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
+
+                <div class="pull-right">
+                  <%= f.submit "Save Draft", id: "save-draft-submit", class: "btn btn-default save" unless @post.published? %>
+                  <%= f.submit "Publish", class: "btn btn-primary btn-outline publish", publish: true unless @post.published? %>
+                  <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid editor">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+          <%= autosave_info @post if @post.persisted? %>
+
+          <%= f.error_notification if false %>
+          
+          <div class="character-limit">
+            <span id="title_character_limit" class="text-muted character-limit-display" data-limit="<%= Storytime.post_title_character_limit %>"></span>
+            <h2 contenteditable="true" id="post-title-input" style="outline: none; margin-top: 0;" class="contenteditable character-limit-contenteditable" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
+            <%= f.input :title, as: :hidden, input_html: { class: "character-limit-input" } %>
+          </div>
+          <% if @post.errors[:title].present? %>
+            <span class="has-error">
+              <span class="help-block"><%= @post.errors[:title][0] %></span>
+            </span>
+          <% end %>
+
+          <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
+          <div class="medium-editor" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
+
+        </div>
+      </div>
+    </div>
+
+    <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror draft-content-input" } %>
+
+  <% end %>
+</div>
+
+<%= render "storytime/dashboard/media/modal" if Storytime.enable_file_upload %>

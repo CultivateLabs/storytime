@@ -36,6 +36,10 @@
     padding: (($scroll-panel-header-height - 46px) / 2) 15px;
     background: #fff;
     border-bottom: 1px solid #f1f1f1;
+
+    &:hover {
+      background: #f5f5f5;
+    }
   }
 
   .nav-menu .nav-menu-divider {

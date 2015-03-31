@@ -1,5 +1,6 @@
 module Storytime
   class Permission < ActiveRecord::Base
+    include Storytime::ScopedToSite
     belongs_to :role
     belongs_to :action
 
@@ -16,22 +17,24 @@ module Storytime
       manage_admin_models  = Action.find_by(guid: "3fj09k")
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
-      find_or_create_by(role: writer, action: publish_own)
-      find_or_create_by(role: editor, action: publish_own)
-      find_or_create_by(role: admin, action: publish_own)
-
-      find_or_create_by(role: editor, action: manage_others)
-      find_or_create_by(role: admin, action: manage_others)
-
-      find_or_create_by(role: admin, action: manage_site)
-      find_or_create_by(role: admin, action: manage_users)
-
-      find_or_create_by(role: editor, action: manage_snippets)
-      find_or_create_by(role: admin, action: manage_snippets)
-
-      find_or_create_by(role: admin, action: manage_subscriptions)
-      
-      find_or_create_by(role: admin, action: manage_admin_models)
+      Storytime::Site.find_each do |site|
+        [
+          {role: writer, action: publish_own},
+          {role: editor, action: publish_own},
+          {role: admin, action: publish_own},
+          {role: editor, action: manage_others},
+          {role: admin, action: manage_others},
+          {role: admin, action: manage_site},
+          {role: admin, action: manage_users},
+          {role: editor, action: manage_snippets},
+          {role: admin, action: manage_snippets},
+          {role: admin, action: manage_subscriptions},
+          {role: admin, action: manage_admin_models}
+        ].each do |perm_attrs|
+          perm_attrs[:site_id] = site.id if ActiveRecord::Base.connection.column_exists?(:storytime_permissions, :site_id)
+          find_or_create_by(perm_attrs)
+        end
+      end
     end
   end
 end

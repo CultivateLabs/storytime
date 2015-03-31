@@ -17,14 +17,16 @@ module Storytime
       end
 
       def create
-        @media = Media.new(media_params)
-        @media.user = current_user
+        @upload_media = Media.new(media_params)
+        @upload_media.user = current_user
 
-        authorize @media
-        @media.save
-        respond_with :dashboard, @media do |format|
-          format.json{ render :show }
-        end
+        authorize @upload_media
+        @upload_media.save
+        
+        @media = Media.order("created_at DESC").page(params[:page]).per(10)
+        @large_gallery = false
+
+        render partial: "gallery", content_type: Mime::HTML
       end
       
       def destroy

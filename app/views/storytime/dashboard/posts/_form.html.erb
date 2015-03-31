@@ -14,10 +14,12 @@
     </div>
   </div>
 
-  <%= simple_form_for [:dashboard, @post] do |f| %>
+  <%= simple_form_for [:dashboard, @post], html: { class: "post-form #{@post.new_record? ? 'new-post-form' : 'edit-post-form'}", data: { :"autosave-url" => (url_for([:dashboard, @post, :autosaves]) unless @post.new_record?), :"post-type" => current_post_type.type_name.tableize.singularize } } do |f| %>
 
     <%= hidden_field_tag :type, @post.type_name %>
-    <%= hidden_field_tag 'post[published]', @post.published_at.nil? ? 0 : 1 if Pundit.policy(current_user, @post).publish? %>
+    <% if Pundit.policy(current_user, @post).publish? %>
+      <%= f.input :published, as: :hidden, input_html: { id: "post_published" } %>
+    <% end %>
 
     <div id="post-advanced-settings" class="collapse post-action-panel">
       <div style="padding: 20px;">
@@ -29,16 +31,18 @@
                 <%= render("storytime/dashboard/posts/#{@post.type_name}_fields", f: f)  %>
               <% end %>
               
-              <div class="post_field post_excerpt">
-                <small>
-                  <div class="pull-right" id="excerpt_character_limit" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
-                </small>
-                <%= f.input :excerpt, required: false %>
-              </div>
+              <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::Blog) %>
+                <div class="post_field post_excerpt character-limit">
+                  <small>
+                    <div class="pull-right character-limit-display" data-limit="<%= Storytime.post_excerpt_character_limit %>"></div>
+                  </small>
+                  <%= f.input :excerpt, required: false, input_html: { class: "character-limit-input" } %>
+                </div>
 
-              <div class="post_field post_tags">
-                <%= f.association :tags, input_html: { :name => 'post[tag_list][]', class: 'chosen-select', multiple: true } %>
-              </div>
+                <div class="post_field post_tags">
+                  <%= f.association :tags, input_html: { name: "#{@post.class.name.split('::').last.tableize.singularize}[tag_list][]", class: 'chosen-select tags-input', multiple: true } %>
+                </div>
+              <% end %>
 
               <div class="row">
                 <div class="col-sm-6">
@@ -55,14 +59,16 @@
                 <%= link_to "Cancel", '#', class: "btn btn-default", data: { toggle: 'collapse', target: '#post-advanced-settings' } %>
 
                 <div class="pull-right">
-                  <%= f.submit "Save Draft", class: "btn btn-default save" unless @post.published? %>
+                  <%= f.submit "Save Draft", id: "save-draft-submit", class: "btn btn-default save" unless @post.published? %>
                   <%= f.submit "Publish", class: "btn btn-primary btn-outline publish", publish: true unless @post.published? %>
                   <%= f.submit "Update", class: "btn btn-primary btn-outline save" if @post.published? %>
                 </div>
-
-                <div class="notify_subscribers_checkbox pull-right">
-                  <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
-                </div>
+                
+                <% unless @post.is_a?(Storytime::Page) || @post.is_a?(Storytime::Blog) %>
+                  <div class="notify_subscribers_checkbox pull-right">
+                    <%= f.input :notifications_enabled, as: :boolean, label: "Notify subscribers of new post" unless @post.published? %>
+                  </div>
+                <% end %>
 
               </div>
             </div>
@@ -71,7 +77,7 @@
       </div>
     </div>
     
-    <% if Storytime.enable_file_upload %>
+    <% if Storytime.enable_file_upload && !@post.is_a?(Storytime::Page) && !@post.is_a?(Storytime::Blog) %>
       <div class="collapse post-action-panel" id="featured-images-panel">
         <div style="padding: 20px;">
           <div class="container-fluid">
@@ -120,8 +126,6 @@
         </div>
       </div>
     <% end %>
-
-
     
     <div class="container-fluid editor">
       <div class="row">
@@ -130,26 +134,26 @@
           <%= autosave_info @post if @post.persisted? %>
 
           <%= f.error_notification if false %>
-
-          <span id="title_character_limit" class="text-muted" data-limit="<%= Storytime.post_title_character_limit %>"></span>
-          <h2 contenteditable="true" id="post-title-input" style="outline: none; margin-top: 0;" class="contenteditable" data-input="#post_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
           
+          <div class="character-limit">
+            <span id="title_character_limit" class="text-muted character-limit-display" data-limit="<%= Storytime.post_title_character_limit %>"></span>
+            <h2 contenteditable="true" id="post-title-input" style="outline: none; margin-top: 0;" class="contenteditable character-limit-contenteditable" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_title" placeholder="Title" autofocus="autofocus"><%= @post.title %></h2>
+            <%= f.input :title, as: :hidden, input_html: { class: "character-limit-input" } %>
+          </div>
           <% if @post.errors[:title].present? %>
             <span class="has-error">
               <span class="help-block"><%= @post.errors[:title][0] %></span>
             </span>
           <% end %>
 
-          <%= f.input :title, as: :hidden %>
-          
           <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
-          <div class="medium-editor" data-input="#post_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
+          <div class="medium-editor" data-input="#<%= @post.class.name.split('::').last.tableize.singularize %>_draft_content" id="medium-editor-post" contenteditable='true' style="outline: none; margin-top: 30px;"><%= raw @post.draft_content %></div>
 
         </div>
       </div>
     </div>
 
-    <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror" } %>
+    <%= f.input :draft_content, as: :text, label: false, input_html: { class: "codemirror draft-content-input" } %>
 
   <% end %>
 </div>

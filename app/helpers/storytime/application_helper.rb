@@ -2,7 +2,7 @@ module Storytime
   module ApplicationHelper
 
     def logged_in_storytime_user?
-      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?
+      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(@site)
     end
 
     def dashboard_nav_site_path(site)
@@ -10,7 +10,7 @@ module Storytime
     end
 
     def dashboard_nav_class
-      if ["storytime/dashboard/pages", "storytime/dashboard/posts"].include?(params[:controller]) && ["new", "edit", "update", "create"].include?(params[:action])
+      if @hide_nav
         "off-canvas-left"
       elsif dashboard_controller
         "off-canvas-left-sm absolute"
@@ -24,7 +24,7 @@ module Storytime
       
       current_controller = params[:controller].split("/").last
 
-      'class="active"'.html_safe if controller == current_controller && ((type.nil? && [nil, 'blog_post'].include?(params[:type])) || type == params[:type])
+      'class="active"'.html_safe if controller == current_controller
     end
 
     def active_admin_model_class(model)
@@ -58,10 +58,12 @@ module Storytime
     end
 
     def render_comments
-      if Storytime.disqus_forum_shortname.blank?
-        render "storytime/comments/comments"
-      else
+      if Storytime.disqus_forum_shortname.present?
         render "storytime/comments/disqus"
+      elsif Storytime.discourse_name.present?
+        render "storytime/comments/discourse"
+      else
+        render "storytime/comments/comments"
       end
     end
 

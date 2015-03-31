@@ -28,7 +28,6 @@ module Storytime
 
       def create
         @snippet = Storytime::Snippet.new(snippet_params)
-        @snippet.site = Storytime::Site.first # if we ever go multi-site, this would likely become current_site
         authorize @snippet
 
         respond_with @snippet do |format|

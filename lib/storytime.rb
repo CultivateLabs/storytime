@@ -18,11 +18,6 @@ module Storytime
   mattr_accessor :dashboard_namespace_path
   @@dashboard_namespace_path = '/storytime'
 
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  mattr_accessor :home_page_path
-  @@home_page_path = '/'
-
   # Path used to sign users in. 
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
@@ -47,24 +42,41 @@ module Storytime
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 500
 
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, '', or nil setting will permit all tags.
-  mattr_accessor :whitelisted_post_html_tags
-  @@whitelisted_post_html_tags = []
+  # Hook for handling post content sanitization.
+  # Accepts either a Lambda or Proc which can be used to
+  # handle how post content is sanitized (i.e. which tags,
+  # HTML attributes to allow/disallow.
+  mattr_accessor :post_sanitizer
+  @@post_sanitizer = Proc.new do |draft_content|
+    white_list_sanitizer = if Rails::VERSION::MINOR <= 1
+      HTML::WhiteListSanitizer.new
+    else
+      Rails::Html::WhiteListSanitizer.new
+    end
+
+    attributes = %w(
+      id class href style src title width height alt value 
+      target rel align disabled
+    )
+
+    white_list_sanitizer.sanitize(draft_content, attributes: attributes)
+  end
 
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
   mattr_accessor :disqus_forum_shortname
-  @@disqus_forum_shortname = ''
-  
+  @@disqus_forum_shortname = ""
+
+  # Enable Discourse comments using your discourse server,
+  # Your discourse server must be configured for embedded comments.
+  # NOTE:  include the '/' suffix at the end of the url
+  # e.g. config.discourse_name = "http://forum.example.com"
+  mattr_accessor :discourse_name
+  @@discourse_name = ""
+
   # Email regex used to validate email format validity for subscriptions.
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
-
-  # Email address of the sender of subscription emails.
-  mattr_accessor :subscription_email_from
-  @@subscription_email_from = 'no-reply@example.com'
 
   # Hook for handling notification delivery when publishing content.
   # Accepts either a Lambda or Proc which can be setup to schedule
@@ -79,8 +91,22 @@ module Storytime
   mattr_accessor :search_adapter
   @@search_adapter = nil
 
+  # Name of the model(s) that you want to be CRUD accessible within
+  # Storytime's admin.
   mattr_accessor :admin_models
   @@admin_models = []
+
+  # AWS Region to use for file uploads.
+  mattr_accessor :aws_region
+  @@aws_region = ENV['STORYTIME_AWS_REGION']
+
+  # AWS Access Key ID to use for file uploads.
+  mattr_accessor :aws_access_key_id
+  @@aws_access_key_id = ENV['STORYTIME_AWS_ACCESS_KEY_ID']
+
+  # AWS Secret Key to use for file uploads.
+  mattr_accessor :aws_secret_key
+  @@aws_secret_key = ENV['STORYTIME_AWS_SECRET_KEY']
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
@@ -105,30 +131,6 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
-    end
-
-    def home_page_route_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site
-        if site.root_page_content == 'page'
-          { to: 'pages#show', as: :storytime_root_post }
-        else
-          { to: 'posts#index', as: :storytime_root_post }
-        end
-      else
-        { to: 'application#setup', as: :storytime_root }
-      end
-    end
-
-    def post_index_path_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site && site.root_page_content == 'posts'
-        { path: Storytime.home_page_path }
-      else
-        {}
-      end
     end
   end
 end

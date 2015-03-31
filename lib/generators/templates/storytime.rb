@@ -1,19 +1,14 @@
 Storytime.configure do |config|
-  # Name of the layout to be used. e.g. the 'application'
-  # layout uses /app/views/layout/application, in your
-  # host app, as the layout.
-  <%= @enable_layout ? nil : '# ' %>config.layout = '<%= @layout %>'
-
   # Name of the model you're using for Storytime users.
   <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
+
+  # Name of the model(s) that you want to be CRUD accessible
+  # within Storytime's admin dashboard.
+  <%= @enable_admin_models ? nil : '# ' %>config.admin_models = <%= @admin_models %>
 
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'
-
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  <%= @enable_home_page_path ? nil : '# ' %>config.home_page_path = '<%= @home_page_path %>'
 
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
@@ -35,20 +30,43 @@ Storytime.configure do |config|
   # Character limit for Storytime::Post.excerpt
   <%= @enable_post_excerpt_character_limit ? nil : '# ' %>config.post_excerpt_character_limit = <%= @post_excerpt_character_limit %>
 
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, '', or nil setting will permit all tags.
-  <%= @enable_whitelisted_html_tags ? nil : '# ' %>config.whitelisted_html_tags = <%= @whitelisted_html_tags %>
+  # Hook for handling post content sanitization.
+  # Accepts either a Lambda or Proc which can be used to
+  # handle how post content is sanitized (i.e. which tags,
+  # HTML attributes to allow/disallow.
+  # config.post_sanitizer = Proc.new do |draft_content|
+  #   white_list_sanitizer = if Rails::VERSION::MINOR <= 1
+  #     HTML::WhiteListSanitizer.new
+  #   else
+  #     Rails::Html::WhiteListSanitizer.new
+  #   end
+  #
+  #   attributes = %w(
+  #     id class href style src title width height alt value 
+  #     target rel align disabled
+  #   )
+  #
+  #   if Storytime.whitelisted_post_html_tags.blank?
+  #     white_list_sanitizer.sanitize(draft_content, attributes: attributes)
+  #   else
+  #     white_list_sanitizer.sanitize(draft_content,
+  #                                   tags: Storytime.whitelisted_post_html_tags,
+  #                                   attributes: attributes)
+  #   end
+  # end
 
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
   <%= @enable_disqus_forum_shortname ? nil : '# ' %>config.disqus_forum_shortname = '<%= @disqus_forum_shortname %>'
 
+  # Enable Discourse comments using your discourse server,
+  # Your discourse server must be configured for embedded comments.
+  # e.g. config.discourse_name = "http://forum.example.com"
+  # NOTE:  include the '/' suffix at the end of the url
+  <%= @enable_discourse_name ? nil : '# ' %>config.discourse_name = '<%= @discourse_name %>'
+
   # Email regex used to validate email format validity for subscriptions.
   <%= @enable_email_regexp ? nil : '# ' %>config.email_regexp = <%= @email_regexp %>
-
-  # Email address of the sender of subscription emails.
-  # config.subscription_email_from = 'no-reply@example.com'
 
   # Search adapter to use for searching through Storytime Posts or
   # Post subclasses. Options for the search adapter include:
@@ -77,6 +95,15 @@ Storytime.configure do |config|
 
   # File upload options.
   config.enable_file_upload = <%= @enable_file_upload %>
+
+  # AWS Region to use for file uploads.
+  # config.aws_region = <%= @aws_region %>
+
+  # AWS Access Key ID to use for file uploads.
+  # config.aws_access_key_id = <%= @aws_access_key_id %>
+
+  # AWS Secret Key to use for file uploads.
+  # config.aws_secret_key = <%= @aws_secret_key %>
 
   if Rails.env.production?
     config.media_storage = <%= @prod_media_storage %>

@@ -28,7 +28,6 @@ class Storytime.Dashboard.Wysiwyg
     "drop-font-tags": true,
     "tidy-mark": false
 
-
   init: () ->
     self = @
     self.bindTogglesToPanels()
@@ -56,6 +55,7 @@ class Storytime.Dashboard.Wysiwyg
     $("body").on 'click', '.medium-editor img', (e) ->
       active = $(this).hasClass("medium-active-image")
       unless active
+        $(".medium-editor img").removeClass("medium-active-image")
         $(this).addClass "medium-active-image"
         $("#medium-image-width").val($(this)[0].style.width)
         $("#medium-image-height").val($(this)[0].style.height)

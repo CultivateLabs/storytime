@@ -25,7 +25,6 @@ module Storytime
 
       def create
         @subscription = Storytime::Subscription.new(subscription_params)
-        @subscription.site = Storytime::Site.first if @subscription.site.nil? # if we ever go multi-site, this would likely become current_site
         authorize @subscription
 
         if @subscription.save

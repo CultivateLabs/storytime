@@ -1,0 +1,12 @@
+<li class="list-group-item" id="membership_<%= membership.id %>">
+  <%= link_to url_for(:controller => 'dashboard/users', :action => 'edit', :id => membership.user_id), class: "list-group-link storytime-modal-trigger", remote: true do %>
+    
+    <%= membership.storytime_name %>
+    <% if membership.storytime_role %>
+      <p class="text-danger no-margin"><%= membership.storytime_role.name.humanize %></p>
+    <% end %>
+  <% end %>
+  <div class="list-group-actions">
+    <%= delete_resource_link membership, dashboard_membership_url(membership) unless membership.user == current_user %>
+  </div>
+</li>

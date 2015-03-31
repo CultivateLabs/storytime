@@ -13,13 +13,21 @@ require 'nokogiri'
 require 'pundit'
 require 'simple_form'
 require 'codemirror-rails'
+require 'storytime_admin'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
 require 'storytime/concerns/controller_content_for'
+require 'storytime/concerns/current_site'
+require 'storytime/constraints/blog_homepage_constraint'
+require 'storytime/constraints/page_homepage_constraint'
+require 'storytime/constraints/blog_constraint'
+require 'storytime/constraints/page_constraint'
 require 'storytime/controller_helpers'
+require 'storytime/post_url_handler'
 require 'storytime/importers/importer'
 require 'storytime/importers/wordpress'
+require 'storytime/migrators/v1'
 
 module Storytime
   class Engine < ::Rails::Engine
@@ -32,7 +40,7 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
-        
+
         helper Storytime::SubscriptionsHelper
       end
     end
@@ -44,8 +52,9 @@ module Storytime
           config.storage = :fog
           config.fog_credentials = {
             :provider               => 'AWS',
-            :aws_access_key_id      => ENV['STORYTIME_AWS_ACCESS_KEY_ID'],
-            :aws_secret_access_key  => ENV['STORYTIME_AWS_SECRET_KEY']
+            :region                 => Storytime.aws_region,
+            :aws_access_key_id      => Storytime.aws_access_key_id,
+            :aws_secret_access_key  => Storytime.aws_secret_key
           }
           config.fog_directory  = Storytime.s3_bucket
           config.fog_public     = true
@@ -53,14 +62,14 @@ module Storytime
         else
           config.storage = :file
         end
-        
+
         config.enable_processing = !Rails.env.test?
       end
     end
 
     initializer "storytime.register_default_post_types" do
       Storytime.configure do |config|
-        config.post_types += ["Storytime::BlogPost", "Storytime::Page"]
+        config.post_types += ["Storytime::BlogPost", "Storytime::Page", "Storytime::Blog"]
       end
     end
   end

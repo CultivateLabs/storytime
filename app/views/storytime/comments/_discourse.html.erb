@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="comments">
+      <div id="discourse-comments"></div>
+      <script type="text/javascript">
+          var discourseUrl = "<%= Storytime.discourse_name %>",
+                  discourseEmbedUrl = '<%= path_for( request.original_url) %>';
+
+          (function() {
+              var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+              d.src = discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+          })();
+      </script>
+    </div>
+  </div>
+</div>
+

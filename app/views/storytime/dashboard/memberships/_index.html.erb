@@ -1,0 +1,39 @@
+<div class="scroll-panel">
+  <div class="scroll-panel-header">
+    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= link_to t('dashboard.users.create_new_user'), new_dashboard_user_path, class: "btn btn-sm btn-primary btn-outline pull-right storytime-modal-trigger", remote: true, id: "new-user-link" %>
+    <h3 class="scroll-panel-title">
+      <%= t('dashboard.users.users_header') %>
+    </h3>
+  </div>
+  <div class="scroll-panel-body">
+
+    <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+      
+    <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+    <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+    
+    <% if Storytime.user_class.non_members(@site).count > 0 %>
+      <div class="panel-group" role="tablist">
+        <div class="panel panel-default">
+          <div class="panel-heading no-padding" role="tab" id="collapseListGroupHeading1">
+            <h4 class="panel-title text-sans-serif">
+              <a class="panel-title-block-link" data-toggle="collapse" href="#collapseListGroup1" aria-expanded="true" aria-controls="collapseListGroup1">
+                Add an Existing User
+              </a>
+            </h4>
+          </div>
+          <div id="collapseListGroup1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading1">
+            <%= render "storytime/dashboard/memberships/form.html.erb" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <ul class="list-group list-group-button-links">
+      <%= render partial: 'storytime/dashboard/memberships/membership.html.erb', collection: @memberships %>
+    </ul>
+
+    <%= paginate @memberships, remote: true %>
+  </div>
+</div>

@@ -1,7 +1,12 @@
 class Storytime::ApplicationController < ApplicationController
-  layout Storytime.layout || "storytime/application"
+  layout :set_layout
+
+  before_action :ensure_site_exists
+  around_action :scope_current_site
 
   include Storytime::Concerns::ControllerContentFor
+  include Storytime::Concerns::CurrentSite
+  helper_method :current_site
   
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -14,23 +19,7 @@ class Storytime::ApplicationController < ApplicationController
     helper_method :authenticate_user!
     helper_method :current_user
     helper_method :user_signed_in?
-  end
 
-  def setup
-    url = if Storytime.user_class.count == 0
-      main_app.new_user_registration_url
-    elsif current_user.nil?
-      main_app.new_user_session_url
-    elsif Storytime::Site.count == 0
-      new_dashboard_site_url
-    else
-      url_for([:dashboard, Storytime::BlogPost])
-    end
-
-    redirect_to url
-  end
-
-  if Storytime.user_class_symbol != :user
     def authenticate_user!
       send("authenticate_#{Storytime.user_class_underscore_all}!".to_sym)
     end
@@ -44,17 +33,42 @@ class Storytime::ApplicationController < ApplicationController
     end
   end
 
+  def setup
+    url = if Storytime.user_class.count == 0
+      main_app.new_user_registration_url
+    elsif current_user.nil?
+      main_app.new_user_session_url
+    elsif Storytime::Site.count == 0
+      new_dashboard_site_url
+    else
+      url_for([:dashboard, Storytime::Page])
+    end
+
+    redirect_to url
+  end
+
 private
+  def ensure_site_exists
+    setup if Storytime::Site.count == 0
+  end
+
+  def set_layout
+    @site.layout.present? ? @site.layout : "storytime/application"
+  end
+
   def dashboard_controller
     false
   end
 
-  def ensure_site
-    redirect_to new_dashboard_site_url unless devise_controller? || @site = Storytime::Site.first
+  def scope_current_site
+    Storytime::Site.current_id = current_site(request).id
+    yield
+  ensure
+    Storytime::Site.current_id = nil
   end
   
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || storytime_root_path)
+    redirect_to(request.referrer || "/")
   end
 end

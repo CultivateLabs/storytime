@@ -8,18 +8,18 @@ module Storytime
       desc "Creates a Storytime initializer for your application."
 
       def set_local_assigns
-        @layout = 'application'
         @user_class = 'User'
+        @admin_models = ['Widget']
         @dashboard_namespace_path = '/storytime'
-        @home_page_path = '/'
         @post_types = ['CustomPostType']
         @post_title_character_limit = 100
         @post_excerpt_character_limit = 500
-        @whitelisted_html_tags = '%w(p blockquote pre h1 h2 h3 h4 h5 h6 span ul li ol table tbody td br a img iframe hr)'
-        @disqus_forum_shortname = ''
         @email_regexp = '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
         @search_adapter = "''"
         @enable_file_upload = true
+        @aws_region = "ENV['STORYTIME_AWS_REGION']"
+        @aws_access_key_id = "ENV['STORYTIME_AWS_ACCESS_KEY_ID']"
+        @aws_secret_key = "ENV['STORYTIME_AWS_SECRET_KEY']"
         @s3_bucket = 'my-s3-bucket'
         @prod_media_storage = ':s3'
         @dev_media_storage = ':file'

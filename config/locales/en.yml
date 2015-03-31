@@ -8,6 +8,9 @@ en:
         success: "%{resource_name} successfully created."
       update:
         success: "%{resource_name} successfully updated."
+    blogs:
+      destroy:
+        success: "Blog successfully deleted."
     comments:
       create:
         success: "Comment successfully created."
@@ -25,6 +28,8 @@ en:
         success: "Site successfully created."
       update:
         success: "Site successfully updated."
+      destroy:
+        success: "Site successfully deleted."
     snippets:
       create:
         success: "Text snippet successfully created."
@@ -56,7 +61,6 @@ en:
     labels:
       site:
         post_slug_style: "Post URL Style"
-        root_page_content: "Home Page Content"
         ga_tracking_id: "Google Analytics Tracking ID"
       comment:
         content: "Comment Content"
@@ -71,14 +75,16 @@ en:
       unconfigured_model: "You are attempting to access an admin page for a model that has not been configured in Storytime."
     sites:
       new: "Set Up Your Site"
-      root_page_content_hint: "Select whether to show users an index of blog posts or a static page when they land on the Storytime route."
-      root_post_id_label: "Home Page"
-      root_post_id_hint: "Select a page to direct users to when they land on the Storytime route."
+      root_post_id_label: "Homepage"
+      root_post_id_hint: "Select a page or blog to display at the path where Storytime is mounted. Leave blank to use a view from the host app."
+      subscription_email_from_label: "Email address to send subscription emails from"
       edit: "Site Settings"
       basic_info: "Basic Info"
       permissions: "Permissions"
       save_permissions: "Save"
       save_button: "Save"
+      layout_hint: "Leave blank to use the default Storytime site layout"
+      domain_hint: "Enter the full domain of your site (e.g. www.example.com)"
     users:
       users_header: "Users"
       create_new_user: "New"
@@ -95,7 +101,7 @@ en:
       select_media_from_file: "Select"
     posts:
       autosaves:
-        available: "There is an autosave of this %{resource} that is different than the version below."
+        available: "There is an autosave of this %{resource} that is newer than the version below."
         view_autosave: "View the autosave"
       select_or_create: "Select a %{resource} to Edit"
       create_post: "Create One"

@@ -4,54 +4,63 @@ describe "In the dashboard, Users" do
   context "as Admin" do
     before{ login_admin }
 
-    it "lists users", js: true do
-      FactoryGirl.create_list(:user, 3)
-      visit storytime.dashboard_path
-      click_link "utility-menu-toggle"
-      click_link "users-link"
-      
-      Storytime.user_class.all.each do |u|
-        expect(page).to have_content u.storytime_name
-      end
-    end
-
-    it "edits a user", js: true do
-      u = FactoryGirl.create :user
+    it "edits own profile", js: true do
+      u = User.last
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "profile-link"
       fill_in "user_email", with: "new_email@example.com"
       click_button "Save"
-      wait_for_ajax
-      expect(current_user.reload.email).to eq "new_email@example.com"
+
+      within "#storytime-modal" do
+        storytime_name_field = find_field('user_storytime_name').value
+        storytime_email_field = find_field('user_email').value
+
+        expect(storytime_name_field).to eq u.storytime_name
+        expect(storytime_email_field).to eq "new_email@example.com"
+      end
+    end
+
+    it "edits another user's profile", js: true do
+      FactoryGirl.create :membership, site: @current_site 
+      u = User.last
+
+      visit storytime.dashboard_path
+      click_link "utility-menu-toggle"
+      click_link "users-link"
+
+      click_link u.storytime_name
+
+      fill_in "user_email", with: "change_email@example.com"
+      click_button "Save"
+
+      within "#storytime-modal" do
+        storytime_name_field = find_field('user_storytime_name').value
+        storytime_email_field = find_field('user_email').value
+
+        expect(storytime_name_field).to eq u.storytime_name
+        expect(storytime_email_field).to eq "change_email@example.com"
+      end
     end
 
     it "creates a user", js: true do
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "users-link"
-      wait_for_ajax
+      
       click_link "new-user-link"
-      wait_for_ajax
+
+      fill_in "user_storytime_name", with: "New Storytime Username"
       fill_in "user_email", with: "new_user@example.com"
+      select "Editor", from: "Storytime role"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "Save"
-      wait_for_ajax
-      expect(Storytime.user_class.last.email).to eq "new_user@example.com"
+      
+      within "#storytime-modal" do
+        expect(page).to have_content "New Storytime Username"
+      end
     end
 
-    it "deletes a user", js: true do
-      user = FactoryGirl.create(:user)
-      visit storytime.dashboard_path
-      click_link "utility-menu-toggle"
-      click_link "users-link"
-
-      expect {
-        find("#user_#{user.id}").hover
-        click_link("delete_user_#{user.id}")
-        wait_for_ajax
-      }.to change(Storytime.user_class, :count).by(-1)
-    end
   end
 end
