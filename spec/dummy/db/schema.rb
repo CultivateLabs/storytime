@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302192759) do
+ActiveRecord::Schema.define(version: 20150331162329) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -140,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150302192759) do
     t.string   "disqus_forum_shortname"
     t.integer  "user_id"
     t.string   "custom_domain"
+    t.string   "discourse_name"
   end
 
   add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id"
