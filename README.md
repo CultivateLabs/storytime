@@ -304,7 +304,7 @@ Storytime includes a generic admin functionality, similar to ActiveAdmin, allowi
 rails g storytime_admin:resource Widget
 ```
 
-which will create a file at `app/controllers/widgets_controller.rb`
+which will create a file at `app/controllers/storytime_admin/widgets_controller.rb`
 
 If you have changed your Storytime user_class setting, you should also add a `storytime_admin.rb` config file to set the same user class for StorytimeAdmin. Then, make sure your Storytime user model has an `admin?` method:
 
