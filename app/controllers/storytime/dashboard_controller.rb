@@ -4,15 +4,14 @@ module Storytime
   class DashboardController < ApplicationController
     before_action :authenticate_user!
     before_action :verify_storytime_user, unless: ->{ Storytime::Site.count == 0 }
-    before_action :ensure_site, unless: ->{ params[:controller] == "storytime/dashboard/sites" }
     layout "storytime/dashboard"
     
-    after_action :verify_authorized
+    after_action :verify_authorized, unless: :admin_controller?
 
   private
 
     def verify_storytime_user
-      raise Pundit::NotAuthorizedError if current_user.storytime_role.nil?
+      raise Pundit::NotAuthorizedError if current_user.storytime_memberships.count == 0
     end
   
     def load_media
@@ -20,5 +19,12 @@ module Storytime
       @large_gallery = false
     end
 
+    def dashboard_controller
+      true
+    end
+
+    def admin_controller?
+      false
+    end
   end
 end

@@ -3,16 +3,16 @@ require 'pry'
 
 describe "Posts" do
   before do
-    setup_site
+    setup_site(FactoryGirl.create(:admin))
   end
   
   it "lists posts" do
-    3.times{ FactoryGirl.create(:post) }
-    static_page = FactoryGirl.create(:page)
-    visit url_for([Storytime::BlogPost, only_path: true])
+    3.times{ FactoryGirl.create(:post, blog: @current_site.blogs.first, site: @current_site) }
+    static_page = FactoryGirl.create(:page, site: @current_site)
+    visit url_for([@current_site.blogs.first, only_path: true])
 
     within ".post-list" do
-      Storytime::Post.primary_feed.each do |p|
+      @current_site.blogs.first.posts.each do |p|
         page.should have_content(p.title)
         page.should have_content(p.excerpt)
         page.should_not have_content(p.content)
@@ -24,7 +24,7 @@ describe "Posts" do
   end
 
   it "shows a post" do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post, blog: @current_site.blogs.first, site: @current_site)
     visit url_for([post, only_path: true])
 
     expect(page).to have_content(post.title)

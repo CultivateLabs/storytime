@@ -5,63 +5,63 @@ describe "In the dashboard, Snippets" do
     login_admin
   end
 
-  it "lists snippets" do
-    3.times{ FactoryGirl.create(:snippet) }
-    visit url_for([:dashboard, Storytime::Snippet])
+  it "lists snippets", js: true do
+    3.times{ FactoryGirl.create(:snippet, site: @current_site) }
+    visit storytime.dashboard_url
+    find("#snippets-link").trigger('click')
     
-    Storytime::Snippet.all.each do |s|
-      expect(page).to have_link(s.name, href: url_for([:edit, :dashboard, s, only_path: true]))
-      expect(page).to_not have_content(s.content)
+    within "#storytime-modal" do
+      Storytime::Snippet.all.each do |s|
+        expect(page).to have_link(s.name, href: url_for([:edit, :dashboard, s, only_path: true]))
+        expect(page).to_not have_content(s.content)
+      end
     end
   end
   
-  it "creates a snippet" do
-    expect(Storytime::Snippet.count).to eq(0)
+  it "creates a snippet", js: true do
+    visit storytime.dashboard_url
+    find("#snippets-link").trigger('click')
+    click_link "new-snippet-link"
 
-    visit url_for([:new, :dashboard, :snippet, only_path: true])
-    fill_in "snippet_name", with: "jumbotron-text"
-    fill_in "snippet_content", with: "Hooray Writing!"
-    
-    click_button "Create Snippet"
-    
-    expect(page).to have_content(I18n.t('flash.snippets.create.success'))
-    expect(Storytime::Snippet.count).to eq(1)
+    within "#storytime-modal" do
+      fill_in "snippet_name", with: "jumbotron-text"
+      find("#medium-editor-snippet").set("Hooray Writing!")
+      click_button "Save"
+    end
 
-    snippet = Storytime::Snippet.last
-    expect(snippet.name).to eq("jumbotron-text")
-    expect(snippet.content).to eq("Hooray Writing!")
+    within "#storytime-modal" do
+      expect(page).to have_content "jumbotron-text"
+    end
   end
 
-  it "updates a snippet" do
-    snippet = FactoryGirl.create(:snippet)
-    expect(Storytime::Snippet.count).to eq(1)
-    
-    visit url_for([:edit, :dashboard, snippet])
+  it "updates a snippet", js: true do
+    snippet = FactoryGirl.create(:snippet, site: @current_site, content: "Test")
+
+    visit storytime.dashboard_url
+    find("#snippets-link").trigger('click')
+
+    click_link "edit-snippet-#{snippet.id}"
+
     fill_in "snippet_name", with: "new-name"
-    fill_in "snippet_content", with: "It was a dark and stormy night..."
-    click_button "Update Snippet"
+    find("#medium-editor-snippet").set("It was a dark and stormy night...")
+    click_button "Save"
+
+    within "#storytime-modal" do
+      expect(page).to have_content "new-name"
+    end
+  end
+
+  it "deletes a snippet", js: true do
+    snippet = FactoryGirl.create :snippet, site: @current_site
+
+    visit storytime.dashboard_url
+    find("#snippets-link").trigger('click')
+
+    find("#snippet_#{snippet.id}").hover()
+    click_link "delete_snippet_#{snippet.id}"
     
-    expect(page).to have_content(I18n.t('flash.snippets.update.success'))
-    expect(Storytime::Snippet.count).to eq(1)
-
-    snippet = Storytime::Snippet.last
-    expect(snippet.name).to eq("new-name")
-    expect(snippet.content).to eq("It was a dark and stormy night...")
+    within "#storytime-modal" do
+      expect(page).to_not have_content snippet.name
+    end
   end
-
-  it "deletes a snippet" do
-    3.times{|i| FactoryGirl.create(:snippet) }
-    expect(Storytime::Snippet.count).to eq(3)
-
-    snippet = Storytime::Snippet.first
-    visit url_for([:edit, :dashboard, snippet, only_path: true])
-
-    click_link "Delete"
-
-    expect { snippet.reload }.to raise_error
-
-    expect(page).to_not have_content(snippet.name)
-    expect(Storytime::Snippet.count).to eq(2)
-  end
-  
 end

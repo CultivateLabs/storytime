@@ -1,0 +1,25 @@
+<%= simple_form_for [:dashboard, @blog], remote: true, html: { class: "storytime-modal-form #{@blog.new_record? ? 'new-blog-form' : 'edit-blog-form'}" } do |f| %>
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      
+      <div class="pull-right">
+        <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      </div>
+      
+      <h3 class="scroll-panel-title">
+        <%= @blog.new_record? ? "New" : "Edit" %> Blog
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+      
+      <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+      <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+
+      <%= f.error_notification %>
+      <%= f.input :title, autofocus: true %>
+      <%= f.input :slug %>
+
+    </div>
+  </div>
+<% end %>

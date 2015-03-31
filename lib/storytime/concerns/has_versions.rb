@@ -37,15 +37,24 @@ module Storytime
       end
 
       def publish!
+        self.published = "1"
         attrs = {self.class.draft_content_column => self.latest_version.content}
-        attrs[:published_at] = Time.now if published_at.blank?
         self.update_columns(attrs)
       end
 
       def published=(val)
         if val == "1"
-          self.published_at_date = Time.now.to_date
-          self.published_at_time = Time.now
+          if self.published_at_date || self.published_at_time
+            self.published_at = if self.published_at_time.nil?
+              DateTime.parse "#{self.published_at_date}"
+            elsif self.published_at_date.nil?
+              DateTime.parse "#{Date.today} #{self.published_at_time}"
+            else
+              DateTime.parse "#{self.published_at_date} #{self.published_at_time}"
+            end
+          else
+            self.published_at = Time.now unless self.published_at
+          end
         else
           self.published_at_date = nil
           self.published_at_time = nil
@@ -63,14 +72,16 @@ module Storytime
       included do
         has_many :versions, as: :versionable, dependent: :destroy
         cattr_accessor :draft_content_column
-        attr_accessor :draft_user_id
+        attr_accessor :draft_user_id, :published_at_date, :published_at_time
         attr_writer :draft_content, :draft_version_id
         after_save :create_version, :activate_version
 
         self.draft_content_column = :content
 
+        validates_presence_of :draft_content
+
         scope :published, -> { where("published_at IS NOT NULL").where("published_at <= ?", Time.now) }
-        scope :draft, -> { where("published_at IS NULL") }
+        scope :draft, -> { where("published_at IS NULL OR published_at > ?", Time.now) }
       end
 
       module ClassMethods

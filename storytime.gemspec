@@ -13,8 +13,10 @@ Gem::Specification.new do |s|
   s.description = "A simple cms and blogging engine for rails apps."
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = `git ls-files -z`.split("\x0")
+  s.executables << 'storytime'
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/public/uploads/**/*"]
+  s.require_paths = ["lib"]
 
   s.add_dependency "rails", ">= 4.0"
   s.add_dependency "pundit", ">= 0.2"
@@ -32,9 +34,13 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", ">= 1.6"
   s.add_dependency "font-awesome-sass", ">= 4.0.3"
   s.add_dependency "jquery-ui-rails", "~> 5.0"
+  s.add_dependency "thor", "~> 0.19.1"
+  s.add_dependency "leather", "3.3.3.2"
+  s.add_dependency "codemirror-rails", "~> 4.8"
+  s.add_dependency "storytime-admin"
+  s.add_dependency "devise", ">= 3.2"
   
-  s.add_development_dependency "devise", "~> 3.2"
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"
   s.add_development_dependency "poltergeist", "~>1.5"
@@ -49,5 +55,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "better_errors"
   s.add_development_dependency "binding_of_caller"
   s.add_development_dependency "launchy"
-  
+  s.add_development_dependency "thin"
 end

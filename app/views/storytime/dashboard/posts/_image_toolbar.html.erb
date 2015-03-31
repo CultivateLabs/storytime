@@ -1,0 +1,32 @@
+<div class="scroll-panel-header" style="top: 65px;">
+  <div id="image-tools-panel" class="">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div id="medium-image-button">
+            <%= link_to "Insert Image", "#", class: "btn btn-sm btn-default insert-media-button"%>
+            <span id="draft_last_saved_at"></span>
+          </div>
+          <div class='medium-image-controls'>
+            <div class='row'>
+              <div class='col-xs-3'>
+                <input type='text' id='medium-image-width' placeholder='Width' class='form-control input-sm' />
+              </div>
+              <div class='col-xs-3'>
+                <input type='text' id='medium-image-height' placeholder='Height' class='form-control input-sm' />
+              </div>
+              <div class='col-xs-6'>
+                <div class='btn-group btn-group-sm'>
+                  <a href='#' class='btn btn-default medium-image-float' data-float='left'><i class='fa fa-align-left'></i></a>
+                  <a href='#' class='btn btn-default medium-image-float' data-float='none'><i class='fa fa-align-justify'></i></a>
+                  <a href='#' class='btn btn-default medium-image-float' data-float='right'><i class='fa fa-align-right'></i></a>
+                  <a href='#' class='btn btn-default medium-image-delete'><i class='fa fa-trash-o'></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

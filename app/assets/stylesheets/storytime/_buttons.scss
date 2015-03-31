@@ -1,0 +1,63 @@
+.btn-primary.btn-outline:active, .btn-primary.btn-outline:focus {
+  color: #fff;
+}
+
+.btn {
+  text-transform: uppercase;
+  font-weight: lighter;
+  border-radius: 0;
+
+  &.btn-delete-resource {
+    i {
+      position: relative;
+      top: 1px;
+    }
+  }
+
+  &.btn-icon, &.btn-icon:active, &.btn-icon:focus {
+    font-size: 28px;
+    line-height: 30px;
+    padding: 0;
+    border: none;
+    outline: none;
+    @include box-shadow(none);
+    background: transparent;
+
+    &:hover {
+      background: transparent;
+    }
+
+    i {
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  &.margin-right {
+    margin-right: 10px;
+  }
+
+  &.margin-left {
+    margin-left: 10px;
+  }
+}
+
+.btn-primary {
+  @include button-variant($st-btn-primary-color, $st-btn-primary-bg, $st-btn-primary-border);
+}
+
+.btn-danger {
+  @include button-variant($st-btn-danger-color, $st-btn-danger-bg, $st-btn-danger-border);
+}
+
+.btn-outline {
+  background-color: transparent;
+
+  &.btn-primary {
+    @include btn-outline-variant($st-btn-primary-color, $st-btn-primary-bg);
+  }
+
+  &.btn-danger {
+    @include btn-outline-variant($st-btn-danger-color, $st-btn-danger-bg);
+  }
+}

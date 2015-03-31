@@ -1,0 +1,1 @@
+json.html(render partial: "storytime/dashboard/blogs/blog.html.erb", collection: Storytime::Blog.all)

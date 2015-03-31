@@ -1,0 +1,5 @@
+.dropdown-menu {
+  border: 1px solid $st-dropdown-fallback-border; // IE8 fallback
+  border: 1px solid $st-dropdown-border;
+  border-radius: 0;
+}

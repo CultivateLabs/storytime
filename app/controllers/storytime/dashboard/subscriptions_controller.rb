@@ -11,7 +11,7 @@ module Storytime
 
       skip_after_action :verify_authorized, only: [:unsubscribe]
 
-      respond_to :json, only: :destroy
+      respond_to :json, only: [:index, :new, :create, :edit, :update, :destroy]
 
       def index
         authorize @subscriptions
@@ -20,31 +20,34 @@ module Storytime
       def new
         @subscription = Storytime::Subscription.new
         authorize @subscription
+        render :form
       end
 
       def create
         @subscription = Storytime::Subscription.new(subscription_params)
-        @subscription.site = Storytime::Site.first if @subscription.site.nil? # if we ever go multi-site, this would likely become current_site
         authorize @subscription
 
         if @subscription.save
-          redirect_to dashboard_subscriptions_path, notice: I18n.t('flash.subscriptions.create.success')
+          load_subscriptions
+          render :index
         else
-          render :new
+          render :form, status: 422
         end
       end
 
       def edit
         authorize @subscription
+        render :form
       end
 
       def update
         authorize @subscription
 
         if @subscription.update(subscription_params)
-          redirect_to dashboard_subscriptions_path, notice: I18n.t('flash.subscriptions.update.success')
+          load_subscriptions
+          render :index
         else
-          render :edit
+          render :form, status: 422
         end
       end
 

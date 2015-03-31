@@ -1,0 +1,13 @@
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $st-headings-font-family;
+  font-weight: $st-headings-font-weight;
+}
+
+.serif {
+  font-family: $st-font-family-serif;
+}
+
+.text-sans-serif {
+  font-family: $st-font-family-sans-serif;
+}

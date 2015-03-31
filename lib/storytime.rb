@@ -1,14 +1,12 @@
-require "storytime/engine"
-require "storytime/mysql_search_adapter"
-require "storytime/mysql_fulltext_search_adapter"
-require "storytime/postgres_search_adapter"
-require "storytime/sqlite3_search_adapter"
+require 'rails'
+require 'storytime/engine'
 
 module Storytime
   autoload :MysqlSearchAdapter,         'storytime/mysql_search_adapter'
   autoload :MysqlFulltextSearchAdapter, 'storytime/mysql_fulltext_search_adapter'
   autoload :PostgresSearchAdapter,      'storytime/postgres_search_adapter'
   autoload :Sqlite3SearchAdapter,       'storytime/sqlite3_search_adapter'
+  autoload :StorytimeHelpers,           'storytime/storytime_helpers'
   autoload :PostNotifier,               'storytime/post_notifier'
 
   # Model to use for Storytime users.
@@ -18,12 +16,7 @@ module Storytime
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   mattr_accessor :dashboard_namespace_path
-  @@dashboard_namespace_path = "/storytime"
-
-  # Path of Storytime's home page, relative to
-  # Storytime's mount point within the host app.
-  mattr_accessor :home_page_path
-  @@home_page_path = "/"
+  @@dashboard_namespace_path = '/storytime'
 
   # Path used to sign users in. 
   mattr_accessor :login_path
@@ -41,19 +34,13 @@ module Storytime
   mattr_accessor :enable_file_upload
   @@enable_file_upload = true
 
-  # Character limit for Storytime::Post.title <= 255
+  # Character limit for Storytime::Post.title <= 100
   mattr_accessor :post_title_character_limit
-  @@post_title_character_limit = 255
+  @@post_title_character_limit = 100
 
   # Character limit for Storytime::Post.excerpt
   mattr_accessor :post_excerpt_character_limit
   @@post_excerpt_character_limit = 500
-
-  # Array of tags to allow from the Summernote WYSIWYG
-  # Editor when editing Posts and custom post types.
-  # An empty array, "", or nil setting will permit all tags.
-  mattr_accessor :whitelisted_post_html_tags
-  @@whitelisted_post_html_tags = []
 
   # Hook for handling post content sanitization.
   # Accepts either a Lambda or Proc which can be used to
@@ -72,13 +59,7 @@ module Storytime
       target rel align disabled
     )
 
-    if Storytime.whitelisted_post_html_tags.blank?
-      white_list_sanitizer.sanitize(draft_content, attributes: attributes)
-    else
-      white_list_sanitizer.sanitize(draft_content,
-                                    tags: Storytime.whitelisted_post_html_tags,
-                                    attributes: attributes)
-    end
+    white_list_sanitizer.sanitize(draft_content, attributes: attributes)
   end
 
   # Enable Disqus comments using your forum's shortname,
@@ -97,10 +78,6 @@ module Storytime
   mattr_accessor :email_regexp
   @@email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
-  # Email address of the sender of subscription emails.
-  mattr_accessor :subscription_email_from
-  @@subscription_email_from = "no-reply@example.com"
-
   # Hook for handling notification delivery when publishing content.
   # Accepts either a Lambda or Proc which can be setup to schedule
   # a ActiveJob (Rails 4.2+).
@@ -112,7 +89,24 @@ module Storytime
   # Storytime::PostgresSearchAdapter, Storytime::MysqlSearchAdapter,
   # Storytime::MysqlFulltextSearchAdapter, Storytime::Sqlite3SearchAdapter
   mattr_accessor :search_adapter
-  @@search_adapter = ''
+  @@search_adapter = nil
+
+  # Name of the model(s) that you want to be CRUD accessible within
+  # Storytime's admin.
+  mattr_accessor :admin_models
+  @@admin_models = []
+
+  # AWS Region to use for file uploads.
+  mattr_accessor :aws_region
+  @@aws_region = ENV['STORYTIME_AWS_REGION']
+
+  # AWS Access Key ID to use for file uploads.
+  mattr_accessor :aws_access_key_id
+  @@aws_access_key_id = ENV['STORYTIME_AWS_ACCESS_KEY_ID']
+
+  # AWS Secret Key to use for file uploads.
+  mattr_accessor :aws_secret_key
+  @@aws_secret_key = ENV['STORYTIME_AWS_SECRET_KEY']
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
@@ -137,35 +131,6 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
-    end
-
-    def snippet(name)
-      snippet = Storytime::Snippet.find_by(name: name)
-      snippet.nil? ? "" : snippet.content.html_safe
-    end
-
-    def home_page_route_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site
-        if site.root_page_content == "page"
-          { to: "pages#show", as: :storytime_root_post }
-        else
-          { to: "posts#index", as: :storytime_root_post }
-        end
-      else
-        { to: "application#setup", as: :storytime_root }
-      end
-    end
-
-    def post_index_path_options
-      site = Storytime::Site.first if ActiveRecord::Base.connection.table_exists? 'storytime_sites'
-
-      if site && site.root_page_content == "posts"
-        { path: Storytime.home_page_path }
-      else
-        {}
-      end
     end
   end
 end

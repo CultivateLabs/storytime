@@ -1,0 +1,10 @@
+<div class="btn-group pull-right">
+  <button type="button" class="btn btn-primary btn-outline btn-sm dropdown-toggle" data-toggle="dropdown">
+    New &nbsp;<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+    <% Storytime.post_types.reject{|type| %w[Storytime::Post Storytime::Page Storytime::Blog].include? type }.each do |post_type| %>
+      <li><%= link_to "#{post_type.split('::').last.titleize}", [:new, :dashboard, @blog, post_type.split("::").last.tableize.singularize] %></li>
+    <% end %>
+  </ul>
+</div>

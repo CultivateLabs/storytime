@@ -1,0 +1,76 @@
+  .CodeMirror {
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+  }
+
+
+  .contenteditable {
+    cursor: text;
+  }
+
+  .contenteditable:empty:before {
+    content: attr(placeholder);
+    color: #ccc;
+  }
+
+  .row.page-admin {
+    padding: 10px;
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+
+  #tag_cloud {
+    width: 400px;
+    line-height: 1.6em;
+    .s { font-size: 0.8em; }
+    .m { font-size: 1.2em; }
+    .l { font-size: 1.8em; }
+  }
+
+  .muted { color: lighten(#333, 50%); }
+  .label {
+    a, a:hover {
+      color: #fff;
+    }
+  }
+
+  .post_field {
+    margin: 15px 0px;
+  }
+
+  .notify_subscribers_checkbox {
+    margin-right: 30px;
+    margin-top: -3px;
+  }
+
+  .post-action-panel {
+    background: #fff;
+    border-bottom: 1px solid #f1f1f1;
+    margin: -20px -20px 20px -20px;
+  }
+
+  #title_character_limit {
+    position: relative;
+    top: 21px;
+    left: -29px;
+  }
+
+  .note-editable:empty:before {
+    content: "Write here...";
+    color: #ccc;
+  }
+
+  #published_at_date, #published_at_time {
+    cursor: pointer;
+    background: #fff;
+  }
+
+  #draft_last_saved_at{
+    margin-left: 25px;
+  }

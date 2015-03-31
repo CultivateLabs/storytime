@@ -5,45 +5,49 @@ module Storytime
     class SnippetsController < DashboardController
       before_action :set_snippet, only: [:edit, :update, :destroy]
       before_action :load_snippets
-      before_action :load_media, only: [:new, :edit]
+      before_action :load_media, only: [:new, :edit, :update, :create]
       
-      respond_to :json, only: :destroy
+      respond_to :json
       respond_to :html, only: :destroy
 
       def index
         authorize @snippets
+        respond_with @snippets
       end
 
       def new
         @snippet = Storytime::Snippet.new
         authorize @snippet
+        respond_with @snippet
       end
 
       def edit
         authorize @snippet
+        respond_with @snippet
       end
 
       def create
         @snippet = Storytime::Snippet.new(snippet_params)
-        @snippet.site = Storytime::Site.first # if we ever go multi-site, this would likely become current_site
         authorize @snippet
 
-        if @snippet.save
-          redirect_to url_for([:edit, :dashboard, @snippet]), notice: I18n.t('flash.snippets.create.success')
-        else
-          load_media
-          render :new
+        respond_with @snippet do |format|
+          if @snippet.save
+            format.json { render :index }
+          else
+            format.json { render :new, status: :unprocessable_entity }
+          end
         end
       end
 
       def update
         authorize @snippet
-        
-        if @snippet.update(snippet_params)
-          redirect_to url_for([:edit, :dashboard, @snippet]), notice: I18n.t('flash.snippets.update.success')
-        else
-          load_media
-          render :edit
+
+        respond_with @snippet do |format|
+          if @snippet.update(snippet_params)
+            format.json { render :index }
+          else
+            format.json { render :edit, status: :unprocessable_entity }
+          end
         end
       end
 
@@ -69,7 +73,7 @@ module Storytime
       end
 
       def load_snippets
-        @snippets = Storytime::Snippet.order(created_at: :desc).page(params[:page_number]).per(10)
+        @snippets = Storytime::Snippet.order(created_at: :desc).page(params[:page_number]).per(20)
       end
 
     end

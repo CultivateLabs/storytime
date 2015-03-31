@@ -1,16 +1,24 @@
 <div id="addSubscriptionModal" class='modal fade'>
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div class='modal-header'>
-        <a class='close' data-dismiss='modal'>&times;</a>
-        <h4><%= t 'layout.subscribe_to', site_name: @site.title %></h4>
-      </div>
-      <div class='modal-body'>
-        <p><%= t 'layout.subscribe_modal_msg', site_name: @site.title %></p>
-
-        <br>
-        <%= storytime_email_subscription_form %>
-      </div>
+      <%= simple_form_for Storytime::Subscription.new do |f| %>
+        <div class='modal-header'>
+          <a class='close' data-dismiss='modal'>&times;</a>
+          <h4 class="modal-title"><%= t 'layout.subscribe_to', site_name: @site.title %></h4>
+        </div>
+        <div class='modal-body'>
+          <p><%= t 'layout.subscribe_modal_msg', site_name: @site.title %></p>
+          <%= f.input :site_id, as: :hidden, input_html: { value: @site.id }  %>
+          <div class="storytime-subscription-input">
+            <%= f.input :email, label: false, placeholder: "Email" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="storytime-subscription-submit">
+            <%= f.submit "Subscribe", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

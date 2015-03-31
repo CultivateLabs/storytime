@@ -1,0 +1,19 @@
+<div class="scroll-panel">
+  <div class="scroll-panel-header">
+    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= link_to "New", new_dashboard_subscription_path, class: "btn btn-sm btn-primary btn-outline pull-right storytime-modal-trigger", remote: true, id: "new-subscription-link" %>
+    <h3 class="scroll-panel-title">
+      Subscriptions
+    </h3>
+  </div>
+  <div class="scroll-panel-body">
+
+    <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+    
+    <ul class="list-group list-group-button-links">
+      <%= render partial: 'subscription.html.erb', collection: @subscriptions %>
+    </ul>
+
+    <%= paginate @subscriptions, param_name: "page_number", remote: true %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.well {
+  background-color: #ECEBEB;
+  border: none;
+  @include box-shadow(none);
+  border-radius: 0;
+
+  .btn-primary {
+    background: #fff;
+
+    &:hover, &:focus, &:active {
+      color: $brand-primary;
+    }
+  }
+}

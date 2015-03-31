@@ -5,48 +5,56 @@ describe "In the dashboard, Subscriptions" do
     login_admin
   end
 
-  it "lists subscriptions" do
-    3.times{ FactoryGirl.create(:subscription) }
-    visit url_for([:dashboard, Storytime::Subscription])
+  it "lists subscriptions", js: true do
+    3.times{ FactoryGirl.create(:subscription, site: @current_site) }
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    # wait_for_ajax
 
     Storytime::Subscription.all.each do |s|
-      expect(page).to have_link("Edit", href: url_for([:edit, :dashboard, s]))  
+      expect(page).to have_content s.email
     end
   end
 
-  it "creates a subscription" do
-    expect(Storytime::Subscription.count).to eq(0)
+  it "creates a subscription", js: true do
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    # wait_for_ajax
+    click_link "new-subscription-link"
+    # wait_for_ajax
 
-    visit url_for([:new, :dashboard, :subscription, only_path: true])
     fill_in "subscription_email", with: "some_random_email@example.com"
-
-    click_button "Create Subscription"
-
-    expect(page).to have_content(I18n.t('flash.subscriptions.create.success'))
-    expect(Storytime::Subscription.count).to eq(1)
-
-    subscription = Storytime::Subscription.last
-
-    expect(subscription.email).to eq("some_random_email@example.com")
-    expect(subscription.token).to_not eq(nil)
+    click_button "Save"
+      
+    within "#storytime-modal" do
+      expect(page).to have_content "some_random_email@example.com"
+    end
   end
 
-  it "updates a subscription" do
-    subscription = FactoryGirl.create(:subscription)
+  it "updates a subscription", js: true do
+    subscription = FactoryGirl.create(:subscription, site: @current_site)
 
     expect(Storytime::Subscription.count).to eq(1)
     expect(subscription.subscribed?).to eq(true)
 
-    visit url_for([:edit, :dashboard, subscription])
-    fill_in "subscription_email", with: "johndoe@example.com"
-    uncheck "subscription_subscribed"
-    click_button "Update Subscription"
+    visit storytime.dashboard_path
+    click_link "utility-menu-toggle"
+    click_link "subscriptions-link"
+    
+    within "#storytime-modal" do
+      click_link "edit-subscription-#{subscription.id}"
+    end
 
-    expect(page).to have_content(I18n.t('flash.subscriptions.update.success'))
+    within "#storytime-modal" do
+      fill_in "subscription_email", with: "johndoe@example.com"
+      uncheck "subscription_subscribed"
+      click_button "Save"
+    end
 
-    subscription.reload
-
-    expect(subscription.email).to eq("johndoe@example.com")
-    expect(subscription.subscribed?).to eq(false)
+    within "#storytime-modal" do 
+      expect(page).to have_content "johndoe@example.com"
+    end
   end
 end

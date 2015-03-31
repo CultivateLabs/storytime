@@ -1,15 +1,29 @@
-<%= simple_form_for [:dashboard, @snippet] do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name, autofocus: true %>
-  <%= f.input :content, as: :text, input_html: { rows: 20, class: "summernote" } %>
+<%= simple_form_for [:dashboard, @snippet], remote: true, html: { class: "storytime-modal-form #{'edit-snippet-form' unless @snippet.new_record?}", data: { redirect: "index" } } do |f| %>
+  <div class="scroll-panel wysiwyg" id="wysiwyg-snippet">
+    <div class="scroll-panel-header">
+      <%= link_to icon("angle-left"), [:dashboard, Storytime::Snippet], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
+      <div class="pull-right">
+        <%= link_to "HTML", "#", class: "toggle-codemirror btn btn-sm btn-default", style: "margin-right: 10px;", data: { toggle: "codemirror" }  %>
+        <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      </div>
+      
+      <h3 class="scroll-panel-title">
+        <%= @snippet.new_record? ? "New" : "Edit" %> Text Snippet
+      </h3>
+    </div>
+    <div class="scroll-panel-body">
+      
+      <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+      <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
 
-  <div class="actions">
-    <%= link_to "Delete", [:dashboard, @snippet], method: :delete, data: { confirm: t('common.are_you_sure_you_want_to_delete', resource_name: "Snippet") }, class: "btn btn-danger" unless @snippet.new_record? %>
-
-    <div class="pull-right">
-      <%= f.submit class: "btn #{@snippet.persisted? ? 'btn-default' : 'btn-primary'} save" %>
+      <%= f.error_notification %>
+      <%= f.input :name, autofocus: true %>
+      <div class="editor">
+        <!-- Do not add any extra whitespace inside this div. It gets copied into the post content. -->
+        <div class="medium-editor" id="medium-editor-snippet" data-input="#snippet_content" contenteditable='true' style="outline: none;"><%= raw @snippet.content %></div>
+      </div>
+      <%= f.input :content, as: :text, label: false, input_html: { class: "codemirror" }  %>
+      
     </div>
   </div>
 <% end %>
-
-<%= render "storytime/dashboard/media/modal" %>

@@ -3,7 +3,7 @@
     <div class='modal-content'>
       <div class='modal-header'>
         <a class='close' data-dismiss='modal'>&times;</a>
-        <h4><%= t('dashboard.media.select_media') %></h4>
+        <h4 class='modal-title'><%= t('dashboard.media.select_media') %></h4>
       </div>
       <div class='modal-body'>
         <div class="clearfix hide">
@@ -15,8 +15,8 @@
         </div>
 
         <div>
-          <%= render "storytime/dashboard/media/form" %>
-          <%= render "storytime/dashboard/media/gallery" %>
+          <%= render "storytime/dashboard/media/form.html.erb" %>
+          <div id="media_gallery_container"><%= render "storytime/dashboard/media/gallery.html.erb" %></div>
         </div>
       </div>
       <div class='modal-footer'>
