@@ -13,17 +13,13 @@ module Storytime
     def show
       params[:id] = params[:id].split("/").last
 
-      @post = begin
-        if params[:preview]
-          Post.find_preview(params[:id])
-        else
-          Post.published.friendly.find(params[:id])
-        end
-      rescue ActiveRecord::RecordNotFound
-        nil
+      return super unless Post.published.friendly.exists? params[:id]
+
+      @post = if params[:preview]
+        Post.find_preview(params[:id])
+      else
+        Post.published.friendly.find(params[:id])
       end
-      
-      return super if @post.nil?
 
       authorize @post
       
@@ -43,10 +39,10 @@ module Storytime
     private 
 
       def set_layout
-        if @post.nil?
-          HighVoltage.layout
-        else
+        if Post.published.friendly.exists? params[:id]
           super
+        else
+          HighVoltage.layout
         end
       end
   end
