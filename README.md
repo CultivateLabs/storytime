@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
 
-Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content.
+Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
 
 ## Features
 
@@ -10,10 +10,32 @@ Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content.
 * [Quick access dashboard](https://github.com/FlyoverWorks/storytime/wiki/Using-the-Quick-Access-Menu) - Access Storytime's dashboard from anywhere on your site with our quick access menu.
 * [Multi-site support](https://github.com/FlyoverWorks/storytime/wiki/Multi-site-Support) - Manage multiple sites with one Storytime deployment.
 * [Inline text snippet editing](https://github.com/FlyoverWorks/storytime/wiki/Text-Snippets) - Create and edit snippets of content that can be re-used throughout your Storytime site.
-* [CRUD support for managing models](https://github.com/FlyoverWorks/storytime/wiki/Managing-Models) - Manage your models from the Storytime dashboard.
+* [Admin of other Rails models](https://github.com/FlyoverWorks/storytime/wiki/Admin-of-Rails-Models) - Manage your models from the Storytime dashboard.
+* [Custom Post Types](https://github.com/FlyoverWorks/storytime/wiki/Using-Custom-Post-Types) - Add custom post types to alter functionality or appearance of posts.
 * [Email list building](https://github.com/FlyoverWorks/storytime/wiki/Email-Subscriptions) - Collect and manage emails using a simple view helper.
 * [New post notifications](https://github.com/FlyoverWorks/storytime/wiki/Working-with-New-Post-Notifications) - Send notifications to your site's subscribers whenever you publish a post.
 * [Built-in search](https://github.com/FlyoverWorks/storytime/wiki/Using-Storytime%27s-Post-Search) - Easily search through Storytime's posts using built-in search adapters or request parameters.
+
+## Separation of Concerns
+
+Storytime is built around several opinions regarding the responsibilities and concerns of the CMS and the host app.
+
+Storytime is responsible for:
+* Editing **content**, **copy**, and very **basic formatting** (basic formatting roughly = things you could do in markdown)
+* Enabling customization, extension, and theming
+* Basic CRUD administration of other Rails models
+
+Host app is responsible for:
+* Complex page structure (HTML), styling (CSS), and interactions (JavaScript)
+* App-specific details or customizations (e.g. Storytime tells the host app to send a post notification email, host app decides how to send the email, whether it should be in a background job, etc.) 
+* Presentation details -- we like to think of the host app as providing the "theme" for the Storytime site.
+
+This separation is intended to provide several benefits and/or solve several problems:
+* *Problem:* Building complex page structure and styling inside the CMS prevents the code from going into version control
+* *Problem:* If complex page structure is in the CMS, it becomes much easier to break on production sites.
+
+* *Benefit:* If complex page structure stays in the host app and CMS users just edit content/copy, code goes into version control and pages are much less likely to break.
+* *Benefit:* Combining admin and CMS/blog features in one place gives site administrators **a single place to edit content** (rather than requiring both a CMS/blog and something like ActiveAdmin or RailsAdmin).
 
 ## Sample App
 
