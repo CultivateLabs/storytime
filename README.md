@@ -1,4 +1,6 @@
-# Storytime [![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
+![Storytime](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/125/final-st-logo-02_thumb.png) 
+
+[![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
 
 Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content.
 
