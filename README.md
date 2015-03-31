@@ -13,6 +13,10 @@ Storytime is Rails 4+ CMS and blogging engine, with a core focus on content.
 * New post notifications
 * Built-in search
 
+## Sample App
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/flyoverworks/storytime-example)
+
 ## Installation
 
 Add Storytime to your Gemfile:
@@ -100,6 +104,10 @@ Finally, fire up your Rails server and access the Storytime dashboard, by defaul
 ```console
 $ rails generate storytime:views
 ```
+
+## Getting Started
+
+See the [Storytime Wiki](https://github.com/FlyoverWorks/storytime/wiki) for more documentation and information on using Storytime's various features.
 
 ## Screen Shots
 
