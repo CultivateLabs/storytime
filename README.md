@@ -1,17 +1,17 @@
 # Storytime [![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
 
-Storytime is Rails 4+ CMS and blogging engine, with a core focus on content.
+Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content.
 
 ## Features
 
-* Simple integration with Rails 4+ apps
-* Quick access dashboard
-* Multi-site support
-* Inline text snippet editing
-* CRUD support for managing models
-* Email list building
-* New post notifications
-* Built-in search
+* [Simple integration with Rails 4+ apps](https://github.com/FlyoverWorks/storytime/wiki/Setup) - Quickly get set up using a guided, automated, or manual setup experience, whatever suits your fancy.
+* [Quick access dashboard](https://github.com/FlyoverWorks/storytime/wiki/Using-the-Quick-Access-Menu) - Access Storytime's dashboard from anywhere on your site with our quick access menu.
+* [Multi-site support](https://github.com/FlyoverWorks/storytime/wiki/Multi-site-Support) - Manage multiple sites with one Storytime deployment.
+* [Inline text snippet editing](https://github.com/FlyoverWorks/storytime/wiki/Text-Snippets) - Create and edit snippets of content that can be re-used throughout your Storytime site.
+* [CRUD support for managing models](https://github.com/FlyoverWorks/storytime/wiki/Managing-Models) - Manage your models from the Storytime dashboard.
+* [Email list building](https://github.com/FlyoverWorks/storytime/wiki/Email-Subscriptions) - Collect and manage emails using a simple view helper.
+* [New post notifications](https://github.com/FlyoverWorks/storytime/wiki/Working-with-New-Post-Notifications) - Send notifications to your site's subscribers whenever you publish a post.
+* [Built-in search](https://github.com/FlyoverWorks/storytime/wiki/Using-Storytime%27s-Post-Search) - Easily search through Storytime's posts using built-in search adapters or request parameters.
 
 ## Sample App
 
