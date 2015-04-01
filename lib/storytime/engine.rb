@@ -34,6 +34,7 @@ module Storytime
     isolate_namespace Storytime
 
     initializer "storytime.helpers" do
+      ActionView::Base.send :include, Storytime::ApplicationHelper
       ActionView::Base.send :include, Storytime::StorytimeHelpers
     end
 
