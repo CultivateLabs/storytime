@@ -46,6 +46,15 @@ module Storytime
       end
     end
 
+    # Register all decorators from app/decorators/
+    initializer "storytime.decorators" do
+      config.to_prepare do
+        Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
+          require_dependency(c)
+        end
+      end
+    end
+
     # putting this here rather than config/initializers so that Storytime is configured before getting there
     initializer "storytime.configure_carrierwave" do
       CarrierWave.configure do |config|
