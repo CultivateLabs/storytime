@@ -15,10 +15,9 @@ module Storytime
         end
       end
 
-      def self.set_site_layout_and_subscription_email_from
+      def self.set_site_layout
         Storytime::Site.find_each do |site|
           site.update_column "layout", Storytime.layout
-          site.update_column "subscription_email_from", Storytime.subscription_email_from
         end
       end
 
