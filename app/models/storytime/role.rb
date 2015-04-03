@@ -6,6 +6,14 @@ module Storytime
 
     validates :name, uniqueness: true
 
+    def editor?
+      name == "editor"
+    end
+
+    def writer?
+      name == "writer"
+    end
+
     def admin?
       name == "admin"
     end
