@@ -6,6 +6,10 @@ module Storytime
 
     validates :name, uniqueness: true
 
+    def admin?
+      name == "admin"
+    end
+
     def label
       name.humanize
     end
