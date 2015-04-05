@@ -79,7 +79,8 @@ module Storytime
       end
     end
 
-    def respond_to?(method)
+    def respond_to?(*args)
+      method = args.first
       if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
         if main_app.respond_to?(method)
           true
