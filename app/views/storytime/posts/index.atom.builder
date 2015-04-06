@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title @site.title
+  feed.title @current_storytime_site.title
   feed.updated @posts.maximum(:updated_at)
   
   @posts.each do |post|

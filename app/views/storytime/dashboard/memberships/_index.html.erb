@@ -13,7 +13,7 @@
     <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
     <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
     
-    <% if Storytime.user_class.non_members(@site).count > 0 %>
+    <% if Storytime.user_class.non_members(@current_storytime_site).count > 0 %>
       <div class="panel-group" role="tablist">
         <div class="panel panel-default">
           <div class="panel-heading no-padding" role="tab" id="collapseListGroupHeading1">

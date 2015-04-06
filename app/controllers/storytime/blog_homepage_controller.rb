@@ -4,7 +4,7 @@ module Storytime
   class BlogHomepageController < BlogsController
   private
     def load_page
-      @page = @site.homepage
+      @page = @current_storytime_site.homepage
     end
   end
 end

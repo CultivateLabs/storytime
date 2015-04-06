@@ -1,7 +1,7 @@
 <%= simple_form_for [:dashboard, Storytime::Membership.new], remote: true do |f| %>
   <div class="panel-body">
     <div class="row">
-      <div class="col-xs-6"><%= f.association :user, collection: Storytime.user_class.non_members(@site), label_method: :email, label: false, input_html: { class: "chosen", data: { placeholder: "Select a user" } }, wrapper_html: { class: "no-margin" } %></div>
+      <div class="col-xs-6"><%= f.association :user, collection: Storytime.user_class.non_members(@current_storytime_site), label_method: :email, label: false, input_html: { class: "chosen", data: { placeholder: "Select a user" } }, wrapper_html: { class: "no-margin" } %></div>
       <div class="col-xs-6"><%= f.association :storytime_role, label: false, label_method: :label, include_blank: false, wrapper_html: { class: "no-margin" } %></div>
     </div>
   </div>

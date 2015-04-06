@@ -11,7 +11,7 @@
 
       <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
       
-      <%= f.input :site_id, as: :hidden, input_html: { value: @site.id }  %>
+      <%= f.input :site_id, as: :hidden, input_html: { value: @current_storytime_site.id }  %>
       <%= f.input :email %>
       <%= f.input :subscribed, as: :boolean unless @subscription.new_record? %>
     </div>

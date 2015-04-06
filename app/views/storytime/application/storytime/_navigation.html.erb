@@ -1,4 +1,4 @@
-<% if user_signed_in? && !devise_controller? && current_user.storytime_user?(@site) %>
+<% if user_signed_in? && !devise_controller? && current_user.storytime_user?(@current_storytime_site) %>
   <% unless dashboard_controller %>
     <div class="storytime">
   <% end %>

@@ -7,12 +7,12 @@ module Storytime
       respond_to :json
 
       def edit_multiple
-        authorize @site, :update?
+        authorize @current_storytime_site, :update?
         render :edit
       end
 
       def update_multiple
-        authorize @site, :update?
+        authorize @current_storytime_site, :update?
         @roles = Storytime::Role.update(params[:roles].keys, params[:roles].values)
         render :edit
       end

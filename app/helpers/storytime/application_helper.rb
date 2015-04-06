@@ -2,7 +2,7 @@ module Storytime
   module ApplicationHelper
 
     def logged_in_storytime_user?
-      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(@site)
+      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(@current_storytime_site)
     end
 
     def dashboard_nav_site_path(site)
@@ -58,9 +58,9 @@ module Storytime
     end
 
     def render_comments
-      if @site.disqus_forum_shortname.present?
+      if @current_storytime_site.disqus_forum_shortname.present?
         render "storytime/comments/disqus"
-      elsif @site.discourse_name.present?
+      elsif @current_storytime_site.discourse_name.present?
         render "storytime/comments/discourse"
       else
         render "storytime/comments/comments"

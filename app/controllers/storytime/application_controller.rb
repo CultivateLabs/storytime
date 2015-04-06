@@ -53,7 +53,7 @@ private
   end
 
   def set_layout
-    @site.layout.present? ? @site.layout : "storytime/application"
+    @current_storytime_site.layout.present? ? @current_storytime_site.layout : "storytime/application"
   end
 
   def dashboard_controller

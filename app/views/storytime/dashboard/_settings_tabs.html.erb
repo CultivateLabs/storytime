@@ -9,7 +9,7 @@
   <% end %>
   <% if Pundit.policy(current_user, Storytime::Site).edit? %>
     <li role="presentation" <%= active_nav_item_class("sites") %>>
-      <%= link_to [:edit, :dashboard, @site], remote: true, class: "storytime-modal-trigger" do %>
+      <%= link_to [:edit, :dashboard, @current_storytime_site], remote: true, class: "storytime-modal-trigger" do %>
         <i class="icon-st-icons-settings"></i>
         <span class="hidden-xs"><%= t('dashboard.sites.edit') %></span>
       <% end %>

@@ -15,7 +15,7 @@ module Storytime
       @posts = @posts.published.order(published_at: :desc).page(params[:page])
 
       #allow overriding in the host app
-      render "storytime/#{@site.custom_view_path}/blogs/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@site.custom_view_path}/blogs/#{@page.slug}")
+      render "storytime/#{@current_storytime_site.custom_view_path}/blogs/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/blogs/#{@page.slug}")
     end
 
   private
@@ -28,7 +28,7 @@ module Storytime
       else
         Post.published.friendly.find(params[:id])
       end
-      redirect_to "/", status: :moved_permanently if @page == @site.homepage
+      redirect_to "/", status: :moved_permanently if @page == @current_storytime_site.homepage
     end
     
     def get_search_type

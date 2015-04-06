@@ -23,7 +23,7 @@
         
         <% if Pundit.policy(current_user, Storytime::Site).edit? %>
           <li>
-            <%= link_to dashboard_nav_site_path(@site), class: "storytime-modal-trigger", remote: true, id: "site-settings-link" do %>
+            <%= link_to dashboard_nav_site_path(@current_storytime_site), class: "storytime-modal-trigger", remote: true, id: "site-settings-link" do %>
               <i class="icon-st-icons-settings"></i>
               <span style="margin-left: 10px; margin-right: 6px;">Site Settings</span>
             <% end %>

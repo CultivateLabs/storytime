@@ -4,11 +4,11 @@
       <%= simple_form_for Storytime::Subscription.new do |f| %>
         <div class='modal-header'>
           <a class='close' data-dismiss='modal'>&times;</a>
-          <h4 class="modal-title"><%= t 'layout.subscribe_to', site_name: @site.title %></h4>
+          <h4 class="modal-title"><%= t 'layout.subscribe_to', site_name: @current_storytime_site.title %></h4>
         </div>
         <div class='modal-body'>
-          <p><%= t 'layout.subscribe_modal_msg', site_name: @site.title %></p>
-          <%= f.input :site_id, as: :hidden, input_html: { value: @site.id }  %>
+          <p><%= t 'layout.subscribe_modal_msg', site_name: @current_storytime_site.title %></p>
+          <%= f.input :site_id, as: :hidden, input_html: { value: @current_storytime_site.id }  %>
           <div class="storytime-subscription-input">
             <%= f.input :email, label: false, placeholder: "Email" %>
           </div>
