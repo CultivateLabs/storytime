@@ -3,6 +3,6 @@
   <p class='muted'><%= blog_post.created_at.strftime("%b %d, %Y") %></p>
   <p><%= blog_post.excerpt %></p>
   <p><%= link_to "Continue reading →", storytime.post_path(blog_post) %></p>
-  <p><%= render 'tags', post: blog_post %></p>
+  <p><%= render 'storytime/posts/tags', post: blog_post %></p>
   <hr>
 </div>
