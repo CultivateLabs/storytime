@@ -6,7 +6,7 @@ class Storytime::ApplicationController < ApplicationController
 
   include Storytime::Concerns::ControllerContentFor
   include Storytime::Concerns::CurrentSite
-  helper_method :current_site
+  helper_method :current_storytime_site
   
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -61,7 +61,7 @@ private
   end
 
   def scope_current_site
-    Storytime::Site.current_id = current_site(request).id
+    Storytime::Site.current_id = current_storytime_site(request).id
     yield
   ensure
     Storytime::Site.current_id = nil

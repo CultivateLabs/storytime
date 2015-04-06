@@ -23,7 +23,7 @@ module Storytime
       else
         Post.published.friendly.find(params[:id])
       end
-      redirect_to "/", status: :moved_permanently if @page == current_site(request).homepage
+      redirect_to "/", status: :moved_permanently if @page == current_storytime_site(request).homepage
     end
   end
 end

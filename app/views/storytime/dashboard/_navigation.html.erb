@@ -57,7 +57,7 @@
   <div id="storytime-sites-menu" style="display: none;">
     <ul class="nav nav-menu-nav">
       <% Storytime::Membership.all_for_user(current_user).each do |membership| %>
-        <% if membership.site == current_site %>
+        <% if membership.site == current_storytime_site %>
           <li class="active"><%= link_to icon("check", membership.site.title), "", class: "storytime-menu-toggle" %></li>
         <% else %>
           <li><%= link_to membership.site.title, storytime.dashboard_url(host: membership.site.custom_domain) %></li>
@@ -70,7 +70,7 @@
   <div id="storytime-main-menu">
     <ul class="nav nav-menu-nav">
 
-      <li><%= link_to icon('long-arrow-left', current_site(request).title), "", class: "storytime-menu-toggle" %></li>
+      <li><%= link_to icon('long-arrow-left', current_storytime_site(request).title), "", class: "storytime-menu-toggle" %></li>
 
       <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
         <li <%= active_nav_item_class("snippets") %>>

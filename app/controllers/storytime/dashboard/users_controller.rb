@@ -22,7 +22,7 @@ module Storytime
         respond_to do |format|
           if @user.save
             @user.storytime_memberships.create(storytime_role_id: membership_attrs[:storytime_role_id])
-            @memberships = current_site.memberships.includes(:user).page(params[:page]).per(20)
+            @memberships = current_storytime_site.memberships.includes(:user).page(params[:page]).per(20)
             format.json { render "storytime/dashboard/memberships/index" }
           else
             @membership = @user.storytime_memberships.new

@@ -41,6 +41,8 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
+        include Storytime::Concerns::CurrentSite
+        helper_method :current_storytime_site
 
         helper Storytime::SubscriptionsHelper
       end

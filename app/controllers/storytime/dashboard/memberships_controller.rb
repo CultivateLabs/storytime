@@ -42,7 +42,7 @@ module Storytime
       end
 
       def load_memberships
-        @memberships = current_site.memberships.includes(:user).page(params[:page]).per(20)
+        @memberships = current_storytime_site.memberships.includes(:user).page(params[:page]).per(20)
       end
     end
   end

@@ -4,7 +4,7 @@ module Storytime
       include Storytime::Concerns::CurrentSite
       
       def matches?(request)
-        current_site(request).pages.friendly.exists?(request.params[:id])
+        current_storytime_site(request).pages.friendly.exists?(request.params[:id])
       end
     end
   end
