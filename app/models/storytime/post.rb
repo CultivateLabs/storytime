@@ -61,6 +61,10 @@ module Storytime
     end 
     #### END class << self
 
+    def to_partial_path
+      "storytime/#{site.custom_view_path}/#{super.sub("storytime/", "")}"
+    end
+
     def preview_content
       autosave.present? ? autosave.content : latest_version.content 
     end

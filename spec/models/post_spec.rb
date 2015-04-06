@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Storytime::Post do
+  it "includes site in partial path" do
+    site = FactoryGirl.create(:site, title: "Test Site")
+    blog_post = FactoryGirl.create(:post, site: site)
+    expect(blog_post.to_partial_path).to eq("storytime/test-site/blog_posts/blog_post")
+  end
+
   it "sets the page slug on create" do
     post = FactoryGirl.create(:post)
     post.slug.should == post.title.parameterize
