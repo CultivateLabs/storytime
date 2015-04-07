@@ -2,14 +2,8 @@ require_dependency "storytime/application_controller"
 
 module Storytime
   class PostsController < ApplicationController
-    include HighVoltage::StaticPage
-
-    layout :set_layout
-
     def show
       params[:id] = params[:id].split("/").last
-
-      return super unless Post.friendly.exists? params[:id]
 
       @post = if params[:preview]
         Post.find_preview(params[:id])
@@ -33,14 +27,6 @@ module Storytime
     end
 
   private 
-
-    def set_layout
-      if Post.friendly.exists? params[:id]
-        super
-      else
-        HighVoltage.layout
-      end
-    end
 
     def lookup_show_template_override
       @lookup_show_template_override ||= begin
