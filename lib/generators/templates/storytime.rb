@@ -2,10 +2,6 @@ Storytime.configure do |config|
   # Name of the model you're using for Storytime users.
   <%= @enable_user_class ? nil : '# ' %>config.user_class = '<%= @user_class %>'
 
-  # Name of the model(s) that you want to be CRUD accessible
-  # within Storytime's admin dashboard.
-  <%= @enable_admin_models ? nil : '# ' %>config.admin_models = <%= @admin_models %>
-
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   <%= @enable_dashboard_namespace_path ? nil : '# ' %>config.dashboard_namespace_path = '<%= @dashboard_namespace_path %>'

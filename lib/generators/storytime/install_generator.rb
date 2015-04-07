@@ -9,7 +9,6 @@ module Storytime
 
       def set_local_assigns
         @user_class = 'User'
-        @admin_models = ['Widget']
         @dashboard_namespace_path = '/storytime'
         @post_types = ['CustomPostType']
         @post_title_character_limit = 100

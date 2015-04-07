@@ -100,7 +100,7 @@
       <li><%= link_to icon("plus", "New Blog"), [storytime, :new, :dashboard, :blog], class: "storytime-modal-trigger", remote: true %></li>
     </ul>
 
-    <% if Pundit.policy(current_user, :admin).manage? && Storytime.admin_models.length > 0 %>
+    <% if Pundit.policy(current_user, :admin).manage? && StorytimeAdmin.models.length > 0 %>
       <h4 class="nav-menu-divider">Admin</h4>
       <ul class="nav nav-menu-nav">
         <% StorytimeAdmin.models.each do |model| %>
