@@ -105,6 +105,8 @@ module Storytime
       end
 
       def self.transfer_posts_to_blogs
+        Storytime::BlogPost.reset_column_information
+        
         Storytime::Site.find_each do |site|
           default_blog = site.blogs.first
           
