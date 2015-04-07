@@ -10,5 +10,11 @@ module Storytime
       self.class._to_partial_path(site)
     end
 
+    def blog_post_types
+      Storytime.post_types.map{|post_type| post_type.constantize }.select do |post_type|
+        post_type.is_a?(Storytime::BlogPost)
+      end
+    end
+
   end
 end

@@ -84,21 +84,4 @@ describe Storytime::Post do
     Storytime::Post.tag_counts.find_by(name: "tag1").count.should == 2
     Storytime::Post.tag_counts.find_by(name: "tag2").count.should == 1
   end
-
-  context "#primary_feed" do
-    it "shows posts where post type is not excluded from the main feed" do
-      post_1 = FactoryGirl.create(:post)
-      post_2 = FactoryGirl.create(:post)
-
-      post_3 = FactoryGirl.create(:page)
-      post_4 = FactoryGirl.create(:page)
-
-      feed = Storytime::Post.primary_feed
-      expect(feed).to include(post_1)
-      expect(feed).to include(post_2)
-
-      expect(feed).to_not include(post_3)
-      expect(feed).to_not include(post_4)
-    end
-  end
 end

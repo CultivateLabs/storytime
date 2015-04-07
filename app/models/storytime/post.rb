@@ -22,18 +22,11 @@ module Storytime
 
     before_save :sanitize_content
 
-    scope :primary_feed, ->{ where(type: primary_feed_types) }
     scope :notification_delivery_pending, -> { where(notifications_enabled: true, notifications_sent_at: nil) }
 
     class << self
       def policy_class
         Storytime::PostPolicy
-      end
-
-      def primary_feed_types
-        Storytime.post_types.map{|post_type| post_type.constantize }.select do |post_type|
-          post_type.included_in_primary_feed?
-        end
       end
 
       def human_name
@@ -54,10 +47,6 @@ module Storytime
       def type_name
         to_s.split("::").last.underscore
       end
-
-      def included_in_primary_feed?
-        true
-      end
     end 
     #### END class << self
 
@@ -71,10 +60,6 @@ module Storytime
 
     def type_name
       self.class.type_name
-    end
-
-    def included_in_primary_feed?
-      self.class.included_in_primary_feed
     end
 
     def author_name

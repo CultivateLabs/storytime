@@ -48,7 +48,6 @@ module Storytime
 
       def load_posts
         @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)
-        @posts = @posts.primary_feed
 
         @posts = if params[:published].present? && params[:published] == 'true'
           @posts.published.order(published_at: :desc)
