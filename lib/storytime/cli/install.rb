@@ -10,7 +10,6 @@ module Storytime
         def storytime_defaults
           hash = {}
           hash[:user_class] = 'User'
-          hash[:admin_models] = ['Widget']
           hash[:dashboard_namespace_path] = '/storytime'
           hash[:post_types] = ['CustomPostType']
           hash[:post_title_character_limit] = 100
@@ -124,9 +123,6 @@ module Storytime
                 say "Creating a StorytimeAdmin controller for #{model}...", :cyan
                 `bin/rails g storytime_admin:resource #{model}`
               end
-
-              init_hash[:admin_models] = admin_models
-              init_hash[:enable_admin_models] = true
             end
           end
 

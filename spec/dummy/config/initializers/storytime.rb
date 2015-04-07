@@ -36,8 +36,6 @@ Storytime.configure do |config|
   # File upload options.
   config.enable_file_upload = true
 
-  config.admin_models = ["Widget"]
-
   if Rails.env.production?
     config.s3_bucket = 'my-s3-bucket'
     config.media_storage = :s3

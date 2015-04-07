@@ -87,11 +87,6 @@ module Storytime
   mattr_accessor :search_adapter
   @@search_adapter = nil
 
-  # Name of the model(s) that you want to be CRUD accessible within
-  # Storytime's admin.
-  mattr_accessor :admin_models
-  @@admin_models = []
-
   # AWS Region to use for file uploads.
   mattr_accessor :aws_region
   @@aws_region = ENV['STORYTIME_AWS_REGION']
