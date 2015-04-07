@@ -74,7 +74,7 @@
 
       <% if Pundit.policy(current_user, Storytime::Snippet).manage? %>
         <li <%= active_nav_item_class("snippets") %>>
-          <%= link_to "Text Snippets", [:dashboard, Storytime::Snippet], class: "storytime-modal-trigger", remote: true, id: "snippets-link" %>
+          <%= link_to "Text Snippets", [storytime, :dashboard, Storytime::Snippet], class: "storytime-modal-trigger", remote: true, id: "snippets-link" %>
         </li>
       <% end %>
       <% if Pundit.policy(current_user, Storytime::Media).index? %>

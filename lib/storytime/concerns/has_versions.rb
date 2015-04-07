@@ -43,7 +43,7 @@ module Storytime
       end
 
       def published=(val)
-        if val == "1"
+        if val == "1" || val == "true" || val == true
           if self.published_at_date || self.published_at_time
             self.published_at = if self.published_at_time.nil?
               DateTime.parse "#{self.published_at_date}"
