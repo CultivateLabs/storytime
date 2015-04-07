@@ -10,7 +10,11 @@ module Storytime
       end
 
       #allow overriding in the host app
-      render "storytime/#{@current_storytime_site.custom_view_path}/pages/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/pages/#{@page.slug}")
+      if lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/pages/#{@page.slug}")
+        render "storytime/#{@current_storytime_site.custom_view_path}/pages/#{@page.slug}"
+      elsif lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/pages/show")
+        render "storytime/#{@current_storytime_site.custom_view_path}/pages/show"
+      end
     end
 
   private

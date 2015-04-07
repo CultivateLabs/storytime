@@ -31,19 +31,32 @@ module Storytime
         redirect_to storytime.post_path(@post), :status => :moved_permanently
       elsif lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}")
         render "storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}"
-      elsif lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/show")
-        render "storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/show"
+      elsif !lookup_show_template_override.nil?
+        render lookup_show_template_override
       end
     end
 
-    private 
+  private 
 
-      def set_layout
-        if Post.friendly.exists? params[:id]
-          super
-        else
-          HighVoltage.layout
+    def set_layout
+      if Post.friendly.exists? params[:id]
+        super
+      else
+        HighVoltage.layout
+      end
+    end
+
+    def lookup_show_template_override
+      @lookup_show_template_override ||= begin
+        @post.post_ancestor_klasses.each do |klass|
+          template_path = "storytime/#{@current_storytime_site.custom_view_path}/#{klass.type_name.pluralize}/show"
+          if lookup_context.template_exists?(template_path)
+            @lookup_show_template_override = template_path
+            return template_path
+          end
         end
       end
+    end
+
   end
 end
