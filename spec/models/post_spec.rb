@@ -23,7 +23,7 @@ describe Storytime::Post do
       site = FactoryGirl.build(:site, title: "Test Site")
       video_post = VideoPost.new(site: site)
       partial_path = video_post.to_partial_path
-      expect(partial_path).to eq("storytime/blog_posts/blog_post")
+      expect(partial_path).to eq("storytime/posts/post")
     end
   end
 

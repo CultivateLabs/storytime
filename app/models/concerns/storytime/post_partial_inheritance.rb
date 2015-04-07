@@ -1,4 +1,4 @@
-module Storytime::BlogPostPartialInheritance
+module Storytime::PostPartialInheritance
   extend ActiveSupport::Concern
 
   module ClassMethods
@@ -17,7 +17,7 @@ module Storytime::BlogPostPartialInheritance
         if site && File.exists?(Rails.root.join('app', 'views', "storytime/#{site.custom_view_path}/#{collection.sub("storytime/", "")}/_#{element}.html.erb"))
           "storytime/#{site.custom_view_path}/#{collection.sub("storytime/", "")}/#{element}"
         elsif File.exists?(Rails.root.join('app', 'views', collection, "_#{element}.html.erb")) ||
-              self.superclass == Storytime::Post
+              self.superclass == ActiveRecord::Base
           "#{collection}/#{element}"
         else
           self.superclass._to_partial_path(site)

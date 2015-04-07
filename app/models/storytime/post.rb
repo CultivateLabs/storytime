@@ -4,6 +4,7 @@ module Storytime
     include ActionView::Helpers::SanitizeHelper
     include Storytime::ScopedToSite
     include Storytime::PostTags
+    include Storytime::PostPartialInheritance
 
     extend FriendlyId
     friendly_id :slug_candidates, use: [:history, :scoped], scope: :site
@@ -49,6 +50,10 @@ module Storytime
       end
     end 
     #### END class << self
+
+    def to_partial_path
+      self.class._to_partial_path(site)
+    end
 
     def preview_content
       autosave.present? ? autosave.content : latest_version.content 
