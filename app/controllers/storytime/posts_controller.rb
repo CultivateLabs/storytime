@@ -55,6 +55,8 @@ module Storytime
             return template_path
           end
         end
+
+        nil
       end
     end
 

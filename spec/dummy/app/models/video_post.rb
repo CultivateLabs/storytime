@@ -1,6 +1,4 @@
-class VideoPost < Storytime::Post
-  include Storytime::CustomPostType
-  
+class VideoPost < Storytime::BlogPost
   def show_comments?
     true
   end

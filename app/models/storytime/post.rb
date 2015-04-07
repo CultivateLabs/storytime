@@ -61,10 +61,6 @@ module Storytime
     end 
     #### END class << self
 
-    def to_partial_path
-      "storytime/#{site.custom_view_path}/#{super.sub("storytime/", "")}"
-    end
-
     def preview_content
       autosave.present? ? autosave.content : latest_version.content 
     end
@@ -96,6 +92,10 @@ module Storytime
 
     def sanitize_content
       self.draft_content = Storytime.post_sanitizer.call(self.draft_content) unless Storytime.post_sanitizer.blank?
+    end
+
+    def post_ancestor_klasses
+      self.class.ancestors.grep(Class).split(ActiveRecord::Base).first
     end
 
   end
