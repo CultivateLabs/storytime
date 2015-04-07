@@ -6,10 +6,6 @@ module Storytime
 
     layout :set_layout
 
-    def index
-      @posts = Post.where(type: Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog].include?(type) }).tagged_with(params[:tag]).page(params[:page_number]).per(10)
-    end
-
     def show
       params[:id] = params[:id].split("/").last
 
