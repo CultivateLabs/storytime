@@ -135,7 +135,7 @@ module Storytime
           end
           
           # Custom Post Types
-          if yes? "Do you want to use additional post types other than Storytime::Post and Storytime::BlogPost? [y/n] (n)", :yellow
+          if yes? "Do you want to use additional post types other than Storytime::Page and Storytime::BlogPost? [y/n] (n)", :yellow
             post_types = ask "Enter a comma separated list of additional post types that you'd like to use:", :yellow
 
             unless post_types.blank?
