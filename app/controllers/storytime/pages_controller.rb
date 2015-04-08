@@ -10,11 +10,12 @@ module Storytime
       end
 
       #allow overriding in the host app
-      sanitized_id = ActionController::Base.helpers.sanitize params[:id]
+      slug = @page.nil? ? ActionController::Base.helpers.sanitize(params[:id]) : @page.slug
+      
       potential_templates = [
-        "storytime/#{@current_storytime_site.custom_view_path}/pages/#{sanitized_id}",
+        "storytime/#{@current_storytime_site.custom_view_path}/pages/#{slug}",
         "storytime/#{@current_storytime_site.custom_view_path}/pages/show",
-        "storytime/pages/#{sanitized_id}",
+        "storytime/pages/#{slug}",
         "storytime/pages/show",
       ].each do |template|
         if lookup_context.template_exists?(template)
