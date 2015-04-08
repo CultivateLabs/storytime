@@ -33,9 +33,11 @@ module Storytime
   class Engine < ::Rails::Engine
     isolate_namespace Storytime
 
-    initializer "storytime.helpers" do
-      ActionView::Base.send :include, Storytime::ApplicationHelper
-      ActionView::Base.send :include, Storytime::StorytimeHelpers
+    initializer "storytime.view_helpers" do
+      ActiveSupport.on_load(:action_view) do
+        include Storytime::ApplicationHelper
+        include Storytime::StorytimeHelpers
+      end
     end
 
     initializer "storytime.controller_helpers" do

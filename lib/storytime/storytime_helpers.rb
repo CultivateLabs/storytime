@@ -5,7 +5,7 @@ module Storytime
       if snippet.nil?
         ""
       else
-        render snippet
+        render partial: "storytime/snippets/snippet", locals: {snippet: snippet}
       end
     end
   end
