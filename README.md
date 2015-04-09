@@ -141,6 +141,9 @@ Page List:
 Post Editor:
 ![Post Editor](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/post-editor.png "Post Editor")
 
+Admin of Custom Rails Models:
+![Admin of Custom Rails Models](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/admin.png "Admin of Custom Rails Models")
+
 Text Snippets:
 ![Text Snippets](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/text-snippets.png "Text Snippets")
 
