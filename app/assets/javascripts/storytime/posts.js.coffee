@@ -18,6 +18,10 @@ class Storytime.Dashboard.Posts
     @editor = new Storytime.Dashboard.Editor()
     @editor.init()
     @initCollapse()
+  
+  initIndex: ()->
+    $("[id^=blogpost]").hover ->
+      $(@).find('#delete-blog-post').fadeToggle('fast')  
 
   initCollapse: ()->
     $('body').on 'keydown', (e) ->
