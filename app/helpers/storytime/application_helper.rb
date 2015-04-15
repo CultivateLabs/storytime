@@ -27,6 +27,14 @@ module Storytime
       'class="active"'.html_safe if controller == current_controller
     end
 
+    def active_blog_item_class(blog)
+      path_arr = request.path.split("/")
+
+      return unless path_arr.include?("blogs")
+
+      'class="active"'.html_safe if path_arr.include?(blog.slug)
+    end
+
     def active_admin_model_class(model)
       'active' if params[:controller] == 'storytime/dashboard/admin' && model_name == model
     end
