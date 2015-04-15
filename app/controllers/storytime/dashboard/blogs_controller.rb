@@ -32,7 +32,6 @@ module Storytime
       def create
         @blog = current_post_type.new(post_params)
         @blog.user = current_user
-        @blog.draft_content = "test"
         @blog.draft_user_id = current_user.id
         @blog.published_at = Time.now.utc
         authorize @blog

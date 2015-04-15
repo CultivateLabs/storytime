@@ -25,8 +25,8 @@ module Storytime
             version.user_id = self.draft_user_id
             version.save
           end
-          self.publish! if self.published?
         end
+        self.publish! if self.published?
       end
 
       def activate_version
@@ -40,7 +40,7 @@ module Storytime
 
       def publish!
         self.published = "1"
-        attrs = {self.class.draft_content_column => self.latest_version.content}
+        attrs = {self.class.draft_content_column => (self.latest_version.present? ? self.latest_version.content : "") }
         self.update_columns(attrs)
       end
 
@@ -79,8 +79,6 @@ module Storytime
         after_save :create_version, :activate_version
 
         self.draft_content_column = :content
-
-        # validates_presence_of :draft_content
 
         scope :published, -> { where("published_at IS NOT NULL").where("published_at <= ?", Time.now) }
         scope :draft, -> { where("published_at IS NULL OR published_at > ?", Time.now) }
