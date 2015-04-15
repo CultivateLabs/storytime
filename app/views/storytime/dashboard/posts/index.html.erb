@@ -53,10 +53,14 @@
           <% else %>
             <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
           <% end %>
-          
         </li>
       </ul>
-      <%= render 'list' %>
+      <ul class="list-group list-group-button-links">
+        <%= render 'list' %>
+      </ul>
+      <div class="pagination-wrapper">
+        <%= paginate @posts, param_name: "page_number" %>
+      </div>
     </div>
   </div>
 </div>
