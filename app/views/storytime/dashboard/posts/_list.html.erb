@@ -1,6 +1,6 @@
-<div class="list-group">
-  <% @posts.each do |post| %>
-    <%= link_to [:edit, :dashboard, post], id: "#{post.class.to_s.downcase.split("::").last}_#{post.id}", class: "list-group-item" do %>
+<% @posts.each do |post| %>
+  <li class="list-group-item" id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>">
+    <%= link_to [:edit, :dashboard, post], id: "", class: "list-group-link" do %>
       <div class="row">
         <div class="col-md-8">
            <h4><%= post.title %></h4>
@@ -17,8 +17,8 @@
         <% end %>
       </p>
     <% end %>
-  <% end %>
-</div>
-<div class="pagination-wrapper">
-  <%= paginate @posts, param_name: "page_number" %>
-</div>
+    <div class="list-group-actions">
+      <%= delete_resource_link post, [:dashboard, post] %>
+    </div>
+  </li>
+<% end %>

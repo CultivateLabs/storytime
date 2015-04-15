@@ -140,4 +140,19 @@ describe "In the dashboard, Posts" do
       click_link "Delete"
     }.to change(Storytime::BlogPost, :count).by(-1)
   end
+
+  it "deletes a post from the index view", js: true do
+    blog = @current_site.blogs.first
+    3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil) }
+    expect(Storytime::BlogPost.count).to eq(3)
+
+    post = Storytime::BlogPost.first
+    visit url_for([storytime, :dashboard, blog, :blog_page_post_index, only_path: true])
+    
+    expect{
+      find("#blogpost_#{post.id}").hover
+      click_link "delete_blogpost_#{post.id}"
+      expect(page).to_not have_selector "#blogpost_#{post.id}"
+    }.to change(Storytime::BlogPost, :count).by(-1)
+  end
 end
