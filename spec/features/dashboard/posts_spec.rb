@@ -152,6 +152,7 @@ describe "In the dashboard, Posts" do
     expect{
       find("#blogpost_#{post.id}").hover
       click_link "delete_blogpost_#{post.id}"
+      expect(page).to_not have_selector "#blogpost_#{post.id}"
     }.to change(Storytime::BlogPost, :count).by(-1)
   end
 end
