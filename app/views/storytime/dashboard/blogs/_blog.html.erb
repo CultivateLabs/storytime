@@ -1,3 +1,3 @@
-<li>
+<li <%= active_blog_item_class(blog) %>>
   <%= link_to blog.title, [storytime, :dashboard, blog, :blog_page_post_index] %>
 </li>
