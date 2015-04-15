@@ -149,10 +149,9 @@ describe "In the dashboard, Posts" do
     post = Storytime::BlogPost.first
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, only_path: true])
     
-
-    find("#blogpost_#{post.id}").hover
-    click_link "delete_blogpost_#{post.id}"
-
-    expect(Storytime::BlogPost.count).to eq(2)
+    expect{
+      find("#blogpost_#{post.id}").hover
+      click_link "delete_blogpost_#{post.id}"
+    }.to change(Storytime::BlogPost, :count).by(-1)
   end
 end
