@@ -30,7 +30,7 @@ module Storytime
     def active_blog_item_class(blog)
       path_arr = request.path.split("/")
 
-      return unless path_arr[2] == "blogs"
+      return unless path_arr.include?("blogs")
 
       'class="active"'.html_safe if path_arr[2..-1].include?(blog.slug)
     end
