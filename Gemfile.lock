@@ -1,20 +1,3 @@
-GIT
-  remote: git://github.com/flyoverworks/storytime-admin.git
-  revision: 0cf165b4e5f7ba19a07ad6ae4ffe2253be9230ed
-  branch: master
-  specs:
-    storytime-admin (0.1.0)
-      bootstrap-kaminari-views
-      coffee-rails (>= 4.0)
-      font-awesome-sass
-      haml-rails
-      jquery-rails (>= 3.0)
-      kaminari
-      leather
-      rails (~> 4.0)
-      sass-rails (>= 4.0)
-      simple_form
-
 PATH
   remote: .
   specs:
@@ -407,6 +390,17 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    storytime-admin (0.1.0)
+      bootstrap-kaminari-views
+      coffee-rails (>= 4.0)
+      font-awesome-sass
+      haml-rails
+      jquery-rails (>= 3.0)
+      kaminari
+      leather
+      rails (~> 4.0)
+      sass-rails (>= 4.0)
+      simple_form
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -431,7 +425,6 @@ DEPENDENCIES
   binding_of_caller
   capybara
   database_cleaner
-  devise
   factory_girl_rails
   guard-rspec (~> 4.2.8)
   launchy
@@ -444,5 +437,4 @@ DEPENDENCIES
   spring (= 1.1.3)
   spring-commands-rspec
   storytime!
-  storytime-admin!
   thin
