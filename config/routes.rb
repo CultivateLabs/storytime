@@ -47,9 +47,6 @@ Storytime::Engine.routes.draw do
 
   mount StorytimeAdmin::Engine => Storytime.dashboard_namespace_path
 
-  # TODO: HOW DO WE DEAL WITH THIS WHEN THERE ARE MULTIPLE BLOG PAGES?
-  get 'tags/:tag', to: 'posts#index', as: :tag
-
   get "/", to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
   get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
 
