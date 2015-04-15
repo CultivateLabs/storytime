@@ -6,7 +6,6 @@ module Storytime
       blog = site.blogs.new
       blog.title = "Blog"
       blog.slug = "blog"
-      blog.draft_content = "test"
       blog.published_at = Time.now
       blog.user = user
       blog.save
