@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
 
-Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com) / [@flyoverworks](http://twitter.com/flyoverworks)
+Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com/?utm_source=github&utm_medium=readme&utm_campaign=github) / [@flyoverworks](http://twitter.com/flyoverworks)
 
 ## Features
 
