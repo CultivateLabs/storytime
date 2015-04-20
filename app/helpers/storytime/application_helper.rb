@@ -2,7 +2,7 @@ module Storytime
   module ApplicationHelper
 
     def logged_in_storytime_user?
-      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(@current_storytime_site)
+      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(current_storytime_site)
     end
 
     def dashboard_nav_site_path(site)
@@ -25,6 +25,14 @@ module Storytime
       current_controller = params[:controller].split("/").last
 
       'class="active"'.html_safe if controller == current_controller
+    end
+
+    def active_blog_item_class(blog)
+      path_arr = request.path.split("/")
+
+      return unless path_arr.include?("blogs")
+
+      'class="active"'.html_safe if path_arr[2..-1].include?(blog.slug)
     end
 
     def active_admin_model_class(model)

@@ -22,9 +22,10 @@ $ ()->
     alert("There was an error deleting your #{$(@).data('resource-type')}")
   )
 
-  $(".table-row-link").click ->
-    url = $(this).data('url')
-    document.location.href = url
+  $(".table-row-link").on "click", (e) ->
+    unless $(e.target).data("confirm")? || $(e.target).parent("a[data-confirm]").length > 0
+      url = $(@).data('url')
+      document.location.href = url
 
   $(document).on "click", ".storytime-menu-toggle", (e) ->
     e.preventDefault()
