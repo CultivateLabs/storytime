@@ -9,6 +9,9 @@ Storytime.configure do |config|
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
 
+  # Path used to sign users out. 
+  # config.logout_path = '/users/sign_out'  
+
   # Path used to register a new user. 
   # config.registration_path = "/users/sign_up"
 

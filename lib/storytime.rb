@@ -22,6 +22,10 @@ module Storytime
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
 
+  # Path used to sign users out. 
+  mattr_accessor :logout_path
+  @@logout_path = '/users/sign_out'  
+
   # Path used to register a new user. 
   mattr_accessor :registration_path
   @@registration_path = "/users/sign_up"
