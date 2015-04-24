@@ -6,7 +6,7 @@ module FeatureMacros
       set_domain(@current_site.custom_domain)
     end
     
-    visit main_app.new_user_session_path
+    visit Storytime.login_path
 
     fill_in "user_email", :with => user.email
     fill_in "user_password", :with => user.password

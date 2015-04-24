@@ -1,4 +1,4 @@
-class Storytime::ApplicationController < ApplicationController
+class Storytime::ApplicationController < Storytime.application_controller_superclass
   layout :set_layout
 
   before_action :ensure_site_exists
@@ -15,7 +15,7 @@ class Storytime::ApplicationController < ApplicationController
 
   helper_method :dashboard_controller
 
-  if Storytime.user_class_symbol != :user
+  if Storytime.user_class_symbol != :user && !respond_to(:current_user)
     helper_method :authenticate_user!
     helper_method :current_user
     helper_method :user_signed_in?
@@ -35,9 +35,9 @@ class Storytime::ApplicationController < ApplicationController
 
   def setup
     url = if Storytime.user_class.count == 0
-      main_app.new_user_registration_url
+      Storytime.registration_path
     elsif current_user.nil?
-      main_app.new_user_session_url
+      Storytime.login_path
     elsif Storytime::Site.count == 0
       new_dashboard_site_url
     else

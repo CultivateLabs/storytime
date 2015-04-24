@@ -22,6 +22,10 @@ module Storytime
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
 
+  # Path used to register a new user. 
+  mattr_accessor :registration_path
+  @@registration_path = "/users/sign_up"
+
   # Method used for Storytime user logout path.
   mattr_accessor :logout_method
   @@logout_method = :delete
@@ -99,6 +103,11 @@ module Storytime
   mattr_accessor :aws_secret_key
   @@aws_secret_key = ENV['STORYTIME_AWS_SECRET_KEY']
 
+  # Superclass for Storytime::ApplicationController
+  # Defaults to the host app's ApplicationController
+  mattr_accessor :application_controller_superclass
+  @@application_controller_superclass = "::ApplicationController"
+
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     
@@ -122,6 +131,10 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
+    end
+
+    def application_controller_superclass
+      @@application_controller_superclass.constantize
     end
   end
 end
