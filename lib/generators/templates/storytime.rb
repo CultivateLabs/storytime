@@ -9,6 +9,12 @@ Storytime.configure do |config|
   # Path used to sign users in. 
   # config.login_path = '/users/sign_in'
 
+  # Path used to sign users out. 
+  # config.logout_path = '/users/sign_out'  
+
+  # Path used to register a new user. 
+  # config.registration_path = "/users/sign_up"
+
   # Method used for Storytime user logout path.
   # config.logout_method = :delete
 
@@ -97,6 +103,10 @@ Storytime.configure do |config|
 
   # AWS Secret Key to use for file uploads.
   # config.aws_secret_key = <%= @aws_secret_key %>
+
+  # Superclass for Storytime::ApplicationController
+  # Defaults to the host app's ApplicationController
+  # config.application_controller_superclass = "::ApplicationController"
 
   if Rails.env.production?
     config.media_storage = <%= @prod_media_storage %>
