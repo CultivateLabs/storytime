@@ -39,7 +39,7 @@ This separation is intended to provide several benefits and/or solve several pro
 
 ## Sample App
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/flyoverworks/storytime-example)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/flyoverworks/storytime-example/blob/master)
 
 ## Installation
 
