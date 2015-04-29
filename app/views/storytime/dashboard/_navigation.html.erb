@@ -104,7 +104,7 @@
       <h4 class="nav-menu-divider">Admin</h4>
       <ul class="nav nav-menu-nav">
         <% StorytimeAdmin.models.each do |model| %>
-          <%= nav_item model.pluralize.titleize, [storytime_admin, model.classify.constantize], nav_id: [:admin, :widgets] %>
+          <%= nav_item model.pluralize.titleize, [storytime_admin, *polymorphic_route_components(model)], nav_id: [:admin, model] %>
         <% end %>
       </ul>
     <% end %>

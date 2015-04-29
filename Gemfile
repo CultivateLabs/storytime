@@ -12,3 +12,5 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+gem 'storytime-admin', github: 'flyoverworks/storytime-admin', branch: 'dev'
