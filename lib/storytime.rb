@@ -60,7 +60,7 @@ module Storytime
 
     attributes = %w(
       id class href style src title width height alt value 
-      target rel align disabled
+      target rel align disabled name
     )
 
     white_list_sanitizer.sanitize(draft_content, attributes: attributes)
