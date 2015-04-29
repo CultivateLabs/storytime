@@ -14,7 +14,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to storytime.edit_dashboard_user_path(current_user), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
+            <%= link_to storytime.edit_dashboard_membership_path(current_user.storytime_membership_in_site(@current_storytime_site)), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
               <i class="icon-st-icons-profile"></i>
               <span style="margin-left: 10px; margin-right: 6px;">My Account</span>
             <% end %>

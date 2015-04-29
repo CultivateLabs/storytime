@@ -17,7 +17,19 @@ module Storytime
       manage?
     end
 
+    def new?
+      manage?
+    end
+
     def create?
+      manage?
+    end
+
+    def edit?
+      manage?
+    end
+
+    def update?
       manage?
     end
 
@@ -26,7 +38,7 @@ module Storytime
     end
 
     def permitted_attributes
-      [:user_id, :storytime_role_id]
+      [:id, :user_id, :storytime_role_id, user_attributes: [:storytime_name, :email]]
     end
   end
 end

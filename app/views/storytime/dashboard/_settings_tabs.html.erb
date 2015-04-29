@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
   <% if Pundit.policy(current_user, Storytime::Membership).index? %>
-    <li role="presentation" <%= active_nav_item_class("users") %>>
+    <li role="presentation" <%= active_nav_item_class("memberships") %>>
       <%= link_to [:dashboard, :memberships], remote: true, class: "storytime-modal-trigger" do %>
         <i class="icon-st-icons-users"></i>
         <span class="hidden-xs">Users</span>
