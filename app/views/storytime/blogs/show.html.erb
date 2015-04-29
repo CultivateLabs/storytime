@@ -11,7 +11,7 @@
     <div class="col-md-3">
       <h5>Tags</h5>
       <% tag_cloud Storytime::Post.tag_counts, %w[s m l] do |tag, css_class| %>
-        <div><%= link_to tag.name, tag_path(tag.name), class: css_class %></div>
+        <div><%= link_to tag.name, storytime.blog_path(@page, tag: tag.name), class: css_class %></div>
       <% end %>
     </div>
   </div>
