@@ -1,1 +1,1 @@
-json.html(render partial: "storytime/dashboard/users/index.html.erb")
+json.html(render partial: "storytime/dashboard/memberships/index.html.erb")

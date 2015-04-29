@@ -1,4 +1,4 @@
-<%= simple_form_for @user.becomes(Storytime.user_class), :url => dashboard_user_path, remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
+<%= simple_form_for @membership, :url => dashboard_membership_path, remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
   <div class="scroll-panel">
     <div class="scroll-panel-header">
       <%= link_to icon("angle-left"), [:dashboard, :memberships], class: "btn btn-sm btn-default pull-left storytime-modal-trigger", remote: true %>
@@ -14,13 +14,12 @@
       <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
       <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
       
-      <%= f.input :storytime_name %>
-      <%= f.input :email %>
-
-      <%= f.simple_fields_for :storytime_memberships do |mf| %>
-        <%= mf.association :storytime_role, include_blank: false, label_method: :label, input_html: { disabled: @user == @current_storytime_site.creator } %>
-        <%= mf.input :_destroy, as: :boolean, label: "Delete membership" unless @user == @current_storytime_site.creator %>
+      <%= f.simple_fields_for :user do |uf| %>
+        <%= uf.input :storytime_name %>
+        <%= uf.input :email %>
       <% end %>
+
+      <%= f.association :storytime_role, include_blank: false, label_method: :label, input_html: { disabled: @user == @current_storytime_site.creator } %>
     </div>
   </div>
 <% end %>

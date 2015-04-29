@@ -1,5 +1,5 @@
 <li class="list-group-item" id="membership_<%= membership.id %>">
-  <%= link_to url_for(:controller => 'dashboard/users', :action => 'edit', :id => membership.user_id), class: "list-group-link storytime-modal-trigger", remote: true do %>
+  <%= link_to url_for(:controller => 'dashboard/memberships', :action => 'edit', :id => membership.id), class: "list-group-link storytime-modal-trigger", remote: true do %>
     
     <%= membership.storytime_name %>
     <% if membership.storytime_role %>

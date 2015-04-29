@@ -5,6 +5,8 @@ module Storytime
     belongs_to :storytime_role, class_name: "Storytime::Role"
     belongs_to :site, class_name: "Storytime::Site"
 
+    accepts_nested_attributes_for :user
+
     validates :storytime_role, :user, presence: true
     validates_uniqueness_of :user_id, scope: :site_id
 
