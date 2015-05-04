@@ -9,7 +9,7 @@ module Storytime
         argument :scope, :required => false, :default => nil,
                          :desc => "The scope to copy views to"
 
-        class_option :views, aliases: "-v", type: :array, desc: "Select specific view directories to generate (application, blog_posts, blogs, comments, dashboard, pages, posts, sites, snippets, subscription_mailer, subscriptions)"
+        class_option :views, aliases: "-v", type: :array, desc: "Select specific view directories to generate (application, blogs, comments, dashboard, pages, posts, sites, snippets, subscription_mailer, subscriptions)"
 
         public_task :copy_views
       end
@@ -27,7 +27,6 @@ module Storytime
           end
         else
           view_directory :application
-          view_directory :blog_posts
           view_directory :blogs
           view_directory :comments
           view_directory :pages
