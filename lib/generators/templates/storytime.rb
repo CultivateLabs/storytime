@@ -34,25 +34,22 @@ Storytime.configure do |config|
   # handle how post content is sanitized (i.e. which tags,
   # HTML attributes to allow/disallow.
   # config.post_sanitizer = Proc.new do |draft_content|
-  #   white_list_sanitizer = if Rails::VERSION::MINOR <= 1
-  #     HTML::WhiteListSanitizer.new
+  #   if Rails::VERSION::MINOR <= 1
+  #     white_list_sanitizer = HTML::WhiteListSanitizer.new
+  #     tags = white_list_sanitizer.allowed_tags
+  #     attributes = white_list_sanitizer.allowed_attributes
   #   else
-  #     Rails::Html::WhiteListSanitizer.new
+  #     white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+  #     tags = Loofah::HTML5::WhiteList::ALLOWED_ELEMENTS_WITH_LIBXML2
+  #     attributes = Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES
   #   end
   #
-  #   attributes = %w(
-  #     id class href style src title width height alt value 
-  #     target rel align disabled
-  #   )
+  #   # Add any additional tags or attributes to tags/attributes Sets here.
+  #   # tags.add("someCustomTag")
+  #   # attributes.add("someCustomAttribute")
   #
-  #   if Storytime.whitelisted_post_html_tags.blank?
-  #     white_list_sanitizer.sanitize(draft_content, attributes: attributes)
-  #   else
-  #     white_list_sanitizer.sanitize(draft_content,
-  #                                   tags: Storytime.whitelisted_post_html_tags,
-  #                                   attributes: attributes)
-  #   end
-  # end
+  #   white_list_sanitizer.sanitize(draft_content, tags: tags, attributes: attributes)
+  # # end
 
   # Enable Disqus comments using your forum's shortname,
   # the unique identifier for your website as registered on Disqus.
