@@ -14,7 +14,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to storytime.edit_dashboard_user_path(current_user), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
+            <%= link_to storytime.edit_dashboard_membership_path(current_user.storytime_membership_in_site(@current_storytime_site)), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
               <i class="icon-st-icons-profile"></i>
               <span style="margin-left: 10px; margin-right: 6px;">My Account</span>
             <% end %>
@@ -45,7 +45,7 @@
         <% end %>
         <li class="divider"></li>
         <li>
-          <%= link_to main_app.send("destroy_#{Storytime.user_class_underscore}_session_path"), method: Storytime.logout_method do %>
+          <%= link_to Storytime.logout_path, method: Storytime.logout_method do %>
             <i class="icon-st-icons-logout"></i>
             <span style="margin-left: 10px; margin-right: 6px;">Log Out</span>
           <% end %>
@@ -104,7 +104,7 @@
       <h4 class="nav-menu-divider">Admin</h4>
       <ul class="nav nav-menu-nav">
         <% StorytimeAdmin.models.each do |model| %>
-          <%= nav_item model.pluralize.titleize, [storytime_admin, model.classify.constantize], nav_id: [:admin, :widgets] %>
+          <%= nav_item model.pluralize.titleize, [storytime_admin, *polymorphic_route_components(model)], nav_id: [:admin, model] %>
         <% end %>
       </ul>
     <% end %>

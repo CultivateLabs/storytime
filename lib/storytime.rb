@@ -22,6 +22,14 @@ module Storytime
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
 
+  # Path used to sign users out. 
+  mattr_accessor :logout_path
+  @@logout_path = '/users/sign_out'  
+
+  # Path used to register a new user. 
+  mattr_accessor :registration_path
+  @@registration_path = "/users/sign_up"
+
   # Method used for Storytime user logout path.
   mattr_accessor :logout_method
   @@logout_method = :delete
@@ -44,18 +52,17 @@ module Storytime
   # HTML attributes to allow/disallow.
   mattr_accessor :post_sanitizer
   @@post_sanitizer = Proc.new do |draft_content|
-    white_list_sanitizer = if Rails::VERSION::MINOR <= 1
-      HTML::WhiteListSanitizer.new
+    if Rails::VERSION::MINOR <= 1
+      white_list_sanitizer = HTML::WhiteListSanitizer.new
+      tags = white_list_sanitizer.allowed_tags
+      attributes = white_list_sanitizer.allowed_attributes
     else
-      Rails::Html::WhiteListSanitizer.new
+      white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+      tags = Loofah::HTML5::WhiteList::ALLOWED_ELEMENTS_WITH_LIBXML2
+      attributes = Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES
     end
 
-    attributes = %w(
-      id class href style src title width height alt value 
-      target rel align disabled
-    )
-
-    white_list_sanitizer.sanitize(draft_content, attributes: attributes)
+    white_list_sanitizer.sanitize(draft_content, tags: tags, attributes: attributes)
   end
 
   # Enable Disqus comments using your forum's shortname,
@@ -99,6 +106,11 @@ module Storytime
   mattr_accessor :aws_secret_key
   @@aws_secret_key = ENV['STORYTIME_AWS_SECRET_KEY']
 
+  # Superclass for Storytime::ApplicationController
+  # Defaults to the host app's ApplicationController
+  mattr_accessor :application_controller_superclass
+  @@application_controller_superclass = "::ApplicationController"
+
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
     
@@ -122,6 +134,10 @@ module Storytime
 
     def user_class_symbol
       @@user_class.underscore.to_sym
+    end
+
+    def application_controller_superclass
+      @@application_controller_superclass.constantize
     end
   end
 end

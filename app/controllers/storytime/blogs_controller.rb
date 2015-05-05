@@ -28,7 +28,11 @@ module Storytime
       else
         Post.published.friendly.find(params[:id])
       end
-      redirect_to "/", status: :moved_permanently if @page == @current_storytime_site.homepage
+
+      if @page == @current_storytime_site.homepage
+        opts = params[:tag] ? { tag: params[:tag] } : {}
+        redirect_to storytime.root_path(opts), status: :moved_permanently
+      end
     end
     
     def get_search_type
