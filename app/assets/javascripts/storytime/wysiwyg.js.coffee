@@ -153,7 +153,8 @@ class Storytime.Dashboard.Wysiwyg
         editor.toggle()
         code.toggle()
 
-        html = tidy_html5 wysiwyg.find('.medium-editor').html(), tidyOptions
+        html = wysiwyg.find('.medium-editor').html()
+        html = tidy_html5 html, tidyOptions unless window.Storytime.test_env
         codemirror.setValue(html)
 
         codemirror.refresh()
