@@ -15,6 +15,7 @@
     <% end %>
     
     <%= javascript_include_tag "storytime/application" %>
+    <%= javascript_include_tag "tidy" unless Rails.env.test? %>
 
     <% if Rails.env.test? # needs to be after main js file %>
       <script type="text/javascript">

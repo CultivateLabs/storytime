@@ -89,8 +89,10 @@ module Storytime
         @posts = @blog.posts.page(params[:page_number]).per(10)
         if params[:published].present? && params[:published] == "true"
           @posts = @posts.published.order(created_at: :desc)
-        else
+        elsif params[:draft].present? && params[:draft] == "true"
           @posts = @posts.draft.order(updated_at: :desc)
+        else
+          @posts = @posts.order(published_at: :desc)
         end
       end
 

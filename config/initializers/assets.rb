@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( chosen-sprite.png chosen-sprite@2x.png )
+Rails.application.config.assets.precompile += %w( chosen-sprite.png chosen-sprite@2x.png tidy.js )
