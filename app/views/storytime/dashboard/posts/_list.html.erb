@@ -11,8 +11,10 @@
         <% if post.published? && post.published_at <= Time.now %>
           Published <%= time_ago_in_words post.published_at %> ago
         <% elsif post.published? %>
+          <span class="label label-warning">Draft</span>
           Scheduled to publish on <%= post.published_at.strftime("%B %e at %l:%M %p") %>
         <% else %>
+          <span class="label label-warning">Draft</span>
           Last edited <%= time_ago_in_words post.updated_at %> ago
         <% end %>
       </p>
