@@ -13,8 +13,18 @@ describe "In the dashboard, Pages" do
 
     let!(:other_site_page){ FactoryGirl.create(:page) }
 
-    it "lists draft pages" do
+    it "lists all pages" do
       visit dashboard_pages_path
+      
+      current_site.pages.each do |p|
+        expect(page).to have_link_to_post(p)
+      end
+
+      expect(page).not_to have_link_to_post(other_site_page)
+    end
+
+    it "lists draft pages" do
+      visit dashboard_pages_path(draft: true)
       
       current_site.pages.each do |p|
         expect(page).to have_link_to_post(p) if p.published_at.nil?

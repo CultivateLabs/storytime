@@ -40,11 +40,18 @@
     </div>
     <div class="scroll-panel-body">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="<%= 'active' unless params[:published] == 'true' %>">
+        <li role="presentation" class="<%= 'active' unless (params[:published] == 'true' || params[:draft] == 'true') %>">
           <% if @blog %>
-            <%= link_to "Drafts", [:dashboard, @blog, :blog_page_post_index, published: nil] %>
+            <%= link_to "All", [:dashboard, @blog, :blog_page_post_index, published: nil, draft: nil] %>
           <% else %>
-            <%= link_to "Drafts", [:dashboard, current_post_type] %>
+            <%= link_to "All", [:dashboard, current_post_type, published: nil, draft: nil] %>
+          <% end %>
+        </li>
+        <li role="presentation" class="<%= 'active' if params[:draft] == 'true' %>">
+          <% if @blog %>
+            <%= link_to "Drafts", [:dashboard, @blog, :blog_page_post_index, published: nil, draft: true] %>
+          <% else %>
+            <%= link_to "Drafts", [:dashboard, current_post_type, draft: true] %>
           <% end %>
         </li>
         <li role="presentation" class="<%= 'active' if params[:published] == 'true' %>">

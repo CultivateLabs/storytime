@@ -30,9 +30,6 @@
 //= require codemirror/addons/fold/xml-fold
 //= require codemirror/addons/edit/closetag
 //= require codemirror/addons/edit/closebrackets
-<% unless Rails.env.test? %>
-//= require tidy
-<% end %>
 //= require chosen.jquery
 //= require medium-editor.min
 //= require_tree .

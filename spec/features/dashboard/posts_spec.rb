@@ -12,7 +12,7 @@ describe "In the dashboard, Posts" do
     FactoryGirl.create(:post)
     static_page = FactoryGirl.create(:page)
 
-    visit url_for([storytime, :dashboard, blog, :blog_page_post_index, only_path: true])
+    visit url_for([storytime, :dashboard, blog, :blog_page_post_index, draft: true, only_path: true])
     
     within "#main" do
       blog.posts.each do |p|
