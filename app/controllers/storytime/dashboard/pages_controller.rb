@@ -1,3 +1,5 @@
+require_dependency "storytime/dashboard/posts_controller"
+
 module Storytime
   module Dashboard
     class PagesController < PostsController
