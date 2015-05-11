@@ -4,6 +4,8 @@
 
     img {
       cursor: pointer;
+      &.pull-left{ margin-right: 20px; }
+      &.pull-right{ margin-left: 20px; }
     }
   }
 
