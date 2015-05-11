@@ -5,7 +5,7 @@ describe "In the dashboard, Posts" do
     login_admin
   end
 
-  it "lists all posts", focus: true do
+  it "lists all posts" do
     blog = @current_site.blogs.first
     FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
     2.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 1.hours.ago) }
@@ -22,7 +22,7 @@ describe "In the dashboard, Posts" do
     end
   end
 
-  it "lists draft posts", focus: true do
+  it "lists draft posts" do
     blog = @current_site.blogs.first
     3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil) }
     3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 2.hours.ago) }
@@ -41,7 +41,7 @@ describe "In the dashboard, Posts" do
     end
   end
 
-  it "lists published posts", focus: true do
+  it "lists published posts" do
     blog = @current_site.blogs.first
     FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
     2.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 3.hours.ago) }
