@@ -1,5 +1,5 @@
 <%= content_tag :span, class: "storytime-snippet storytime-snippet-#{snippet.id}" do %>
-  <% if logged_in_storytime_user? && Pundit.policy(current_user, Storytime::Snippet).manage? %>
+  <% if logged_in_storytime_user? && Pundit.policy(current_user, snippet).manage? %>
     <%= link_to [storytime, :edit, :dashboard, snippet], class: "storytime-modal-trigger", remote: true do %>
       <span class='snippet-content'><%= raw snippet.content %></span>
     <% end %>
