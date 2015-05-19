@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "A simple cms and blogging engine for rails apps."
   s.license     = "MIT"
 
-  s.files = `git ls-files -z`.split("\x0")
+  s.files = `git ls-files -z`.split("\x0") - Dir["screenshots/*"]
   s.executables << 'storytime'
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/public/uploads/**/*"]
   s.require_paths = ["lib"]
