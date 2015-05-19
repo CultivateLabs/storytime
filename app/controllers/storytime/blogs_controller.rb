@@ -12,7 +12,7 @@ module Storytime
       @posts = @page.posts
       @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
-      @posts = @posts.published.order(published_at: :desc).page(params[:page])
+      @posts = @posts.published.order(published_at: :desc).page(params[:page_number])
 
       #allow overriding in the host app
       render "storytime/#{@current_storytime_site.custom_view_path}/blogs/#{@page.slug}" if lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/blogs/#{@page.slug}")
