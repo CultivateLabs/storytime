@@ -111,6 +111,9 @@ en:
       remove_image: "Remove Image"
       new:
         header: "New %{resource}"
+    navigations:
+      index:
+        header: "Navigation Lists"
 
   layout:
     title: "Storytime"

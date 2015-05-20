@@ -83,11 +83,15 @@
         </li>
       <% end %>
 
-      <li>
-        <li <%= active_nav_item_class("pages", Storytime::Page.type_name) %>>
-          <%= link_to Storytime::Page.human_name.pluralize, [storytime, :dashboard, Storytime::Page] %>
-        </li>
+      <li <%= active_nav_item_class("pages", Storytime::Page.type_name) %>>
+        <%= link_to Storytime::Page.human_name.pluralize, [storytime, :dashboard, Storytime::Page] %>
       </li>
+
+      <% if Pundit.policy(current_user, Storytime::Site).edit? %>
+        <li <%= active_nav_item_class("navigations", Storytime::Navigation) %>>
+          <%= link_to "Navigation", [storytime, :dashboard, Storytime::Navigation] %>
+        </li>
+      <% end %>
     </ul>
 
     <h4 class="nav-menu-divider">
