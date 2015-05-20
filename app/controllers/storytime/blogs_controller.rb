@@ -5,7 +5,7 @@ module Storytime
     before_action :load_page
 
     def show
-      if params[:preview].nil? && ((params[:id] != @page.slug) && (request.path != "/"))
+      if params[:preview].nil? && params[:id].present? && params[:id] != @page.slug
         return redirect_to @page, :status => :moved_permanently
       end
       
