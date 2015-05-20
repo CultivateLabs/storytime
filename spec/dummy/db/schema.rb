@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520181115) do
+ActiveRecord::Schema.define(version: 20150520190700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,20 @@ ActiveRecord::Schema.define(version: 20150520181115) do
   add_index "storytime_comments", ["post_id"], name: "index_storytime_comments_on_post_id", using: :btree
   add_index "storytime_comments", ["site_id"], name: "index_storytime_comments_on_site_id", using: :btree
   add_index "storytime_comments", ["user_id"], name: "index_storytime_comments_on_user_id", using: :btree
+
+  create_table "storytime_links", force: :cascade do |t|
+    t.string   "text"
+    t.integer  "storytime_navigation_id"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "position"
+  end
+
+  add_index "storytime_links", ["linkable_type", "linkable_id"], name: "index_storytime_links_on_linkable_type_and_linkable_id", using: :btree
+  add_index "storytime_links", ["position"], name: "index_storytime_links_on_position", using: :btree
+  add_index "storytime_links", ["storytime_navigation_id"], name: "index_storytime_links_on_storytime_navigation_id", using: :btree
 
   create_table "storytime_media", force: :cascade do |t|
     t.string   "file"
@@ -237,4 +251,5 @@ ActiveRecord::Schema.define(version: 20150520181115) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "storytime_links", "storytime_navigations"
 end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  text: MyString
+  navigation_id: 
+  linkable_id: 
+  linkable_type: Linkable
+
+two:
+  text: MyString
+  navigation_id: 
+  linkable_id: 
+  linkable_type: Linkable

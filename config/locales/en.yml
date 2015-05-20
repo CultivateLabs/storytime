@@ -114,6 +114,12 @@ en:
     navigations:
       index:
         header: "Navigation Lists"
+      new:
+        header: "New Navigation List"
+      create:
+        success: "Your navigation list was created successfully."
+      update:
+        success: "Your navigation list was updated successfully."
 
   layout:
     title: "Storytime"
