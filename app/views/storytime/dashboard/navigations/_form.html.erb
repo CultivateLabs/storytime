@@ -1,0 +1,26 @@
+<div id="main">
+  <div class="scroll-panel">
+    <%= simple_form_for [storytime, :dashboard, @navigation] do |f| %>
+      <div class="scroll-panel-header">
+        <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
+          <i class="icon-st-icons-st-logo"></i>
+        <% end %>
+        <div class="pull-right">
+          <%= link_to "Cancel", [storytime, :dashboard, Storytime::Navigation], class: "btn btn-primary btn-sm btn-outline" %>
+          <%= f.submit "Save", class: "btn btn-sm btn-primary btn-outline" %>
+        </div>
+        <h3 class="scroll-panel-title"><%= header %></h3>
+      </div>
+      <div class="scroll-panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.input :name %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.input :handle, disabled: @navigation.persisted? %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
