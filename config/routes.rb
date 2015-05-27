@@ -31,7 +31,11 @@ Storytime::Engine.routes.draw do
       resources post_type.tableize.to_sym, controller: "custom_posts", only: [:edit, :update, :destroy], concerns: :autosavable
     end
 
-    resources :navigations, except: :show
+    resources :navigations, except: :show do
+      resources :links, only: [] do
+        collection { post :sort }
+      end
+    end
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :imports, only: [:new, :create]

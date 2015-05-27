@@ -56,6 +56,9 @@ en:
     roles:
       update:
         success: "Permissions successfully updated."
+    navigations:
+      destroy:
+        success: "Navigation list successfully deleted."
 
   simple_form:
     labels:

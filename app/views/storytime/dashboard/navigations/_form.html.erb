@@ -20,6 +20,25 @@
             <%= f.input :handle, disabled: @navigation.persisted? %>
           </div>
         </div>
+
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Link Text</th>
+                <th>Link Type</th>
+                <th>Link</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="links">
+              <%= f.simple_fields_for :links do |link| %>
+                <%= render "link_fields", f: link %>
+              <% end %>
+            </tbody>
+          </table>
+          <%= link_to_add_association "Add a Link", f, :links, class: "btn btn-default", :"data-association-insertion-node" => "#links", :"data-association-insertion-method" => "append" %>
+        </div>
       </div>
     <% end %>
   </div>

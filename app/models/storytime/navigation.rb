@@ -9,6 +9,8 @@ module Storytime
 
     before_validation :set_handle, on: :create
 
+    accepts_nested_attributes_for :links, :reject_if => :all_blank, :allow_destroy => true
+
   private
     def set_handle
       self.handle = self.handle.present? ? self.handle.parameterize : self.name.parameterize

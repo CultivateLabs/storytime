@@ -1,0 +1,6 @@
+<tr class="nested-fields">
+  <td><%= f.input :text, label: false, wrapper: false, input_html: { class: "input-sm" } %></td>
+  <td>LINK TYPE</td>
+  <td><%= f.association :linkable, label: false, wrapper: false, input_html: { class: "input-sm" }, collection: Storytime::Page.all %></td>
+  <td><%= link_to_remove_association icon("trash"), f, class: "btn btn-default pull-right" %></td>
+</tr>
