@@ -6,5 +6,7 @@ module Storytime
     acts_as_list scope: :storytime_navigation_id
 
     default_scope { order(:position) }
+
+    validates_presence_of :text
   end
 end
