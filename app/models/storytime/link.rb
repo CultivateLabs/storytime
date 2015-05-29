@@ -8,5 +8,7 @@ module Storytime
     default_scope { order(:position) }
 
     validates_presence_of :text
+    validates_presence_of :url, if: Proc.new {|link| link.linkable.blank? }
+    validates_presence_of :linkable, if: Proc.new {|link| link.url.blank? }
   end
 end
