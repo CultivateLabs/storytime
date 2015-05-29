@@ -1,0 +1,3 @@
+<% navigation.links.each do |link| %>
+  <li><%= link_to link.text, (link.url.present? ? link.url : storytime.page_path(link.linkable)) %></li>
+<% end %>

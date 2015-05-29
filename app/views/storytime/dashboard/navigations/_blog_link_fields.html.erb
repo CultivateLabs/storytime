@@ -1,0 +1,8 @@
+<tr class="nested-fields">
+  <td><%= f.input :text, placeholder: "Link text", label: false, wrapper_html: { class: "no-margin" }, input_html: { class: "input-sm" } %></td>
+  <td>
+    <%= f.input :linkable_type, as: :hidden, input_html: { value: "Storytime::Blog" } %>
+    <%= f.association :linkable, label: false, wrapper_html: { class: "no-margin" }, input_html: { class: "input-sm" }, collection: Storytime::Post.where(type: "Storytime::Blog").all, prompt: "Select a Blog" %>
+  </td>
+  <td><%= link_to_remove_association icon("trash"), f, class: "btn btn-default btn-sm pull-right" %></td>
+</tr>

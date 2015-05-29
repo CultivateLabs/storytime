@@ -59,7 +59,7 @@ module Storytime
 
     private
       def navigation_params
-        params.require(:navigation).permit(:name, :handle, links_attributes: [:id, :text, :linkable_id, :_destroy])
+        params.require(:navigation).permit(:name, :handle, links_attributes: [:id, :text, :url, :linkable_type, :linkable_id, :_destroy])
       end
     end
   end

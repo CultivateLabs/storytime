@@ -25,19 +25,32 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Link Text</th>
-                <th>Link Type</th>
-                <th>Link</th>
+                <th style="width: 40%;">Link Text</th>
+                <th style="width: 40%;">Link</th>
                 <th></th>
               </tr>
             </thead>
             <tbody id="links">
               <%= f.simple_fields_for :links do |link| %>
-                <%= render "link_fields", f: link %>
+                <% if link.object.url.present? %>
+                  <%= render "external_link_fields", f: link %>
+                <% else %>
+                  <%= render "#{link.object.linkable_type.split("::").last.downcase}_link_fields", f: link %>
+                <% end %>
               <% end %>
             </tbody>
           </table>
-          <%= link_to_add_association "Add a Link", f, :links, class: "btn btn-default", :"data-association-insertion-node" => "#links", :"data-association-insertion-method" => "append" %>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              Add a Link <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu left" role="menu">
+              <li><%= link_to_add_association "Page Link", f, :links, partial: "page_link_fields", :"data-association-insertion-node" => "#links", :"data-association-insertion-method" => "append" %></li>
+              <li><%= link_to_add_association "Blog Link", f, :links, partial: "blog_link_fields", :"data-association-insertion-node" => "#links", :"data-association-insertion-method" => "append" %></li>
+              <li><%= link_to_add_association "External Link", f, :links, partial: "external_link_fields", :"data-association-insertion-node" => "#links", :"data-association-insertion-method" => "append" %></li>
+            </ul>
+          </div>
+          
         </div>
       </div>
     <% end %>

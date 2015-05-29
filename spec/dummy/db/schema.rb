@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520190700) do
+ActiveRecord::Schema.define(version: 20150529192058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150520190700) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "position"
+    t.string   "url"
   end
 
   add_index "storytime_links", ["linkable_type", "linkable_id"], name: "index_storytime_links_on_linkable_type_and_linkable_id", using: :btree
