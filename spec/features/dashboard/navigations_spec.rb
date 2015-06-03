@@ -6,7 +6,7 @@ describe "In the dashboard, Navigations" do
   
   it "renders the navigations index" do
     visit dashboard_navigations_path
-    expect(page).to have_content I18n.t('dashboard.navigations.index.header')
+    expect(page).to have_content I18n.t('storytime.dashboard.navigations.index.header')
   end
 
   it "creates a new navigation list" do 
