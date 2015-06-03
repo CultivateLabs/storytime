@@ -1,0 +1,25 @@
+<div class="panel panel-default" id="navigation_<%= navigation.id %>">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-xs-8">
+        <h3 class="panel-title">
+          <%= navigation.name %>
+        </h3>
+      </div>
+      <div class="col-xs-4 text-right">
+        <%= link_to "Edit", [storytime, :edit, :dashboard, navigation], class: "btn btn-default btn-xs" %>
+        <%= delete_resource_link navigation, dashboard_navigation_url(navigation) %>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group sortable no-margin" data-update-url="<%= sort_dashboard_navigation_links_url(navigation) %>">
+      <% navigation.links.each do |link| %>
+        <%= content_tag_for :li, link, class: "list-group-item" do %>
+          <%= icon "bars", style: "cursor: move; margin-right: 10px;" %>
+          <%= link.text %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

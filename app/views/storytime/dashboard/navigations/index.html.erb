@@ -1,0 +1,15 @@
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+
+      <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
+        <i class="icon-st-icons-st-logo"></i>
+      <% end %>
+      <%= link_to "New Navigation List", [storytime, :new, :dashboard, :navigation], class: "btn btn-sm btn-primary btn-outline pull-right" %>
+      <h3 class="scroll-panel-title"><%= t('.header') %></h3>
+    </div>
+    <div class="scroll-panel-body">
+      <%= render partial: "storytime/dashboard/navigations/navigation", collection: @navigations, as: :navigation %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<tr class="nested-fields">
+  <td><%= f.input :text, placeholder: "Link text", label: false, input_html: { class: "input-sm" }, wrapper_html: { class: "no-margin" } %></td>
+  <td>
+    <%= f.input :url, placeholder: "URL", label: false, input_html: { class: "input-sm" }, wrapper_html: { class: "no-margin" } %>
+  </td>
+  <td><%= link_to_remove_association icon("trash"), f, class: "btn btn-default btn-sm pull-right" %></td>
+</tr>

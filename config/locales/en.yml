@@ -56,6 +56,9 @@ en:
     roles:
       update:
         success: "Permissions successfully updated."
+    navigations:
+      destroy:
+        success: "Navigation list successfully deleted."
 
   simple_form:
     labels:
@@ -111,6 +114,11 @@ en:
       remove_image: "Remove Image"
       new:
         header: "New %{resource}"
+    navigations:
+      create:
+        success: "Your navigation list was created successfully."
+      update:
+        success: "Your navigation list was updated successfully."
 
   layout:
     title: "Storytime"
@@ -122,3 +130,13 @@ en:
     previous: "<i class='fa fa-caret-left'></i>"
     next: "<i class='fa fa-caret-right'></i>"
     last: "<i class='fa fa-caret-right'></i><i class='fa fa-caret-right'></i>"
+
+  storytime:
+    dashboard:
+      navigations:
+        index:
+          header: "Navigation Lists"
+        new: 
+          header: "New Navigation List"
+        edit:
+          header: "Edit Navigation List"

@@ -119,6 +119,13 @@
     right: 6px;
   }
 
+  .dropdown-menu.left:after, .dropdown-menu.left:before {
+    left: 15px;
+  }
+  .dropdown-menu.left:before {
+    left: 15px;
+  }
+
   .dropdown-menu > li > a {
     padding: 6px 20px;
     text-transform: uppercase;
