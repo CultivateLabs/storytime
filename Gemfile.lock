@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/flyoverworks/storytime-admin.git
-  revision: 9eb2ca6c49a42f118d6636f0df8b45a105496f4b
+  revision: 363ae91e205d7278c37e4bf2bcef059450f2160a
   branch: dev
   specs:
-    storytime-admin (0.1.0)
+    storytime-admin (0.2.0)
       bootstrap-kaminari-views
       coffee-rails (>= 4.0)
       font-awesome-sass
@@ -40,7 +40,7 @@ PATH
       rails (>= 4.0)
       sass-rails (>= 4.0)
       simple_form (>= 3.0)
-      storytime-admin (~> 0.1.0)
+      storytime-admin (~> 0.2.0)
       thor (~> 0.19.1)
 
 GEM
