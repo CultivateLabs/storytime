@@ -35,7 +35,7 @@
                 <% if link.object.url.present? || link.object.errors[:url].present? %>
                   <%= render "external_link_fields", f: link %>
                 <% else %>
-                  <%= render "#{link.object.linkable_type.split("::").last.downcase}_link_fields", f: link %>
+                  <%= render "#{link.object.linkable.type.split("::").last.downcase}_link_fields", f: link %>
                 <% end %>
               <% end %>
             </tbody>
