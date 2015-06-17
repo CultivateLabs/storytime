@@ -52,6 +52,11 @@ class Storytime.Dashboard.Wysiwyg
         self.closeImageControls()
         mediumEditor.activate()
 
+    $('body').on "keyup", "#medium-image-caption", () ->
+      caption = $(".medium-active-image").parent(".storytime-image").find(".storytime-image-caption")
+      caption.text($(this).val())
+
+
     $("body").on 'click', '.medium-editor img', (e) ->
       active = $(this).hasClass("medium-active-image")
       unless active
@@ -59,6 +64,7 @@ class Storytime.Dashboard.Wysiwyg
         $(this).addClass "medium-active-image"
         $("#medium-image-width").val($(this)[0].style.width)
         $("#medium-image-height").val($(this)[0].style.height)
+        $("#medium-image-caption").val($(this).parent(".storytime-image").find(".storytime-image-caption").text())
         $("#medium-image-button").hide()
         $(".medium-image-controls").show()
         mediumEditor.deactivate()
@@ -84,14 +90,14 @@ class Storytime.Dashboard.Wysiwyg
 
     $('body').on "click", ".medium-image-float", () ->
       direction = $(this).data("float")
-      image = $(".medium-active-image")
+      container = $(".medium-active-image").parent(".storytime-image")
       switch direction
-        when "left" then image.removeClass("pull-right pull-left").addClass("pull-left")
-        when "right" then image.removeClass("pull-right pull-left").addClass("pull-right")
-        when "none" then image.removeClass("pull-right pull-left")
+        when "left" then container.removeClass("pull-right pull-left").addClass("pull-left")
+        when "right" then container.removeClass("pull-right pull-left").addClass("pull-right")
+        when "none" then container.removeClass("pull-right pull-left").addClass("text-center")
 
     $('body').on "click", ".medium-image-delete", () ->
-      image = $(".medium-active-image")
+      image = $(".medium-active-image").parent(".storytime-image")
       image.remove()
       self.updateFromMediumEditor()
       self.closeImageControls()
