@@ -84,11 +84,11 @@ class Storytime.Dashboard.Wysiwyg
 
     $('body').on "click", ".medium-image-float", () ->
       direction = $(this).data("float")
-      image = $(".medium-active-image")
+      container = $(".medium-active-image").parent(".storytime-image")
       switch direction
-        when "left" then image.removeClass("pull-right pull-left").addClass("pull-left")
-        when "right" then image.removeClass("pull-right pull-left").addClass("pull-right")
-        when "none" then image.removeClass("pull-right pull-left")
+        when "left" then container.removeClass("pull-right pull-left").addClass("pull-left")
+        when "right" then container.removeClass("pull-right pull-left").addClass("pull-right")
+        when "none" then container.removeClass("pull-right pull-left").addClass("text-center")
 
     $('body').on "click", ".medium-image-delete", () ->
       image = $(".medium-active-image")

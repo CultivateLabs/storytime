@@ -62,7 +62,7 @@ class Storytime.Dashboard.Media
         $("#insertMediaModal").modal("hide")
         return
       else
-        image_tag = "<img src='#{$(@).data("image-url")}' class='img-responsive' />"
+        image_tag = "<div class='storytime-image'><img src='#{$(@).data("image-url")}' /></div>"
         if self.elementContainsSelection($("#medium-editor-post")[0])
           self.pasteHtmlAtCaret(image_tag, false)
         else
