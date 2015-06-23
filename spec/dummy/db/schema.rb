@@ -135,9 +135,9 @@ ActiveRecord::Schema.define(version: 20150529192058) do
     t.boolean  "featured",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "video_url"
     t.integer  "secondary_media_id"
     t.integer  "site_id"
-    t.string   "video_url"
     t.boolean  "notifications_enabled", default: false
     t.datetime "notifications_sent_at"
     t.integer  "blog_id"

@@ -33,7 +33,7 @@ module Storytime
       
     private
       def current_post_type
-        @current_post_type ||= request.path.split("/")[-2].classify.constantize
+        @current_post_type ||= params[:post_type].classify.constantize
       end
       helper_method :current_post_type
 

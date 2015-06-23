@@ -22,13 +22,13 @@ Storytime::Engine.routes.draw do
 
       resources :blog_posts, shallow: true, except: :show, concerns: :autosavable
       Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog Storytime::BlogPost].include?(type) }.each do |post_type|
-        resources post_type.tableize.to_sym, controller: "custom_posts", only: [:new, :create]
+        resources post_type.tableize.to_sym, controller: "custom_posts", only: [:new, :create], defaults: { post_type: post_type }
       end
     end
     
     # Create / Update / Delete pages, blog_posts, custom_post_types
     Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog Storytime::BlogPost].include?(type) }.each do |post_type|
-      resources post_type.tableize.to_sym, controller: "custom_posts", only: [:edit, :update, :destroy], concerns: :autosavable
+      resources post_type.tableize.to_sym, controller: "custom_posts", only: [:edit, :update, :destroy], concerns: :autosavable, defaults: { post_type: post_type }
     end
 
     resources :navigations, except: :show do
