@@ -74,3 +74,8 @@
   #draft_last_saved_at{
     margin-left: 25px;
   }
+
+  .storytime-image{
+    &.pull-left{ margin-right: 15px; }
+    &.pull-right{ margin-left: 15px; }
+  }
