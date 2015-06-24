@@ -54,6 +54,7 @@ class Storytime.Dashboard.Wysiwyg
 
     $('body').on "keyup", "#medium-image-caption", () ->
       caption = $(".medium-active-image").parent(".storytime-image").find(".storytime-image-caption")
+      caption.css("width", $(".medium-active-image").width())
       caption.text($(this).val())
 
 
@@ -70,14 +71,18 @@ class Storytime.Dashboard.Wysiwyg
         mediumEditor.deactivate()
 
     $('body').on "keyup", "#medium-image-width", () ->
+      $img = $(".medium-active-image")
       if $(this).val() == "" || $(this).val() == "auto"
-        $(".medium-active-image").css("width", "")
+        $img.css("width", "")
         $("#medium-image-height").val("")
         $("#medium-image-width").val("")
       else
-        $(".medium-active-image").css("width", $(this).val())
-        $(".medium-active-image").css("height", "")
-        $("#medium-image-height").val($(".medium-active-image").css("height"))
+        $img.css("width", $(this).val())
+        $img.css("height", "")
+        $("#medium-image-height").val($img.css("height"))
+
+      $caption = $img.parent(".storytime-image").find(".storytime-image-caption")
+      $caption.css("width", $img.css("width"))
 
     $('body').on "keyup", "#medium-image-height", () ->
       # set the height, then find the new width and set that and remove the height so image remains responsive
@@ -104,7 +109,6 @@ class Storytime.Dashboard.Wysiwyg
       mediumEditor.activate()
 
   openImageControls: (image) ->
-    console.log image
     image.addClass("medium-active-image")
     $("#medium-image-width").val(image[0].style.width)
     $("#medium-image-height").val(image[0].style.height)
