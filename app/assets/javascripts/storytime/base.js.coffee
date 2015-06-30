@@ -9,7 +9,6 @@ initJS = (controller, action) ->
 $ ()->
   initJS($("body").data("controller"), $("body").data("action"))
 
-  debugger
   $(".flash").delay(4000).fadeOut() unless window.Storytime.test_env || window.Storytime.persistent_flash_message
 
   $(".chosen").chosen()
