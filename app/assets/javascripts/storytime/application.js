@@ -13,7 +13,7 @@
 //= require_self
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require leather
 //= require cocoon
 //= require jquery-ui/core
