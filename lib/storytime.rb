@@ -61,6 +61,8 @@ module Storytime
       tags = Loofah::HTML5::WhiteList::ALLOWED_ELEMENTS_WITH_LIBXML2
       attributes = Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES
     end
+    
+    attributes << "style"
 
     white_list_sanitizer.sanitize(draft_content, tags: tags, attributes: attributes)
   end
