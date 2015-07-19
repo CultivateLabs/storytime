@@ -32,7 +32,7 @@ module Storytime
     end
 
     def self.current
-      find(current_id)
+      find(current_id) if current_id
     end
 
     def save_with_seeds(user)
