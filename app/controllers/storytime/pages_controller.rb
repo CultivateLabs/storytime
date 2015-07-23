@@ -5,13 +5,13 @@ module Storytime
     before_action :load_page
 
     def show
-      if params[:preview].nil? && params[:id].present? && params[:id] != @page.slug
+      if params[:preview].nil? && params[:id].present? && !@page.nil? && params[:id] != @page.slug
         return redirect_to @page, :status => :moved_permanently
       end
 
       #allow overriding in the host app
       slug = @page.nil? ? ActionController::Base.helpers.sanitize(params[:id]) : @page.slug
-      
+
       potential_templates = [
         "storytime/#{@current_storytime_site.custom_view_path}/pages/#{slug}",
         "storytime/#{@current_storytime_site.custom_view_path}/pages/show",
@@ -19,7 +19,7 @@ module Storytime
         "storytime/pages/show",
       ].each do |template|
         if lookup_context.template_exists?(template)
-          render template 
+          render template
           return
         end
       end
