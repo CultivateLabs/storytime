@@ -14,8 +14,8 @@ module Storytime
     before_save :ensure_protocol_for_external_links
     
     def ensure_protocol_for_external_links
-      if link.linkable.blank? && url.present? && !url.include?("://")
-        url = "http://#{url}"
+      if linkable.blank? && url.present? && !url.include?("://")
+        self.url = "http://#{url}"
       end
     end
   end
