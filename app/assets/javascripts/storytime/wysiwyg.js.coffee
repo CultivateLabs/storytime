@@ -3,6 +3,7 @@ class Storytime.Dashboard.Wysiwyg
     buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'quote', 'unorderedlist', 'orderedlist', 'pre']
     toolbarAlign: 'center'
     buttonLabels: 'fontawesome'
+    checkLinkFormat: true
 
   codeMirrorOptions = 
     mode: 'htmlmixed'
