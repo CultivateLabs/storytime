@@ -1,20 +1,20 @@
 ![Storytime](https://flyoverworks-com.s3.amazonaws.com/uploads/storytime/media/file/125/final-st-logo-02_thumb.png) 
 
-[![Circle CI](https://circleci.com/gh/FlyoverWorks/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/FlyoverWorks/storytime/tree/master)
+[![Circle CI](https://circleci.com/gh/CultivateLabs/storytime/tree/master.svg?style=svg)](https://circleci.com/gh/CultivateLabs/storytime/tree/master)
 
-Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content. It is built and maintained by [FlyoverWorks](http://www.flyoverworks.com/?utm_source=github&utm_medium=readme&utm_campaign=github) / [@flyoverworks](http://twitter.com/flyoverworks)
+Storytime is a Rails 4+ CMS and blogging engine, with a core focus on content. It is built and maintained by [CultivateLabs](https://www.cultivatelabs.com/?utm_source=github&utm_medium=readme&utm_campaign=github) / [@cultivatelabs](http://twitter.com/cultivatelabs)
 
 ## Features
 
-* [Simple integration with Rails 4+ apps](https://github.com/FlyoverWorks/storytime/wiki/Setup) - Quickly get set up using a guided, automated, or manual setup experience, whatever suits your fancy.
-* [Quick access dashboard](https://github.com/FlyoverWorks/storytime/wiki/Using-the-Quick-Access-Menu) - Access Storytime's dashboard from anywhere on your site with our quick access menu.
-* [Multi-site support](https://github.com/FlyoverWorks/storytime/wiki/Multi-site-Support) - Manage multiple sites with one Storytime deployment.
-* [Inline text snippet editing](https://github.com/FlyoverWorks/storytime/wiki/Text-Snippets) - Create and edit snippets of content that can be re-used throughout your Storytime site.
-* [Admin of other Rails models](https://github.com/FlyoverWorks/storytime/wiki/Admin-of-Rails-Models) - Manage your models from the Storytime dashboard.
-* [Custom Post Types](https://github.com/FlyoverWorks/storytime/wiki/Using-Custom-Post-Types) - Add custom post types to alter functionality or appearance of posts.
-* [Email list building](https://github.com/FlyoverWorks/storytime/wiki/Email-Subscriptions) - Collect and manage emails using a simple view helper.
-* [New post notifications](https://github.com/FlyoverWorks/storytime/wiki/Working-with-New-Post-Notifications) - Send notifications to your site's subscribers whenever you publish a post.
-* [Built-in search](https://github.com/FlyoverWorks/storytime/wiki/Using-Storytime%27s-Post-Search) - Easily search through Storytime's posts using built-in search adapters or request parameters.
+* [Simple integration with Rails 4+ apps](https://github.com/CultivateLabs/storytime/wiki/Setup) - Quickly get set up using a guided, automated, or manual setup experience, whatever suits your fancy.
+* [Quick access dashboard](https://github.com/CultivateLabs/storytime/wiki/Using-the-Quick-Access-Menu) - Access Storytime's dashboard from anywhere on your site with our quick access menu.
+* [Multi-site support](https://github.com/CultivateLabs/storytime/wiki/Multi-site-Support) - Manage multiple sites with one Storytime deployment.
+* [Inline text snippet editing](https://github.com/CultivateLabs/storytime/wiki/Text-Snippets) - Create and edit snippets of content that can be re-used throughout your Storytime site.
+* [Admin of other Rails models](https://github.com/CultivateLabs/storytime/wiki/Admin-of-Rails-Models) - Manage your models from the Storytime dashboard.
+* [Custom Post Types](https://github.com/CultivateLabs/storytime/wiki/Using-Custom-Post-Types) - Add custom post types to alter functionality or appearance of posts.
+* [Email list building](https://github.com/CultivateLabs/storytime/wiki/Email-Subscriptions) - Collect and manage emails using a simple view helper.
+* [New post notifications](https://github.com/CultivateLabs/storytime/wiki/Working-with-New-Post-Notifications) - Send notifications to your site's subscribers whenever you publish a post.
+* [Built-in search](https://github.com/CultivateLabs/storytime/wiki/Using-Storytime%27s-Post-Search) - Easily search through Storytime's posts using built-in search adapters or request parameters.
 
 ## Separation of Concerns
 
@@ -39,7 +39,7 @@ This separation is intended to provide several benefits and/or solve several pro
 
 ## Sample App
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/flyoverworks/storytime-example/blob/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/CultivateLabs/storytime-example/blob/master)
 
 ## Installation
 
@@ -131,30 +131,30 @@ $ rails generate storytime:views
 
 ## Getting Started
 
-See the [Storytime Wiki](https://github.com/FlyoverWorks/storytime/wiki) for more documentation and information on using Storytime's various features.
+See the [Storytime Wiki](https://github.com/CultivateLabs/storytime/wiki) for more documentation and information on using Storytime's various features.
 
 ## Screen Shots
 
 Page List:
-![Page List](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/page-list.png "Page List")
+![Page List](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/page-list.png "Page List")
 
 Post Editor:
-![Post Editor](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/post-editor.png "Post Editor")
+![Post Editor](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/post-editor.png "Post Editor")
 
 Admin of Custom Rails Models:
-![Admin of Custom Rails Models](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/admin.png "Admin of Custom Rails Models")
+![Admin of Custom Rails Models](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/admin.png "Admin of Custom Rails Models")
 
 Text Snippets:
-![Text Snippets](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/text-snippets.png "Text Snippets")
+![Text Snippets](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/text-snippets.png "Text Snippets")
 
 User Management:
-![User Management](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/user-management.png "User Management")
+![User Management](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/user-management.png "User Management")
 
 Site Settings:
-![Site Settings](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/site-settings.png "Site Settings")
+![Site Settings](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/site-settings.png "Site Settings")
 
 Media Uploads:
-![Media Uploads](https://raw.githubusercontent.com/FlyoverWorks/storytime/master/screenshots/media.png "Media Uploads")
+![Media Uploads](https://raw.githubusercontent.com/CultivateLabs/storytime/master/screenshots/media.png "Media Uploads")
 
 ## Copyright
-Copyright © 2014-2015 FlyoverWorks Inc. Storytime is released under the [MIT-LICENSE](MIT-LICENSE).
+Copyright © 2014-2015 CultivateLabs Inc. Storytime is released under the [MIT-LICENSE](MIT-LICENSE).
