@@ -7,7 +7,7 @@
 
     ga('create', '<%= @current_storytime_site.ga_tracking_id %>', {'allowAnchor': true});
 
-    ga('send', 'pageview');
+    ga('send', 'pageview', { 'page': location.pathname + location.search + location.hash});
 
   </script>
 <% end %>
