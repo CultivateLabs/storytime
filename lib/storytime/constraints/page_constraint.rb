@@ -2,7 +2,7 @@ module Storytime
   module Constraints
     class PageConstraint
       include Storytime::Concerns::CurrentSite
-      
+
       def matches?(request)
         site = current_storytime_site(request)
         site.pages.friendly.exists?(request.params[:id]) ||

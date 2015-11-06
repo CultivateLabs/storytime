@@ -25,7 +25,7 @@ Storytime::Engine.routes.draw do
         resources post_type.tableize.to_sym, controller: "custom_posts", only: [:new, :create], defaults: { post_type: post_type }
       end
     end
-    
+
     # Create / Update / Delete pages, blog_posts, custom_post_types
     Storytime.post_types.reject{|type| %w[Storytime::Page Storytime::Blog Storytime::BlogPost].include?(type) }.each do |post_type|
       resources post_type.tableize.to_sym, controller: "custom_posts", only: [:edit, :update, :destroy], concerns: :autosavable, defaults: { post_type: post_type }
@@ -55,9 +55,9 @@ Storytime::Engine.routes.draw do
   get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
 
   resources :blogs, only: :show, path: "/", constraints: Storytime::Constraints::BlogConstraint.new
-  resources :pages, only: :show, path: "/", constraints: Storytime::Constraints::PageConstraint.new
+  get '/*id', to: 'pages#show', constraints: Storytime::Constraints::PageConstraint.new
   resources :posts, only: [], concerns: :commentable
-  
+
   Storytime.post_types.each do |post_type|
     constraints ->(request){ request.params[:component_1] != "assets" } do
       resources post_type.split("::").last.tableize, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, controller: "posts"

@@ -36,7 +36,7 @@ module Storytime
 
       def find_preview(id)
         post = Post.friendly.find(id)
-        
+
         if post.present?
           post.content = post.preview_content
           post.preview = true
@@ -48,7 +48,7 @@ module Storytime
       def type_name
         to_s.split("::").last.underscore
       end
-    end 
+    end
     #### END class << self
 
     def to_partial_path
@@ -56,7 +56,7 @@ module Storytime
     end
 
     def preview_content
-      autosave.present? ? autosave.content : latest_version.content 
+      autosave.present? ? autosave.content : latest_version.content
     end
 
     def human_name
@@ -73,6 +73,10 @@ module Storytime
 
     def slug_candidates
       if slug.blank? then [:title] elsif slug_changed? then [:slug] end
+    end
+
+    def normalize_friendly_id(value)
+      value.split("/").map(&:parameterize).join("/")
     end
 
     def should_generate_new_friendly_id?
