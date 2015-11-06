@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe "Blogs" do
+describe "Blogs", type: :feature do
   before do
     setup_site(FactoryGirl.create(:admin))
   end
-  
+
   it "lists posts belonging to that blog" do
     3.times{ FactoryGirl.create(:post, blog: @current_site.blogs.first, site: @current_site) }
     other_blog_post = FactoryGirl.create(:post, site: @current_site)

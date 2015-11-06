@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Subscriptions" do
+describe "Subscriptions", type: :feature do
   before do
     setup_site(FactoryGirl.create(:admin))
   end

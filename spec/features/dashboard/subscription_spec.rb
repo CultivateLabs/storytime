@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "In the dashboard, Subscriptions" do
+describe "In the dashboard, Subscriptions", type: :feature do
   before do
     login_admin
   end
@@ -27,7 +27,7 @@ describe "In the dashboard, Subscriptions" do
 
     fill_in "subscription_email", with: "some_random_email@example.com"
     click_button "Save"
-      
+
     within "#storytime-modal" do
       expect(page).to have_content "some_random_email@example.com"
     end
@@ -42,7 +42,7 @@ describe "In the dashboard, Subscriptions" do
     visit storytime.dashboard_path
     click_link "utility-menu-toggle"
     click_link "subscriptions-link"
-    
+
     within "#storytime-modal" do
       click_link "edit-subscription-#{subscription.id}"
     end
@@ -53,7 +53,7 @@ describe "In the dashboard, Subscriptions" do
       click_button "Save"
     end
 
-    within "#storytime-modal" do 
+    within "#storytime-modal" do
       expect(page).to have_content "johndoe@example.com"
     end
   end

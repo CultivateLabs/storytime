@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts" do
+describe "Posts", type: :feature do
   before do
     setup_site(FactoryGirl.create(:admin))
   end

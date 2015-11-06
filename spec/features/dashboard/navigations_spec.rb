@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe "In the dashboard, Navigations" do
+describe "In the dashboard, Navigations", type: :feature do
 
   before{ login_admin }
-  
+
   it "renders the navigations index" do
     visit dashboard_navigations_path
     expect(page).to have_content I18n.t('storytime.dashboard.navigations.index.header')
   end
 
-  it "creates a new navigation list" do 
+  it "creates a new navigation list" do
     visit new_dashboard_navigation_path
 
     expect{
@@ -26,7 +26,7 @@ describe "In the dashboard, Navigations" do
 
     fill_in "navigation_name", with: "New Name"
     find("input[name='commit']").click()
-    
+
     nav.reload
     expect(nav.name).to eq "New Name"
   end

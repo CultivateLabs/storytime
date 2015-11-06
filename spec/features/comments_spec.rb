@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe "Comments" do
+describe "Comments", type: :feature do
   before do
     # setup_site
     login
   end
-  
+
   it "lists comments on a post" do
     post = FactoryGirl.create(:post, site: @current_site, blog: @current_site.blogs.first)
     3.times{ FactoryGirl.create(:comment, post: post, site: @current_site) }
@@ -48,10 +48,10 @@ describe "Comments" do
 
     expect(page).to have_content(comment_to_delete.content)
     click_link "delete_comment_#{comment_to_delete.id}"
-    
+
     expect(page).to_not have_content(comment_to_delete.content)
 
     expect{ comment_to_delete.reload }.to raise_error
   end
-  
+
 end

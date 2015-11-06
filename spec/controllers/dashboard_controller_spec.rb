@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Storytime::DashboardController do
+describe Storytime::DashboardController, type: :controller do
   context "for actions of subclasses" do
     class WidgetsController < Storytime::DashboardController; end
 
     controller(WidgetsController) do
       def index; end
     end
-    
+
     it "requires login" do
       get :index
       flash[:alert].should == I18n.t('devise.failure.unauthenticated')
@@ -18,7 +18,7 @@ describe Storytime::DashboardController do
       controller.view_paths.unshift(ActionView::FixtureResolver.new("widgets/index.html.erb" => ""))
       FactoryGirl.create(:site)
       sign_in FactoryGirl.create(:writer)
-      get :index 
+      get :index
       expect(flash[:error]).to eq("You are not authorized to perform this action.")
     end
 

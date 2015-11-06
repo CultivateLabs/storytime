@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "In the dashboard, Users" do
+describe "In the dashboard, Users", type: :feature do
   context "as Admin" do
     before{ login_admin }
 
@@ -11,7 +11,7 @@ describe "In the dashboard, Users" do
       visit storytime.dashboard_path
 
       click_link @current_site.title
-      
+
       expect(page).to have_link(@current_site.title, href: "")
       expect(page).to have_link(other_site.title, href: storytime.dashboard_url(host: other_site.custom_domain, port: Capybara.current_session.server.port))
     end
@@ -47,7 +47,7 @@ describe "In the dashboard, Users" do
 
       find("#membership_#{membership.id}").hover
       click_link("delete_membership_#{membership.id}")
-      
+
       expect(page).to_not have_content(user.storytime_name)
 
       expect(Storytime.user_class.count).to eq(user_count)
@@ -98,7 +98,7 @@ describe "In the dashboard, Users" do
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "users-link"
-      
+
       click_link "new-user-link"
 
       fill_in "user_storytime_name", with: "New Storytime Username"
@@ -107,7 +107,7 @@ describe "In the dashboard, Users" do
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "Save"
-      
+
       within "#storytime-modal" do
         expect(page).to have_content "New Storytime Username"
       end

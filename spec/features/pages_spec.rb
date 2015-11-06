@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Pages" do
+describe "Pages", type: :feature do
   before do
     setup_site(FactoryGirl.create(:admin))
   end
@@ -10,5 +10,5 @@ describe "Pages" do
     visit url_for([pg, only_path: true])
     page.should have_content(pg.content)
   end
-  
+
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "In the dashboard, Posts" do
+describe "In the dashboard, Posts", type: :feature do
   before do
     login_admin
   end
@@ -30,7 +30,7 @@ describe "In the dashboard, Posts" do
     static_page = FactoryGirl.create(:page)
 
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, draft: true, only_path: true])
-    
+
     within "#main" do
       blog.posts.each do |p|
         expect(page).to have_content(p.title) if p.published_at.nil?
@@ -58,7 +58,7 @@ describe "In the dashboard, Posts" do
       expect(page).not_to have_content(static_page.title)
     end
   end
-  
+
   it "creates a post", js: true do
     post_count = Storytime::BlogPost.count
     media = FactoryGirl.create(:media)
@@ -67,20 +67,20 @@ describe "In the dashboard, Posts" do
 
     find('#post-title-input').set("The Story")
     find('#medium-editor-post').set("It was a dark and stormy night...")
-    
+
     click_link "Save / Publish"
 
     fill_in "blog_post_excerpt", with: "It was a dark and stormy night..."
     find("#featured_media_id", visible: false).set media.id
-    
+
     click_button "save-draft-submit"
-    
+
     expect(page).to have_content(I18n.t('flash.posts.create.success'))
     expect(Storytime::BlogPost.count).to eq(post_count + 1)
 
     post = Storytime::BlogPost.last
     expect(post.title).to eq("The Story")
-    expect(post.draft_content).to eq("<p>It was a dark and stormy night...</p>")
+    expect(post.draft_content).to eq("It was a dark and stormy night...")
     expect(post.user).to eq(current_user)
     expect(post.type).to eq("Storytime::BlogPost")
     expect(post.featured_media).to eq(media)
@@ -95,15 +95,15 @@ describe "In the dashboard, Posts" do
     find('#post-title-input').set("Snow Crash")
     find('#medium-editor-post').set("It was a dark and stormy night...")
     find('#blog_post_excerpt', visible: false).set("It was a dark and stormy night...")
-    
+
     click_button "Preview"
-    
+
     expect(page).to have_content(I18n.t('flash.posts.create.success'))
     expect(Storytime::BlogPost.count).to eq(post_count + 1)
 
     post = Storytime::BlogPost.last
     expect(post.title).to eq("Snow Crash")
-    expect(post.draft_content).to eq("<p>It was a dark and stormy night...</p>")
+    expect(post.draft_content).to eq("It was a dark and stormy night...")
     expect(post.user).to eq(current_user)
     expect(post.type).to eq("Storytime::BlogPost")
     expect(post).to_not be_published
@@ -123,7 +123,7 @@ describe "In the dashboard, Posts" do
     visit url_for([:edit, :dashboard, post, only_path: true])
 
     find('#medium-editor-post').set("Some content to autosave")
-    
+
     page.execute_script "Storytime.instance.editor.editor.autosavePostForm()"
 
     expect(page).to have_content("Draft saved at")
@@ -134,7 +134,7 @@ describe "In the dashboard, Posts" do
 
     post.reload
     expect(post.autosave).not_to be_nil
-    expect(post.autosave.content).to eq("<p>Some content to autosave</p>")
+    expect(post.autosave.content).to eq("Some content to autosave")
     expect(Storytime::BlogPost.count).to eq(post_count)
   end
 
@@ -157,7 +157,7 @@ describe "In the dashboard, Posts" do
     post = post.reload
     post.draft_content = nil # clear the cached copy of draft_content so it reloads
     expect(post.title).to eq("The Story")
-    expect(post.draft_content).to eq("<p>It was a dark and stormy night...</p>")
+    expect(post.draft_content).to eq("It was a dark and stormy night...")
     expect(post.user).to eq(original_creator)
     expect(post).to_not be_published
   end
@@ -169,7 +169,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.first
     visit url_for([:edit, :dashboard, post, only_path: true])
-    
+
     expect{
       click_button "post-utilities"
       click_link "Delete"
@@ -183,7 +183,7 @@ describe "In the dashboard, Posts" do
 
     post = Storytime::BlogPost.first
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, only_path: true])
-    
+
     expect{
       find("#blogpost_#{post.id}").hover
       click_link "delete_blogpost_#{post.id}"
