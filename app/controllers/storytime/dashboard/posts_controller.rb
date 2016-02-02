@@ -79,7 +79,7 @@ module Storytime
         end
       end
 
-    private
+    protected
       def hide_nav
         @hide_nav = true
       end
