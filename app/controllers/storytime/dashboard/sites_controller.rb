@@ -1,4 +1,4 @@
-require_dependency "storytime/application_controller"
+require_dependency "storytime/dashboard_controller"
 
 module Storytime
   module Dashboard

@@ -8,7 +8,7 @@ module Storytime
       if params[:preview].nil? && params[:id].present? && params[:id] != @page.slug
         return redirect_to @page, :status => :moved_permanently
       end
-      
+
       @posts = @page.posts
       @posts = Storytime.search_adapter.search(params[:search], get_search_type) if (params[:search] && params[:search].length > 0)
       @posts = @posts.tagged_with(params[:tag]) if params[:tag]
@@ -19,6 +19,7 @@ module Storytime
     end
 
   private
+
     def load_page
       @page = if params[:preview]
         page = Post.find_preview(params[:id])
@@ -34,7 +35,7 @@ module Storytime
         redirect_to storytime.root_path(opts), status: :moved_permanently
       end
     end
-    
+
     def get_search_type
       if params[:type]
         legal_search_types(params[:type])

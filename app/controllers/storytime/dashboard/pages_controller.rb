@@ -4,7 +4,7 @@ module Storytime
   module Dashboard
     class PagesController < PostsController
 
-      
+
     private
       def current_post_type
         @current_post_type ||= Storytime::Page

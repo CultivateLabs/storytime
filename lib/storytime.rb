@@ -18,15 +18,15 @@ module Storytime
   mattr_accessor :dashboard_namespace_path
   @@dashboard_namespace_path = '/storytime'
 
-  # Path used to sign users in. 
+  # Path used to sign users in.
   mattr_accessor :login_path
   @@login_path = '/users/sign_in'
 
-  # Path used to sign users out. 
+  # Path used to sign users out.
   mattr_accessor :logout_path
-  @@logout_path = '/users/sign_out'  
+  @@logout_path = '/users/sign_out'
 
-  # Path used to register a new user. 
+  # Path used to register a new user.
   mattr_accessor :registration_path
   @@registration_path = "/users/sign_up"
 
@@ -52,7 +52,7 @@ module Storytime
   # HTML attributes to allow/disallow.
   mattr_accessor :post_sanitizer
   @@post_sanitizer = Proc.new do |draft_content|
-    if Rails::VERSION::MINOR <= 1
+    if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR <= 1
       white_list_sanitizer = HTML::WhiteListSanitizer.new
       tags = white_list_sanitizer.allowed_tags
       attributes = white_list_sanitizer.allowed_attributes
@@ -61,7 +61,7 @@ module Storytime
       tags = Loofah::HTML5::WhiteList::ALLOWED_ELEMENTS_WITH_LIBXML2
       attributes = Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES
     end
-    
+
     attributes << "style"
 
     white_list_sanitizer.sanitize(draft_content, tags: tags, attributes: attributes)
@@ -115,7 +115,7 @@ module Storytime
 
   class << self
     attr_accessor :layout, :media_storage, :s3_bucket, :post_types
-    
+
     def configure
       self.post_types ||= []
 

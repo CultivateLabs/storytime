@@ -1,4 +1,4 @@
-require_dependency "storytime/application_controller"
+require_dependency "storytime/dashboard_controller"
 
 module Storytime
   module Dashboard
@@ -7,7 +7,7 @@ module Storytime
       before_action :set_post, only: [:edit, :update, :destroy]
       before_action :load_posts, only: :index
       before_action :load_media, only: [:new, :edit]
-      
+
       respond_to :json, only: :destroy
       respond_to :html, only: :destroy
 
@@ -56,7 +56,7 @@ module Storytime
       def update
         authorize @post
         @post.draft_user_id = current_user.id
-        
+
         if @post.update_attributes(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
 
@@ -73,7 +73,7 @@ module Storytime
         authorize @post
         @post.destroy
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
-        
+
         respond_with [:dashboard, @post] do |format|
           format.html{ redirect_to [:dashboard, current_post_type], type: @post.type_name }
         end

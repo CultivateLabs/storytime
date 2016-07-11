@@ -7,10 +7,10 @@ class Storytime::ApplicationController < Storytime.application_controller_superc
   include Storytime::Concerns::ControllerContentFor
   include Storytime::Concerns::CurrentSite
   helper_method :current_storytime_site
-  
+
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  
+
   helper :all
 
   helper_method :dashboard_controller
@@ -48,6 +48,7 @@ class Storytime::ApplicationController < Storytime.application_controller_superc
   end
 
 private
+
   def ensure_site_exists
     setup if Storytime::Site.count == 0
   end
@@ -66,7 +67,7 @@ private
   ensure
     Storytime::Site.current_id = nil
   end
-  
+
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
     redirect_to(request.referrer || "/")

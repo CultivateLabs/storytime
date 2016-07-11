@@ -9,7 +9,7 @@ class CreateStorytimeSnippets < ActiveRecord::Migration
 
     Storytime::Role.seed
     Storytime::Action.seed
-
+    
     manage_snippets = Storytime::Action.find_by(guid: "5qg25i")
     Storytime::Permission.find_or_create_by(role: Storytime::Role.find_by(name: "editor"), action: manage_snippets)
     Storytime::Permission.find_or_create_by(role: Storytime::Role.find_by(name: "admin"), action: manage_snippets)
