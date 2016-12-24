@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "thor", "~> 0.19.1"
   s.add_dependency "leather", ">= 3.5"
   s.add_dependency "codemirror-rails", "~> 4.8"
-  s.add_dependency "storytime-admin", "~> 0.2.0"
+  s.add_dependency "storytime-admin", "0.2.2"
   s.add_dependency "devise", ">= 3.2"
   s.add_dependency "cocoon"
   s.add_dependency "acts_as_list"
