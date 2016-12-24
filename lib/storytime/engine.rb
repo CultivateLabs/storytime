@@ -1,7 +1,7 @@
 require 'active_record'
 require 'bootstrap-sass'
-require 'carrierwave'
 require 'fog/aws'
+require 'carrierwave'
 require 'font-awesome-sass'
 require 'friendly_id'
 require 'jbuilder'
