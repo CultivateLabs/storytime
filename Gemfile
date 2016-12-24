@@ -14,3 +14,4 @@ gemspec
 # gem 'debugger'
 
 gem 'storytime-admin', github: 'flyoverworks/storytime-admin', branch: 'dev'
+gem 'leather', github: 'CultivateLabs/leather', branch: 'master'
