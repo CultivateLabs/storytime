@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    storytime (2.1.2)
+    storytime (2.1.3)
       acts_as_list
       bootstrap-sass (>= 3.1)
       carrierwave (>= 0.9)
