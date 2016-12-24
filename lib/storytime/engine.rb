@@ -1,7 +1,7 @@
 require 'active_record'
 require 'bootstrap-sass'
 require 'carrierwave'
-require 'fog/aws/storage'
+require 'fog/aws'
 require 'font-awesome-sass'
 require 'friendly_id'
 require 'jbuilder'
@@ -34,6 +34,8 @@ require 'storytime/migrators/v1'
 module Storytime
   class Engine < ::Rails::Engine
     isolate_namespace Storytime
+
+    config.assets.precompile += %w( storytime/storytime-logo-nav.png )
 
     initializer "storytime.view_helpers" do
       ActiveSupport.on_load(:action_view) do
