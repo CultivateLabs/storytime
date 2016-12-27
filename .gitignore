@@ -7,4 +7,5 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/public/uploads/
 spec/dummy/.sass-cache
+vendor/assets/components/
 *.gem
