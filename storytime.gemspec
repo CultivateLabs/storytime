@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/public/uploads/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "rails", ">= 4.0"
+  s.add_dependency "rails", ">= 4.0", '< 5.1'
   s.add_dependency "pundit", ">= 0.2"
   s.add_dependency "kaminari", ">= 0.15"
   s.add_dependency "jbuilder", ">= 1.5"
@@ -36,8 +36,8 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", "~> 5.0"
   s.add_dependency "thor", "~> 0.19.1"
   s.add_dependency "leather", ">= 3.5"
-  s.add_dependency "codemirror-rails", "~> 4.8"
-  s.add_dependency "storytime-admin", "0.2.2"
+  s.add_dependency "codemirror-rails", "~> 5.16"
+  s.add_dependency "storytime-admin", "~> 0.2.2"
   s.add_dependency "devise", ">= 3.2"
   s.add_dependency "cocoon"
   s.add_dependency "acts_as_list"
