@@ -77,6 +77,7 @@ module Storytime
           config.fog_directory  = Storytime.s3_bucket
           config.fog_public     = true
           config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
+          config.storage = :fog
         else
           config.storage = :file
         end
