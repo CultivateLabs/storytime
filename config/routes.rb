@@ -55,7 +55,7 @@ Storytime::Engine.routes.draw do
   get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
 
   resources :blogs, only: :show, path: "/", constraints: Storytime::Constraints::BlogConstraint.new
-  get '/*id', to: 'pages#show', constraints: Storytime::Constraints::PageConstraint.new
+  get '/*id', to: 'pages#show', as: :page, constraints: Storytime::Constraints::PageConstraint.new
   resources :posts, only: [], concerns: :commentable
 
   Storytime.post_types.each do |post_type|
