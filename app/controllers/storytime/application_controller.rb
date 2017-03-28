@@ -64,8 +64,6 @@ private
   def scope_current_site
     Storytime::Site.current_id = current_storytime_site(request).id
     yield
-  ensure
-    Storytime::Site.current_id = nil
   end
 
   def user_not_authorized
