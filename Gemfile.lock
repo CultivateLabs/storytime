@@ -493,6 +493,3 @@ DEPENDENCIES
   spring-commands-rspec
   storytime!
   thin
-
-BUNDLED WITH
-   1.14.6

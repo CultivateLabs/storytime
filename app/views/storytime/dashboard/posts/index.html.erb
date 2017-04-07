@@ -5,7 +5,7 @@
       <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas",  target: "#dashboard-nav" } do %>
         <i class="icon-st-icons-st-logo"></i>
       <% end %>
-      
+
       <% if @blog %>
         <div class="pull-right">
 
@@ -61,8 +61,10 @@
             <%= link_to "Published", [:dashboard, current_post_type, published: 'true'] %>
           <% end %>
         </li>
+
+        <%= render "storytime/dashboard/posts/sorts" %>
       </ul>
-      <ul class="list-group list-group-button-links">
+      <ul class="list-group list-group-button-links post-list">
         <%= render 'list' %>
       </ul>
       <div class="pagination-wrapper">

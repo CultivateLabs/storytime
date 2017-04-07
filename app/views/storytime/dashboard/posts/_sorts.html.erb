@@ -1,0 +1,21 @@
+<li class="pull-right">
+  <div class="btn-group margin-right" style="margin-right: 10px;">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Sort <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" style="top: 125%;">
+      <li>
+        <%= link_to "Title", { sort: "title" } %>
+      </li>
+      <li>
+        <%= link_to "Slug", { sort: "slug" } %>
+      </li>
+      <li>
+        <%= link_to "Publish Date", { sort: "published_at" } %>
+      </li>
+      <li>
+        <%= link_to "Creation Date", { sort: "created_at" } %>
+      </li>
+    </ul>
+  </div>
+</li>

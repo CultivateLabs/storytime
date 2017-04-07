@@ -1,3 +1,12 @@
+.list-group-button-links .list-group-item .list-group-actions{
+  top: 15px;
+  margin-top: 0;
+}
+
+.post-row-subtext{
+  margin-top: 10px;
+}
+
 .CodeMirror {
   height: auto;
   position: absolute;
@@ -7,7 +16,6 @@
   right: 0;
   display: none;
 }
-
 
 .contenteditable {
   cursor: text;

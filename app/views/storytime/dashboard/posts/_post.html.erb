@@ -1,0 +1,28 @@
+<li class="list-group-item" id="<%= post.class.to_s.downcase.split("::").last %>_<%= post.id %>">
+  <%= link_to [:edit, :dashboard, post], id: "", class: "list-group-link" do %>
+    <div class="row">
+      <div class="col-md-8">
+         <h4><%= post.title %></h4>
+      </div>
+    </div>
+
+    <div class="row post-row-subtext">
+      <div class="col-md-6"><%= "/#{post.slug}" %></div>
+
+      <div class="col-md-6 text-muted text-right">
+        <% if post.published? && post.published_at <= Time.now %>
+          Published <%= time_ago_in_words post.published_at %> ago
+        <% elsif post.published? %>
+          <span class="label label-warning">Draft</span>
+          Scheduled to publish on <%= post.published_at.strftime("%B %e at %l:%M %p") %>
+        <% else %>
+          <span class="label label-warning">Draft</span>
+          Last edited <%= time_ago_in_words post.updated_at %> ago
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="list-group-actions">
+    <%= delete_resource_link post, [:dashboard, post] %>
+  </div>
+</li>
