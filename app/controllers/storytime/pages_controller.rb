@@ -40,5 +40,29 @@ module Storytime
       end
       redirect_to "/", status: :moved_permanently if @page == current_storytime_site(request).homepage
     end
+
+    def set_layout
+      return super if params[:id].blank?
+      
+      path_segments = params[:id].split("/")
+
+      if path_segments.length > 1
+        path_segments.pop
+
+        potential_layout_dirs = [
+          "storytime/#{@current_storytime_site.custom_view_path}/layouts",
+          "storytime/layouts",
+          "layouts",
+        ].each do |dir|
+          path_segments.map.with_index do |segment, i|
+            potential_layout = "#{dir}/#{path_segments[0..i].join("/")}"
+            return potential_layout if lookup_context.template_exists?(potential_layout)
+          end
+        end
+      end
+
+      super
+    end
+
   end
 end
