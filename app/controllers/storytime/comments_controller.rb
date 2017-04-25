@@ -20,7 +20,7 @@ module Storytime
     end
 
     def destroy
-      @comment = current_user.storytime_comments.find(params[:id])
+      @comment = Comment.find(params[:id])
       authorize @comment
       @comment.destroy
       respond_with @comment
