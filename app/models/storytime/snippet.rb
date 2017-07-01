@@ -4,6 +4,6 @@ module Storytime
     belongs_to :site
 
     validates :name, length: { in: 1..255 }
-    validates :content, length: { in: 1..5000 }
+    validates :content, length: { in: 1..20000 }
   end
 end
