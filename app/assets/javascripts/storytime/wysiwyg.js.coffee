@@ -1,18 +1,20 @@
 class Storytime.Dashboard.Wysiwyg
-  mediumEditorOptions = 
+  mediumEditorOptions =
     buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'quote', 'unorderedlist', 'orderedlist', 'pre']
     toolbarAlign: 'center'
     buttonLabels: 'fontawesome'
     checkLinkFormat: true
+    firstHeader: "h2"
+    secondHeader: "h3"
 
-  codeMirrorOptions = 
+  codeMirrorOptions =
     mode: 'htmlmixed'
     theme: 'solarized dark'
     tabSize: 2
     autoCloseTags: true
     lineNumbers: true
 
-  tidyOptions = 
+  tidyOptions =
     "indent": "auto",
     "indent-spaces": 2,
     "wrap": 80,
@@ -131,8 +133,8 @@ class Storytime.Dashboard.Wysiwyg
       codemirror.setValue(html)
 
   setupMedium: ->
-    # Medium-editor keeps adding toolbars when this method gets triggered 
-    # (i.e. when opening snippets modal on post edit page) and they all seem 
+    # Medium-editor keeps adding toolbars when this method gets triggered
+    # (i.e. when opening snippets modal on post edit page) and they all seem
     # to get activated at the same time, so this clears out existing ones first
     $('.medium-editor-toolbar').remove()
     $('.medium-editor-anchor-preview').remove()
@@ -186,7 +188,7 @@ class Storytime.Dashboard.Wysiwyg
       mediumEditor.activate()
       wysiwyg.find('.editor').show()
       wysiwyg.find('.CodeMirror').hide()
-  
+
   bindTogglesToPanels: () ->
     $(".post-action-panel").on "show.bs.collapse", ->
       $("[data-toggle='codemirror']").hide()
