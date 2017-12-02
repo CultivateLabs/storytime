@@ -1,0 +1,141 @@
+zh-CN:
+  common:
+    are_you_sure_you_want_to_delete: "你确定要删除 %{resource_name}?"
+
+  flash:
+    admin:
+      create:
+        success: "成功创建 %{resource_name} 。"
+      update:
+        success: "成功更新 %{resource_name} 。"
+    blogs:
+      destroy:
+        success: "成功删除博客。"
+    comments:
+      create:
+        success: "成功创建留言。"
+      update:
+        success: "成功更新留言。"
+    posts:
+      create:
+        success: "成功创建文章。"
+      update:
+        success: "成功更新文章。"
+      destroy:
+        success: "成功删除文章。"
+    sites:
+      create:
+        success: "成功创建站点。"
+      update:
+        success: "成功更新站点。"
+      destroy:
+        success: "成功删除站点。"
+    snippets:
+      create:
+        success: "成功创建文字段落。"
+      update:
+        success: "成功更新文字段落。"
+      destroy:
+        success: "成功删除文字段落。"
+    subscriptions:
+      create:
+        success: "已成功创建订阅。"
+        fail: "不能创建订阅。"
+      update:
+        success: "成功更新订阅。"
+      destroy:
+        success: >
+          你已经被成功的从订阅列表中移除。你不会再收到我们的消息。
+        fail: "无法取消你的邮件订阅。"
+    users:
+      create:
+        success: "成功创建用户。"
+      update:
+        success: "成功更新用户。"
+    roles:
+      update:
+        success: "成功更新权限。"
+    navigations:
+      destroy:
+        success: "成功删除导航列表。"
+
+  simple_form:
+    labels:
+      site:
+        post_slug_style: "文章地址类型"
+        ga_tracking_id: "Google Analytics 追踪 ID"
+      comment:
+        content: "内容留言"
+      user:
+        storytime_name: "名字"
+
+  footer:
+    attribute: '由 <a href="http://www.github.com/FlyoverWorks/storytime" target="_blank">Storytime</a>支持。'
+
+  dashboard:
+    admin:
+      unconfigured_model: "你在试图访问一个包含未在Storytime中配置模型的管理员页面。"
+    sites:
+      new: "设置你的站点"
+      root_post_id_label: "首页"
+      root_post_id_hint: "选择一个页面或博客在Storytime的位置显示。留空来使用应用程序试图。"
+      subscription_email_from_label: "订阅邮件发件人的电子邮件"
+      edit: "站点设置"
+      basic_info: "基本信息"
+      permissions: "权限"
+      save_permissions: "保存"
+      save_button: "保存"
+      layout_hint: "留空使用Storytime默认站点布局"
+      domain_hint: "输入你的站点域名 (例如 www.example.com)"
+    users:
+      users_header: "用户"
+      create_new_user: "新建"
+      edit_user_button: "编辑"
+      edit_user_header: "编辑用户"
+      email: "电子邮件"
+      name: "名字"
+      role: "角色"
+      actions: "操作"
+    media:
+      media_header: "媒体"
+      select_media: "选择媒体"
+      select_media_by_url: "按照网址："
+      select_media_from_file: "选择"
+    posts:
+      autosaves:
+        available: "有一个自动保存的 %{resource} 比下面的版本要新。"
+        view_autosave: "查看自动保存"
+      select_or_create: "选择一个资源 %{resource} 进行编辑"
+      create_post: "新建一个"
+      additional_fields: "附加字段"
+      advanced_settings: "高级设置"
+      featured_images: "特色图片"
+      remove_image: "删除图片"
+      new:
+        header: "新 %{resource}"
+    navigations:
+      create:
+        success: "你的导航列表成功创建。"
+      update:
+        success: "你的导航列表成功更新。"
+
+  layout:
+    title: "Storytime"
+    subscribe_to: "订阅 %{site_name}"
+    subscribe_modal_msg: "订阅我们的邮件列表收到关于 %{site_name} 的最新消息！"
+
+  pagination:
+    first: "<i class='fa fa-caret-left'></i><i class='fa fa-caret-left'></i>"
+    previous: "<i class='fa fa-caret-left'></i>"
+    next: "<i class='fa fa-caret-right'></i>"
+    last: "<i class='fa fa-caret-right'></i><i class='fa fa-caret-right'></i>"
+
+  storytime:
+    dashboard:
+      navigations:
+        index:
+          header: "导航列表"
+        new: 
+          header: "新建导航列表"
+        edit:
+          header: "编辑导航列表"
