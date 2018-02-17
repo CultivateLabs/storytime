@@ -15,7 +15,7 @@ class Storytime::ApplicationController < Storytime.application_controller_superc
 
   helper_method :dashboard_controller
 
-  if Storytime.user_class_symbol != :user && !respond_to(:current_user)
+  if Storytime.user_class_symbol != :user && !respond_to?(:current_user)
     helper_method :authenticate_user!
     helper_method :current_user
     helper_method :user_signed_in?
