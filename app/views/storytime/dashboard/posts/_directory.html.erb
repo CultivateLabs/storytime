@@ -1,0 +1,9 @@
+<li class="list-group-item">
+  <%= link_to [storytime, :dashboard, Storytime::Page, dir: directory], id: "", class: "list-group-link" do %>
+    <div class="row">
+      <div class="col-md-8">
+        <h4><%= icon("folder-open-o") %> <%= directory %></h4>
+      </div>
+    </div>
+  <% end %>
+</li>

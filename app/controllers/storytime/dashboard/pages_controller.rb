@@ -11,9 +11,28 @@ module Storytime
       end
       helper_method :current_post_type
 
+      def current_dir
+        params[:dir]
+      end
+
       def load_posts
         @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)
         @posts = @posts.where(type: "Storytime::Page")
+
+        vals = if current_dir.blank?
+          ["%", "%/%"]
+        else
+          ["#{current_dir}/%", "#{current_dir}/%/%"]
+        end
+        
+        @directories = if current_dir.blank?
+          @posts.where("slug like ?", vals[0]).pluck(:slug).select{|slug| slug.include?("/") }.map{|slug| slug.split("/").first }.uniq
+        else
+          binding.pry
+          @posts.where("slug like ?", vals[0]).pluck(:slug).select{|slug| slug.include?(current_dir) }.map{|slug| slug.split("/").first }.uniq
+        end
+
+        @posts = @posts.where("slug like ?", vals[0]).where.not("slug like ?", vals[1])
 
         @posts = if params[:published].present? && params[:published] == 'true'
           @posts.published
