@@ -1,4 +1,4 @@
-class CreateStorytimeNavigations < ActiveRecord::Migration
+class CreateStorytimeNavigations < ActiveRecord::Migration[4.2]
   def change
     create_table :storytime_navigations do |t|
       t.string :name

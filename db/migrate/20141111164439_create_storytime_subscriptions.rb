@@ -1,4 +1,4 @@
-class CreateStorytimeSubscriptions < ActiveRecord::Migration
+class CreateStorytimeSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :storytime_subscriptions do |t|
       t.string :email

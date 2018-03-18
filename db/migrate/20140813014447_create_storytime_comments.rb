@@ -1,4 +1,4 @@
-class CreateStorytimeComments < ActiveRecord::Migration
+class CreateStorytimeComments < ActiveRecord::Migration[4.2]
   def change
     create_table :storytime_comments do |t|
       t.text :content

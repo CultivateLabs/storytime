@@ -1,4 +1,4 @@
-class CreateStorytimeLinks < ActiveRecord::Migration
+class CreateStorytimeLinks < ActiveRecord::Migration[4.2]
   def change
     create_table :storytime_links do |t|
       t.string :text

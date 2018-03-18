@@ -1,4 +1,4 @@
-class SeedNewActionsAndPermissions < ActiveRecord::Migration
+class SeedNewActionsAndPermissions < ActiveRecord::Migration[4.2]
   def up
     Storytime::Action.seed
     Storytime::Permission.seed
