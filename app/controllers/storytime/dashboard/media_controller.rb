@@ -13,7 +13,7 @@ module Storytime
 
         @large_gallery = false if params[:large_gallery] == "false"
 
-        render partial: "gallery", content_type: Mime::HTML if request.xhr?
+        render partial: "gallery", content_type: "text/html" if request.xhr?
       end
 
       def create
@@ -22,13 +22,13 @@ module Storytime
 
         authorize @upload_media
         @upload_media.save
-        
+
         @media = Media.order("created_at DESC").page(params[:page]).per(10)
         @large_gallery = false
 
-        render partial: "gallery", content_type: Mime::HTML
+        render partial: "gallery", content_type: "text/html"
       end
-      
+
       def destroy
         @media = Media.find(params[:id])
         authorize @media
