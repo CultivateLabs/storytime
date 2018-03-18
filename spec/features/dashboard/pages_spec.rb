@@ -106,7 +106,7 @@ describe "In the dashboard, Pages", type: :feature do
     click_link "Delete"
 
     expect(page).to_not have_content(storytime_page.title)
-    expect { storytime_page.reload }.to raise_error
+    expect { storytime_page.reload }.to raise_error(ActiveRecord::RecordNotFound)
     expect(Storytime::Page.count).to eq(page_count - 1)
   end
 

@@ -2,7 +2,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl_rails'
 require 'capybara/rails'
 require 'capybara/rspec'
@@ -79,7 +78,7 @@ RSpec.configure do |config|
 
   config.include FeatureMacros, type: :feature
   config.include Storytime::Engine.routes.url_helpers
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true

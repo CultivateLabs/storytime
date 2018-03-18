@@ -9,7 +9,7 @@ module Storytime
     extend FriendlyId
     friendly_id :slug_candidates, use: [:history, :scoped], scope: :site
 
-    belongs_to :user, class_name: Storytime.user_class
+    belongs_to :user, class_name: Storytime.user_class.to_s
     belongs_to :site
 
     has_one :autosave, as: :autosavable, dependent: :destroy, class_name: "Autosave"

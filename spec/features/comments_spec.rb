@@ -51,7 +51,7 @@ describe "Comments", type: :feature do
 
     expect(page).to_not have_content(comment_to_delete.content)
 
-    expect{ comment_to_delete.reload }.to raise_error
+    expect{ comment_to_delete.reload }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
 end
