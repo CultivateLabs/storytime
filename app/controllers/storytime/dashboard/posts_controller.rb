@@ -81,6 +81,7 @@ module Storytime
       end
 
     private
+    
       def hide_nav
         @hide_nav = true
       end
