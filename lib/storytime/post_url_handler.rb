@@ -1,6 +1,13 @@
 module Storytime
   module PostUrlHandler
 
+    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 1)
+      def url_for(options, route_name = nil, url_strategy = ActionDispatch::Routing::RouteSet::UNKNOWN)
+        Storytime::PostUrlHandler.handle_url(options)
+        super(options, route_name, url_strategy)
+      end
+    end
+
     def self.handle_url(options)
       return unless options[:controller] == "storytime/posts" && options[:action] == "show"
 
