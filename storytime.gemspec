@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/public/uploads/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "rails", ">= 4.0", '< 5.1'
+  s.add_dependency "rails", ">= 4.0"
   s.add_dependency "pundit", ">= 0.2"
   s.add_dependency "kaminari", ">= 0.15"
   s.add_dependency "jbuilder", ">= 1.5"
