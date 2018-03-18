@@ -8,7 +8,7 @@ describe "Pages", type: :feature do
   it "shows a page" do
     pg = FactoryGirl.create(:page, site: @current_site)
     visit url_for([pg, only_path: true])
-    page.should have_content(pg.content)
+    expect(page).to have_content(pg.content)
   end
 
 end

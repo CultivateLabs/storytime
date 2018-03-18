@@ -19,19 +19,19 @@ describe "In the dashboard, Media", type: :feature do
 
     visit dashboard_media_index_path
 
-    page.should have_image(m1.file_url(:thumb))
-    page.should have_image(m2.file_url(:thumb))
+    expect(page).to have_image(m1.file_url(:thumb))
+    expect(page).to have_image(m2.file_url(:thumb))
   end
 
   it "deletes an image", js: true do
     image = FactoryGirl.create(:media, site: @current_site)
 
     visit dashboard_media_index_path
-    page.should have_image(image.file_url(:thumb))
+    expect(page).to have_image(image.file_url(:thumb))
 
     click_link "delete_media_#{image.id}"
 
-    page.should_not have_image(image)
+    expect(page).to_not have_image(image)
   end
 
   it "inserts media into post", js: true do

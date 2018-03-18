@@ -14,11 +14,11 @@ describe "Comments", type: :feature do
     visit url_for([post, only_path: true])
 
     post.comments.each do |c|
-      page.should have_content(c.content)
-      page.should have_content(c.user.storytime_name)
+      expect(page).to have_content(c.content)
+      expect(page).to have_content(c.user.storytime_name)
     end
 
-    page.should_not have_content(other_post_comment.content)
+    expect(page).to_not have_content(other_post_comment.content)
   end
 
   it "creates a comment" do
