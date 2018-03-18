@@ -14,7 +14,11 @@ module Storytime
         flash[:error] = I18n.t('flash.subscriptions.create.fail')
       end
 
-      redirect_to :back
+      if respond_to?(:redirect_back)
+        redirect_back(fallback_location: "/")
+      else
+        redirect_to :back
+      end
     end
 
     def destroy
