@@ -14,7 +14,7 @@ module Storytime
     has_many :pages, -> { where(type: "Storytime::Page") }, dependent: :destroy
     has_many :blogs, dependent: :destroy
     has_many :navigations, dependent: :destroy
-    belongs_to :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id"
+    has_one :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id", required: false
     belongs_to :creator, class_name: Storytime.user_class.to_s, foreign_key: "user_id"
 
     validates :subscription_email_from, presence: true
