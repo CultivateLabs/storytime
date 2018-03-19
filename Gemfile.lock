@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cultivatelabs/leather
-  revision: 83ebd4823c4d7a3bfd3de0d7226189e0881191e7
+  revision: 3a763c432fe88822332423af68a219998e47a33b
   branch: master
   specs:
     leather (3.5.2)
@@ -28,7 +28,7 @@ PATH
       jquery-rails (>= 3.0)
       jquery-ui-rails (~> 5.0)
       kaminari (>= 0.15)
-      leather (>= 3.5)
+      leather
       mini_magick (>= 3.7)
       nokogiri (>= 1.6)
       pundit (>= 0.2)

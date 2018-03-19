@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-sass", "<= 4.7.0"
   s.add_dependency "jquery-ui-rails", "~> 5.0"
   s.add_dependency "thor", "~> 0.19.1"
-  s.add_dependency "leather", ">= 3.5"
+  s.add_dependency "leather"
   s.add_dependency "codemirror-rails", ">=5.0"
   s.add_dependency "storytime-admin", "~> 0.2"
   s.add_dependency "devise", ">= 3.2"
