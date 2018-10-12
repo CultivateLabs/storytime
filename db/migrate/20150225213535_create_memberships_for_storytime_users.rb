@@ -1,4 +1,4 @@
-class CreateMembershipsForStorytimeUsers < ActiveRecord::Migration
+class CreateMembershipsForStorytimeUsers < ActiveRecord::Migration[4.2]
   def change
     add_column :storytime_sites, :user_id, :integer
     add_index :storytime_sites, :user_id

@@ -13,9 +13,9 @@ describe "Blogs", type: :feature do
 
     within ".post-list" do
       @current_site.blogs.first.posts.each do |p|
-        page.should have_content(p.title)
-        page.should have_content(p.excerpt)
-        page.should_not have_content(p.content)
+        expect(page).to have_content(p.title)
+        expect(page).to have_content(p.excerpt)
+        expect(page).to_not have_content(p.content)
       end
 
       expect(page).not_to have_content(static_page.title)

@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/tmp/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/public/uploads/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "rails", ">= 4.0", '< 5.1'
+  s.add_dependency "rails", ">= 4.0"
   s.add_dependency "pundit", ">= 0.2"
   s.add_dependency "kaminari", ">= 0.15"
   s.add_dependency "jbuilder", ">= 1.5"
@@ -32,10 +32,10 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave", ">= 1.0"
   s.add_dependency "mini_magick", ">= 3.7"
   s.add_dependency "nokogiri", ">= 1.6"
-  s.add_dependency "font-awesome-sass", ">= 4.0.3"
+  s.add_dependency "font-awesome-sass", "<= 4.7.0"
   s.add_dependency "jquery-ui-rails", "~> 5.0"
   s.add_dependency "thor", "~> 0.19.1"
-  s.add_dependency "leather", ">= 3.5"
+  s.add_dependency "leather2", ">= 3.5.3"
   s.add_dependency "codemirror-rails", ">=5.0"
   s.add_dependency "storytime-admin", "~> 0.2"
   s.add_dependency "devise", ">= 3.2"

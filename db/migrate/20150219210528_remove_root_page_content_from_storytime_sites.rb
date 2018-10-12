@@ -1,4 +1,4 @@
-class RemoveRootPageContentFromStorytimeSites < ActiveRecord::Migration
+class RemoveRootPageContentFromStorytimeSites < ActiveRecord::Migration[4.2]
   def up
     Storytime::Migrators::V1.create_default_blog_for_sites
 

@@ -10,7 +10,7 @@ describe Storytime::DashboardController, type: :controller do
 
     it "requires login" do
       get :index
-      flash[:alert].should == I18n.t('devise.failure.unauthenticated')
+      expect(flash[:alert]).to eq(I18n.t('devise.failure.unauthenticated'))
       expect(response).to redirect_to(Rails.application.class.routes.url_helpers.new_user_session_path)
     end
 
@@ -26,7 +26,7 @@ describe Storytime::DashboardController, type: :controller do
       allow(Storytime::Site).to receive(:count).and_return(0)
       sign_in FactoryGirl.create(:writer)
       get :index
-      response.should redirect_to(new_dashboard_site_path)
+      expect(response).to redirect_to(new_dashboard_site_path)
     end
   end
 end

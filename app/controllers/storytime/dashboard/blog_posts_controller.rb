@@ -1,3 +1,5 @@
+require_dependency "storytime/dashboard/posts_controller"
+
 module Storytime
   module Dashboard
     class BlogPostsController < PostsController
@@ -34,12 +36,12 @@ module Storytime
         authorize @post
         @post.destroy
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
-        
+
         respond_with [:dashboard, @post] do |format|
           format.html{ redirect_to [:dashboard, @post.blog, :blog_page_post_index] }
         end
       end
-      
+
     private
       def current_post_type
         @current_post_type ||= Storytime::BlogPost

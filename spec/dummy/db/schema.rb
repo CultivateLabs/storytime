@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -16,238 +15,221 @@ ActiveRecord::Schema.define(version: 20150529192058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
-
-  create_table "storytime_actions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "guid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "storytime_actions", ["guid"], name: "index_storytime_actions_on_guid", using: :btree
-
-  create_table "storytime_autosaves", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "autosavable_id"
-    t.string   "autosavable_type"
+  create_table "storytime_actions", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.index ["guid"], name: "index_storytime_actions_on_guid"
   end
 
-  add_index "storytime_autosaves", ["autosavable_type", "autosavable_id"], name: "autosavable_index", using: :btree
-  add_index "storytime_autosaves", ["site_id"], name: "index_storytime_autosaves_on_site_id", using: :btree
-
-  create_table "storytime_comments", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "user_id"
-    t.integer  "post_id"
+  create_table "storytime_autosaves", id: :serial, force: :cascade do |t|
+    t.text "content"
+    t.string "autosavable_type"
+    t.integer "autosavable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["autosavable_type", "autosavable_id"], name: "autosavable_index"
+    t.index ["site_id"], name: "index_storytime_autosaves_on_site_id"
   end
 
-  add_index "storytime_comments", ["post_id"], name: "index_storytime_comments_on_post_id", using: :btree
-  add_index "storytime_comments", ["site_id"], name: "index_storytime_comments_on_site_id", using: :btree
-  add_index "storytime_comments", ["user_id"], name: "index_storytime_comments_on_user_id", using: :btree
-
-  create_table "storytime_links", force: :cascade do |t|
-    t.string   "text"
-    t.integer  "storytime_navigation_id"
-    t.integer  "linkable_id"
-    t.string   "linkable_type"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "position"
-    t.string   "url"
-  end
-
-  add_index "storytime_links", ["linkable_type", "linkable_id"], name: "index_storytime_links_on_linkable_type_and_linkable_id", using: :btree
-  add_index "storytime_links", ["position"], name: "index_storytime_links_on_position", using: :btree
-  add_index "storytime_links", ["storytime_navigation_id"], name: "index_storytime_links_on_storytime_navigation_id", using: :btree
-
-  create_table "storytime_media", force: :cascade do |t|
-    t.string   "file"
-    t.integer  "user_id"
+  create_table "storytime_comments", id: :serial, force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["post_id"], name: "index_storytime_comments_on_post_id"
+    t.index ["site_id"], name: "index_storytime_comments_on_site_id"
+    t.index ["user_id"], name: "index_storytime_comments_on_user_id"
   end
 
-  add_index "storytime_media", ["site_id"], name: "index_storytime_media_on_site_id", using: :btree
-  add_index "storytime_media", ["user_id"], name: "index_storytime_media_on_user_id", using: :btree
-
-  create_table "storytime_memberships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "storytime_role_id"
-    t.integer  "site_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "storytime_memberships", ["site_id"], name: "index_storytime_memberships_on_site_id", using: :btree
-  add_index "storytime_memberships", ["storytime_role_id"], name: "index_storytime_memberships_on_storytime_role_id", using: :btree
-  add_index "storytime_memberships", ["user_id"], name: "index_storytime_memberships_on_user_id", using: :btree
-
-  create_table "storytime_navigations", force: :cascade do |t|
-    t.string   "name"
-    t.string   "handle"
-    t.integer  "site_id"
+  create_table "storytime_links", id: :serial, force: :cascade do |t|
+    t.string "text"
+    t.integer "storytime_navigation_id"
+    t.string "linkable_type"
+    t.integer "linkable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
+    t.string "url"
+    t.index ["linkable_type", "linkable_id"], name: "index_storytime_links_on_linkable_type_and_linkable_id"
+    t.index ["position"], name: "index_storytime_links_on_position"
+    t.index ["storytime_navigation_id"], name: "index_storytime_links_on_storytime_navigation_id"
   end
 
-  add_index "storytime_navigations", ["site_id"], name: "index_storytime_navigations_on_site_id", using: :btree
-
-  create_table "storytime_permissions", force: :cascade do |t|
-    t.integer  "role_id"
-    t.integer  "action_id"
+  create_table "storytime_media", id: :serial, force: :cascade do |t|
+    t.string "file"
+    t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["site_id"], name: "index_storytime_media_on_site_id"
+    t.index ["user_id"], name: "index_storytime_media_on_user_id"
   end
 
-  add_index "storytime_permissions", ["action_id"], name: "index_storytime_permissions_on_action_id", using: :btree
-  add_index "storytime_permissions", ["role_id"], name: "index_storytime_permissions_on_role_id", using: :btree
-  add_index "storytime_permissions", ["site_id"], name: "index_storytime_permissions_on_site_id", using: :btree
+  create_table "storytime_memberships", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "storytime_role_id"
+    t.integer "site_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["site_id"], name: "index_storytime_memberships_on_site_id"
+    t.index ["storytime_role_id"], name: "index_storytime_memberships_on_storytime_role_id"
+    t.index ["user_id"], name: "index_storytime_memberships_on_user_id"
+  end
 
-  create_table "storytime_posts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "type"
-    t.string   "title"
-    t.string   "slug"
-    t.text     "content"
-    t.text     "excerpt"
+  create_table "storytime_navigations", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "handle"
+    t.integer "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_storytime_navigations_on_site_id"
+  end
+
+  create_table "storytime_permissions", id: :serial, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "action_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "site_id"
+    t.index ["action_id"], name: "index_storytime_permissions_on_action_id"
+    t.index ["role_id"], name: "index_storytime_permissions_on_role_id"
+    t.index ["site_id"], name: "index_storytime_permissions_on_site_id"
+  end
+
+  create_table "storytime_posts", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "type"
+    t.string "title"
+    t.string "slug"
+    t.text "content"
+    t.text "excerpt"
     t.datetime "published_at"
-    t.integer  "featured_media_id"
-    t.boolean  "featured",              default: false
+    t.integer "featured_media_id"
+    t.boolean "featured", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "video_url"
-    t.integer  "secondary_media_id"
-    t.integer  "site_id"
-    t.boolean  "notifications_enabled", default: false
+    t.string "video_url"
+    t.integer "secondary_media_id"
+    t.integer "site_id"
+    t.boolean "notifications_enabled", default: false
     t.datetime "notifications_sent_at"
-    t.integer  "blog_id"
+    t.integer "blog_id"
+    t.index ["blog_id"], name: "index_storytime_posts_on_blog_id"
+    t.index ["slug"], name: "index_storytime_posts_on_slug"
+    t.index ["user_id"], name: "index_storytime_posts_on_user_id"
   end
 
-  add_index "storytime_posts", ["blog_id"], name: "index_storytime_posts_on_blog_id", using: :btree
-  add_index "storytime_posts", ["slug"], name: "index_storytime_posts_on_slug", using: :btree
-  add_index "storytime_posts", ["user_id"], name: "index_storytime_posts_on_user_id", using: :btree
-
-  create_table "storytime_roles", force: :cascade do |t|
-    t.string   "name"
+  create_table "storytime_roles", id: :serial, force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_storytime_roles_on_name"
   end
 
-  add_index "storytime_roles", ["name"], name: "index_storytime_roles_on_name", using: :btree
-
-  create_table "storytime_sites", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "post_slug_style",         default: 0
-    t.string   "ga_tracking_id"
-    t.integer  "root_post_id"
+  create_table "storytime_sites", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.integer "post_slug_style", default: 0
+    t.string "ga_tracking_id"
+    t.integer "root_post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subscription_email_from"
-    t.string   "layout"
-    t.string   "disqus_forum_shortname"
-    t.integer  "user_id"
-    t.string   "custom_domain"
-    t.string   "discourse_name"
+    t.string "subscription_email_from"
+    t.string "layout"
+    t.string "disqus_forum_shortname"
+    t.integer "user_id"
+    t.string "custom_domain"
+    t.string "discourse_name"
+    t.index ["root_post_id"], name: "index_storytime_sites_on_root_post_id"
+    t.index ["user_id"], name: "index_storytime_sites_on_user_id"
   end
 
-  add_index "storytime_sites", ["root_post_id"], name: "index_storytime_sites_on_root_post_id", using: :btree
-  add_index "storytime_sites", ["user_id"], name: "index_storytime_sites_on_user_id", using: :btree
-
-  create_table "storytime_snippets", force: :cascade do |t|
-    t.string   "name"
-    t.text     "content"
+  create_table "storytime_snippets", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["name"], name: "index_storytime_snippets_on_name"
   end
 
-  add_index "storytime_snippets", ["name"], name: "index_storytime_snippets_on_name", using: :btree
-
-  create_table "storytime_subscriptions", force: :cascade do |t|
-    t.string   "email"
-    t.boolean  "subscribed", default: true
-    t.string   "token"
+  create_table "storytime_subscriptions", id: :serial, force: :cascade do |t|
+    t.string "email"
+    t.boolean "subscribed", default: true
+    t.string "token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["token"], name: "index_storytime_subscriptions_on_token"
   end
 
-  add_index "storytime_subscriptions", ["token"], name: "index_storytime_subscriptions_on_token", using: :btree
-
-  create_table "storytime_taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "post_id"
+  create_table "storytime_taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["post_id"], name: "index_storytime_taggings_on_post_id"
+    t.index ["site_id"], name: "index_storytime_taggings_on_site_id"
+    t.index ["tag_id"], name: "index_storytime_taggings_on_tag_id"
   end
 
-  add_index "storytime_taggings", ["post_id"], name: "index_storytime_taggings_on_post_id", using: :btree
-  add_index "storytime_taggings", ["site_id"], name: "index_storytime_taggings_on_site_id", using: :btree
-  add_index "storytime_taggings", ["tag_id"], name: "index_storytime_taggings_on_tag_id", using: :btree
-
-  create_table "storytime_tags", force: :cascade do |t|
-    t.string   "name"
+  create_table "storytime_tags", id: :serial, force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
   end
 
-  create_table "storytime_versions", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "user_id"
-    t.integer  "versionable_id"
-    t.string   "versionable_type"
+  create_table "storytime_versions", id: :serial, force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.string "versionable_type"
+    t.integer "versionable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id"
+    t.integer "site_id"
+    t.index ["site_id"], name: "index_storytime_versions_on_site_id"
+    t.index ["user_id"], name: "index_storytime_versions_on_user_id"
+    t.index ["versionable_type", "versionable_id"], name: "versionable_index"
   end
 
-  add_index "storytime_versions", ["site_id"], name: "index_storytime_versions_on_site_id", using: :btree
-  add_index "storytime_versions", ["user_id"], name: "index_storytime_versions_on_user_id", using: :btree
-  add_index "storytime_versions", ["versionable_type", "versionable_id"], name: "versionable_index", using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "storytime_name"
+    t.string "storytime_name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name"
+  create_table "widgets", id: :serial, force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

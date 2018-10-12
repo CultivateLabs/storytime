@@ -7,15 +7,15 @@ module Storytime
     enum root_page_content: [:posts, :page]
 
     has_many :memberships, class_name: "Storytime::Membership", dependent: :destroy
-    has_many :users, through: :memberships, class_name: Storytime.user_class
+    has_many :users, through: :memberships, class_name: Storytime.user_class.to_s
     has_many :subscriptions, dependent: :destroy
     has_many :posts, dependent: :destroy
     has_many :blog_posts, dependent: :destroy
     has_many :pages, -> { where(type: "Storytime::Page") }, dependent: :destroy
     has_many :blogs, dependent: :destroy
     has_many :navigations, dependent: :destroy
-    belongs_to :homepage, class_name: "Storytime::Post", foreign_key: "root_post_id"
-    belongs_to :creator, class_name: Storytime.user_class, foreign_key: "user_id"
+    has_one :homepage, class_name: "Storytime::Post", foreign_key: "id", primary_key: "root_post_id", required: false
+    belongs_to :creator, class_name: Storytime.user_class.to_s, foreign_key: "user_id"
 
     validates :subscription_email_from, presence: true
     validates :custom_domain, presence: true, uniqueness: true

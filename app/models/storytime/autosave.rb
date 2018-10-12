@@ -2,7 +2,7 @@ module Storytime
   class Autosave < ActiveRecord::Base
     include Storytime::ScopedToSite
     
-    belongs_to :user, class_name: Storytime.user_class
+    belongs_to :user, class_name: Storytime.user_class.to_s
     belongs_to :autosavable, polymorphic: true
 
     attr_accessor :draft_content

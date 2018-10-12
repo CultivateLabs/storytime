@@ -1,4 +1,4 @@
-class AddSiteIdToStorytimePost < ActiveRecord::Migration
+class AddSiteIdToStorytimePost < ActiveRecord::Migration[4.2]
   def change
     add_column :storytime_posts, :site_id, :integer
 
