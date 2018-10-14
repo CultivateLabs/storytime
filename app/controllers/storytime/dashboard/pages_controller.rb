@@ -4,8 +4,8 @@ module Storytime
   module Dashboard
     class PagesController < PostsController
 
-
     private
+
       def current_post_type
         @current_post_type ||= Storytime::Page
       end
@@ -28,8 +28,7 @@ module Storytime
         @directories = if current_dir.blank?
           @posts.where("slug like ?", vals[0]).pluck(:slug).select{|slug| slug.include?("/") }.map{|slug| slug.split("/").first }.uniq
         else
-          binding.pry
-          @posts.where("slug like ?", vals[0]).pluck(:slug).select{|slug| slug.include?(current_dir) }.map{|slug| slug.split("/").first }.uniq
+          @posts.where("slug like ?", vals[1]).pluck(:slug).map{|slug| slug.gsub("#{current_dir}/", "").split("/") }.select{|slug| slug.length > 1 }.map{|slug| slug.first }.uniq
         end
 
         @posts = @posts.where("slug like ?", vals[0]).where.not("slug like ?", vals[1])
