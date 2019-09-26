@@ -16,8 +16,15 @@ module Storytime
       end
 
       def load_posts
-        @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)
-        @posts = @posts.where(type: "Storytime::Page")
+        @posts = policy_scope(Storytime::Post).where(type: "Storytime::Page")
+
+        @posts = if params[:published].present? && params[:published] == 'true'
+          @posts.published
+        elsif params[:draft].present? && params[:draft] == "true"
+          @posts.draft
+        else
+          @posts
+        end
 
         vals = if current_dir.blank?
           ["%", "%/%"]
@@ -30,16 +37,11 @@ module Storytime
         else
           @posts.where("slug like ?", vals[1]).pluck(:slug).map{|slug| slug.gsub("#{current_dir}/", "").split("/") }.select{|slug| slug.length > 1 }.map{|slug| slug.first }.uniq
         end
-
-        @posts = @posts.where("slug like ?", vals[0]).where.not("slug like ?", vals[1])
-
-        @posts = if params[:published].present? && params[:published] == 'true'
-          @posts.published
-        elsif params[:draft].present? && params[:draft] == "true"
-          @posts.draft
-        else
-          @posts
-        end
+        
+        @posts = @posts.where("slug like ?", vals[0])
+                       .where.not("slug like ?", vals[1])
+                       .page(params[:page_number])
+                       .per(10)
       end
     end
   end
