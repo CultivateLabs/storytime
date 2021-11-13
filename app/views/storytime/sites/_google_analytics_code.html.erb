@@ -1,4 +1,5 @@
 <% unless @current_storytime_site.nil? || @current_storytime_site.ga_tracking_id.blank? %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= @current_storytime_site.ga_tracking_id %>"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
