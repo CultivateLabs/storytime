@@ -584,7 +584,7 @@ GEM
     webrick (1.7.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.3)
+    websocket-extensions (0.1.5)
     xml-simple (1.1.9)
       rexml
     xmlrpc (0.3.2)
