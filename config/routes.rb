@@ -49,8 +49,6 @@ Storytime::Engine.routes.draw do
     end
   end
 
-  mount StorytimeAdmin::Engine => Storytime.dashboard_namespace_path
-
   get "/", to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
   get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new
 

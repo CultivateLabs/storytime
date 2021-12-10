@@ -8,19 +8,18 @@ require 'jbuilder'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'kaminari'
-require 'leather'
 require 'nokogiri'
 require 'pundit'
 require 'simple_form'
 require 'codemirror-rails'
-require 'storytime_admin'
 require 'cocoon'
 require 'acts_as_list'
-require 'rack/cors'
+require 'devise'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
 require 'storytime/concerns/controller_content_for'
+require 'storytime/concerns/action_controller_extension'
 require 'storytime/concerns/current_site'
 require 'storytime/constraints/blog_homepage_constraint'
 require 'storytime/constraints/page_homepage_constraint'
@@ -48,6 +47,7 @@ module Storytime
     initializer "storytime.controller_helpers" do
       ActiveSupport.on_load(:action_controller) do
         include Storytime::ControllerHelpers
+        include Storytime::ActionControllerExtension
         include Storytime::Concerns::CurrentSite
         helper_method :current_storytime_site
 

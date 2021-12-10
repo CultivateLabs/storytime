@@ -14,7 +14,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require leather
 //= require cocoon
 //= require jquery-ui/core
 //= require jquery-ui/datepicker
@@ -34,7 +33,6 @@
 //= require codemirror/addons/edit/closebrackets
 //= require chosen.jquery
 //= require medium-editor.min
-//= require storytime_admin
 //= require_tree .
 
 window.Storytime || (window.Storytime = {})

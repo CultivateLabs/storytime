@@ -108,20 +108,6 @@ module Storytime
             init_hash[:enable_user_class] = true
           end
 
-          # Admin Models
-          if yes? "Do you want to enable certain models to be accessible to CRUD operations within the Storytime admin dashboard? [y/n] (n)", :yellow
-            admin_models = ask "Enter a comma separated list of the models that you want to be CRUD accessible within the admin dashboard:", :yellow
-
-            unless admin_models.blank?
-              admin_models = admin_models.gsub(" ", "").split(",")
-
-              admin_models.each do |model|
-                say "Creating a StorytimeAdmin controller for #{model}...", :cyan
-                `bin/rails g storytime_admin:resource #{model}`
-              end
-            end
-          end
-
           # Dashboard Namespace Path
           if no? "Do you want to use /storytime as the location of the dashboard? [y/n] (y)", :yellow
             dashboard_namespace_path = ask "Path of Storytime's dashboard, relative to Storytime's mount point, #{mount_point}, within the host app? (/storytime)", :yellow

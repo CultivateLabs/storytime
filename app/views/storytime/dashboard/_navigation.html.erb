@@ -103,15 +103,6 @@
     <ul class="nav nav-menu-nav">
       <li><%= link_to icon("plus", "New Blog"), [storytime, :new, :dashboard, :blog], class: "storytime-modal-trigger", remote: true %></li>
     </ul>
-
-    <% if Pundit.policy(current_user, :admin).manage? && StorytimeAdmin.models.length > 0 %>
-      <h4 class="nav-menu-divider">Admin</h4>
-      <ul class="nav nav-menu-nav">
-        <% StorytimeAdmin.models.sort.each do |model| %>
-          <%= nav_item model.pluralize.titleize, [storytime_admin, *polymorphic_route_components(model)], nav_id: [:admin, model] %>
-        <% end %>
-      </ul>
-    <% end %>
   </div>
 </nav>
 <div id='off-canvas-overlay'></div>
