@@ -7,6 +7,7 @@ describe "In the dashboard, Pages", type: :feature do
 
   describe "index" do
     before do
+      require "pry"
       3.times{ FactoryGirl.create(:page, site: current_site) }
       3.times{ FactoryGirl.create(:page, published_at: nil, site: current_site) }
     end

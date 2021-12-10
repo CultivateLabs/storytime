@@ -16,10 +16,9 @@ describe "Root path", type: :request do
   it "routes to pages#show when site homepage is page" do
     site = FactoryGirl.create(:site)
     user = FactoryGirl.create(:admin)
-    home_page = FactoryGirl.create(:page, site: site)
+    home_page = FactoryGirl.create(:page, site: site)    
     site.save_with_seeds(user)
-    site.homepage = home_page
-    site.save
+    site.update_attribute :root_post_id, home_page.id
 
     get "/"
 

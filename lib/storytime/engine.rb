@@ -16,6 +16,7 @@ require 'codemirror-rails'
 require 'storytime_admin'
 require 'cocoon'
 require 'acts_as_list'
+require 'rack/cors'
 
 require 'storytime/concerns/has_versions'
 require 'storytime/concerns/storytime_user'
