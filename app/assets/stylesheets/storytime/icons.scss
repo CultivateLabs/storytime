@@ -3,11 +3,11 @@
 /* storytime-icons */
 @font-face {
   font-family: "storytime-icons";
-  src:url(asset-path("fonts/1423165812.eot"));
-  src:url(asset-path("fonts/1423165812.eot")) format("embedded-opentype"),
-    url(asset-path("fonts/1423165812.woff")) format("woff"),
-    url(asset-path("fonts/1423165812.ttf")) format("truetype"),
-    url(asset-path("fonts/1423165812.svg")) format("svg");
+  src:font-url("storytime-icons.eot");
+  src:font-url("storytime-icons.eot?#iefix") format("embedded-opentype"),
+    font-url("storytime-icons.woff") format("woff"),
+    font-url("storytime-icons.ttf") format("truetype"),
+    font-url("storytime-icons.svg#1423165812") format("svg");
   font-weight: normal;
   font-style: normal;
 }

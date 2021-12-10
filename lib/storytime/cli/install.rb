@@ -27,8 +27,6 @@ module Storytime
         end
 
         def automated
-          `bin/spring stop`
-
           defaults = storytime_defaults
           self.destination_root = File.expand_path("./")
 
@@ -57,8 +55,6 @@ module Storytime
         end
 
         def interactive
-          `bin/spring stop`
-
           begin
             require File.expand_path('config/environment.rb')
           rescue LoadError

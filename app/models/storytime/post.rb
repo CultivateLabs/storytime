@@ -72,7 +72,11 @@ module Storytime
     end
 
     def slug_candidates
-      if slug.blank? then [:title] elsif slug_changed? then [:slug] end
+      if slug.blank?
+        [:title]
+      elsif slug_changed? 
+        [:slug]
+      end
     end
 
     def normalize_friendly_id(value)
