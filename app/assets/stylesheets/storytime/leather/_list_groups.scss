@@ -1,0 +1,33 @@
+.list-group-button-links {
+
+  .list-group-item {
+    padding: 0;
+
+    .list-group-actions {
+      display: none;
+      position: absolute; 
+      top: 50%; 
+      right: 15px; 
+      margin-top: -11px;
+    }
+
+    &:hover {
+      .list-group-actions {
+        display: block;
+      }
+    }
+
+    .list-group-link {
+      display: block; 
+      padding: 10px 15px;
+      color: $list-group-link-color;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        color: $list-group-link-hover-color;
+        background-color: $list-group-hover-bg;
+      }
+    }
+  }
+}

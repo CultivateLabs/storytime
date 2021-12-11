@@ -1,0 +1,23 @@
+#left {
+  width: 40%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#right {
+  width: 60%;
+  position: absolute;
+  top: 0;
+  left: 40%;
+  bottom: 0;
+}
+
+@media (max-width: $screen-xs-max) {
+  .full-width-xs {
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+}

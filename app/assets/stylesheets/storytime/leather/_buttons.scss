@@ -1,0 +1,31 @@
+@mixin btn-outline-variant($color, $bg) {
+  color: $bg;
+
+  &:hover {
+    color: $color;
+  }
+}
+
+.btn-outline {
+  background-color: transparent;
+
+  &.btn-primary {
+    @include btn-outline-variant($btn-primary-color, $btn-primary-bg);
+  }
+
+  &.btn-info {
+    @include btn-outline-variant($btn-info-color, $btn-info-bg);
+  }
+
+  &.btn-success {
+    @include btn-outline-variant($btn-success-color, $btn-success-bg);
+  }
+
+  &.btn-warning {
+    @include btn-outline-variant($btn-warning-color, $btn-warning-bg);
+  }
+
+  &.btn-danger {
+    @include btn-outline-variant($btn-danger-color, $btn-danger-bg);
+  }
+}

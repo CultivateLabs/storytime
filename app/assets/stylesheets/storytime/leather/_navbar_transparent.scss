@@ -1,0 +1,23 @@
+.navbar-transparent-top {
+  @include transition(all 0.5s ease);
+}
+
+@media (min-width: $grid-float-breakpoint) {
+  .navbar-transparent-top {
+    &.affix-top {
+      background: transparent;
+      border: none;
+      padding-top: 10px;
+
+      .navbar-brand,
+      .nav > li > a,
+      .nav > li.active > a,
+      .navbar-nav > .open > a,
+      .navbar-nav > .open > a:hover,
+      .navbar-nav > .open > a:focus {
+        background-color: transparent;
+        color: $navbar-tranparent-link-color;
+      }
+    }
+  }
+}

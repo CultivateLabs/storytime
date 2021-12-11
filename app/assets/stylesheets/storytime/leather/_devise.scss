@@ -1,0 +1,72 @@
+.text-white { color: #ffffff; }
+
+.devise_sessions, .devise_registrations, .devise_passwords {
+  &.new, &.create {
+    @extend .devise;
+  }
+}
+
+.devise_passwords.edit, .devise_passwords.update {
+  @extend .devise;
+}
+
+// For compatibility with Flutie body_class
+.devise-sessions-new, .devise-sessions-create, .devise-registrations-new, .devise-registrations-create, .devise-passwords-new, .devise-passwords-create, .devise-passwords-edit {
+  @extend .devise;
+}
+
+.devise {
+  @include gradient-vertical($devise-bg-gradient-start, $devise-bg-gradient-end);
+  background-attachment: fixed !important;
+  .devise-welcome {
+    @extend .text-center;
+    @extend .text-white;
+    text-shadow: 1px 1px 3px $gray-dark;
+    padding: 50px 0 20px 0;
+    h2 {
+      margin-bottom: 50px;
+      a {
+        @extend .text-white;
+        text-decoration: none;
+        @include transition(color 0.25s linear);
+        &:hover {
+          color: darken(#ffffff, 20%);
+        }
+      }
+    }
+    h2, h3 {
+      font-weight: lighter;
+    }
+  }
+  form {
+    @include border-top-radius($border-radius-base);
+    @include border-bottom-radius($border-radius-base);
+    border: 1px solid #ffffff;
+    background: #ffffff;
+    box-shadow: 1px 1px 3px $gray-dark;
+    padding: 40px 40px 20px;
+    
+    #error_explanation {
+      @extend .alert;
+      @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+      h2 {
+        margin-top: 0;
+        font-size: 15px;
+      }
+    }
+    .actions {
+      @extend .text-center;
+      padding-top: 30px;
+    }
+  }
+  .devise-links {
+    @extend .text-center;
+    @extend .text-white;
+    margin-top: 20px;
+    margin-bottom: 70px;
+    a {
+      text-decoration: underline;
+      @extend .text-white;
+    }
+  }
+}

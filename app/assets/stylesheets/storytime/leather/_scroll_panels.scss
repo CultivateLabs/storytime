@@ -1,0 +1,85 @@
+.scroll-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  .scroll-panel-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: $scroll-panel-header-height;
+    padding: 10px 20px;
+    background: #FFF;
+    border-bottom: 1px solid #F1F1F1;
+
+    .scroll-panel-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    .btn.pull-left ~ .scroll-panel-title {
+      margin-left: 15px;
+      float: left;
+    }
+    
+    @media (max-width: $screen-xs-max) {
+      .btn.pull-left.visible-xs ~ .scroll-panel-title {
+        margin-left: 15px;
+      }
+    }
+    
+    @media (max-width: $screen-sm-max) {
+      .btn.pull-left.visible-xs.visible-sm ~ .scroll-panel-title {
+        margin-left: 15px;
+      }
+    }
+    
+    @media (min-width: $screen-sm-min) {
+      .btn.pull-left.visible-xs ~ .scroll-panel-title {
+        margin-left: 0;
+      }
+    }
+    
+    @media (min-width: $screen-md-min) {
+      .btn.pull-left.visible-xs.visible-sm ~ .scroll-panel-title {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .scroll-panel-body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-panel-header ~ .scroll-panel-body {
+    top: $scroll-panel-header-height;
+  }
+
+  .scroll-panel-header.visible-xs ~ .scroll-panel-body,
+  .scroll-panel-header.visible-sm ~ .scroll-panel-body  {
+    top: 0;
+  }
+  
+  @media (max-width: $screen-xs-max) {
+    .scroll-panel-header.visible-xs ~ .scroll-panel-body {
+      top: $scroll-panel-header-height;
+    }
+  }
+  
+  @media (max-width: $screen-sm-max) {
+    .scroll-panel-header.visible-sm ~ .scroll-panel-body {
+      top: $scroll-panel-header-height;
+    }
+  }
+}
