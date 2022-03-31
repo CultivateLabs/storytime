@@ -58,7 +58,7 @@ Storytime::Engine.routes.draw do
 
   Storytime.post_types.each do |post_type|
     constraints ->(request){ request.params[:component_1] != "assets" } do
-      resources post_type.split("::").last.tableize, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, controller: "posts"
+      resources post_type.split("::").last.tableize.to_sym, path: "(/:component_1(/:component_2(/:component_3)))/", only: :show, controller: "posts"
     end
   end
 
