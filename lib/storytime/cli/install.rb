@@ -204,8 +204,8 @@ module Storytime
         end
 
         def check_user_model(user_class)
-          unless File.exists?("app/models/#{user_class.underscore}.rb")
-            unless File.exists?("config/initializers/devise.rb")
+          unless File.exist?("app/models/#{user_class.underscore}.rb")
+            unless File.exist?("config/initializers/devise.rb")
               say "Devise initializer not found... trying to generate one.", :red
 
               `bin/rails generate devise:install`

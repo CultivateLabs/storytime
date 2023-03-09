@@ -4,7 +4,7 @@
   </div>
   <div id="versions-panel" class="collapse">
     <ul class="list-group" style="margin: 0;">
-      <%= render partial: 'storytime/dashboard/versions/version.html.erb', collection: versionable.versions.order(created_at: :desc), locals: {versionable: versionable } %>
+      <%= render partial: 'storytime/dashboard/versions/version', collection: versionable.versions.order(created_at: :desc), locals: {versionable: versionable } %>
     </ul>
   </div>
 </div>

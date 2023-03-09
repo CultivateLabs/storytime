@@ -1,1 +1,1 @@
-json.html(render partial: "index.html.erb")
+json.html(render partial: "index", formats: [:html])

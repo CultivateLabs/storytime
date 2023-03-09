@@ -9,7 +9,7 @@
     </div>
     <div class="scroll-panel-body">
 
-      <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+      <%= render 'storytime/dashboard/settings_tabs', formats: [:html] %>
       
       <%= f.input :site_id, as: :hidden, input_html: { value: @current_storytime_site.id }  %>
       <%= f.input :email %>

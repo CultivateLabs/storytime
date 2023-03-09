@@ -10,5 +10,9 @@ module Storytime
 
       render partial: "storytime/snippets/snippet", locals: {snippet: snippet}
     end
+
+    def logged_in_storytime_user?
+      user_signed_in? && current_user.respond_to?(:storytime_user?) && current_user.storytime_user?(current_storytime_site)
+    end
   end
 end

@@ -9,7 +9,7 @@
   <div class="scroll-panel-body">
     
     <ul class="list-group list-group-button-links">
-      <%= render partial: 'snippet.html.erb', collection: @snippets %>
+      <%= render partial: 'snippet', collection: @snippets %>
     </ul>
 
     <%= paginate @snippets, param_name: "page_number", remote: true %>

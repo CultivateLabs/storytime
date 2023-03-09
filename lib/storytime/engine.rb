@@ -38,7 +38,6 @@ module Storytime
 
     initializer "storytime.view_helpers" do
       ActiveSupport.on_load(:action_view) do
-        include Storytime::ApplicationHelper
         include Storytime::StorytimeHelpers
       end
     end

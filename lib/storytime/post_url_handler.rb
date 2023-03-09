@@ -1,7 +1,13 @@
 module Storytime
   module PostUrlHandler
 
-    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 1)
+    
+    if Rails::VERSION::MAJOR > 6 || (Rails::VERSION::MAJOR == 6 && Rails::VERSION::MINOR >= 1)
+      def url_for(options, route_name = nil, url_strategy = ActionDispatch::Routing::RouteSet::UNKNOWN, method_name = nil, reserved = ActionDispatch::Routing::RouteSet::RESERVED_OPTIONS)
+        Storytime::PostUrlHandler.handle_url(options)
+        super(options, route_name, url_strategy, method_name, reserved)
+      end
+    elsif Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 1)
       def url_for(options, route_name = nil, url_strategy = ActionDispatch::Routing::RouteSet::UNKNOWN)
         Storytime::PostUrlHandler.handle_url(options)
         super(options, route_name, url_strategy)

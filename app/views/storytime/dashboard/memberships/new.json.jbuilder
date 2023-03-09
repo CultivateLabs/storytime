@@ -1,2 +1,2 @@
 json.(@membership)
-json.html(render partial: "new.html.erb")
+json.html(render partial: "new", formats: [:html])

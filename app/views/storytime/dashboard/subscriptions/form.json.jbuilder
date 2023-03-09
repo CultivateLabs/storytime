@@ -1,1 +1,1 @@
-json.html(render partial: "form.html.erb")
+json.html(render partial: "form", formats: [:html])

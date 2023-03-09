@@ -7,7 +7,7 @@ describe Storytime::Post do
     after{ Storytime::BlogPost.instance_variable_set "@_to_partial_path", nil }
 
     it "includes site in the path" do
-      allow(File).to receive(:exists?).and_return(true)
+      allow(File).to receive(:exist?).and_return(true)
 
       site = FactoryGirl.create(:site, title: "Test Site")
       blog_post = FactoryGirl.create(:post, site: site)

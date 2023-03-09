@@ -14,9 +14,9 @@ module Storytime::PostPartialInheritance
         element = ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(self))
         collection = ActiveSupport::Inflector.tableize(self.to_s)
         
-        if site && File.exists?(Rails.root.join('app', 'views', "storytime/#{site.custom_view_path}/#{collection.sub("storytime/", "")}/_#{element}.html.erb"))
+        if site && File.exist?(Rails.root.join('app', 'views', "storytime/#{site.custom_view_path}/#{collection.sub("storytime/", "")}/_#{element}.html.erb"))
           "storytime/#{site.custom_view_path}/#{collection.sub("storytime/", "")}/#{element}"
-        elsif File.exists?(Rails.root.join('app', 'views', collection, "_#{element}.html.erb")) ||
+        elsif File.exist?(Rails.root.join('app', 'views', collection, "_#{element}.html.erb")) ||
               self.superclass == ActiveRecord::Base
           "#{collection}/#{element}"
         else

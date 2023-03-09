@@ -1,1 +1,1 @@
-json.html render(partial: "storytime/dashboard/roles/form.html.erb")
+json.html render(partial: "storytime/dashboard/roles/form", formats: [:html])

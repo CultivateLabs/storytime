@@ -3,7 +3,7 @@
     <% @media.in_groups_of(5, false) do |media_row| %>
       <div class="row">
         <% media_row.each do |media| %>
-          <%= render partial: "storytime/dashboard/media/media.html.erb", locals: { media: media } %>
+          <%= render "storytime/dashboard/media/media", media: media %>
         <% end %>
       </div>
     <% end %>

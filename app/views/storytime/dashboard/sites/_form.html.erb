@@ -12,7 +12,7 @@
       <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
       <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
       
-      <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+      <%= render 'storytime/dashboard/settings_tabs' %>
 
       <%= f.error_notification %>
       <%= f.input :title %>

@@ -8,10 +8,10 @@
   </div>
   <div class="scroll-panel-body">
 
-    <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+    <%= render 'storytime/dashboard/settings_tabs' %>
     
     <ul class="list-group list-group-button-links">
-      <%= render partial: 'subscription.html.erb', collection: @subscriptions %>
+      <%= render partial: 'subscription', collection: @subscriptions %>
     </ul>
 
     <%= paginate @subscriptions, param_name: "page_number", remote: true %>

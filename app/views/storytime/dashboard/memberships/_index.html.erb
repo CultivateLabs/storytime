@@ -8,7 +8,7 @@
   </div>
   <div class="scroll-panel-body">
 
-    <%= render 'storytime/dashboard/settings_tabs.html.erb' %>
+    <%= render 'storytime/dashboard/settings_tabs' %>
       
     <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
     <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
@@ -24,14 +24,14 @@
             </h4>
           </div>
           <div id="collapseListGroup1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading1">
-            <%= render "storytime/dashboard/memberships/form.html.erb" %>
+            <%= render "storytime/dashboard/memberships/form" %>
           </div>
         </div>
       </div>
     <% end %>
     
     <ul class="list-group list-group-button-links">
-      <%= render partial: 'storytime/dashboard/memberships/membership.html.erb', collection: @memberships %>
+      <%= render partial: 'storytime/dashboard/memberships/membership', collection: @memberships %>
     </ul>
 
     <%= paginate @memberships, remote: true %>
