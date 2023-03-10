@@ -19,7 +19,7 @@ module Storytime
     end
 
     def unsubscribe!
-      update_attributes(subscribed: false)
+      update!(subscribed: false)
     end
   end
 end

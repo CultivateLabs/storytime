@@ -58,7 +58,7 @@ module Storytime
         authorize @post
         @post.draft_user_id = current_user.id
 
-        if @post.update_attributes(post_params)
+        if @post.update(post_params)
           @post.autosave.destroy unless @post.autosave.nil?
 
           send_subscriber_notifications if @post.published? && post_params[:notifications_enabled] == "1"

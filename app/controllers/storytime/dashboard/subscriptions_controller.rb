@@ -63,7 +63,7 @@ module Storytime
         if @subscription.nil?
           redirect_to main_app.storytime_path, alert: I18n.t('flash.subscriptions.unsubscribe.not_found')
         else
-          @subscription.update_attributes(subscribed: false)
+          @subscription.update(subscribed: false)
         end
       end
 

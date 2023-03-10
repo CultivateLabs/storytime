@@ -62,7 +62,7 @@ module Storytime
           membership_user_params = membership_params
           membership_user_params['user_attributes']['id'] = @membership.user.id
 
-          if @membership.update_attributes(membership_user_params)
+          if @membership.update(membership_user_params)
             load_memberships
             format.json { render :index }
           else

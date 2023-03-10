@@ -6,7 +6,7 @@ module Storytime
       return if post.nil?
 
       unless post.notifications_sent_at
-        post.update_attributes(notifications_sent_at: Time.now)
+        post.update(notifications_sent_at: Time.now)
 
         post.site.active_email_subscriptions.each do |subscription|
           mail = Storytime::SubscriptionMailer.new_post_email(post, subscription)

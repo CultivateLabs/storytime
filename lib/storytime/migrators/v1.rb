@@ -65,7 +65,7 @@ module Storytime
         site = Storytime::Site.first
         Storytime::Post.all.each do |post|
           if post.site_id.blank?
-            post.update_attributes(site_id: site.id)
+            post.update(site_id: site.id)
           end
         end
       end
@@ -74,7 +74,7 @@ module Storytime
         site = Storytime::Site.first
         Storytime::Snippet.all.each do |snippet|
           if snippet.site_id.blank?
-            snippet.update_attributes(site_id: site.id)
+            snippet.update(site_id: site.id)
           end
         end
       end
@@ -83,7 +83,7 @@ module Storytime
         site = Storytime::Site.first
         Storytime::Tag.all.each do |tag|
           if tag.site_id.blank?
-            tag.update_attributes(site_id: site.id)
+            tag.update(site_id: site.id)
           end
         end
       end

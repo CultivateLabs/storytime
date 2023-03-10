@@ -21,7 +21,7 @@ module Storytime
         @blog = @post
 
         respond_with @blog do |format|
-          if @blog.update_attributes(post_params)
+          if @blog.update(post_params)
             format.json { render :index }
           else
             format.json { render :edit, status: :unprocessable_entity }
