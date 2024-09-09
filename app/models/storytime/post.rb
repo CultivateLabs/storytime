@@ -95,6 +95,13 @@ module Storytime
     def post_ancestor_klasses
       self.class.ancestors.grep(Class).split(ActiveRecord::Base).first
     end
-
+    
+    def published_at
+      published_at = read_attribute(:published_at)
+      return nil unless published_at # for new action
+      return published_at unless time_zone
+      tz = ActiveSupport::TimeZone.new(time_zone)
+      published_at.in_time_zone(tz)
+    end
   end
 end
