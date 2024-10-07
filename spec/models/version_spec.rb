@@ -4,8 +4,8 @@ describe Storytime::Version do
 
   it "creates a version when creating a Post" do
     expect(Storytime::Version.all.count).to eq(0)
-    user = FactoryGirl.create(:user)
-    post = FactoryGirl.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
+    user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
     expect(post).to_not be_published
     expect(Storytime::Version.all.count).to eq(1)
     expect(post.latest_version).to eq(Storytime::Version.last)
@@ -14,8 +14,8 @@ describe Storytime::Version do
   end
 
   it "publishes a post with latest_version content" do
-    user = FactoryGirl.create(:user)
-    post = FactoryGirl.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
+    user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
     expect(post).to_not be_published
     expect(post.content).to_not eq("Testing 123")
     post.publish!
@@ -24,21 +24,21 @@ describe Storytime::Version do
   end
 
   it "returns the latest version content as draft_content" do
-    user = FactoryGirl.create(:user)
-    post = FactoryGirl.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
+    user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, published_at: nil, user: user, draft_user_id: user.id, draft_content: "Testing 123")
     post.reload
     expect(post.draft_content).to eq(post.latest_version.content)
   end
 
   it "does not create a version when content does not change" do
-    post = FactoryGirl.create(:post, published_at: nil, draft_content: "Testing 123")
+    post = FactoryBot.create(:post, published_at: nil, draft_content: "Testing 123")
     expect(Storytime::Version.all.count).to eq(1)
     post.update(excerpt: "New Excerpt")
     expect(Storytime::Version.all.count).to eq(1)
   end
 
   it "creates a version when content is updated" do
-    post = FactoryGirl.create(:post, draft_content: "Testing 123")
+    post = FactoryBot.create(:post, draft_content: "Testing 123")
     expect(Storytime::Version.all.count).to eq(1)
     post.update(draft_content: "New Content")
     expect(Storytime::Version.all.count).to eq(2)
@@ -46,8 +46,8 @@ describe Storytime::Version do
   end
 
   it "reverts to a previous version" do
-    user = FactoryGirl.create(:user)
-    post = FactoryGirl.create(:post, user: user)
+    user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, user: user)
     version1 = Storytime::Version.last
     post.update(draft_content: "New Content", draft_user_id: user.id)
     expect(post.content).to eq("New Content")

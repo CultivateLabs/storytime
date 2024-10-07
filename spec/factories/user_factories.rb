@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     sequence(:email) { |i| "user#{i}@example.com" }
-    password "password"
+    password { "password" }
     sequence(:storytime_name) { |i| "user name #{i}" }
 
     factory :writer do

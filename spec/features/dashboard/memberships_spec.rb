@@ -5,8 +5,8 @@ describe "In the dashboard, Users", type: :feature do
     before{ login_admin }
 
     it "provides links to all the sites where the user has a membership", js: true do
-      other_site = FactoryGirl.create(:site)
-      membership = FactoryGirl.create(:membership, user: @current_user, site: other_site)
+      other_site = FactoryBot.create(:site)
+      membership = FactoryBot.create(:membership, user: @current_user, site: other_site)
 
       visit storytime.dashboard_path
 
@@ -17,7 +17,7 @@ describe "In the dashboard, Users", type: :feature do
     end
 
     it "lists users for a site", js: true do
-      FactoryGirl.create_list(:user, 3)
+      FactoryBot.create_list(:user, 3)
 
       Storytime.user_class.all.each do |user|
         user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
@@ -33,7 +33,7 @@ describe "In the dashboard, Users", type: :feature do
     end
 
     it "deletes a user from the site", js: true do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       membership = user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
 
       user_count = Storytime.user_class.count
@@ -73,7 +73,7 @@ describe "In the dashboard, Users", type: :feature do
     end
 
     it "edits another user's profile", js: true do
-      FactoryGirl.create :membership, site: @current_site
+      FactoryBot.create :membership, site: @current_site
       u = User.last
 
       visit storytime.dashboard_path

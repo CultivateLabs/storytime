@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Subscriptions", type: :feature do
   before do
-    setup_site(FactoryGirl.create(:admin))
+    setup_site(FactoryBot.create(:admin))
   end
 
   it "allows users to subscribe to a site" do
@@ -25,10 +25,10 @@ describe "Subscriptions", type: :feature do
   end
 
   it "only allows users to unsubscribe with a proper token" do
-    subscription_1 = FactoryGirl.create(:subscription, site: @current_site)
+    subscription_1 = FactoryBot.create(:subscription, site: @current_site)
     token_1 = subscription_1.token
 
-    subscription_2 = FactoryGirl.create(:subscription, site: @current_site)
+    subscription_2 = FactoryBot.create(:subscription, site: @current_site)
     token_2 = subscription_2.token
 
     visit url_for([:unsubscribe_mailing_list, {:email => subscription_1.email, :t => token_2}])

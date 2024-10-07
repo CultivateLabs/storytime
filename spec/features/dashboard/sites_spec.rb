@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "In the dashboard, Sites", type: :feature do
 
   it "creates a site" do
-    login FactoryGirl.create(:user), true
+    login FactoryBot.create(:user), true
     expect(Storytime::Site.count).to eq(0)
 
     visit new_dashboard_site_path

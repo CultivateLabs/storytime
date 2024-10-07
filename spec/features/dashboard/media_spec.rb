@@ -14,8 +14,8 @@ describe "In the dashboard, Media", type: :feature do
   end
 
   it "shows a gallery of the user's images" do
-    m1 = FactoryGirl.create(:media, site: @current_site)
-    m2 = FactoryGirl.create(:media, site: @current_site)
+    m1 = FactoryBot.create(:media, site: @current_site)
+    m2 = FactoryBot.create(:media, site: @current_site)
 
     visit dashboard_media_index_path
 
@@ -24,7 +24,7 @@ describe "In the dashboard, Media", type: :feature do
   end
 
   it "deletes an image", js: true do
-    image = FactoryGirl.create(:media, site: @current_site)
+    image = FactoryBot.create(:media, site: @current_site)
 
     visit dashboard_media_index_path
     expect(page).to have_image(image.file_url(:thumb))
@@ -35,7 +35,7 @@ describe "In the dashboard, Media", type: :feature do
   end
 
   it "inserts media into post", js: true do
-    media = FactoryGirl.create(:media, site: @current_site)
+    media = FactoryBot.create(:media, site: @current_site)
 
     visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 

@@ -2,7 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
@@ -12,6 +12,8 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
+# require "pry-byebug"
+# binding.pry
 ActiveRecord::Migration.maintain_test_schema!
 
 poltergeist_options = {

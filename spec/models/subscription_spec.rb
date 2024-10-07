@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Storytime::Subscription do
   describe "generate_token" do
     it "generates a token before creation" do
-      subscription = FactoryGirl.build(:subscription)
+      subscription = FactoryBot.build(:subscription)
 
       expect(subscription.token).to eq(nil)
 
@@ -13,10 +13,10 @@ describe Storytime::Subscription do
     end
 
     it "generates a token that can be regenerated from the email" do
-      subscription = FactoryGirl.create(:subscription)
+      subscription = FactoryBot.create(:subscription)
       token = subscription.token
 
-      key = Rails.application.secrets.secret_key_base
+      key = ENV["SECRET_KEY_BASE"]
       digest = OpenSSL::Digest.new('sha1')
       regenerated_token = OpenSSL::HMAC.hexdigest(digest, key, subscription.email)
 
@@ -26,7 +26,7 @@ describe Storytime::Subscription do
 
   describe "unsubscribe!" do
     it "sets subscribed to false" do
-      subscription = FactoryGirl.create(:subscription)
+      subscription = FactoryBot.create(:subscription)
 
       expect(subscription.subscribed?).to eq(true)
 
