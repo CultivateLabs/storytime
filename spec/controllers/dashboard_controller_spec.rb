@@ -15,7 +15,6 @@ describe Storytime::DashboardController, type: :controller do
     end
 
     it "requires authorization" do
-      controller.view_paths.unshift(ActionView::FixtureResolver.new("widgets/index.html.erb" => ""))
       FactoryBot.create(:site)
       sign_in FactoryBot.create(:writer)
       get :index

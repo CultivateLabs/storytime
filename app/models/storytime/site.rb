@@ -3,7 +3,6 @@ module Storytime
     require 'uri'
 
     enum :post_slug_style, [:default, :day_and_name, :month_and_name, :post_id]
-    # enum :root_page_content, [:posts, :page]
 
     has_many :memberships, class_name: "Storytime::Membership", dependent: :destroy
     has_many :users, through: :memberships, class_name: Storytime.user_class.to_s

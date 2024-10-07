@@ -306,6 +306,8 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
+    puma (6.4.3)
+      nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
     racc (1.8.1)
@@ -445,6 +447,7 @@ DEPENDENCIES
   pry-byebug
   pry-nav
   pry-stack_explorer
+  puma
   rb-fsevent
   rspec-rails
   storytime!

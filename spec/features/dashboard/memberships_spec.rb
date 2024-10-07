@@ -54,22 +54,25 @@ describe "In the dashboard, Users", type: :feature do
       expect(Storytime::Membership.count).to eq(membership_count-1)
     end
 
-    it "edits own profile", js: true do
-      u = User.last
+    after do |example|
+      if example.exception
+        require "pry-byebug"
+        binding.pry
+      end
+    end
 
+    it "edits own profile", js: true do
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "profile-link"
       fill_in "membership_user_attributes_email", with: "new_email@example.com"
+      
       click_button "Save"
 
-      within "#storytime-modal" do
-        storytime_name_field = find_field("membership_user_attributes_storytime_name").value
-        storytime_email_field = find_field("membership_user_attributes_email").value
+      expect(page).to have_content("Your changes were saved successfully")
 
-        expect(storytime_name_field).to eq(u.storytime_name)
-        expect(storytime_email_field).to eq("new_email@example.com")
-      end
+      current_user.reload
+      expect(current_user.email).to eq("new_email@example.com")
     end
 
     it "edits another user's profile", js: true do
@@ -85,13 +88,10 @@ describe "In the dashboard, Users", type: :feature do
       fill_in "membership_user_attributes_email", with: "change_email@example.com"
       click_button "Save"
 
-      within "#storytime-modal" do
-        storytime_name_field = find_field("membership_user_attributes_storytime_name").value
-        storytime_email_field = find_field("membership_user_attributes_email").value
+      expect(page).to have_content("Your changes were saved successfully")
 
-        expect(storytime_name_field).to eq(u.storytime_name)
-        expect(storytime_email_field).to eq("change_email@example.com")
-      end
+      u.reload
+      expect(u.email).to eq("change_email@example.com")
     end
 
     it "creates a user", js: true do

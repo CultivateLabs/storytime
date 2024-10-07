@@ -8,7 +8,7 @@ class Storytime::ApplicationController < Storytime.application_controller_superc
   include Storytime::Concerns::CurrentSite
   helper_method :current_storytime_site
 
-  include Pundit
+  include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   helper :all
