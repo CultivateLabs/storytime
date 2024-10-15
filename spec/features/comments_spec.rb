@@ -7,9 +7,9 @@ describe "Comments", type: :feature do
   end
 
   it "lists comments on a post" do
-    post = FactoryGirl.create(:post, site: @current_site, blog: @current_site.blogs.first)
-    3.times{ FactoryGirl.create(:comment, post: post, site: @current_site) }
-    other_post_comment = FactoryGirl.create(:comment, site: @current_site)
+    post = FactoryBot.create(:post, site: @current_site, blog: @current_site.blogs.first)
+    3.times{ FactoryBot.create(:comment, post: post, site: @current_site) }
+    other_post_comment = FactoryBot.create(:comment, site: @current_site)
 
     visit url_for([post, only_path: true])
 
@@ -22,7 +22,7 @@ describe "Comments", type: :feature do
   end
 
   it "creates a comment" do
-    post = FactoryGirl.create(:post, site: @current_site, blog: @current_site.blogs.first)
+    post = FactoryBot.create(:post, site: @current_site, blog: @current_site.blogs.first)
     comment_count = post.comments.count
 
     visit url_for([post, only_path: true])
@@ -38,9 +38,9 @@ describe "Comments", type: :feature do
   end
 
   it "deletes a comment", js: true do
-    post = FactoryGirl.create(:post, site: @current_site, blog: @current_site.blogs.first)
-    other_persons_comment = FactoryGirl.create(:comment, post: post, site: @current_site)
-    comment_to_delete = FactoryGirl.create(:comment, post: post, user: current_user, site: @current_site)
+    post = FactoryBot.create(:post, site: @current_site, blog: @current_site.blogs.first)
+    other_persons_comment = FactoryBot.create(:comment, post: post, site: @current_site)
+    comment_to_delete = FactoryBot.create(:comment, post: post, user: current_user, site: @current_site)
 
     visit url_for([post, only_path: true])
 

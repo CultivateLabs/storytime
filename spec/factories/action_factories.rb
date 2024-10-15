@@ -1,5 +1,5 @@
-FactoryGirl.define do
-  factory :action, class: Storytime::Action do
-    name 'Manage Users'
+FactoryBot.define do
+  factory :action, class: "Storytime::Action" do
+    name { 'Manage Users' }
   end
 end

@@ -6,7 +6,7 @@ describe "In the dashboard, Snippets", type: :feature do
   end
 
   it "lists snippets", js: true do
-    3.times{ FactoryGirl.create(:snippet, site: @current_site) }
+    3.times{ FactoryBot.create(:snippet, site: @current_site) }
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
 
@@ -37,7 +37,7 @@ describe "In the dashboard, Snippets", type: :feature do
   # end
 
   it "updates a snippet", js: true do
-    snippet = FactoryGirl.create(:snippet, site: @current_site, content: "Test")
+    snippet = FactoryBot.create(:snippet, site: @current_site, content: "Test")
 
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')
@@ -54,7 +54,7 @@ describe "In the dashboard, Snippets", type: :feature do
   end
 
   it "deletes a snippet", js: true do
-    snippet = FactoryGirl.create :snippet, site: @current_site
+    snippet = FactoryBot.create :snippet, site: @current_site
 
     visit storytime.dashboard_url
     find("#snippets-link").trigger('click')

@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :widget do
-    name "Widget Name"
+    name { "Widget Name" }
   end
 end

@@ -85,7 +85,7 @@ module Storytime
 
     def should_generate_new_friendly_id?
       current_slug = self.slug == "" ? nil : self.slug
-      slug_changed? || (current_slug.nil? && published_at_changed? && published_at_change.first.nil?)
+      slug.blank? || slug_changed? || (current_slug.nil? && published_at_changed? && published_at_change.first.nil?)
     end
 
     def sanitize_content

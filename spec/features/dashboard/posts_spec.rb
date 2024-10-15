@@ -7,9 +7,9 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "lists all posts" do
     blog = @current_site.blogs.first
-    FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
-    2.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 1.hours.ago) }
-    static_page = FactoryGirl.create(:page)
+    FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil)
+    2.times{ FactoryBot.create(:post, blog: blog, site: @current_site, published_at: 1.hours.ago) }
+    static_page = FactoryBot.create(:page)
 
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, only_path: true])
 
@@ -24,10 +24,10 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "lists draft posts" do
     blog = @current_site.blogs.first
-    3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil) }
-    3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 2.hours.ago) }
-    FactoryGirl.create(:post)
-    static_page = FactoryGirl.create(:page)
+    3.times{ FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil) }
+    3.times{ FactoryBot.create(:post, blog: blog, site: @current_site, published_at: 2.hours.ago) }
+    FactoryBot.create(:post)
+    static_page = FactoryBot.create(:page)
 
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, draft: true, only_path: true])
 
@@ -43,9 +43,9 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "lists published posts" do
     blog = @current_site.blogs.first
-    FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
-    2.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: 3.hours.ago) }
-    static_page = FactoryGirl.create(:page)
+    FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil)
+    2.times{ FactoryBot.create(:post, blog: blog, site: @current_site, published_at: 3.hours.ago) }
+    static_page = FactoryBot.create(:page)
 
     visit url_for([storytime, :dashboard, blog, :blog_page_post_index, published: true, only_path: true])
 
@@ -61,7 +61,7 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "creates a post", js: true do
     post_count = Storytime::BlogPost.count
-    media = FactoryGirl.create(:media)
+    media = FactoryBot.create(:media)
     Rails.logger.warn "==> STARTING CREATE POST"
     visit url_for([:new, :dashboard, @current_site.blogs.first, :blog_post, only_path: true])
 
@@ -111,7 +111,7 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "autosaves a post when editing", js: true do
     blog = @current_site.blogs.first
-    post = FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil,
+    post = FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil,
                               title: "A Scandal in Bohemia",
                               draft_content: "To Sherlock Holmes she was always the woman.")
 
@@ -140,7 +140,7 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "updates a post", js: true do
     blog = @current_site.blogs.first
-    post = FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil)
+    post = FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil)
     original_creator = post.user
     post_count = Storytime::BlogPost.count
     # page.driver.debug
@@ -164,7 +164,7 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "deletes a post", js: true do
     blog = @current_site.blogs.first
-    3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site) }
+    3.times{ FactoryBot.create(:post, blog: blog, site: @current_site) }
     expect(Storytime::BlogPost.count).to eq(3)
 
     post = Storytime::BlogPost.first
@@ -178,7 +178,7 @@ describe "In the dashboard, Posts", type: :feature do
 
   it "deletes a post from the index view", js: true do
     blog = @current_site.blogs.first
-    3.times{ FactoryGirl.create(:post, blog: blog, site: @current_site, published_at: nil) }
+    3.times{ FactoryBot.create(:post, blog: blog, site: @current_site, published_at: nil) }
     expect(Storytime::BlogPost.count).to eq(3)
 
     post = Storytime::BlogPost.first

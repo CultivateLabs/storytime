@@ -1,6 +1,6 @@
 module FeatureMacros
   def login(user = nil, skip_site = false)
-    user ||= FactoryGirl.create(:user)
+    user ||= FactoryBot.create(:user)
     unless skip_site
       setup_site(user)
       set_domain(@current_site.custom_domain)
@@ -18,15 +18,15 @@ module FeatureMacros
   end
 
   def login_admin(admin = nil)
-    login FactoryGirl.create(:admin)
+    login FactoryBot.create(:admin)
   end
 
   def login_editor(editor = nil)
-    login FactoryGirl.create(:editor)
+    login FactoryBot.create(:editor)
   end
 
   def login_writer(writer = nil)
-    login FactoryGirl.create(:writer)
+    login FactoryBot.create(:writer)
   end
   
   def current_user
@@ -38,7 +38,7 @@ module FeatureMacros
   end
 
   def setup_site(user)
-    @current_site ||= FactoryGirl.create(:site)
+    @current_site ||= FactoryBot.create(:site)
     @current_site.save_with_seeds(user)
     @current_site.homepage = @current_site.blogs.first
     @current_site.save

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :membership, class: Storytime::Membership do
     association :user, factory: :user
     association :site, factory: :site

@@ -8,11 +8,11 @@ describe "In the dashboard, Pages", type: :feature do
   describe "index" do
     before do
       require "pry"
-      3.times{ FactoryGirl.create(:page, site: current_site) }
-      3.times{ FactoryGirl.create(:page, published_at: nil, site: current_site) }
+      3.times{ FactoryBot.create(:page, site: current_site) }
+      3.times{ FactoryBot.create(:page, published_at: nil, site: current_site) }
     end
 
-    let!(:other_site_page){ FactoryGirl.create(:page) }
+    let!(:other_site_page){ FactoryBot.create(:page) }
 
     it "lists all pages" do
       visit dashboard_pages_path
@@ -75,7 +75,7 @@ describe "In the dashboard, Pages", type: :feature do
   end
 
   it "updates a page", js: true do
-    pg = FactoryGirl.create(:page, site: current_site, published_at: nil)
+    pg = FactoryBot.create(:page, site: current_site, published_at: nil)
     original_creator = pg.user
     page_count = Storytime::Page.count
 
@@ -98,7 +98,7 @@ describe "In the dashboard, Pages", type: :feature do
   end
 
   it "deletes a page", js: true do
-    storytime_page = FactoryGirl.create(:page, site: current_site)
+    storytime_page = FactoryBot.create(:page, site: current_site)
     page_count = Storytime::Page.count
 
     visit edit_dashboard_page_path(storytime_page)

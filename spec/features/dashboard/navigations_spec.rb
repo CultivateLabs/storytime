@@ -21,7 +21,7 @@ describe "In the dashboard, Navigations", type: :feature do
 
   it "updates a navigation list" do
     Storytime::Site.current_id = current_site.id
-    nav = FactoryGirl.create(:navigation, site_id: current_site.id)
+    nav = FactoryBot.create(:navigation, site_id: current_site.id)
     visit edit_dashboard_navigation_path(nav)
 
     fill_in "navigation_name", with: "New Name"

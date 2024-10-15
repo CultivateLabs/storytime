@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe "Root path", type: :request do
   it "routes to blog_homepage#show when site homepage is a blog" do
-    site = FactoryGirl.create(:site)
-    user = FactoryGirl.create(:admin)
+    site = FactoryBot.create(:site)
+    user = FactoryBot.create(:admin)
     site.save_with_seeds(user)
     site.homepage = site.blogs.first
 
@@ -14,9 +14,9 @@ describe "Root path", type: :request do
   end
 
   it "routes to pages#show when site homepage is page" do
-    site = FactoryGirl.create(:site)
-    user = FactoryGirl.create(:admin)
-    home_page = FactoryGirl.create(:page, site: site)    
+    site = FactoryBot.create(:site)
+    user = FactoryBot.create(:admin)
+    home_page = FactoryBot.create(:page, site: site)    
     site.save_with_seeds(user)
     site.update_attribute :root_post_id, home_page.id
 
@@ -30,8 +30,8 @@ end
 
 describe "Post path", type: :request do
   it "uses /posts/post-slug when site#post_slug_style is default" do
-    site = FactoryGirl.create(:site, post_slug_style: :default, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post, site: site)
+    site = FactoryBot.create(:site, post_slug_style: :default, custom_domain: "www.example.com")
+    post = FactoryBot.create(:post, site: site)
     expect(storytime.post_path(post)).to  eq("/posts/#{post.slug}")
 
     get url_for([post, only_path: true])
@@ -42,8 +42,8 @@ describe "Post path", type: :request do
   end
 
   it "uses /year/month/day/post-slug when site#post_slug_style is day_and_name" do
-    site = FactoryGirl.create(:site, post_slug_style: :day_and_name, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post, site: site)
+    site = FactoryBot.create(:site, post_slug_style: :day_and_name, custom_domain: "www.example.com")
+    post = FactoryBot.create(:post, site: site)
     date = post.created_at.to_date
 
     expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.strftime('%m')}/#{date.strftime('%d')}/#{post.slug}")
@@ -56,8 +56,8 @@ describe "Post path", type: :request do
   end
 
   it "uses /year/month/post-slug when site#post_slug_style is month_and_name" do
-    site = FactoryGirl.create(:site, post_slug_style: :month_and_name, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post, site: site)
+    site = FactoryBot.create(:site, post_slug_style: :month_and_name, custom_domain: "www.example.com")
+    post = FactoryBot.create(:post, site: site)
     date = post.created_at.to_date
     expect(url_for([post, only_path: true])).to  eq("/#{date.year}/#{date.strftime('%m')}/#{post.slug}")
 
@@ -69,8 +69,8 @@ describe "Post path", type: :request do
   end
 
   it "uses /post-id when site#post_slug_style is post_id" do
-    site = FactoryGirl.create(:site, post_slug_style: :post_id, custom_domain: "www.example.com")
-    post = FactoryGirl.create(:post, site: site)
+    site = FactoryBot.create(:site, post_slug_style: :post_id, custom_domain: "www.example.com")
+    post = FactoryBot.create(:post, site: site)
     expect(url_for([post, only_path: true])).to eq("/posts/#{post.id}")
 
     get url_for([post, only_path: true])

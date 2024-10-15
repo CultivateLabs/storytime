@@ -15,16 +15,15 @@ describe Storytime::DashboardController, type: :controller do
     end
 
     it "requires authorization" do
-      controller.view_paths.unshift(ActionView::FixtureResolver.new("widgets/index.html.erb" => ""))
-      FactoryGirl.create(:site)
-      sign_in FactoryGirl.create(:writer)
+      FactoryBot.create(:site)
+      sign_in FactoryBot.create(:writer)
       get :index
       expect(flash[:error]).to eq("You are not authorized to perform this action.")
     end
 
     it "redirects to site setup if none exists" do
       allow(Storytime::Site).to receive(:count).and_return(0)
-      sign_in FactoryGirl.create(:writer)
+      sign_in FactoryBot.create(:writer)
       get :index
       expect(response).to redirect_to(new_dashboard_site_path)
     end

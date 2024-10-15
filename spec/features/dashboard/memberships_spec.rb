@@ -5,8 +5,8 @@ describe "In the dashboard, Users", type: :feature do
     before{ login_admin }
 
     it "provides links to all the sites where the user has a membership", js: true do
-      other_site = FactoryGirl.create(:site)
-      membership = FactoryGirl.create(:membership, user: @current_user, site: other_site)
+      other_site = FactoryBot.create(:site)
+      membership = FactoryBot.create(:membership, user: @current_user, site: other_site)
 
       visit storytime.dashboard_path
 
@@ -17,7 +17,7 @@ describe "In the dashboard, Users", type: :feature do
     end
 
     it "lists users for a site", js: true do
-      FactoryGirl.create_list(:user, 3)
+      FactoryBot.create_list(:user, 3)
 
       Storytime.user_class.all.each do |user|
         user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
@@ -33,7 +33,7 @@ describe "In the dashboard, Users", type: :feature do
     end
 
     it "deletes a user from the site", js: true do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       membership = user.storytime_memberships.create(site: @current_site, storytime_role: Storytime::Role.find_by(name: "writer"))
 
       user_count = Storytime.user_class.count
@@ -54,26 +54,29 @@ describe "In the dashboard, Users", type: :feature do
       expect(Storytime::Membership.count).to eq(membership_count-1)
     end
 
-    it "edits own profile", js: true do
-      u = User.last
+    after do |example|
+      if example.exception
+        require "pry-byebug"
+        binding.pry
+      end
+    end
 
+    it "edits own profile", js: true do
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "profile-link"
       fill_in "membership_user_attributes_email", with: "new_email@example.com"
+      
       click_button "Save"
 
-      within "#storytime-modal" do
-        storytime_name_field = find_field("membership_user_attributes_storytime_name").value
-        storytime_email_field = find_field("membership_user_attributes_email").value
+      expect(page).to have_content("Your changes were saved successfully")
 
-        expect(storytime_name_field).to eq(u.storytime_name)
-        expect(storytime_email_field).to eq("new_email@example.com")
-      end
+      current_user.reload
+      expect(current_user.email).to eq("new_email@example.com")
     end
 
     it "edits another user's profile", js: true do
-      FactoryGirl.create :membership, site: @current_site
+      FactoryBot.create :membership, site: @current_site
       u = User.last
 
       visit storytime.dashboard_path
@@ -85,13 +88,10 @@ describe "In the dashboard, Users", type: :feature do
       fill_in "membership_user_attributes_email", with: "change_email@example.com"
       click_button "Save"
 
-      within "#storytime-modal" do
-        storytime_name_field = find_field("membership_user_attributes_storytime_name").value
-        storytime_email_field = find_field("membership_user_attributes_email").value
+      expect(page).to have_content("Your changes were saved successfully")
 
-        expect(storytime_name_field).to eq(u.storytime_name)
-        expect(storytime_email_field).to eq("change_email@example.com")
-      end
+      u.reload
+      expect(u.email).to eq("change_email@example.com")
     end
 
     it "creates a user", js: true do

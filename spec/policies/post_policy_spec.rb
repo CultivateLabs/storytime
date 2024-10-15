@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Storytime::PostPolicy do
   subject { Storytime::PostPolicy.new(user, post) }
 
-  let(:site) { FactoryGirl.create(:site) }
+  let(:site) { FactoryBot.create(:site) }
   before do
     site.save_with_seeds(user)
     allow(Storytime::Site).to receive(:current).and_return(site)
@@ -17,17 +17,17 @@ describe Storytime::PostPolicy do
       allow_any_instance_of(Storytime.user_class).to receive(:storytime_role_in_site).and_return(Storytime::Role.find_by(name: "writer"))
     end
 
-    let(:user) { FactoryGirl.create(:writer) }
+    let(:user) { FactoryBot.create(:writer) }
 
     context "creating a new post" do
-      let(:post) { FactoryGirl.build(:post, user: user) }
+      let(:post) { FactoryBot.build(:post, user: user) }
 
       it { should permit!(:new)     }
       it { should permit!(:create)  }
     end
     
     context "who owns the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: user }
+      let(:post) { FactoryBot.build_stubbed :post, user: user }
 
       it { should permit!(:index)   }
       it { should permit!(:manage)  } # edit, update, destroy
@@ -35,7 +35,7 @@ describe Storytime::PostPolicy do
     end
     
     context "who does not own the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: FactoryGirl.build(:user) }
+      let(:post) { FactoryBot.build_stubbed :post, user: FactoryBot.build(:user) }
 
       it { should     permit!(:index)   }
       it { should_not permit!(:manage)  } # edit, update, destroy
@@ -48,17 +48,17 @@ describe Storytime::PostPolicy do
       allow_any_instance_of(Storytime.user_class).to receive(:storytime_role).and_return(Storytime::Role.find_by(name: "editor"))
     end
 
-    let(:user) { FactoryGirl.create(:editor) }
+    let(:user) { FactoryBot.create(:editor) }
 
     context "creating a new post" do
-      let(:post) { FactoryGirl.build(:post, user: user) }
+      let(:post) { FactoryBot.build(:post, user: user) }
 
       it { should permit!(:new)     }
       it { should permit!(:create)  }
     end
     
     context "who owns the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: user }
+      let(:post) { FactoryBot.build_stubbed :post, user: user }
 
       it { should permit!(:index)   }
       it { should permit!(:manage)  } # edit, update, destroy
@@ -66,7 +66,7 @@ describe Storytime::PostPolicy do
     end
     
     context "who does not own the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: FactoryGirl.build(:user) }
+      let(:post) { FactoryBot.build_stubbed :post, user: FactoryBot.build(:user) }
 
       it { should permit!(:index)   }
       it { should permit!(:manage)  } # edit, update, destroy
@@ -79,17 +79,17 @@ describe Storytime::PostPolicy do
       allow_any_instance_of(Storytime.user_class).to receive(:storytime_role).and_return(Storytime::Role.find_by(name: "admin"))
     end
 
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     context "creating a new post" do
-      let(:post) { FactoryGirl.build(:post, user: user) }
+      let(:post) { FactoryBot.build(:post, user: user) }
 
       it { should permit!(:new)     }
       it { should permit!(:create)  }
     end
     
     context "who owns the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: user }
+      let(:post) { FactoryBot.build_stubbed :post, user: user }
 
       it { should permit!(:index)   }
       it { should permit!(:manage)  } # edit, update, destroy
@@ -97,7 +97,7 @@ describe Storytime::PostPolicy do
     end
     
     context "who does not own the post" do
-      let(:post) { FactoryGirl.build_stubbed :post, user: FactoryGirl.build(:user) }
+      let(:post) { FactoryBot.build_stubbed :post, user: FactoryBot.build(:user) }
 
       it { should permit!(:index)   }
       it { should permit!(:manage)  } # edit, update, destroy
