@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", ">= 3.0"
   s.add_dependency "friendly_id", ">= 5.0"
   s.add_dependency "fog-aws", ">= 3.0"
-  s.add_dependency "carrierwave", ">= 1.0"
+  s.add_dependency "carrierwave", ">= 3.0"
   s.add_dependency "mini_magick", ">= 3.7"
   s.add_dependency "nokogiri", ">= 1.6"
   s.add_dependency "font-awesome-sass", "<= 4.7.0"
