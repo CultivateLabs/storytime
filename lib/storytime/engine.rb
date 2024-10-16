@@ -66,7 +66,6 @@ module Storytime
     initializer "storytime.configure_carrierwave" do
       CarrierWave.configure do |config|
         if Storytime.media_storage == :s3
-          config.fog_provider = 'fog/aws'
           config.fog_credentials = {
             provider:              'AWS',
             aws_access_key_id:     Storytime.aws_access_key_id,
