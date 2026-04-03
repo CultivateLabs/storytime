@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(gh run:*)",
-      "Bash(bundle install:*)",
-      "Bash(RAILS_ENV=test bundle exec rake app:db:setup --trace)"
-    ]
-  }
-}

@@ -8,3 +8,4 @@ spec/dummy/tmp/
 spec/dummy/public/uploads/
 spec/dummy/.sass-cache
 *.gem
+.claude/settings.local.json
