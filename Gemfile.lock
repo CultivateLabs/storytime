@@ -4,7 +4,7 @@ PATH
     storytime (2.1.6)
       acts_as_list
       bootstrap-sass (>= 3.1)
-      carrierwave (>= 1.0)
+      carrierwave (>= 3.0)
       cocoon
       coffee-rails (>= 4.0)
       devise (>= 3.2)
@@ -13,7 +13,7 @@ PATH
       friendly_id (>= 5.0)
       jbuilder (>= 2.0.0)
       jquery-rails (>= 3.0)
-      jquery-ui-rails (~> 6.0)
+      jquery-ui-rails (>= 6.0)
       kaminari (>= 1.0.0)
       mini_magick (>= 3.7)
       nokogiri (>= 1.6)
@@ -21,7 +21,7 @@ PATH
       rails (>= 7.0)
       sass-rails (>= 4.0)
       simple_form (>= 3.0)
-      sprockets (< 4.0)
+      sprockets (>= 3.7)
       thor (>= 0.19.1)
 
 GEM
@@ -267,7 +267,9 @@ GEM
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    minitest (5.25.1)
+    minitest (6.0.3)
+      drb (~> 2.0)
+      prism (~> 1.5)
     multi_json (1.15.0)
     nenv (0.3.0)
     net-imap (0.4.16)
@@ -292,6 +294,7 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    prism (1.9.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -453,4 +456,4 @@ DEPENDENCIES
   storytime!
 
 BUNDLED WITH
-   2.1.4
+   4.0.9
