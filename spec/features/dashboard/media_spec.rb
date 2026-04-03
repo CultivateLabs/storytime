@@ -8,7 +8,10 @@ describe "In the dashboard, Media", type: :feature do
   it "creates media", js: true do
     visit dashboard_media_index_path
 
-    attach_file('media_file', "./spec/support/images/success-kid.jpg")
+    # Use find + set instead of attach_file so Cuprite targets the
+    # current file input after jQuery fileupload replaces the original.
+    input = find("input[type='file'][name='media[file]']", visible: :all)
+    input.set(File.expand_path("./spec/support/images/success-kid.jpg"))
 
     within("#media_gallery") do
       expect(page).to have_css("img", wait: 10)
