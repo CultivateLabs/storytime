@@ -54,12 +54,6 @@ describe "In the dashboard, Users", type: :feature do
       expect(Storytime::Membership.count).to eq(membership_count-1)
     end
 
-    after do |example|
-      if example.exception
-        require "pry-byebug"
-        binding.pry
-      end
-    end
 
     it "edits own profile", js: true do
       visit storytime.dashboard_path

@@ -12,7 +12,7 @@ module Storytime
     before_create :generate_token
 
     def generate_token
-      key = ENV["SECRET_KEY_BASE"]
+      key = Rails.application.secret_key_base
       digest = OpenSSL::Digest.new('sha1')
 
       self.token = OpenSSL::HMAC.hexdigest(digest, key, self.email)

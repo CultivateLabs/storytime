@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "capybara"
-  s.add_development_dependency "poltergeist", "~>1.5"
+  s.add_development_dependency "cuprite"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "rb-fsevent"
