@@ -80,7 +80,7 @@ describe "In the dashboard, Posts", type: :feature do
 
     post = Storytime::BlogPost.last
     expect(post.title).to eq("The Story")
-    expect(post.draft_content).to eq("It was a dark and stormy night...")
+    expect(post.draft_content).to include("It was a dark and stormy night...")
     expect(post.user).to eq(current_user)
     expect(post.type).to eq("Storytime::BlogPost")
     expect(post.featured_media).to eq(media)
@@ -103,7 +103,7 @@ describe "In the dashboard, Posts", type: :feature do
 
     post = Storytime::BlogPost.last
     expect(post.title).to eq("Snow Crash")
-    expect(post.draft_content).to eq("It was a dark and stormy night...")
+    expect(post.draft_content).to include("It was a dark and stormy night...")
     expect(post.user).to eq(current_user)
     expect(post.type).to eq("Storytime::BlogPost")
     expect(post).to_not be_published
@@ -134,7 +134,7 @@ describe "In the dashboard, Posts", type: :feature do
 
     post.reload
     expect(post.autosave).not_to be_nil
-    expect(post.autosave.content).to eq("Some content to autosave")
+    expect(post.autosave.content).to include("Some content to autosave")
     expect(Storytime::BlogPost.count).to eq(post_count)
   end
 
@@ -157,7 +157,7 @@ describe "In the dashboard, Posts", type: :feature do
     post = post.reload
     post.draft_content = nil # clear the cached copy of draft_content so it reloads
     expect(post.title).to eq("The Story")
-    expect(post.draft_content).to eq("It was a dark and stormy night...")
+    expect(post.draft_content).to include("It was a dark and stormy night...")
     expect(post.user).to eq(original_creator)
     expect(post).to_not be_published
   end

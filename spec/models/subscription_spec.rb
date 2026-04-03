@@ -16,7 +16,7 @@ describe Storytime::Subscription do
       subscription = FactoryBot.create(:subscription)
       token = subscription.token
 
-      key = ENV["SECRET_KEY_BASE"]
+      key = Rails.application.secret_key_base
       digest = OpenSSL::Digest.new('sha1')
       regenerated_token = OpenSSL::HMAC.hexdigest(digest, key, subscription.email)
 

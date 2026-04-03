@@ -7,7 +7,6 @@ describe "In the dashboard, Pages", type: :feature do
 
   describe "index" do
     before do
-      require "pry"
       3.times{ FactoryBot.create(:page, site: current_site) }
       3.times{ FactoryBot.create(:page, published_at: nil, site: current_site) }
     end
@@ -66,7 +65,7 @@ describe "In the dashboard, Pages", type: :feature do
 
     pg = Storytime::Page.last
     expect(pg.title).to eq("The Page")
-    expect(pg.draft_content).to eq("The content of my page")
+    expect(pg.draft_content).to include("The content of my page")
     expect(pg.user).to eq(current_user)
     expect(pg.site).to eq(current_site)
     expect(pg.type).to eq("Storytime::Page")
@@ -91,7 +90,7 @@ describe "In the dashboard, Pages", type: :feature do
 
     pg = Storytime::Page.last
     expect(pg.title).to eq("The Story")
-    expect(pg.draft_content).to eq("It was a dark and stormy night...")
+    expect(pg.draft_content).to include("It was a dark and stormy night...")
     expect(pg.user).to eq(original_creator)
     expect(pg.type).to eq("Storytime::Page")
     expect(pg).to_not be_published

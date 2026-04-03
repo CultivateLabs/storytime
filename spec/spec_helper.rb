@@ -5,7 +5,7 @@ require 'rspec/rails'
 require 'factory_bot_rails'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
+require 'capybara/cuprite'
 require "pundit/rspec"
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -16,19 +16,11 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 # binding.pry
 ActiveRecord::Migration.maintain_test_schema!
 
-poltergeist_options = {
-  phantomjs_logger: Logger.new('/dev/null'),
-  # inspector: true,
-  # debug: true,
-  phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=TLSv1'],
-  js_errors: false
-}
-
-Capybara.register_driver :poltergeist_st do |app|
-  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+Capybara.register_driver :cuprite do |app|
+  Capybara::Cuprite::Driver.new(app, js_errors: false, headless: true)
 end
 
-Capybara.javascript_driver = :poltergeist_st
+Capybara.javascript_driver = :cuprite
 
 RSpec.configure do |config|
 

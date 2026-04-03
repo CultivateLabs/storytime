@@ -7,10 +7,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: <%= ENV.fetch('PGHOST', 'localhost') %>
   pool: 5
-  username: <%= ENV['USER'] %>
-  password:
+  username: <%= ENV.fetch('PGUSER', ENV['USER']) %>
+  password: <%= ENV.fetch('PGPASSWORD', '') %>
   
 
 development:
