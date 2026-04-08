@@ -1,3 +1,9 @@
+<% if @post.canonical_url.present? %>
+  <% content_for :head do %>
+    <link rel="canonical" href="<%= @post.canonical_url %>">
+  <% end %>
+<% end %>
+
 <div class="container">
   <% if params[:preview] %>
     <div class="alert alert-info" role="alert">Currently viewing a preview of "<%= @post.title %>".</div>

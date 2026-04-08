@@ -49,6 +49,10 @@
                   <%= f.input :published_at, as: :date_time_picker, label: "Publish Date/Time", input_html: { style: "display: inline;" } %>
                 </div>
               </div>
+
+              <div class="post_field post_canonical_url">
+                <%= f.input :canonical_url, required: false, label: "Canonical URL", placeholder: "https://example.com/original-post", hint: "Optional. Set this if the post was originally published elsewhere." %>
+              </div>
       
               <hr>
 
