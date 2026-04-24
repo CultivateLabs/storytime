@@ -175,7 +175,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
     drb (2.2.3)
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     excon (1.4.2)
       logger
