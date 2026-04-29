@@ -15,7 +15,7 @@ module Storytime
       
       content_for :title, "#{@current_storytime_site.title} | #{@post.title}"
 
-      @comments = @post.comments.order("created_at DESC")
+      @comments = @post.comments.order("created_at DESC") if @post.show_comments?
       #allow overriding in the host app
       if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
         redirect_to storytime.post_path(@post), :status => :moved_permanently
