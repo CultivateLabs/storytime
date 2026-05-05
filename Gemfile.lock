@@ -299,7 +299,7 @@ GEM
       prism (~> 1.5)
     multi_json (1.19.1)
     nenv (0.3.0)
-    net-imap (0.6.3)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
