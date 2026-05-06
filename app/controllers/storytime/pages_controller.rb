@@ -17,12 +17,18 @@ module Storytime
         "storytime/#{@current_storytime_site.custom_view_path}/pages/show",
         "storytime/pages/#{slug}",
         "storytime/pages/show",
-      ].each do |template|
+      ]
+
+      potential_templates.each do |template|
+        # The /show fallbacks dereference @page, so skip them when no page was loaded.
+        next if @page.nil? && template.end_with?("/show")
         if lookup_context.template_exists?(template)
           render template
           return
         end
       end
+
+      raise ActionController::RoutingError, "No page found for #{params[:id].inspect}"
     end
 
   private
