@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    storytime (2.1.6)
+    storytime (2.1.7)
       acts_as_list
       bootstrap-sass (>= 3.1)
       carrierwave (>= 3.0)
