@@ -13,11 +13,16 @@ module Storytime
     # while still giving us `password=` and `authenticate`.
     has_secure_password :password, validations: false
 
+    # Upper bound on stored HTML. Guards against unbounded DB/session growth and
+    # trivial storage-exhaustion. Generous enough for HTML with inlined assets.
+    MAX_CONTENT_BYTES = 10.megabytes
+
     before_validation :ensure_token, on: :create
 
     validates :name, presence: true
     validates :token, presence: true, uniqueness: true
     validates :content, presence: true
+    validate :content_within_size_limit
 
     scope :active, -> {
       where("storytime_artifacts.expires_at IS NULL OR storytime_artifacts.expires_at > ?", Time.current)
@@ -48,6 +53,13 @@ module Storytime
     end
 
   private
+
+    def content_within_size_limit
+      return if content.blank?
+      return if content.bytesize <= MAX_CONTENT_BYTES
+
+      errors.add(:content, "is too large (maximum is #{MAX_CONTENT_BYTES / 1.megabyte} MB)")
+    end
 
     def ensure_token
       return if token.present?

@@ -25,6 +25,40 @@ describe "Artifacts API", type: :request do
            headers: { "Authorization" => "Bearer nope" }
       expect(response).to have_http_status(:unauthorized)
     end
+
+    it "does not accept the token from a query parameter (header only)" do
+      post "http://www.example.com/api/v1/artifacts?api_token=#{raw_token}",
+           params: { name: "X", html: "<html>hi</html>" }
+      expect(response).to have_http_status(:unauthorized)
+      expect(Storytime::Artifact.unscoped.where(name: "X")).to be_empty
+    end
+
+    it "rejects a valid token minted for a different site" do
+      other_site = FactoryBot.create(:site, custom_domain: "other.example.com")
+      other_site.save_with_seeds(FactoryBot.create(:user))
+      other_token = FactoryBot.create(:api_token, site: other_site, user: user)
+
+      post "http://www.example.com/api/v1/artifacts",
+           params: { name: "Cross", html: "<html>x</html>" },
+           headers: { "Authorization" => "Bearer #{other_token.raw_token}" }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(Storytime::Artifact.unscoped.where(name: "Cross")).to be_empty
+    end
+
+    it "rejects a token whose owner lacks artifact-manage rights on the site" do
+      writer = FactoryBot.create(:user)
+      Storytime::Membership.create!(user: writer, site: site,
+                                    storytime_role: Storytime::Role.find_by(name: "writer"))
+      writer_token = FactoryBot.create(:api_token, site: site, user: writer)
+
+      post "http://www.example.com/api/v1/artifacts",
+           params: { name: "ByWriter", html: "<html>x</html>" },
+           headers: { "Authorization" => "Bearer #{writer_token.raw_token}" }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(Storytime::Artifact.unscoped.where(name: "ByWriter")).to be_empty
+    end
   end
 
   describe "POST /api/v1/artifacts" do

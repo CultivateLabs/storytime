@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title><%= @artifact.name %></title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #fff; }
+    /* The artifact renders full-viewport inside an isolated, sandboxed frame. */
+    iframe.artifact-frame {
+      display: block; border: 0; width: 100%; height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <iframe class="artifact-frame"
+          src="<%= raw_artifact_path(@artifact.token) %>"
+          sandbox="<%= @sandbox_tokens %>"
+          title="<%= @artifact.name %>"></iframe>
+</body>
+</html>

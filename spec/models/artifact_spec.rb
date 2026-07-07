@@ -16,6 +16,13 @@ module Storytime
       expect(artifact).not_to be_valid
     end
 
+    it "rejects content larger than the size limit" do
+      oversized = "a" * (Artifact::MAX_CONTENT_BYTES + 1)
+      artifact = FactoryBot.build(:artifact, content: oversized)
+      expect(artifact).not_to be_valid
+      expect(artifact.errors[:content].join).to match(/too large/)
+    end
+
     describe "token" do
       it "generates a long unguessable alphanumeric token on create" do
         artifact = FactoryBot.create(:artifact)

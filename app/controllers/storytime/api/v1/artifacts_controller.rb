@@ -88,18 +88,34 @@ module Storytime
           }
         end
 
+        # A token is accepted only when it is valid, belongs to the site being
+        # addressed (by request host), and its owner still has artifact-manage
+        # rights on that site. This keeps a token minted for one site from
+        # acting on another, and revokes access if the owner's role changes.
+        # A single 401 for every failure mode avoids leaking whether a token is
+        # valid on some other site.
         def authenticate_api_token!
           @api_token = Storytime::ApiToken.authenticate(bearer_token)
 
-          if @api_token.nil?
+          if @api_token.nil? || !token_scoped_to_current_site? || !token_user_authorized?
             render json: { error: "Unauthorized" }, status: :unauthorized
           else
             @api_token.touch_last_used!
           end
         end
 
+        def token_scoped_to_current_site?
+          @api_token.site_id.present? && @api_token.site_id == current_storytime_site.id
+        end
+
+        def token_user_authorized?
+          Storytime::ArtifactPolicy.new(@api_token.user, Storytime::Artifact).manage?
+        end
+
+        # Header-only: never read the token from query/body params, which would
+        # otherwise land in server logs, browser history, and Referer headers.
         def bearer_token
-          request.authorization.to_s[/\ABearer\s+(.+)\z/i, 1] || params[:api_token]
+          request.authorization.to_s[/\ABearer\s+(.+)\z/i, 1]
         end
       end
     end

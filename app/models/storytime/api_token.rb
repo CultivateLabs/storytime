@@ -30,8 +30,10 @@ module Storytime
       ::Digest::SHA256.hexdigest(raw.to_s)
     end
 
-    # Returns the matching active token for a raw bearer token, or nil.
-    # Not site-scoped: tokens are globally unique by digest.
+    # Returns the matching active token for a raw bearer token, or nil. Looks up
+    # by globally-unique digest and is intentionally NOT site-scoped; callers
+    # MUST enforce that the token's site matches the site being acted on (see
+    # Api::V1::ArtifactsController#authenticate_api_token!).
     def self.authenticate(raw)
       return if raw.blank?
 

@@ -60,6 +60,7 @@ Storytime::Engine.routes.draw do
   # Public, token-addressed artifact serving. Registered before the catch-all
   # pages route below so it is matched first.
   get "/a/:token", to: "artifacts#show", as: :artifact
+  get "/a/:token/raw", to: "artifacts#raw", as: :raw_artifact
   post "/a/:token/unlock", to: "artifacts#unlock", as: :unlock_artifact
 
   get "/", to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
