@@ -67,7 +67,7 @@ module Storytime
           artifact.password = artifact_params[:password]
         end
 
-        artifact.expires_at = artifact_params[:expires_at].presence if artifact_params.key?(:expires_at)
+        artifact.expires_at = parse_expiration(artifact_params[:expires_at]) if artifact_params.key?(:expires_at)
       end
 
       def artifact_params

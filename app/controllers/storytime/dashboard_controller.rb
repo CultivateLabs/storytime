@@ -26,5 +26,14 @@ module Storytime
     def admin_controller?
       false
     end
+
+    # Parses a datepicker value (e.g. "July 8, 2026") into an end-of-day time,
+    # or nil when blank/unparseable (meaning "no expiration").
+    def parse_expiration(value)
+      return nil if value.blank?
+      Time.zone.parse(value.to_s).end_of_day
+    rescue ArgumentError
+      nil
+    end
   end
 end

@@ -45,6 +45,21 @@ describe "Dashboard API tokens", type: :request do
            params: { api_token: { name: "" } }
       expect(response).to have_http_status(:unprocessable_entity)
     end
+
+    it "parses a datepicker date string into an end-of-day expiration" do
+      post host + dashboard_api_tokens_path(format: :json),
+           params: { api_token: { name: "Expiring", expires_at: "July 8, 2026" } }
+
+      token = Storytime::ApiToken.order(:created_at).last
+      expect(token.expires_at).to be_within(1.second).of(Time.zone.parse("July 8, 2026").end_of_day)
+    end
+
+    it "treats a blank expiration as no expiration" do
+      post host + dashboard_api_tokens_path(format: :json),
+           params: { api_token: { name: "Forever", expires_at: "" } }
+
+      expect(Storytime::ApiToken.order(:created_at).last.expires_at).to be_nil
+    end
   end
 
   describe "DELETE destroy" do

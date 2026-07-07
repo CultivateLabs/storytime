@@ -42,10 +42,15 @@
 
   <div class="form-group">
     <label class="control-label">Expiration <span class="text-muted">(optional)</span></label>
-    <%= f.input_field :expires_at, as: :string, class: "form-control",
-                      input_html: { type: "datetime-local" },
-                      value: @artifact.expires_at&.strftime("%Y-%m-%dT%H:%M") %>
-    <p class="help-block">After this time the link stops working. Leave blank for no expiration.</p>
+    <div>
+      <%= f.text_field :expires_at, class: "form-control datepicker", readonly: true,
+                       id: "artifact_expires_at", autocomplete: "off",
+                       placeholder: "No expiration",
+                       value: @artifact.expires_at&.strftime("%B %-d, %Y"),
+                       style: "display: inline-block; width: auto;" %>
+      <%= link_to "Clear", "#", class: "js-clear-datepicker", data: { target: "artifact_expires_at" } %>
+    </div>
+    <p class="help-block">The link stops working at the end of this day. Leave blank for no expiration.</p>
   </div>
 
   <div style="margin-top: 20px;">

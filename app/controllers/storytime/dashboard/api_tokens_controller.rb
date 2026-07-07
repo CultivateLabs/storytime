@@ -17,7 +17,7 @@ module Storytime
         @api_token = Storytime::ApiToken.new(name: api_token_params[:name])
         @api_token.user = current_user
         @api_token.site = current_storytime_site
-        @api_token.expires_at = api_token_params[:expires_at].presence
+        @api_token.expires_at = parse_expiration(api_token_params[:expires_at])
         authorize @api_token
 
         respond_to do |format|
