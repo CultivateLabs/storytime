@@ -8,7 +8,7 @@ module Storytime
   class ApiToken < ActiveRecord::Base
     include Storytime::ScopedToSite
 
-    PREFIX = "sk_".freeze
+    PREFIX = "sk_stime_".freeze
 
     belongs_to :user, class_name: Storytime.user_class.to_s, optional: true
     belongs_to :site, optional: true
@@ -57,7 +57,8 @@ module Storytime
       end
 
       self.token_digest = self.class.digest(@raw_token)
-      self.token_prefix = @raw_token[0, 11]
+      # Store the source prefix plus a few chars to identify the token later.
+      self.token_prefix = @raw_token[0, PREFIX.length + 6]
     end
   end
 end
