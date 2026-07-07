@@ -53,7 +53,7 @@ module Storytime
       return if token.present?
 
       self.token = loop do
-        candidate = SecureRandom.urlsafe_base64(24)
+        candidate = SecureRandom.alphanumeric(32)
         break candidate unless Storytime::Artifact.unscoped.exists?(token: candidate)
       end
     end

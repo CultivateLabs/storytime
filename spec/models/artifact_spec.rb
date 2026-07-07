@@ -17,10 +17,11 @@ module Storytime
     end
 
     describe "token" do
-      it "generates a long unguessable token on create" do
+      it "generates a long unguessable alphanumeric token on create" do
         artifact = FactoryBot.create(:artifact)
         expect(artifact.token).to be_present
         expect(artifact.token.length).to be >= 30
+        expect(artifact.token).to match(/\A[A-Za-z0-9]+\z/)
       end
 
       it "does not overwrite an existing token" do
