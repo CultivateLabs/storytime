@@ -1,0 +1,36 @@
+<tr>
+  <td>
+    <strong><%= artifact.name %></strong>
+    <% if artifact.byte_size.present? %>
+      <br><span class="text-muted" style="font-size: 12px;"><%= number_to_human_size(artifact.byte_size) %></span>
+    <% end %>
+  </td>
+  <td>
+    <% url = artifact_url(artifact.token) %>
+    <input type="text" readonly value="<%= url %>"
+           onclick="this.select()"
+           class="form-control input-sm" style="min-width: 220px; font-family: monospace; font-size: 12px;">
+    <%= link_to "Open", url, target: "_blank", rel: "noopener", style: "font-size: 12px;" %>
+  </td>
+  <td style="font-size: 12px;">
+    <% if artifact.password_protected? %>
+      <span class="label label-warning">Password</span>
+    <% end %>
+    <% if artifact.expires_at.present? %>
+      <br>
+      <span class="<%= artifact.expired? ? "label label-danger" : "text-muted" %>">
+        <%= artifact.expired? ? "Expired" : "Expires" %> <%= artifact.expires_at.strftime("%b %-d, %Y %-l:%M %p") %>
+      </span>
+    <% end %>
+    <% unless artifact.password_protected? || artifact.expires_at.present? %>
+      <span class="text-muted">Anyone with the link</span>
+    <% end %>
+  </td>
+  <td style="font-size: 12px;"><%= artifact.created_at.strftime("%b %-d, %Y") %></td>
+  <td class="text-right">
+    <%= link_to "Edit", edit_dashboard_artifact_path(artifact.token), class: "btn btn-default btn-xs" %>
+    <%= link_to "Delete", dashboard_artifact_path(artifact.token), method: :delete,
+                data: { confirm: "Delete this artifact? The link will stop working." },
+                class: "btn btn-danger btn-xs" %>
+  </td>
+</tr>

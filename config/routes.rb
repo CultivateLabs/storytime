@@ -38,6 +38,7 @@ Storytime::Engine.routes.draw do
     end
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
+    resources :artifacts, except: [:show]
     resources :imports, only: [:new, :create]
     resources :subscriptions
     resources :memberships
@@ -48,6 +49,17 @@ Storytime::Engine.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :artifacts, only: [:index, :show, :create, :update, :destroy], param: :token
+    end
+  end
+
+  # Public, token-addressed artifact serving. Registered before the catch-all
+  # pages route below so it is matched first.
+  get "/a/:token", to: "artifacts#show", as: :artifact
+  post "/a/:token/unlock", to: "artifacts#unlock", as: :unlock_artifact
 
   get "/", to: "blog_homepage#show", constraints: Storytime::Constraints::BlogHomepageConstraint.new
   get "/", to: "homepage#show", constraints: Storytime::Constraints::PageHomepageConstraint.new

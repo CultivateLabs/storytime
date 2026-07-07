@@ -82,6 +82,11 @@
           <%= link_to "Media", [storytime, :dashboard, Storytime::Media] %>
         </li>
       <% end %>
+      <% if Pundit.policy(current_user, Storytime::Artifact).index? %>
+        <li <%= active_nav_item_class("artifacts") %>>
+          <%= link_to "Artifacts", storytime.dashboard_artifacts_path %>
+        </li>
+      <% end %>
 
       <li <%= active_nav_item_class("pages", Storytime::Page.type_name) %>>
         <%= link_to Storytime::Page.human_name.pluralize, [storytime, :dashboard, Storytime::Page] %>

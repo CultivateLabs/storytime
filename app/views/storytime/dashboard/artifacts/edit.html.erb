@@ -1,0 +1,19 @@
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <div class="pull-left">
+        <%= link_to dashboard_artifacts_path, class: "btn btn-default btn-scroll-panel-header" do %>
+          <%= icon('angle-left') %>
+          <span class="hidden-xs">Artifacts</span>
+        <% end %>
+      </div>
+      <h3 class="scroll-panel-title">Edit Artifact</h3>
+      <div class="pull-right">
+        <%= link_to "Open", artifact_url(@artifact.token), target: "_blank", rel: "noopener", class: "btn btn-default btn-sm" %>
+      </div>
+    </div>
+    <div class="scroll-panel-body">
+      <%= render "form" %>
+    </div>
+  </div>
+</div>

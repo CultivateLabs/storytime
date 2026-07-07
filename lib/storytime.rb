@@ -108,6 +108,11 @@ module Storytime
   mattr_accessor :aws_secret_key
   @@aws_secret_key = ENV['STORYTIME_AWS_SECRET_KEY']
 
+  # Bearer token used to authenticate the Artifacts API. When blank the API is
+  # effectively disabled (all requests are rejected as unauthorized).
+  mattr_accessor :artifacts_api_token
+  @@artifacts_api_token = ENV['STORYTIME_ARTIFACTS_API_TOKEN']
+
   # Superclass for Storytime::ApplicationController
   # Defaults to the host app's ApplicationController
   mattr_accessor :application_controller_superclass
