@@ -59,7 +59,7 @@ module Storytime
 
         def load_artifact
           @artifact = Storytime::Artifact.find_by(token: params[:token])
-          head :not_found if @artifact.nil?
+          return head :not_found if @artifact.nil?
         end
 
         def assign_content(artifact)
@@ -99,9 +99,10 @@ module Storytime
 
           if @api_token.nil? || !token_scoped_to_current_site? || !token_user_authorized?
             render json: { error: "Unauthorized" }, status: :unauthorized
-          else
-            @api_token.touch_last_used!
+            return
           end
+
+          @api_token.touch_last_used!
         end
 
         def token_scoped_to_current_site?

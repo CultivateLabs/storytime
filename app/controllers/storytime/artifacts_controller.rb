@@ -27,6 +27,11 @@ module Storytime
     MAX_UNLOCK_ATTEMPTS = 10
     UNLOCK_WINDOW = 15.minutes
 
+    # Cap how many artifact unlocks we remember per session. Unlocks live in the
+    # cookie session store (~4KB), so an unbounded hash could overflow it and
+    # break requests; keep only the most recently unlocked artifacts.
+    MAX_REMEMBERED_UNLOCKS = 20
+
     before_action :load_artifact
 
     def show
@@ -53,7 +58,7 @@ module Storytime
 
       if @artifact.password_protected? && @artifact.authenticate(params[:password].to_s)
         clear_unlock_attempts
-        unlocked_tokens[@artifact.token] = unlock_fingerprint
+        remember_unlock
         redirect_to artifact_path(@artifact.token)
       else
         register_unlock_attempt
@@ -126,6 +131,19 @@ module Storytime
 
     def unlocked_tokens
       session[:storytime_unlocked_artifacts] ||= {}
+    end
+
+    # Record the current artifact as unlocked, keeping the stored set bounded.
+    # Re-inserting moves this token to the most-recent position, and we drop the
+    # oldest entries beyond MAX_REMEMBERED_UNLOCKS so the session cookie can't
+    # grow without bound.
+    def remember_unlock
+      tokens = unlocked_tokens
+      tokens.delete(@artifact.token)
+      tokens[@artifact.token] = unlock_fingerprint
+      if tokens.size > MAX_REMEMBERED_UNLOCKS
+        tokens.keys.first(tokens.size - MAX_REMEMBERED_UNLOCKS).each { |k| tokens.delete(k) }
+      end
     end
 
     def not_found

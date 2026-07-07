@@ -31,7 +31,10 @@ module Storytime
     # or nil when blank/unparseable (meaning "no expiration").
     def parse_expiration(value)
       return nil if value.blank?
-      Time.zone.parse(value.to_s).end_of_day
+      # Time.zone.parse returns nil for strings with no date tokens and raises
+      # ArgumentError for out-of-range dates; guard against both.
+      parsed = Time.zone.parse(value.to_s)
+      parsed&.end_of_day
     rescue ArgumentError
       nil
     end

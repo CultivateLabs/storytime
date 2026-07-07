@@ -19,8 +19,10 @@ module Storytime
         @artifact = Storytime::Artifact.new(name: artifact_params[:name])
         @artifact.user = current_user
         @artifact.site = current_storytime_site
-        apply_form_attributes(@artifact)
+        # Authorize before processing the upload so an unauthorized request never
+        # reads the file into memory.
         authorize @artifact
+        apply_form_attributes(@artifact)
 
         if @artifact.save
           redirect_to [:dashboard, :artifacts], notice: "Artifact created."
