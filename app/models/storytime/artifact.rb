@@ -44,8 +44,12 @@ module Storytime
     # #read) and stores it as the artifact's HTML content.
     def assign_html(io_or_string, filename: nil)
       data = io_or_string.respond_to?(:read) ? io_or_string.read : io_or_string
-      data = data.to_s
-      data = data.dup.force_encoding("UTF-8")
+      data = data.to_s.dup
+      # Interpret the bytes as UTF-8 and scrub any invalid/undefined sequences to
+      # the Unicode replacement char. Uploads that aren't valid UTF-8 (Latin-1,
+      # binary, etc.) would otherwise raise on the PG insert instead of storing
+      # cleanly; `scrub` guarantees valid UTF-8 (a no-op when already valid).
+      data = data.force_encoding("UTF-8").scrub
       self.content = data
       self.byte_size = data.bytesize
       self.content_type = "text/html"

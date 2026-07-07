@@ -57,6 +57,17 @@ module Storytime
         artifact.assign_html(StringIO.new("<html>io</html>"))
         expect(artifact.content).to eq("<html>io</html>")
       end
+
+      it "scrubs invalid byte sequences into valid UTF-8 so it saves cleanly" do
+        # 0xE9 is a lone Latin-1 'é' byte, invalid as UTF-8.
+        artifact = FactoryBot.build(:artifact, content: nil)
+        artifact.assign_html("<html>caf\xE9</html>".b)
+
+        expect(artifact.content.encoding).to eq(Encoding::UTF_8)
+        expect(artifact.content).to be_valid_encoding
+        expect(artifact.byte_size).to eq(artifact.content.bytesize)
+        expect(artifact.save).to be(true)
+      end
     end
 
     describe "password protection" do
