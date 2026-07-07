@@ -1,4 +1,8 @@
 module Storytime
+  # Artifacts are arbitrary HTML/JS served from the site origin, so authoring is
+  # restricted to users who can manage site settings (admins) rather than any
+  # signed-in member. This keeps a low-privilege writer from planting an
+  # executable page under the production domain.
   class ArtifactPolicy
     attr_reader :user, :artifact
 
@@ -8,27 +12,35 @@ module Storytime
     end
 
     def index?
-      !@user.nil?
+      manage?
     end
 
     def new?
-      !@user.nil?
+      manage?
     end
 
     def create?
-      !@user.nil?
+      manage?
     end
 
     def edit?
-      !@user.nil?
+      manage?
     end
 
     def update?
-      !@user.nil?
+      manage?
     end
 
     def destroy?
-      !@user.nil?
+      manage?
+    end
+
+    def manage?
+      return false if @user.nil?
+
+      action = Storytime::Action.find_by(guid: "47342a")
+      role = @user.storytime_role_in_site(Storytime::Site.current)
+      role.present? && role.allowed_actions.include?(action)
     end
   end
 end

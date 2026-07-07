@@ -1,4 +1,6 @@
 module Storytime
+  # API tokens grant programmatic artifact creation, so they are restricted to
+  # users who can manage site settings (admins), matching ArtifactPolicy.
   class ApiTokenPolicy
     attr_reader :user, :api_token
 
@@ -8,15 +10,23 @@ module Storytime
     end
 
     def index?
-      !@user.nil?
+      manage?
     end
 
     def create?
-      !@user.nil?
+      manage?
     end
 
     def destroy?
-      !@user.nil?
+      manage?
+    end
+
+    def manage?
+      return false if @user.nil?
+
+      action = Storytime::Action.find_by(guid: "47342a")
+      role = @user.storytime_role_in_site(Storytime::Site.current)
+      role.present? && role.allowed_actions.include?(action)
     end
   end
 end

@@ -27,4 +27,18 @@ describe "Dashboard artifacts", type: :request do
       expect(Storytime::Artifact.find_by(name: "Forever").expires_at).to be_nil
     end
   end
+
+  describe "authorization" do
+    it "forbids a non-admin member from creating artifacts" do
+      writer = FactoryBot.create(:user)
+      Storytime::Membership.create!(user: writer, site: site,
+                                    storytime_role: Storytime::Role.find_by(name: "writer"))
+      sign_in writer
+
+      expect {
+        post host + dashboard_artifacts_path,
+             params: { artifact: { name: "Sneaky", file: html_file } }
+      }.not_to change(Storytime::Artifact, :count)
+    end
+  end
 end

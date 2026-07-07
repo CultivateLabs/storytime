@@ -66,5 +66,20 @@ describe "Artifacts (public serving)", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("secret content")
     end
+
+    it "revokes an existing session unlock when the password changes" do
+      artifact = create_artifact(content: "<html>secret content</html>", password: "letmein")
+
+      post "http://www.example.com/a/#{artifact.token}/unlock", params: { password: "letmein" }
+      get "http://www.example.com/a/#{artifact.token}"
+      expect(response.body).to include("secret content")
+
+      # Rotate the password; the earlier session unlock must no longer apply.
+      artifact.update!(password: "newsecret")
+
+      get "http://www.example.com/a/#{artifact.token}"
+      expect(response.body).to include("Password required")
+      expect(response.body).not_to include("secret content")
+    end
   end
 end

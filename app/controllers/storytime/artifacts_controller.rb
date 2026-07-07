@@ -1,3 +1,4 @@
+require "digest"
 require_dependency "storytime/application_controller"
 
 module Storytime
@@ -17,7 +18,7 @@ module Storytime
 
     def unlock
       if @artifact.password_protected? && @artifact.authenticate(params[:password].to_s)
-        unlocked_tokens[@artifact.token] = true
+        unlocked_tokens[@artifact.token] = unlock_fingerprint
         redirect_to artifact_path(@artifact.token)
       else
         flash.now[:artifact_error] = "Incorrect password. Please try again."
@@ -50,7 +51,14 @@ module Storytime
     end
 
     def unlocked?
-      unlocked_tokens[@artifact.token] == true
+      unlocked_tokens[@artifact.token] == unlock_fingerprint
+    end
+
+    # Ties a session unlock to the current password. Rotating, removing, or
+    # re-adding the password changes the digest, so any earlier unlock stored in
+    # the session no longer matches and the visitor must re-enter the password.
+    def unlock_fingerprint
+      Digest::SHA256.hexdigest(@artifact.password_digest.to_s)
     end
 
     def unlocked_tokens
