@@ -1,15 +1,15 @@
 <div id="main">
   <div class="scroll-panel">
     <div class="scroll-panel-header">
-      <div class="pull-left">
-        <%= link_to "#", class: "btn btn-default btn-icon", data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
-          <i class="icon-st-icons-st-logo"></i>
-        <% end %>
-      </div>
-      <h3 class="scroll-panel-title">Artifacts</h3>
+      <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
+        <i class="icon-st-icons-st-logo"></i>
+      <% end %>
+
       <div class="pull-right">
         <%= link_to "New Artifact", new_dashboard_artifact_path, class: "btn btn-primary btn-outline btn-sm" %>
       </div>
+
+      <h3 class="scroll-panel-title">Artifacts</h3>
     </div>
 
     <div class="scroll-panel-body">
