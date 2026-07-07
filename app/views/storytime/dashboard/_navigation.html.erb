@@ -34,6 +34,12 @@
               <span style="margin-left: 10px; margin-right: 6px;">Permissions</span>
             <% end %>
           </li>
+          <li>
+            <%= link_to [storytime, :dashboard, :api_tokens], class: "storytime-modal-trigger", remote: true, id: "api-tokens-link" do %>
+              <i class="icon-st-icons-settings"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">API Tokens</span>
+            <% end %>
+          </li>
         <% end %>
         <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
           <li>

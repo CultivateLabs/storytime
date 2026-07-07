@@ -29,13 +29,16 @@
     <%= simple_form_for [:dashboard, Storytime::ApiToken.new], remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
       <div class="row">
         <div class="col-xs-6">
-          <%= f.input :name, label: false, placeholder: "Name (e.g. Claude Code)", wrapper_html: { class: "no-margin" } %>
+          <label class="control-label small text-muted">Name</label>
+          <%= f.input_field :name, class: "form-control", placeholder: "e.g. Claude Code" %>
         </div>
         <div class="col-xs-4">
-          <%= f.input_field :expires_at, as: :string, class: "form-control", input_html: { type: "date" } %>
+          <label class="control-label small text-muted">Expires <span class="text-muted">(optional)</span></label>
+          <%= f.input_field :expires_at, type: "date", class: "form-control" %>
         </div>
         <div class="col-xs-2">
-          <%= f.submit "Create", class: "btn btn-primary btn-outline btn-sm" %>
+          <label class="control-label small">&nbsp;</label>
+          <%= f.submit "Create", class: "btn btn-primary btn-outline btn-sm btn-block" %>
         </div>
       </div>
     <% end %>

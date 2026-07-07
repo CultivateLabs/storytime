@@ -15,6 +15,10 @@
     margin: 0 auto;
     height: 100%;
 
+    @media (min-width: $screen-sm-min) {
+      width: 820px;
+    }
+
     .modal-content {
       height: 100%;
       @include border-top-radius(0);
