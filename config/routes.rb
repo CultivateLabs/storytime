@@ -39,6 +39,7 @@ Storytime::Engine.routes.draw do
     resources :snippets, except: [:show]
     resources :media, except: [:show, :edit, :update]
     resources :artifacts, except: [:show]
+    resources :api_tokens, only: [:index, :create, :destroy]
     resources :imports, only: [:new, :create]
     resources :subscriptions
     resources :memberships

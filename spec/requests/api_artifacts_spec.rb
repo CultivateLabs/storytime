@@ -8,15 +8,9 @@ describe "Artifacts API", type: :request do
     s
   end
 
-  let(:api_token) { "test-api-token" }
-  let(:auth_headers) { { "Authorization" => "Bearer #{api_token}" } }
-
-  around do |example|
-    original = Storytime.artifacts_api_token
-    Storytime.artifacts_api_token = api_token
-    example.run
-    Storytime.artifacts_api_token = original
-  end
+  let!(:token_record) { FactoryBot.create(:api_token, site: site, user: user) }
+  let(:raw_token) { token_record.raw_token }
+  let(:auth_headers) { { "Authorization" => "Bearer #{raw_token}" } }
 
   describe "authentication" do
     it "rejects requests without a valid token" do
@@ -48,6 +42,14 @@ describe "Artifacts API", type: :request do
       artifact = Storytime::Artifact.find_by(token: json["token"])
       expect(artifact.content).to eq("<html>api body</html>")
       expect(artifact.authenticate("pw")).to be_truthy
+      expect(artifact.user).to eq(user)
+    end
+
+    it "stamps the token's last_used_at" do
+      post "http://www.example.com/api/v1/artifacts",
+           params: { name: "X", html: "<html>hi</html>" },
+           headers: auth_headers
+      expect(token_record.reload.last_used_at).to be_present
     end
 
     it "returns errors when content is missing" do

@@ -1,0 +1,51 @@
+<div class="scroll-panel">
+  <div class="scroll-panel-header">
+    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="scroll-panel-title">API Tokens</h3>
+  </div>
+  <div class="scroll-panel-body">
+
+    <%= render 'storytime/dashboard/settings_tabs' %>
+
+    <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+    <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+
+    <% if @created_token.present? %>
+      <div class="alert alert-success">
+        <strong>Copy your new token now</strong> &ndash; it won't be shown again.
+        <input type="text" readonly value="<%= @created_token %>" onclick="this.select()"
+               class="form-control" style="font-family: monospace; margin-top: 8px;">
+      </div>
+    <% end %>
+
+    <% if @api_token && @api_token.errors.any? %>
+      <div class="alert alert-danger"><%= @api_token.errors.full_messages.to_sentence %></div>
+    <% end %>
+
+    <p class="text-muted">
+      Use a token as a bearer credential: <code>Authorization: Bearer &lt;token&gt;</code>
+    </p>
+
+    <%= simple_form_for [:dashboard, Storytime::ApiToken.new], remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
+      <div class="row">
+        <div class="col-xs-6">
+          <%= f.input :name, label: false, placeholder: "Name (e.g. Claude Code)", wrapper_html: { class: "no-margin" } %>
+        </div>
+        <div class="col-xs-4">
+          <%= f.input_field :expires_at, as: :string, class: "form-control", input_html: { type: "date" } %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.submit "Create", class: "btn btn-primary btn-outline btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+
+    <ul class="list-group list-group-button-links" style="margin-top: 16px;">
+      <% if @api_tokens.any? %>
+        <%= render partial: "storytime/dashboard/api_tokens/api_token", collection: @api_tokens %>
+      <% else %>
+        <li class="list-group-item text-muted">No API tokens yet.</li>
+      <% end %>
+    </ul>
+  </div>
+</div>

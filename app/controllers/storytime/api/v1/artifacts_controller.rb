@@ -5,7 +5,8 @@ module Storytime
     module V1
       # Token-authenticated JSON API for creating/replacing/deleting artifacts
       # programmatically. Authenticate with `Authorization: Bearer <token>`
-      # where the token matches Storytime.artifacts_api_token.
+      # using a token minted in the dashboard (Site Settings -> API Tokens).
+      # Created artifacts are attributed to the token's owner.
       class ArtifactsController < ::Storytime::ApplicationController
         layout false
         protect_from_forgery with: :null_session
@@ -26,7 +27,7 @@ module Storytime
         def create
           artifact = Storytime::Artifact.new(name: params[:name])
           artifact.site = current_storytime_site
-          artifact.user = api_user
+          artifact.user = @api_token.user
           assign_content(artifact)
           assign_options(artifact)
 
@@ -88,27 +89,17 @@ module Storytime
         end
 
         def authenticate_api_token!
-          configured = Storytime.artifacts_api_token.to_s
-          provided = bearer_token.to_s
+          @api_token = Storytime::ApiToken.authenticate(bearer_token)
 
-          if configured.blank? || provided.blank? || !secure_match?(provided, configured)
+          if @api_token.nil?
             render json: { error: "Unauthorized" }, status: :unauthorized
+          else
+            @api_token.touch_last_used!
           end
-        end
-
-        def secure_match?(a, b)
-          ActiveSupport::SecurityUtils.secure_compare(
-            ::Digest::SHA256.hexdigest(a),
-            ::Digest::SHA256.hexdigest(b)
-          )
         end
 
         def bearer_token
           request.authorization.to_s[/\ABearer\s+(.+)\z/i, 1] || params[:api_token]
-        end
-
-        def api_user
-          current_storytime_site.try(:creator) || Storytime.user_class.first
         end
       end
     end
