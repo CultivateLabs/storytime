@@ -5,19 +5,19 @@ module Storytime
     def show
       params[:id] = params[:id].split("/").last
 
-      @post = if params[:preview]
+      @post = if preview_request?
         Post.find_preview(params[:id])
       else
         Post.published.friendly.find(params[:id])
       end
 
       authorize @post
-      
+
       content_for :title, "#{@current_storytime_site.title} | #{@post.title}"
 
       @comments = @post.comments.order("created_at DESC") if @post.show_comments?
       #allow overriding in the host app
-      if params[:preview].nil? && !view_context.current_page?(storytime.post_path(@post))
+      if !preview_request? && !view_context.current_page?(storytime.post_path(@post))
         redirect_to storytime.post_path(@post), :status => :moved_permanently
       elsif lookup_context.template_exists?("storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}")
         render "storytime/#{@current_storytime_site.custom_view_path}/#{@post.type_name.pluralize}/#{@post.slug}"

@@ -5,7 +5,7 @@ module Storytime
     before_action :load_page
 
     def show
-      if params[:preview].nil? && params[:id].present? && params[:id] != @page.slug
+      if !preview_request? && params[:id].present? && params[:id] != @page.slug
         return redirect_to @page, :status => :moved_permanently
       end
 
@@ -21,7 +21,7 @@ module Storytime
   private
 
     def load_page
-      @page = if params[:preview]
+      @page = if preview_request?
         page = Post.find_preview(params[:id])
         page.content = page.autosave.content
         page.preview = true
