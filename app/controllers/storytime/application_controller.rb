@@ -70,6 +70,15 @@ private
 
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || "/")
+    # Fall back to root rather than an off-host referrer, which redirect_to
+    # rejects as an unsafe open redirect.
+    redirect_back(fallback_location: "/", allow_other_host: false)
+  end
+
+  # Only signed-in users may preview unpublished/draft content. Anonymous
+  # requests ignore the preview param and fall through to the published post,
+  # so bots hitting ?preview=true don't trip the not-authorized redirect.
+  def preview_request?
+    params[:preview].present? && current_user.present?
   end
 end
