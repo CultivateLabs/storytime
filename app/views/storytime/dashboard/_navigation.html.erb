@@ -34,6 +34,12 @@
               <span style="margin-left: 10px; margin-right: 6px;">Permissions</span>
             <% end %>
           </li>
+          <li>
+            <%= link_to [storytime, :dashboard, :api_tokens], class: "storytime-modal-trigger", remote: true, id: "api-tokens-link" do %>
+              <i class="icon-st-icons-settings"></i>
+              <span style="margin-left: 10px; margin-right: 6px;">API Tokens</span>
+            <% end %>
+          </li>
         <% end %>
         <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
           <li>
@@ -80,6 +86,11 @@
       <% if Pundit.policy(current_user, Storytime::Media).index? %>
         <li <%= active_nav_item_class("media") %>>
           <%= link_to "Media", [storytime, :dashboard, Storytime::Media] %>
+        </li>
+      <% end %>
+      <% if Pundit.policy(current_user, Storytime::Artifact).index? %>
+        <li <%= active_nav_item_class("artifacts") %>>
+          <%= link_to "Artifacts", storytime.dashboard_artifacts_path %>
         </li>
       <% end %>
 

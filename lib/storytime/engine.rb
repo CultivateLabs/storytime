@@ -36,6 +36,12 @@ module Storytime
 
     config.assets.precompile += %w( storytime/storytime-logo-nav.png )
 
+    # Keep API tokens and passwords out of request logs in the host app. Rails
+    # never logs the Authorization header, but this covers any stray param.
+    initializer "storytime.filter_parameters" do |app|
+      app.config.filter_parameters += [:api_token, :password]
+    end
+
     initializer "storytime.view_helpers" do
       ActiveSupport.on_load(:action_view) do
         include Storytime::StorytimeHelpers

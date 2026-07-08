@@ -6,12 +6,22 @@ initJS = (controller, action) ->
     instance["init#{action}"]() if typeof(instance["init#{action}"]) == "function"
     Storytime.instance = instance
 
+  # Initialize any datepickers in freshly-rendered content (dashboard pages and
+  # ajax-loaded modals alike). The :not(.hasDatepicker) guard avoids re-init.
+  $(".datepicker:not(.hasDatepicker)").datepicker(dateFormat: "MM d, yy")
+
 $ ()->
   initJS($("body").data("controller"), $("body").data("action"))
 
   $(".flash").delay(4000).fadeOut() unless window.Storytime.test_env || window.Storytime.persistent_flash_message
 
   $(".chosen").chosen()
+
+  # Clear a datepicker field (e.g. to set "no expiration")
+  $(document).on 'click', '.js-clear-datepicker', (e) ->
+    e.preventDefault()
+    $("#" + $(@).data('target')).val('')
+    return
 
   $(document).on('ajax:beforeSend', '.btn-delete-resource', ()->
     $(@).attr("disabled", true)

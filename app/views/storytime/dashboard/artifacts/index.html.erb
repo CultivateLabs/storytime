@@ -1,0 +1,40 @@
+<div id="main">
+  <div class="scroll-panel">
+    <div class="scroll-panel-header">
+      <%= link_to "#", class: "btn btn-default btn-icon pull-left visible-xs visible-sm", data: { toggle: "off-canvas", target: "#dashboard-nav" } do %>
+        <i class="icon-st-icons-st-logo"></i>
+      <% end %>
+
+      <div class="pull-right">
+        <%= link_to "New Artifact", new_dashboard_artifact_path, class: "btn btn-primary btn-outline btn-sm" %>
+      </div>
+
+      <h3 class="scroll-panel-title">Artifacts</h3>
+    </div>
+
+    <div class="scroll-panel-body">
+      <% if @artifacts.any? %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Link</th>
+              <th>Access</th>
+              <th>Created</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "artifact", collection: @artifacts %>
+          </tbody>
+        </table>
+
+        <%= paginate @artifacts %>
+      <% else %>
+        <p class="text-muted" style="padding: 20px 0;">
+          No artifacts yet. <%= link_to "Create your first one", new_dashboard_artifact_path %>.
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

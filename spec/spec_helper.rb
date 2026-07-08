@@ -73,6 +73,7 @@ RSpec.configure do |config|
   config.include FeatureMacros, type: :feature
   config.include Storytime::Engine.routes.url_helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true

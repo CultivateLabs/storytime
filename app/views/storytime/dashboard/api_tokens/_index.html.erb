@@ -1,0 +1,59 @@
+<div class="scroll-panel">
+  <div class="scroll-panel-header">
+    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="scroll-panel-title">API Tokens</h3>
+  </div>
+  <div class="scroll-panel-body">
+
+    <%= render 'storytime/dashboard/settings_tabs' %>
+
+    <input type="hidden" value="<%= params[:controller].camelize %>" id="storytime-modal-controller">
+    <input type="hidden" value="<%= params[:action].camelize %>" id="storytime-modal-action">
+
+    <% if @created_token.present? %>
+      <div class="alert alert-success">
+        <strong>Copy your new token now</strong> &ndash; it won't be shown again.
+        <input type="text" readonly value="<%= @created_token %>" onclick="this.select()"
+               class="form-control" style="font-family: monospace; margin-top: 8px;">
+      </div>
+    <% end %>
+
+    <% if @api_token && @api_token.errors.any? %>
+      <div class="alert alert-danger"><%= @api_token.errors.full_messages.to_sentence %></div>
+    <% end %>
+
+    <p class="text-muted">
+      Use a token as a bearer credential: <code>Authorization: Bearer &lt;token&gt;</code>
+    </p>
+
+    <%= simple_form_for [:dashboard, Storytime::ApiToken.new], remote: true, html: { class: "storytime-modal-form", data: { redirect: "index" } } do |f| %>
+      <div class="row">
+        <div class="col-xs-6">
+          <label class="control-label small text-muted">Name</label>
+          <%= f.input_field :name, class: "form-control", placeholder: "e.g. Claude Code" %>
+        </div>
+        <div class="col-xs-4">
+          <label class="control-label small text-muted">
+            Expires <span class="text-muted">(optional)</span>
+            <%= link_to "Clear", "#", class: "js-clear-datepicker small", data: { target: "api_token_expires_at" }, style: "margin-left: 6px;" %>
+          </label>
+          <%= f.text_field :expires_at, class: "form-control datepicker", readonly: true,
+                           id: "api_token_expires_at", autocomplete: "off",
+                           placeholder: "No expiration" %>
+        </div>
+        <div class="col-xs-2">
+          <label class="control-label small">&nbsp;</label>
+          <%= f.submit "Create", class: "btn btn-primary btn-outline btn-sm btn-block" %>
+        </div>
+      </div>
+    <% end %>
+
+    <ul class="list-group list-group-button-links" style="margin-top: 16px;">
+      <% if @api_tokens.any? %>
+        <%= render partial: "storytime/dashboard/api_tokens/api_token", collection: @api_tokens %>
+      <% else %>
+        <li class="list-group-item text-muted">No API tokens yet.</li>
+      <% end %>
+    </ul>
+  </div>
+</div>

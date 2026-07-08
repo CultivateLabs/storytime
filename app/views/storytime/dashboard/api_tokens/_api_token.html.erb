@@ -1,0 +1,18 @@
+<li class="list-group-item" id="apitoken_<%= api_token.id %>">
+  <div class="list-group-actions">
+    <%= delete_resource_link api_token, dashboard_api_token_url(api_token) %>
+  </div>
+  <strong><%= api_token.name %></strong>
+  <p class="text-muted no-margin" style="font-size: 12px;">
+    <code><%= api_token.token_prefix %>…</code>
+    · created <%= api_token.created_at.strftime("%b %-d, %Y") %>
+    <% if api_token.last_used_at %>
+      · last used <%= api_token.last_used_at.strftime("%b %-d, %Y") %>
+    <% else %>
+      · never used
+    <% end %>
+    <% if api_token.expires_at %>
+      · <%= api_token.expired? ? "expired" : "expires" %> <%= api_token.expires_at.strftime("%b %-d, %Y") %>
+    <% end %>
+  </p>
+</li>

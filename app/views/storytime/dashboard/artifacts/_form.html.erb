@@ -1,0 +1,60 @@
+<%= simple_form_for [:dashboard, @artifact], html: { multipart: true } do |f| %>
+  <%= f.error_notification %>
+  <% if @artifact.errors.any? %>
+    <div class="alert alert-danger">
+      <ul style="margin: 0; padding-left: 18px;">
+        <% @artifact.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name, label: "Name", hint: "Shown only in this dashboard.", input_html: { class: "form-control" } %>
+
+  <div class="form-group">
+    <label class="control-label">
+      <%= @artifact.persisted? ? "Replace HTML file" : "HTML file" %>
+    </label>
+    <%= f.file_field :file, accept: "text/html,.html,.htm" %>
+    <% if @artifact.persisted? %>
+      <p class="help-block">
+        Leave blank to keep the current file<%= @artifact.original_filename.present? ? " (#{@artifact.original_filename})" : "" %>.
+      </p>
+    <% else %>
+      <p class="help-block">Upload a single self-contained <code>.html</code> file (CSS, JS, and images inlined).</p>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Password <span class="text-muted">(optional)</span></label>
+    <%= f.password_field :password, class: "form-control", autocomplete: "new-password",
+                         placeholder: @artifact.password_protected? ? "•••••••• (set — leave blank to keep)" : "No password" %>
+    <% if @artifact.password_protected? %>
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag "artifact[remove_password]", "1", false %> Remove password protection
+        </label>
+      </div>
+    <% end %>
+    <p class="help-block">When set, viewers must enter this password. It is remembered for their session.</p>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">Expiration <span class="text-muted">(optional)</span></label>
+    <div>
+      <%= f.text_field :expires_at, class: "form-control datepicker", readonly: true,
+                       id: "artifact_expires_at", autocomplete: "off",
+                       placeholder: "No expiration",
+                       value: @artifact.expires_at&.strftime("%B %-d, %Y"),
+                       style: "display: inline-block; width: auto;" %>
+      <%= link_to "Clear", "#", class: "js-clear-datepicker", data: { target: "artifact_expires_at" } %>
+    </div>
+    <p class="help-block">The link stops working at the end of this day. Leave blank for no expiration.</p>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <%= f.button :submit, @artifact.persisted? ? "Save Changes" : "Create Artifact", class: "btn btn-primary" %>
+    <%= link_to "Cancel", dashboard_artifacts_path, class: "btn btn-default" %>
+  </div>
+<% end %>

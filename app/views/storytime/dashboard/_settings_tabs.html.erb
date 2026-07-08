@@ -20,6 +20,12 @@
         <span class="hidden-xs">Permissions</span>
       <% end %>
     </li>
+    <li role="presentation" <%= active_nav_item_class("api_tokens") %>>
+      <%= link_to [:dashboard, :api_tokens], remote: true, class: "storytime-modal-trigger" do %>
+        <i class="icon-st-icons-settings"></i>
+        <span class="hidden-xs">API Tokens</span>
+      <% end %>
+    </li>
   <% end %>
   <% if Pundit.policy(current_user, Storytime::Subscription).manage? %>
     <li role="presentation" <%= active_nav_item_class("subscriptions") %>>

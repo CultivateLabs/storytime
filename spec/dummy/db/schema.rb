@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_01_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_07_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,38 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_01_000000) do
     t.string "name"
     t.datetime "updated_at", precision: nil
     t.index ["guid"], name: "index_storytime_actions_on_guid"
+  end
+
+  create_table "storytime_api_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.datetime "last_used_at"
+    t.string "name", null: false
+    t.integer "site_id"
+    t.string "token_digest", null: false
+    t.string "token_prefix"
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["site_id"], name: "index_storytime_api_tokens_on_site_id"
+    t.index ["token_digest"], name: "index_storytime_api_tokens_on_token_digest", unique: true
+  end
+
+  create_table "storytime_artifacts", force: :cascade do |t|
+    t.bigint "byte_size"
+    t.text "content"
+    t.string "content_type", default: "text/html"
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.string "name", null: false
+    t.string "original_filename"
+    t.string "password_digest"
+    t.integer "site_id"
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["expires_at"], name: "index_storytime_artifacts_on_expires_at"
+    t.index ["site_id"], name: "index_storytime_artifacts_on_site_id"
+    t.index ["token"], name: "index_storytime_artifacts_on_token", unique: true
   end
 
   create_table "storytime_autosaves", id: :serial, force: :cascade do |t|
