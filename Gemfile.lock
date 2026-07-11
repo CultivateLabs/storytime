@@ -177,7 +177,7 @@ GEM
     drb (2.2.3)
     erb (6.0.4)
     erubi (1.13.1)
-    excon (1.4.2)
+    excon (1.5.0)
       logger
     execjs (2.10.1)
     factory_bot (6.5.6)
