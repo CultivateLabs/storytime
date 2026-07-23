@@ -2,9 +2,9 @@ FactoryBot.define do
   factory :post, class: Storytime::BlogPost do
     user
     sequence(:title) { |i| "Post ##{i}" }
-    sequence(:draft_content) { |i| "Post ##{i}. It was a dark and stormy night. The End." }
-    sequence(:content) { |i| "Post ##{i}. It was a dark and stormy night. The End." }
-    sequence(:excerpt) { |i| "Post ##{i}. It was a dark and stormy night." }
+    draft_content { "#{title}. It was a dark and stormy night. The End." }
+    content { "#{title}. It was a dark and stormy night. The End." }
+    excerpt { "#{title}. It was a dark and stormy night." }
     tag_list { [""] }
     published_at { Time.now }
 
