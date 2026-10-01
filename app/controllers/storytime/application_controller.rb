@@ -75,6 +75,18 @@ private
     redirect_back(fallback_location: "/", allow_other_host: false)
   end
 
+  def load_public_post(id, scope: Storytime::Post)
+    if preview_request?
+      post = scope.friendly.find(id)
+      post.preview = true
+      authorize post, :show?
+      post.content = post.preview_content
+      post
+    else
+      scope.published.friendly.find(id)
+    end
+  end
+
   # Only signed-in users may preview unpublished/draft content. Anonymous
   # requests ignore the preview param and fall through to the published post,
   # so bots hitting ?preview=true don't trip the not-authorized redirect.

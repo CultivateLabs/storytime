@@ -27,6 +27,7 @@ describe "Artifacts (public serving)", type: :request do
       # The artifact markup is not inlined on the app origin.
       expect(response.body).not_to include("Live artifact")
       expect(response.headers["X-Robots-Tag"]).to include("noindex")
+      expect(response.headers["Cache-Control"]).to eq("no-store")
     end
 
     it "404s for an unknown token" do
@@ -54,6 +55,7 @@ describe "Artifacts (public serving)", type: :request do
       expect(response.headers["Content-Security-Policy"]).not_to include("allow-same-origin")
       expect(response.headers["X-Content-Type-Options"]).to eq("nosniff")
       expect(response.headers["X-Robots-Tag"]).to include("noindex")
+      expect(response.headers["Cache-Control"]).to eq("no-store")
     end
 
     it "404s the raw content while the artifact is still locked" do

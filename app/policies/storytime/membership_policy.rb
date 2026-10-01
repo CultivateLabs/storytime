@@ -38,7 +38,7 @@ module Storytime
     end
 
     def permitted_attributes
-      [:id, :user_id, :storytime_role_id, user_attributes: [:storytime_name, :email]]
+      [:storytime_role_id]
     end
   end
 end

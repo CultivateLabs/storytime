@@ -5,11 +5,7 @@ module Storytime
     def show
       params[:id] = params[:id].split("/").last
 
-      @post = if preview_request?
-        Post.find_preview(params[:id])
-      else
-        Post.published.friendly.find(params[:id])
-      end
+      @post = load_public_post(params[:id])
 
       authorize @post
 

@@ -13,6 +13,9 @@ module Storytime
   mattr_accessor :user_class
   @@user_class = 'User'
 
+  # Additional sites require a host-defined global provisioning privilege.
+  mattr_accessor :site_creation_authorizer
+
   # Path of Storytime's dashboard, relative to
   # Storytime's mount point within the host app.
   mattr_accessor :dashboard_namespace_path
@@ -29,6 +32,10 @@ module Storytime
   # Path used to register a new user.
   mattr_accessor :registration_path
   @@registration_path = "/users/sign_up"
+
+  # Host account settings must authenticate global identity changes.
+  mattr_accessor :account_settings_path
+  @@account_settings_path = "/users/edit"
 
   # Method used for Storytime user logout path.
   mattr_accessor :logout_method

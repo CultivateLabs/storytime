@@ -23,8 +23,7 @@ module Storytime
         # The /show fallbacks dereference @page, so skip them when no page was loaded.
         next if @page.nil? && template.end_with?("/show")
         if lookup_context.template_exists?(template)
-          render template
-          return
+          return render template
         end
       end
 
@@ -34,17 +33,10 @@ module Storytime
   private
 
     def load_page
-      @page = if preview_request?
-        page = Post.find_preview(params[:id])
-        page.content = page.autosave.content
-        page.preview = true
-        page
-      elsif Post.friendly.exists? params[:id]
-        Post.published.friendly.find(params[:id])
-      else
-        nil
+      @page = load_public_post(params[:id]) if Post.friendly.exists?(params[:id])
+      if @page.present? && !preview_request? && @page == current_storytime_site.homepage
+        redirect_to "/", status: :moved_permanently
       end
-      redirect_to "/", status: :moved_permanently if @page == current_storytime_site(request).homepage
     end
 
     def set_layout
@@ -55,12 +47,12 @@ module Storytime
       if path_segments.length > 1
         path_segments.pop
 
-        potential_layout_dirs = [
+        [
           "storytime/#{@current_storytime_site.custom_view_path}/layouts",
           "storytime/layouts",
           "layouts",
         ].each do |dir|
-          path_segments.map.with_index do |segment, i|
+          path_segments.map.with_index do |_segment, i|
             potential_layout = "#{dir}/#{path_segments[0..i].join("/")}"
             return potential_layout if lookup_context.template_exists?(potential_layout)
           end

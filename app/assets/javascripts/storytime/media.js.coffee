@@ -19,6 +19,12 @@ class Storytime.Dashboard.Media
           $("#progress").hide()
           return
         
+        fail: (e, data)->
+          $("#progress").hide()
+          errors = data.jqXHR.responseJSON?.errors
+          alert(if errors? then errors.join("\n") else "Upload failed. Use a JPG, PNG, GIF, or WebP image up to 10 MB.")
+          return
+
         progressall: (e, data)->
           progress = parseInt(data.loaded / data.total * 100, 10)
           $("#progress").show()

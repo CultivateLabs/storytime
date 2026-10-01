@@ -56,7 +56,7 @@ module Storytime
     end
 
     def preview_content
-      autosave.present? ? autosave.content : latest_version.content
+      autosave.present? ? autosave.content : (latest_version&.content || content.to_s)
     end
 
     def human_name

@@ -4,7 +4,7 @@ module Storytime
   class BlogHomepageController < BlogsController
   private
     def load_page
-      @page = @current_storytime_site.homepage
+      @page = load_public_post(current_storytime_site.root_post_id, scope: current_storytime_site.posts)
     end
   end
 end

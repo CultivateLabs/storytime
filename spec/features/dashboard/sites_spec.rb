@@ -14,11 +14,6 @@ describe "In the dashboard, Sites", type: :feature do
 
     click_button "Save"
 
-    # since creating a site redirects you to a new domain, you are not logged in
-    fill_in "user_email", with: current_user.email
-    fill_in "user_password", with: current_user.password
-    click_on "Log in"
-
     expect(page).to have_content("Pages")
     expect(Storytime::Site.count).to eq(1)
 

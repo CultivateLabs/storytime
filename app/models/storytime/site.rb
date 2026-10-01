@@ -19,7 +19,9 @@ module Storytime
     validates :custom_domain, presence: true, uniqueness: true
     validates :title, presence: true, length: { in: 1..200 }
 
-    before_save :remove_http_from_custom_domain
+    validate :homepage_belongs_to_site, if: :root_post_id_changed?
+
+    before_validation :remove_http_from_custom_domain
 
     def self.current_id=(id)
       Thread.current[:storytime_site_id] = id
@@ -34,21 +36,29 @@ module Storytime
     end
 
     def save_with_seeds(user)
+      previous_site_id = self.class.current_id
       self.creator = user
-      if save
-        self.class.setup_seeds
-        Storytime::Membership.create(user: user, site: self, storytime_role: Storytime::Role.find_by(name: "admin"))
+      self.class.transaction do
+        next false unless save
+
+        self.class.current_id = id
+        self.class.setup_seeds(self)
+        Storytime::Membership.find_or_create_by!(user: user, site: self) do |membership|
+          membership.storytime_role = Storytime::Role.find_by!(name: "admin")
+        end
         blog = Storytime::Blog.seed(self, user)
-        self.update_column("root_post_id", blog.id)
-      else
-        false
+        raise ActiveRecord::RecordInvalid, blog unless blog.persisted?
+
+        update!(root_post_id: blog.id)
       end
+    ensure
+      self.class.current_id = previous_site_id
     end
 
-    def self.setup_seeds
+    def self.setup_seeds(site = nil)
       Storytime::Role.seed
       Storytime::Action.seed
-      Storytime::Permission.seed
+      Storytime::Permission.seed(site ? [site] : Storytime::Site.all)
     end
 
     def root_post_options
@@ -64,8 +74,15 @@ module Storytime
     end
 
   private
+    def homepage_belongs_to_site
+      return if root_post_id.blank?
+      return if posts.published.where(type: ["Storytime::Page", "Storytime::Blog"]).exists?(id: root_post_id)
+
+      errors.add(:root_post_id, "must be a published page or blog belonging to this site")
+    end
+
     def remove_http_from_custom_domain
-      self.custom_domain = self.custom_domain.gsub(/http:\/\/|https:\/\//, "")
+      self.custom_domain = custom_domain.to_s.gsub(/\Ahttps?:\/\//, "")
     end
   end
 end

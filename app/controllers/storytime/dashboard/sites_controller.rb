@@ -25,7 +25,7 @@ module Storytime
         authorize @site
 
         if @site.save_with_seeds(current_user)
-          redirect_to storytime.dashboard_url(host: @site.custom_domain), notice: I18n.t('flash.sites.create.success')
+          redirect_to storytime.dashboard_path, notice: I18n.t('flash.sites.create.success')
         else
           render :new
         end
@@ -53,7 +53,7 @@ module Storytime
 
       # Use callbacks to share common setup or constraints between actions.
       def set_site
-        @site = Site.find(params[:id])
+        @site = Site.where(id: current_storytime_site.id).find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

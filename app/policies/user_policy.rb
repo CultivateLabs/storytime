@@ -17,11 +17,11 @@ class UserPolicy
   end
 
   def edit?
-    manage?
+    false
   end
 
   def update?
-    manage?
+    false
   end
 
   def new?
