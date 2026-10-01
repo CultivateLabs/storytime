@@ -37,6 +37,38 @@ This separation is intended to provide several benefits and/or solve several pro
 * *Benefit:* If complex page structure stays in the host app and CMS users just edit content/copy, code goes into version control and pages are much less likely to break.
 * *Benefit:* Combining admin and CMS/blog features in one place gives site administrators **a single place to edit content** (rather than requiring both a CMS/blog and something like ActiveAdmin or RailsAdmin).
 
+## Security boundaries
+
+Site admins manage content and site-local roles. Membership editing does not change
+users' global names, emails, passwords, or account ownership. Existing global
+accounts cannot be added through the membership dashboard; use a trusted host-side
+invitation or provisioning flow that obtains the account owner's consent. New
+accounts can still be created in the dashboard. “My Account” opens the host's
+reauthenticated account settings page; configure `account_settings_path` when it
+is not `/users/edit`, or set it to `nil` to hide that link.
+
+First-site setup remains available to an authenticated user. Creating additional
+sites is denied unless the host configures an explicit **global** provisioning
+privilege:
+
+```ruby
+Storytime.configure do |config|
+  config.site_creation_authorizer = ->(user) { user.platform_administrator? }
+end
+```
+
+`platform_administrator?` is an example host-defined privilege, not a Storytime
+method. Do not implement this hook using a tenant's Storytime admin role. Site
+creation redirects locally after saving; configure routing/DNS for the new site
+separately.
+
+Media uploads accept JPG/JPEG, PNG, GIF, and WebP images up to 10 MB. Active formats
+such as SVG/HTML are not accepted. Existing files are unaffected. Deploy image
+processor restrictions and request-body limits at the hosting layer as well.
+Homepage selections must be published pages/blogs on the same site; unpublished
+or future-scheduled homepage content returns 404 to public readers. Authorized
+owners/editors can preview it. Artifact responses use `Cache-Control: no-store`.
+
 ## Sample App
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/CultivateLabs/storytime-example/blob/master)

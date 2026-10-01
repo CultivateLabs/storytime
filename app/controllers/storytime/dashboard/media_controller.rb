@@ -21,7 +21,9 @@ module Storytime
         @upload_media.user = current_user
 
         authorize @upload_media
-        @upload_media.save
+        unless @upload_media.save
+          return render json: { errors: @upload_media.errors.full_messages }, status: :unprocessable_entity
+        end
 
         @media = Media.order("created_at DESC").page(params[:page]).per(10)
         @large_gallery = false

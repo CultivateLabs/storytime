@@ -6,7 +6,7 @@ describe "In the dashboard, Users", type: :feature do
 
     it "provides links to all the sites where the user has a membership", js: true do
       other_site = FactoryBot.create(:site)
-      membership = FactoryBot.create(:membership, user: @current_user, site: other_site)
+      FactoryBot.create(:membership, user: @current_user, site: other_site)
 
       visit storytime.dashboard_path
 
@@ -55,37 +55,24 @@ describe "In the dashboard, Users", type: :feature do
     end
 
 
-    it "edits own profile", js: true do
-      visit storytime.dashboard_path
-      click_link "utility-menu-toggle"
-      click_link "profile-link"
-      fill_in "membership_user_attributes_email", with: "new_email@example.com"
-      
-      click_button "Save"
-
-      expect(page).to have_content("Your changes were saved successfully")
-
-      current_user.reload
-      expect(current_user.email).to eq("new_email@example.com")
-    end
-
-    it "edits another user's profile", js: true do
-      FactoryBot.create :membership, site: @current_site
-      u = User.last
+    it "edits a user's local role without exposing global identity fields", js: true do
+      membership = FactoryBot.create(:membership, site: @current_site)
+      user = membership.user
+      original_email = user.email
 
       visit storytime.dashboard_path
       click_link "utility-menu-toggle"
       click_link "users-link"
+      click_link user.storytime_name
 
-      click_link u.storytime_name
-
-      fill_in "membership_user_attributes_email", with: "change_email@example.com"
+      expect(page).not_to have_field("membership_user_attributes_email")
+      expect(page).not_to have_content("Add an Existing User")
+      select "Editor", from: "Storytime role"
       click_button "Save"
 
       expect(page).to have_content("Your changes were saved successfully")
-
-      u.reload
-      expect(u.email).to eq("change_email@example.com")
+      expect(membership.reload.storytime_role.name).to eq("editor")
+      expect(user.reload.email).to eq(original_email)
     end
 
     it "creates a user", js: true do

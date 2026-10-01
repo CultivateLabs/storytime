@@ -4,7 +4,7 @@ module Storytime
     belongs_to :role
     belongs_to :action
 
-    def self.seed
+    def self.seed(sites = Storytime::Site.all)
       writer = Role.find_by(name: "writer")
       editor = Role.find_by(name: "editor")
       admin  = Role.find_by(name: "admin")
@@ -17,7 +17,7 @@ module Storytime
       manage_admin_models  = Action.find_by(guid: "3fj09k")
       manage_subscriptions = Action.find_by(guid: "d29d76")
 
-      Storytime::Site.find_each do |site|
+      sites.each do |site|
         [
           {role: writer, action: publish_own},
           {role: editor, action: publish_own},

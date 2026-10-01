@@ -13,8 +13,10 @@
               <span style="margin-left: 10px; margin-right: 6px;">Users</span>
             <% end %>
           </li>
+        <% end %>
+        <% if Storytime.account_settings_path.present? %>
           <li>
-            <%= link_to storytime.edit_dashboard_membership_path(current_user.storytime_membership_in_site(@current_storytime_site)), class: "storytime-modal-trigger", remote: true, id: "profile-link" do %>
+            <%= link_to Storytime.account_settings_path, id: "profile-link" do %>
               <i class="icon-st-icons-profile"></i>
               <span style="margin-left: 10px; margin-right: 6px;">My Account</span>
             <% end %>

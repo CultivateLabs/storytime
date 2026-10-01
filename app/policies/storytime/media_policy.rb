@@ -16,7 +16,12 @@ module Storytime
     end
 
     def destroy?
-      true
+      return false if @user.nil?
+
+      role = @user.storytime_role_in_site(Storytime::Site.current)
+      return false if role.nil?
+
+      @media.user == @user || role.allowed_actions.exists?(guid: "d8a1b1")
     end
   end
 end

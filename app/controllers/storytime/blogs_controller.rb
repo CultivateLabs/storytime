@@ -21,16 +21,9 @@ module Storytime
   private
 
     def load_page
-      @page = if preview_request?
-        page = Post.find_preview(params[:id])
-        page.content = page.autosave.content
-        page.preview = true
-        page
-      else
-        Post.published.friendly.find(params[:id])
-      end
+      @page = load_public_post(params[:id])
 
-      if @page == @current_storytime_site.homepage
+      if !preview_request? && @page == @current_storytime_site.homepage
         opts = params[:tag] ? { tag: params[:tag] } : {}
         redirect_to storytime.root_path(opts), status: :moved_permanently
       end

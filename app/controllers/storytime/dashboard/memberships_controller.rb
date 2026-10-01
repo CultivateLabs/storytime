@@ -36,17 +36,8 @@ module Storytime
             end
           end
         else
-          @membership = Membership.new(membership_params)
-          authorize @membership
-
-          respond_with @membership do |format|
-            load_memberships
-            if @membership.save
-              format.json { render :save }
-            else
-              format.json { render :save, status: :unprocessable_entity }
-            end
-          end
+          # Existing global accounts must not be attached without their consent.
+          raise Pundit::NotAuthorizedError
         end
       end
 
@@ -59,10 +50,7 @@ module Storytime
         authorize @membership
 
         respond_with @membership do |format|
-          membership_user_params = membership_params
-          membership_user_params['user_attributes']['id'] = @membership.user.id
-
-          if @membership.update(membership_user_params)
+          if @membership.update(membership_params)
             load_memberships
             format.json { render :index }
           else

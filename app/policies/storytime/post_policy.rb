@@ -51,18 +51,12 @@ module Storytime
     end
 
     def manage?
-      if @user == @post.user
-        true
-      else
-        action = Storytime::Action.find_by(guid: "d8a1b1")
+      return false if @user.nil?
 
-        if @user.nil?
-          false
-        else
-          role = @user.storytime_role_in_site(Storytime::Site.current)
-          role.present? && role.allowed_actions.include?(action)
-        end
-      end
+      role = @user.storytime_role_in_site(Storytime::Site.current)
+      return false if role.nil?
+
+      @user == @post.user || role.allowed_actions.exists?(guid: "d8a1b1")
     end
 
     def publish?

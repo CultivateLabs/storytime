@@ -95,6 +95,7 @@ module Storytime
     end
 
     def set_noindex_headers
+      response.set_header("Cache-Control", "no-store")
       response.set_header("X-Robots-Tag", "noindex, nofollow, noarchive")
       # Artifacts are served with an explicit text/html type; stop browsers from
       # MIME-sniffing the stored content into some other executable type.

@@ -5,16 +5,19 @@ module Storytime
     class AutosavesController < DashboardController
       before_action :set_post, only: [:create]
 
-      skip_after_action :verify_authorized, only: [:create]
-
       respond_to :json
 
       def create
-        if @post.autosave.nil? || (@post.autosave.content != params[post_type_name.to_sym][:draft_content])
-          @post.create_autosave(autosave_params)
-        end
+        authorize @post, :update?
 
-        head :ok
+        @post.with_lock do
+          autosave = @post.autosave || @post.build_autosave
+          if autosave.update(autosave_params)
+            head :ok
+          else
+            render json: { errors: autosave.errors.full_messages }, status: :unprocessable_entity
+          end
+        end
       end
 
       private
@@ -28,9 +31,7 @@ module Storytime
         end
 
         def autosave_params
-          post = @post || current_post_type.new(user: current_user)
-          permitted_attrs = policy(post).permitted_attributes
-          params.require(post_type_name.to_sym).permit(*permitted_attrs)
+          params.require(post_type_name.to_sym).permit(:draft_content)
         end
     end
   end
